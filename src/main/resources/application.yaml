@@ -1,6 +1,8 @@
 spring:
   application:
     name: management
+  profiles:
+    active: dev
 gg:
   jte:
     development-mode: true

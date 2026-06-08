@@ -34,3 +34,6 @@ build/
 
 ### jte ###
 /jte-classes/
+
+### project related ###
+.env

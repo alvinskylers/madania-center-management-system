@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: management
+gg:
+  jte:
+    development-mode: true

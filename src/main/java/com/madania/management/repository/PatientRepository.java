@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface PatientRepository extends JpaRepository<Patient, Long> {
     List<Patient> findByParentId(Long id);
-    List<Patient> findByActive();
+    List<Patient> findByIsActiveTrue();
 }

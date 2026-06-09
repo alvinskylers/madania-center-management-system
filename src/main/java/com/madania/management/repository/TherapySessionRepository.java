@@ -8,13 +8,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TherapySessionRepository extends JpaRepository<TherapySession, Long> {
-    List<TherapySession> findByTherapyPackage(Long packageId);
+    List<TherapySession> findByTherapyPackageId(Long packageId);
     List<TherapySession> findByPatientId(Long patientId);
-    List<TherapySession> findByPatientAndStatus(Long patientId, SessionStatus status);
+    List<TherapySession> findByPatientIdAndStatus(Long patientId, SessionStatus status);
     List<TherapySession> findByTherapistId(Long therapistId);
-    List<TherapySession> findByTherapistAndStatus(Long therapistId, SessionStatus status);
-    List<TherapySession> findByTime(LocalDateTime time);
-    List<TherapySession> findByTime(LocalDateTime start, LocalDateTime end);
-    List<TherapySession> findByTherapistIdAndTime(Long therapistId, LocalDateTime time);
-    List<TherapySession> findByPatientIdAndTime(Long patientId, LocalDateTime time);
+    List<TherapySession> findByTherapistIdAndStatus(Long therapistId, SessionStatus status);
+    List<TherapySession> findByStartTimeBetween(LocalDateTime start, LocalDateTime end);
+    List<TherapySession> findByTherapistIdAndStartTimeBetween(Long therapistId, LocalDateTime start, LocalDateTime end);
+    List<TherapySession> findByPatientIdAndStartTimeBetween(Long patientId, LocalDateTime start, LocalDateTime end);
 }

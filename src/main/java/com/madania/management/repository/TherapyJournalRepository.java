@@ -9,6 +9,6 @@ import java.util.Optional;
 public interface TherapyJournalRepository extends JpaRepository<TherapyJournal, Long> {
     List<TherapyJournal> findByTherapistId(Long therapistId);
     List<TherapyJournal> findByPatientId(Long patientId);
-    Optional<TherapyJournal> findBySessionId(Long SessionId);
+    Optional<TherapyJournal> findBySessionId(Long sessionId);
 
 }

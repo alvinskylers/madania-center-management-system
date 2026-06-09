@@ -30,7 +30,7 @@ public class TherapySession {
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "therapist_id", nullable = false)
     private Therapist therapist;
 

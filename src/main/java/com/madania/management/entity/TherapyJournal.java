@@ -24,7 +24,7 @@ public class TherapyJournal {
 
     @OneToOne
     @JoinColumn(name = "therapy_session_id", nullable = false, unique = true)
-    private TherapySession therapySession;
+    private TherapySession session;
 
     @ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)

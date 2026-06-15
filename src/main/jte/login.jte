@@ -23,8 +23,8 @@
 <form action="/login" method="post">
     <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
     <div>
-        <label>Username</label>
-        <input type="text" name="username" required>
+        <label>Email</label>
+        <input type="text" name="email" required>
     </div>
     <div>
         <label>Password</label>

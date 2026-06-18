@@ -403,6 +403,109 @@
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
                 @endif
+
+                @if(role.equals("PARENT"))
+                    <!--begin:Menu item-->
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                        <!--begin:Menu link-->
+                        <span class="menu-link">
+                        <span class="menu-icon">
+                            <i class="ki-outline ki-home fs-2"></i>
+                        </span>
+                        <span class="menu-title">Home</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                        <!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link" href="/dashboard" title="View Dashboard" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <span class="menu-bullet">
+                                    <i class="ki-outline ki-home fs-2"> </i>
+                                </span>
+                                    <span class="menu-title">Dashboard</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link" href="/admin/profile" title="View My Profile" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <span class="menu-bullet">
+                                    <i class="ki-outline ki-profile-circle fs-2"> </i>
+                                </span>
+                                    <span class="menu-title">View Profile</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                        </div>
+                        <!--end:Menu sub-->
+                    </div>
+                    <!--end:Menu item-->
+                    <!--begin:Menu item-->
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                        <!--begin:Menu link-->
+                        <span class="menu-link">
+                        <span class="menu-icon">
+                            <i class="ki-outline ki-calendar-2 fs-2"></i>
+                        </span>
+                        <span class="menu-title">Schedule</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                        <!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link" href="" title="View all schedules" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <span class="menu-bullet">
+                                    <i class="ki-outline ki-calendar fs-2"> </i>
+                                </span>
+                                    <span class="menu-title">View Schedule</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                        </div>
+                        <!--end:Menu sub-->
+                    </div>
+                    <!--end:Menu item-->
+                    <!--begin:Menu item-->
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                        <!--begin:Menu link-->
+                        <span class="menu-link">
+                        <span class="menu-icon">
+                            <i class="ki-outline ki-book fs-2"></i>
+                        </span>
+                        <span class="menu-title">Journals</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                        <!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link" href="" title="View all journals" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <span class="menu-bullet">
+                                    <i class="ki-outline ki-book fs-2"> </i>
+                                </span>
+                                    <span class="menu-title">View Journals</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                        </div>
+                        <!--end:Menu sub-->
+                    </div>
+                    <!--end:Menu item-->
+                @endif
+
             </div>
             <!--end::Sidebar menu-->
         </div>

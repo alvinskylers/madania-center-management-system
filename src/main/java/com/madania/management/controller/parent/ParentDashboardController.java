@@ -24,4 +24,20 @@ public class ParentDashboardController {
         model.addAttribute("role", userDetails.getUser().getRole().name());
         return "pages/schedule";
     }
+
+    @GetMapping("/journals")
+    public String journals(Authentication authentication, Model model) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        model.addAttribute("role", userDetails.getUser().getRole().name());
+        return "pages/journals";
+    }
+
+    @GetMapping("/journal")
+    public String journal(Authentication authentication, Model model) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        model.addAttribute("role", userDetails.getUser().getRole().name());
+        return "pages/journal";
+    }
+
+
 }

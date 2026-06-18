@@ -17,4 +17,11 @@ public class ParentDashboardController {
         model.addAttribute("role", userDetails.getUser().getRole().name());
         return "parent/dashboard";
     }
+
+    @GetMapping("/schedule")
+    public String schedule(Authentication authentication, Model model) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        model.addAttribute("role", userDetails.getUser().getRole().name());
+        return "pages/schedule";
+    }
 }

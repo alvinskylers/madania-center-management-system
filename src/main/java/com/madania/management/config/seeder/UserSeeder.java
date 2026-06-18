@@ -17,7 +17,7 @@ public class UserSeeder {
     private final PasswordEncoder passwordEncoder;
 
     @Bean
-    public CommandLineRunner createAdminUser(){
+    public CommandLineRunner GenerateUsers(){
         return  args -> {
             if (!userRepository.existsByEmail("admin@madania.com")) {
                 User admin = User.builder()
@@ -29,6 +29,28 @@ public class UserSeeder {
                         .build();
                 userRepository.save(admin);
                 System.out.println("ADMIN USER INITIALIZED... \n");
+            }
+            if (!userRepository.existsByEmail("therapist@mail.com")) {
+                User admin = User.builder()
+                        .username("therapist")
+                        .email("therapist@mail.com")
+                        .password(passwordEncoder.encode("password"))
+                        .role(Role.THERAPIST)
+                        .isActive(true)
+                        .build();
+                userRepository.save(admin);
+                System.out.println("THERAPIST USER INITIALIZED... \n");
+            }
+            if (!userRepository.existsByEmail("parent@mail.com")) {
+                User admin = User.builder()
+                        .username("Parent")
+                        .email("parent@mail.com")
+                        .password(passwordEncoder.encode("password"))
+                        .role(Role.PARENT)
+                        .isActive(true)
+                        .build();
+                userRepository.save(admin);
+                System.out.println("PARENT USER INITIALIZED... \n");
             }
         };
     }

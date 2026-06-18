@@ -2,6 +2,7 @@
 
 @param String title
 @param Content content
+@param String role
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +48,7 @@
         <!--end:Navbar-->
         <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
             <!--begin::Sidebar-->
-            @template.components.sidebar()
+            @template.components.sidebar(role = role)
             <!--end::Sidebar-->
             <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
                 <div class="d-flex flex-column flex-column-fluid">

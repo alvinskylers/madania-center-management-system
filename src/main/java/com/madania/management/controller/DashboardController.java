@@ -17,7 +17,7 @@ public class DashboardController {
         return switch (userDetails.getUser().getRole()) {
             case ADMIN -> "redirect:/admin/dashboard";
             case THERAPIST -> "redirect:/therapist/dashboard";
-            case PARENT -> "redirect:/parent/dashbord";
+            case PARENT -> "redirect:/parent/dashboard";
         };
     }
 

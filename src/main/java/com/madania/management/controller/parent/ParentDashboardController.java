@@ -1,9 +1,6 @@
 package com.madania.management.controller.parent;
 
-import com.madania.management.config.security.CustomUserDetails;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,30 +9,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ParentDashboardController {
 
     @GetMapping("/dashboard")
-    public String dashboard(Authentication authentication, Model model) {
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        model.addAttribute("role", userDetails.getUser().getRole().name());
+    public String dashboard() {
         return "parent/dashboard";
     }
 
     @GetMapping("/schedule")
-    public String schedule(Authentication authentication, Model model) {
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        model.addAttribute("role", userDetails.getUser().getRole().name());
+    public String schedule() {
         return "pages/schedule";
     }
 
     @GetMapping("/journals")
-    public String journals(Authentication authentication, Model model) {
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        model.addAttribute("role", userDetails.getUser().getRole().name());
+    public String journals() {
         return "pages/journals";
     }
 
     @GetMapping("/journal")
-    public String journal(Authentication authentication, Model model) {
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        model.addAttribute("role", userDetails.getUser().getRole().name());
+    public String journal() {
         return "pages/journal";
     }
 

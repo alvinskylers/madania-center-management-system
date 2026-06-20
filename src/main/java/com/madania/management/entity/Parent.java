@@ -23,7 +23,7 @@ public class Parent {
     @Column(nullable = false)
     private String fullName;
 
-    private String specialization;
+    private String address;
 
     @Column(unique = true)
     private String phone;

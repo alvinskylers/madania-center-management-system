@@ -17,4 +17,68 @@ public class AdminDashboardController {
         model.addAttribute("role", userDetails.getUser().getRole().name());
         return "admin/dashboard";
     }
+
+    @GetMapping("/schedule")
+    public String schedule(Authentication authentication, Model model) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        model.addAttribute("role", userDetails.getUser().getRole().name());
+        return "pages/schedule";
+    }
+
+    @GetMapping("/schedule/create")
+    public String createSchedule(Authentication authentication, Model model) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        model.addAttribute("role", userDetails.getUser().getRole().name());
+        return "pages/schedule";
+    }
+
+    @GetMapping("/journals")
+    public String journals(Authentication authentication, Model model) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        model.addAttribute("role", userDetails.getUser().getRole().name());
+        return "pages/journals";
+    }
+
+    @GetMapping("/journal")
+    public String journal(Authentication authentication, Model model) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        model.addAttribute("role", userDetails.getUser().getRole().name());
+        return "pages/journal";
+    }
+
+    @GetMapping("/journal/create")
+    public String createJournal(Authentication authentication, Model model) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        model.addAttribute("role", userDetails.getUser().getRole().name());
+        return "pages/journal-create";
+    }
+
+    @GetMapping("/patients")
+    public String patient(Authentication authentication, Model model) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        model.addAttribute("role", userDetails.getUser().getRole().name());
+        return "pages/patients";
+    }
+
+    @GetMapping("/patient/create")
+    public String createPatient(Authentication authentication, Model model) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        model.addAttribute("role", userDetails.getUser().getRole().name());
+        return "pages/patients";
+    }
+
+    @GetMapping("/users")
+    public String users(Authentication authentication, Model model) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        model.addAttribute("role", userDetails.getUser().getRole().name());
+        return "pages/users";
+    }
+
+    @GetMapping("/users/create")
+    public String createUsers(Authentication authentication, Model model) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        model.addAttribute("role", userDetails.getUser().getRole().name());
+        return "pages/users";
+    }
+
 }

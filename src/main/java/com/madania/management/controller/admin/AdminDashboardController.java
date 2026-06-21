@@ -48,14 +48,4 @@ public class AdminDashboardController {
         return "pages/patients";
     }
 
-    @GetMapping("/users")
-    public String users() {
-        return "pages/users";
-    }
-
-    @GetMapping("/users/create")
-    public String createUsers() {
-        return "pages/users";
-    }
-
 }

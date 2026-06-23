@@ -233,7 +233,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="/admin/users" target="_blank" title="View all therapists" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <a class="menu-link" href="/admin/therapists" target="_blank" title="View all therapists" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                 <span class="menu-bullet">
                                     <i class="ki-outline ki-user fs-2"> </i>
                                 </span>
@@ -245,7 +245,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="/admin/users" title="Add new user" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <a class="menu-link" href="/admin/users/create" title="Add new user" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                 <span class="menu-bullet">
                                     <i class="ki-outline ki-user-edit fs-2"> </i>
                                 </span>

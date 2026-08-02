@@ -38,4 +38,3 @@ build/
 ### project related ###
 .env
 /src/main/resources/static
-/src/main/java/com/madania/management/config/seeder/

@@ -59,7 +59,7 @@ content = @`
                         <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                             <th class="min-w-125px">User</th>
                             <th class="min-w-125px">Phone</th>
-                            <th class="min-w-125px">Specialization</th>
+                            <th class="min-w-125px">Address</th>
                             <th class="text-end min-w-100px">Actions</th>
                         </tr>
                         </thead>

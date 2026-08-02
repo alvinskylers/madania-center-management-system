@@ -45,6 +45,10 @@
                             <a href="/admin/therapist/create" class="btn btn-primary me-2">
                                 <i class="ki-outline ki-plus fs-2"></i>Add Therapist
                             </a>
+                            <!-- Add Parent -->
+                            <a href="/admin/parent/create" class="btn btn-primary me-2">
+                                <i class="ki-outline ki-plus fs-2"></i>Add Parent
+                            </a>
                         </div>
                             <!--end::Toolbar-->
                         </div>

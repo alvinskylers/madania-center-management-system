@@ -20,7 +20,7 @@ content = @`
         </div>
     @endif
 
-    <form action="/parent/create" method="post">
+    <form action="/admin/parent/create" method="post">
         <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
 
         <div class="mb-5">

@@ -39,24 +39,20 @@
                             <!--end::Search-->
                         </div>
                         <!--begin::Card title-->
-                        <!--begin::Card toolbar-->
-                        <div class="card-toolbar">
                             <!--begin::Toolbar-->
-                            <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                <!--begin::Add user-->
-                                <form action="" method="get">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
-                                        <i class="ki-outline ki-plus fs-2"></i>Add User</button>
-                                </form>
-                                <!--end::Add user-->
-                            </div>
+                        <div class="d-flex justify-content-end align-items-center" data-kt-user-table-toolbar="base">
+                            <!-- Add Therapist -->
+                            <a href="/admin/therapist/create" class="btn btn-primary me-2">
+                                <i class="ki-outline ki-plus fs-2"></i>Add Therapist
+                            </a>
+                        </div>
                             <!--end::Toolbar-->
                         </div>
                         <!--end::Card toolbar-->
                     </div>
                     <!--end::Card header-->
                     <!--begin::Card body-->
-                    <div class="card-body py-4">
+                    <div class="card-body border-0 py-4">
                         <!--begin::Table-->
                         <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
                             <thead>

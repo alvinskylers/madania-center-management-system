@@ -1,13 +1,10 @@
 package com.madania.management.controller.admin;
 
-import com.madania.management.dto.UserCreateRequest;
 import com.madania.management.entity.User;
 import com.madania.management.service.UserService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,32 +21,6 @@ public class AdminUserController {
         List<User> users = userService.getAllUsers();
         model.addAttribute("users" , users);
         return "pages/users";
-    }
-
-    @GetMapping("/users/create")
-    public String createUserForm(Model model) {
-        model.addAttribute("userRequest", new UserCreateRequest());
-        return "pages/user-create";
-    }
-
-    @PostMapping("/users/create")
-    public String createUser(@Valid @ModelAttribute UserCreateRequest request,
-                             BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "pages/user-create";
-        }
-
-        switch (request.getRole()) {
-            case "ADMIN" -> userService.createAdmin(
-                    request.getUsername(), request.getEmail(), request.getPassword());
-            case "THERAPIST" -> userService.createTherapist(
-                    request.getUsername(), request.getEmail(), request.getPassword(),
-                    request.getPhone(), request.getSpecialization());
-            case "PARENT" -> userService.createParent(
-                    request.getUsername(), request.getEmail(), request.getPassword(),
-                    request.getPhone(), request.getAddress());
-        }
-        return "redirect:/admin/users";
     }
 
     @GetMapping("/users/{id}/edit")

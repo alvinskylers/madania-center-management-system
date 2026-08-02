@@ -40,13 +40,11 @@ content = @`
                         </div>
                         <!--begin::Card title-->
                         <!--begin::Toolbar-->
-                        <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                            <!--begin::Add user-->
-                            <form action="/admin/therapists/create" method="get">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
-                                    <i class="ki-outline ki-plus fs-2"></i>Add Therapist</button>
-                            </form>
-                            <!--end::Add user-->
+                        <div class="d-flex justify-content-end align-items-center" data-kt-user-table-toolbar="base">
+                            <!-- Add Therapist -->
+                            <a href="/admin/therapist/create" class="btn btn-primary me-2">
+                                <i class="ki-outline ki-plus fs-2"></i>Add Therapist
+                            </a>
                         </div>
                         <!--end::Toolbar-->
                     </div>

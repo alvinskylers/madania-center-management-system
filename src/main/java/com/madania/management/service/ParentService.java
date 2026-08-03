@@ -1,6 +1,7 @@
 package com.madania.management.service;
 
 import com.madania.management.entity.Parent;
+import com.madania.management.entity.Therapist;
 import com.madania.management.entity.User;
 import com.madania.management.enums.Role;
 import com.madania.management.repository.ParentRepository;
@@ -67,6 +68,19 @@ public class ParentService {
         parent.setPhone(phone);
         parent.setAddress(address);
         parentRepository.save(parent);
+    }
+
+    @Transactional
+    public void deleteParent(UUID id) {
+        Parent parent = getParentById(id);
+        User parentUser = getUserByParentId(id);
+
+        if (parentUser.isActive()) {
+            throw new RuntimeException("user is still active, please disable this user first");
+        }
+
+        parentRepository.delete(parent);
+        userRepository.delete(parentUser);
     }
 
     public Parent getParentById(UUID id) {

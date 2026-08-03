@@ -100,5 +100,12 @@ public class AdminParentController {
         return "redirect:/admin/parents";
     }
 
+    @PostMapping("parent/{id}/delete")
+    public String deleteTherapist(@PathVariable UUID id) {
+        parentService.deleteParent(id);
+        //TODO: add error binding to try to delete an active account
+        return "redirect:/admin/parents";
+    }
+
 
 }

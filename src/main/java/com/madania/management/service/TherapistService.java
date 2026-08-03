@@ -70,6 +70,18 @@ public class TherapistService {
         therapistRepository.save(therapist);
     }
 
+    @Transactional
+    public void deleteTherapist(UUID id) {
+        Therapist therapist = getTherapistById(id);
+        User therapistUser = getUserByTherapistId(id);
+
+        if (therapist.getUser().isActive()) {
+           throw new RuntimeException("user is still active, please disable this user first");
+        }
+
+        therapistRepository.delete(therapist);
+        userRepository.delete(therapistUser);
+    }
 
     public Therapist getTherapistById(UUID id) {
         return therapistRepository.findById(id)

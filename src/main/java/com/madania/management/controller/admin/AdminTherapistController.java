@@ -101,4 +101,11 @@ public class AdminTherapistController {
         return "redirect:/admin/therapists";
     }
 
+    @PostMapping("therapist/{id}/delete")
+    public String deleteTherapist(@PathVariable UUID id) {
+        therapistService.deleteTherapist(id);
+        //TODO: add error binding to try to delete an active account
+        return "redirect:/admin/therapists";
+    }
+
 }

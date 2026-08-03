@@ -55,6 +55,7 @@ public class UserService {
                                 String fullName, String specialization, String phone) {
 
         User user = User.builder()
+                .name(fullName)
                 .email(email)
                 .password(passwordEncoder.encode(password))
                 .role(Role.THERAPIST)
@@ -80,6 +81,7 @@ public class UserService {
         validateUniqueness(email);
 
         User user = User.builder()
+                .name(name)
                 .email(email)
                 .password(passwordEncoder.encode(password))
                 .role(Role.PARENT)

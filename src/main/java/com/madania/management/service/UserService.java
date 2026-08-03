@@ -50,33 +50,6 @@ public class UserService {
     }
 
     @Transactional
-    public User createParent(String name, String email, String password,
-                             String phone, String address) {
-        validateUniqueness(email);
-
-        User user = User.builder()
-                .name(name)
-                .email(email)
-                .password(passwordEncoder.encode(password))
-                .role(Role.PARENT)
-                .isActive(true)
-                .build();
-
-        user = userRepository.save(user);
-
-        Parent parent = Parent.builder()
-                .user(user)
-                .fullName(name)
-                .address(address)
-                .phone(phone)
-                .build();
-
-        parentRepository.save(parent);
-
-        return user;
-    }
-
-    @Transactional
     public User updateUser(UUID id, String name, String email) {
         User user = getUserById(id);
 

@@ -59,7 +59,7 @@ public class AdminParentController {
             return "pages/user-create-parent";
         }
 
-        userService.createParent(
+        parentService.createParent(
                 request.getUsername(),
                 request.getEmail(),
                 request.getPassword(),

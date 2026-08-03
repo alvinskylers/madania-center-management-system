@@ -6,26 +6,53 @@
 
 @template.layout.base(title = "Patients", role = role, content = @`
     <!--begin::Toolbar-->
-    <div class="d-flex flex-wrap flex-stack pb-7">
-        <!-- ... same toolbar as before ... -->
+    <div id="kt_app_toolbar" class="app-toolbar pt-7 pt-lg-10">
+        <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
+            <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
+                <!--begin::Left side: Title + Search Form-->
+                <div class="d-flex flex-wrap align-items-center my-1">
+                    <h1 class="page-heading text-gray-900 fw-bold fs-3 m-0 me-5">Patients</h1>
+                    <!-- Search form -->
+                    <form method="GET" action="" class="d-flex align-items-center position-relative my-1">
+                        <i class="ki-outline ki-magnifier fs-3 position-absolute ms-3"></i>
+                        <input type="text" name="search" id="patientSearch" class="form-control form-control-sm border-body bg-body w-200px ps-10" placeholder="Search patients..." value="" />
+                        <button type="submit" class="btn btn-sm btn-primary ms-2 d-none d-sm-inline-block">Search</button>
+                        <!-- optional: if you want to keep the button hidden and rely on Enter, you can remove the button and just use input -->
+                    </form>
+                </div>
+                <!--end::Left side-->
+                <!--begin::Right side: Action buttons-->
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+                    <a href="#" class="btn btn-flex btn-outline btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">Add Patient</a>
+                    <a href="#" class="btn btn-flex btn-primary h-40px fs-7 fw-bold">New Campaign</a>
+                </div>
+                <!--end::Right side-->
+            </div>
+        </div>
     </div>
     <!--end::Toolbar-->
 
-    <!--begin::Card Grid-->
-    <div class="row g-6 g-xl-9">
-        @if(patients.isEmpty())
-            <p>no patients available</p>
-        @else
-            @for (Patient patient : patients)
-                <div class="col-md-6 col-xxl-3">
-                    @template.components.patient-card(patient = patient)
-                </div>
-            @endfor
-        @endif
-
-
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <div id="kt_app_content_container" class="app-container container-fluid">
+            <!--begin::Patients Grid-->
+            <div class="row g-6 g-xl-9" id="patientsGrid">
+                @if (patients != null && !patients.isEmpty())
+                    @for (Patient patient : patients)
+                        <div class="col-md-6 col-xxl-4">
+                            @template.components.patient-card(patient = patient)
+                        </div>
+                    @endfor
+                @else
+                    <div class="col-12">
+                        <div class="alert alert-info text-center">
+                            No patients registered yet.
+                        </div>
+                    </div>
+                @endif
             </div>
-    <!--end::Card Grid-->
-
-    <!-- (Optional) Pagination placeholder – can be added later -->
+            <!--end::Patients Grid-->
+        </div>
+    </div>
+    <!--end::Content-->
 `)

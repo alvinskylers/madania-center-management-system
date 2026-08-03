@@ -5,9 +5,10 @@ import com.madania.management.enums.PackageStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface TherapyPackageRepository extends JpaRepository<TherapyPackage, Long> {
     List<TherapyPackage> findByPatientId(Long patientId);
-    List<TherapyPackage> findByTherapistId(Long therapistId);
+    List<TherapyPackage> findByTherapistId(UUID therapistId);
     List<TherapyPackage> findByStatus(PackageStatus status);
 }

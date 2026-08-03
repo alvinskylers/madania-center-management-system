@@ -9,7 +9,6 @@ import com.madania.management.repository.TherapistRepository;
 import com.madania.management.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -48,31 +47,6 @@ public class UserService {
                 .build();
 
         return userRepository.save(user);
-    }
-
-    @Transactional
-    public User createTherapist(String email, String password,
-                                String fullName, String specialization, String phone) {
-
-        User user = User.builder()
-                .name(fullName)
-                .email(email)
-                .password(passwordEncoder.encode(password))
-                .role(Role.THERAPIST)
-                .isActive(true)
-                .build();
-        user = userRepository.save(user);
-
-        Therapist therapist = Therapist.builder()
-                .user(user)
-                .fullName(fullName)
-                .specialization(specialization)
-                .phone(phone)
-                .build();
-
-        therapistRepository.save(therapist);
-
-        return user;
     }
 
     @Transactional

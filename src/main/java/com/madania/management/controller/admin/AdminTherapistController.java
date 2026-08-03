@@ -59,7 +59,7 @@ public class AdminTherapistController {
             return "pages/user-create-therapist";
         }
 
-        userService.createTherapist(
+        therapistService.createTherapist(
                 request.getEmail(),
                 request.getPassword(),
                 request.getFullName(),

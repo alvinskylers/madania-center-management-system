@@ -5,9 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface TherapyJournalRepository extends JpaRepository<TherapyJournal, Long> {
-    List<TherapyJournal> findByTherapistId(Long therapistId);
+    List<TherapyJournal> findByTherapistId(UUID therapistId);
     List<TherapyJournal> findByPatientId(Long patientId);
     Optional<TherapyJournal> findBySessionId(Long sessionId);
 

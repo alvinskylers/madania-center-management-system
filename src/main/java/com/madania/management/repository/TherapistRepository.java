@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface TherapistRepository extends JpaRepository<Therapist, Long> {
+public interface TherapistRepository extends JpaRepository<Therapist, UUID> {
     Therapist findByUserId(UUID userId);
 }

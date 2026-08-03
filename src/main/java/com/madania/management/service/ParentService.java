@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -49,4 +50,31 @@ public class ParentService {
         return user;
     }
 
+    @Transactional
+    public void updateParent(UUID userId,String email,
+                             String fullName, String phone, String address) {
+        Parent parent = getParentById(userId);
+        User parentUser = getUserByParentId(userId);
+
+        if (!parentUser.getEmail().equals(email) && userRepository.existsByEmail(email)) {
+            throw new RuntimeException("Email already in use: " + email);
+        }
+        parentUser.setName(fullName);
+        parentUser.setEmail(email);
+        userRepository.save(parentUser);
+
+        parent.setFullName(fullName);
+        parent.setPhone(phone);
+        parent.setAddress(address);
+        parentRepository.save(parent);
+    }
+
+    public Parent getParentById(UUID id) {
+        return parentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Parent profile not found for user id: " + id));
+    }
+
+    public User getUserByParentId(UUID id) {
+        return getParentById(id).getUser();
+    }
 }

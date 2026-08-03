@@ -1,6 +1,7 @@
 package com.madania.management.controller.admin;
 
 import com.madania.management.dto.ParentCreateRequest;
+import com.madania.management.dto.ParentEditRequest;
 import com.madania.management.entity.Parent;
 import com.madania.management.service.ParentService;
 
@@ -11,12 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin")
@@ -69,6 +68,37 @@ public class AdminParentController {
         return "redirect:/admin/parents";
     }
 
+    @GetMapping("/parent/{id}/edit")
+    public String editParentForm(@PathVariable UUID id, Model model) {
+        Parent parent = parentService.getParentById(id);
+
+        ParentEditRequest request = new ParentEditRequest();
+        request.setEmail(parent.getUser().getEmail());
+        request.setFullName(parent.getFullName());
+        request.setPhone(parent.getPhone());
+        request.setAddress(parent.getAddress());
+
+        model.addAttribute("request", request);
+        model.addAttribute("userId", id);
+        return "pages/user-edit-parent";
+    }
+
+    @PostMapping("/parent/{id}/edit")
+    public String editParent(@PathVariable UUID id,
+                             @Valid @ModelAttribute("request") ParentEditRequest request,
+                             BindingResult bindingResult,
+                             Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("userId", id);
+            model.addAttribute("bindingResult", bindingResult);
+            return "pages/user-edit-parent";
+        }
+
+        parentService.updateParent(id, request.getEmail(),
+                request.getFullName(), request.getPhone(), request.getAddress());
+
+        return "redirect:/admin/parents";
+    }
 
 
 }

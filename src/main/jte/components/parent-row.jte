@@ -35,7 +35,7 @@
         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-6 w-150px py-4" data-kt-menu="true">
             <!--begin::Menu item-->
             <div class="menu-item px-5">
-                <form action="/admin/therapists/${String.valueOf(parent.getId())}/edit" method="get" style="display:inline">
+                <form action="/admin/parent/${String.valueOf(parent.getId())}/edit" method="get" style="display:inline">
                     <button type="submit" class="btn btn-bg-light btn-active-color-success btn-sm d-block w-100 d-flex justify-content-start ms-2">
                         <i class="ki-outline ki-notepad-edit fs-3"></i> Edit
                     </button>
@@ -44,7 +44,7 @@
             <!--end::Menu item-->
             <!--begin::Menu item-->
             <div class="menu-item px-5">
-                <form action="/admin/therapists/${String.valueOf(parent.getId())}/delete" method="post" style="display:inline"
+                <form action="/admin/parent/${String.valueOf(parent.getId())}/delete" method="post" style="display:inline"
                       onsubmit="return confirm('Are you sure you want to delete this user? This cannot be undone.');">
                     <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
                     <button type="submit" class="btn btn-bg-light btn-active-color-danger btn-sm d-block w-100 d-flex justify-content-start ms-2">

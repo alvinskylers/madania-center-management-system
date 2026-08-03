@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -47,6 +48,36 @@ public class TherapistService {
         therapistRepository.save(therapist);
 
         return user;
+    }
+
+    @Transactional
+    public void updateTherapist(UUID therapistId, String email, String fullName,
+                                String specialization, String phone) {
+        Therapist therapist = getTherapistById(therapistId);
+        User therapistUser = getUserByTherapistId(therapistId);
+
+        if (!therapistUser.getEmail().equals(email) && userRepository.existsByEmail(email)) {
+            throw new RuntimeException("Email already in use: " + email);
+        }
+
+        therapistUser.setName(fullName);
+        therapistUser.setEmail(email);
+        userRepository.save(therapist.getUser());
+
+        therapist.setFullName(fullName);
+        therapist.setSpecialization(specialization);
+        therapist.setPhone(phone);
+        therapistRepository.save(therapist);
+    }
+
+
+    public Therapist getTherapistById(UUID id) {
+        return therapistRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Therapist profile not found for user id: " + id));
+    }
+
+    public User getUserByTherapistId(UUID id) {
+        return getTherapistById(id).getUser();
     }
 
 }

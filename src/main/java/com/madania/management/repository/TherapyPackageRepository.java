@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface TherapyPackageRepository extends JpaRepository<TherapyPackage, Long> {
-    List<TherapyPackage> findByPatientId(Long patientId);
+    List<TherapyPackage> findByPatientId(UUID patientId);
     List<TherapyPackage> findByTherapistId(UUID therapistId);
     List<TherapyPackage> findByStatus(PackageStatus status);
 }

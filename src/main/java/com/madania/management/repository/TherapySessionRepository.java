@@ -10,11 +10,11 @@ import java.util.UUID;
 
 public interface TherapySessionRepository extends JpaRepository<TherapySession, Long> {
     List<TherapySession> findByTherapyPackageId(Long packageId);
-    List<TherapySession> findByPatientId(Long patientId);
-    List<TherapySession> findByPatientIdAndStatus(Long patientId, SessionStatus status);
+    List<TherapySession> findByPatientId(UUID patientId);
+    List<TherapySession> findByPatientIdAndStatus(UUID patientId, SessionStatus status);
     List<TherapySession> findByTherapistId(UUID therapistId);
     List<TherapySession> findByTherapistIdAndStatus(UUID therapistId, SessionStatus status);
     List<TherapySession> findByStartTimeBetween(LocalDateTime start, LocalDateTime end);
     List<TherapySession> findByTherapistIdAndStartTimeBetween(UUID therapistId, LocalDateTime start, LocalDateTime end);
-    List<TherapySession> findByPatientIdAndStartTimeBetween(Long patientId, LocalDateTime start, LocalDateTime end);
+    List<TherapySession> findByPatientIdAndStartTimeBetween(UUID patientId, LocalDateTime start, LocalDateTime end);
 }

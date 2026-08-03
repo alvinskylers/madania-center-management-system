@@ -38,14 +38,4 @@ public class AdminDashboardController {
         return "pages/journal-create";
     }
 
-    @GetMapping("/patients")
-    public String patient() {
-        return "pages/patients";
-    }
-
-    @GetMapping("/patient/create")
-    public String createPatient() {
-        return "pages/patients";
-    }
-
 }

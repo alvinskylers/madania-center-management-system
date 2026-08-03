@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -29,17 +30,17 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User getUserById(Long id) {
+    public User getUserById(UUID id) {
         return userRepository.findById(id)
                 .orElseThrow( () ->new RuntimeException("User not found with id: " + id));
     }
 
     @Transactional
-    public User createAdmin(String username, String email, String password) {
-        validateUniqueness(username, email);
+    public User createAdmin(String name, String email, String password) {
+        validateUniqueness(email);
 
         User user = User.builder()
-                .username(username)
+                .name(name)
                 .email(email)
                 .password(passwordEncoder.encode(password))
                 .role(Role.ADMIN)
@@ -49,13 +50,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
-
     @Transactional
     public User createTherapist(String email, String password,
                                 String fullName, String specialization, String phone) {
 
         User user = User.builder()
-                .username(fullName)
                 .email(email)
                 .password(passwordEncoder.encode(password))
                 .role(Role.THERAPIST)
@@ -76,12 +75,11 @@ public class UserService {
     }
 
     @Transactional
-    public User createParent(String username, String email, String password,
+    public User createParent(String name, String email, String password,
                              String phone, String address) {
-        validateUniqueness(username, email);
+        validateUniqueness(email);
 
         User user = User.builder()
-                .username(username)
                 .email(email)
                 .password(passwordEncoder.encode(password))
                 .role(Role.PARENT)
@@ -92,7 +90,7 @@ public class UserService {
 
         Parent parent = Parent.builder()
                 .user(user)
-                .fullName(username)
+                .fullName(name)
                 .address(address)
                 .phone(phone)
                 .build();
@@ -103,53 +101,46 @@ public class UserService {
     }
 
     @Transactional
-    public User updateUser(Long id, String username, String email) {
+    public User updateUser(UUID id, String name, String email) {
         User user = getUserById(id);
 
-        if (!user.getUsername().equals(username) && userRepository.existsByUsername(username)) {
-            throw new RuntimeException("Username already in use: " + username);
-        }
         if (!user.getEmail().equals(email) && userRepository.existsByEmail(email)) {
             throw new RuntimeException("Email already in use: " + email);
         }
 
-        user.setUsername(username);
+        user.setEmail(name);
         user.setEmail(email);
         return userRepository.save(user);
     }
 
     @Transactional
-    public void deleteUser(Long id) {
+    public void deleteUser(UUID id) {
         User user = getUserById(id);
         userRepository.delete(user);
     }
 
     @Transactional
-    public void deactivateUser(Long id) {
+    public void deactivateUser(UUID id) {
         User user = getUserById(id);
         user.setActive(false);
         userRepository.save(user);
     }
 
     @Transactional
-    public void activateUser(Long id) {
+    public void activateUser(UUID id) {
         User user = getUserById(id);
         user.setActive(true);
         userRepository.save(user);
     }
 
     @Transactional
-    public void resetPassword(Long id, String password) {
+    public void resetPassword(UUID id, String password) {
         User user = getUserById(id);
         user.setPassword(passwordEncoder.encode(password));
         userRepository.save(user);
     }
 
-    private void validateUniqueness(String username, String email) {
-        if (userRepository.existsByUsername(username)) {
-            throw new RuntimeException("Username already in use: " + username);
-        }
-
+    private void validateUniqueness(String email) {
         if (userRepository.existsByEmail(email)) {
             throw new RuntimeException("Email already in use: " + email);
         }

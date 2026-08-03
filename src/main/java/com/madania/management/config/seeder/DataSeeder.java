@@ -37,13 +37,13 @@ public class DataSeeder implements CommandLineRunner{
             return;
         }
 
-        String email = System.getenv().getOrDefault("ADMIN_EMAIL","admin@mail.com");
+        String email = System.getenv().getOrDefault("ADMIN_EMAIL","admin@madania.com");
         String password = System.getenv().getOrDefault("ADMIN_PASSWORD","password");
 
         User admin  = User.builder()
                 .email(email)
                 .password(passwordEncoder.encode(password))
-                .username("Administrator")
+                .name("Administrator")
                 .role(Role.ADMIN)
                 .isActive(true)
                 .build();
@@ -54,14 +54,14 @@ public class DataSeeder implements CommandLineRunner{
             User therapistUser  = User.builder()
                     .email("therapist@mail.com")
                     .password(passwordEncoder.encode("password"))
-                    .username("Therapist")
+                    .name("Therapist")
                     .role(Role.THERAPIST)
                     .isActive(true)
                     .build();
 
             Therapist therapist = Therapist.builder()
                     .user(therapistUser)
-                    .fullName(therapistUser.getUsername())
+                    .fullName(therapistUser.getName())
                     .build();
 
             userRepository.save(therapistUser);
@@ -72,14 +72,14 @@ public class DataSeeder implements CommandLineRunner{
             User parentUser  = User.builder()
                     .email("parent@mail.com")
                     .password(passwordEncoder.encode(password))
-                    .username("Parent")
+                    .name("Parent")
                     .role(Role.PARENT)
                     .isActive(true)
                     .build();
 
             Parent parent = Parent.builder()
                     .user(parentUser)
-                    .fullName(parentUser.getUsername())
+                    .fullName(parentUser.getName())
                     .build();
 
             userRepository.save(parentUser);

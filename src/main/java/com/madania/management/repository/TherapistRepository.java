@@ -3,6 +3,8 @@ package com.madania.management.repository;
 import com.madania.management.entity.Therapist;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.UUID;
+
 public interface TherapistRepository extends JpaRepository<Therapist, Long> {
-    Therapist findByUserId(Long userId);
+    Therapist findByUserId(UUID userId);
 }

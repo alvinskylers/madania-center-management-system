@@ -11,14 +11,14 @@
         <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
             <a href="">
                 <div class="symbol-label">
-                    <img src="/media/avatars/blank.png" alt="${user.getUsername()}" class="w-100" />
+                    <img src="/media/avatars/blank.png" alt="${user.getName()}" class="w-100" />
                 </div>
             </a>
         </div>
         <!--end::Avatar-->
         <!--begin::User details-->
         <div class="d-flex flex-column">
-            <a href="" class="text-gray-800 text-hover-primary mb-1">${user.getUsername()}</a>
+            <a href="" class="text-gray-800 text-hover-primary mb-1">${user.getName()}</a>
             <span>${user.getEmail()}</span>
         </div>
         <!--begin::User details-->
@@ -49,7 +49,7 @@
         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-6 w-150px py-4" data-kt-menu="true">
             <!--begin::Menu item-->
             <div class="menu-item px-5">
-                <form action="/admin/users/${user.getId()}/edit" method="get" style="display:inline">
+                <form action="/admin/users/${String.valueOf(user.getId())}/edit" method="get" style="display:inline">
                     <button type="submit" class="btn btn-bg-light btn-active-color-success btn-sm d-block w-100 d-flex justify-content-start ms-2">
                         <i class="ki-outline ki-notepad-edit fs-3"></i> Edit
                     </button>
@@ -60,7 +60,7 @@
             @if(!user.getEmail().equals("admin@madania.com"))
                 <div class="menu-item px-5">
                 @if(user.isActive())
-                    <form action="/admin/users/${user.getId()}/deactive" method="post" style="display:inline"
+                    <form action="/admin/users/${String.valueOf(user.getId())}/deactive" method="post" style="display:inline"
                           onsubmit="return confirm('Are you sure you want to deactivate this user?');">
                         <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
                         <button type="submit" class="btn btn-bg-light btn-active-color-danger btn-sm d-block w-100 d-flex justify-content-start ms-2">
@@ -68,7 +68,7 @@
                         </button>
                     </form>
                 @else
-                    <form action="/admin/users/${user.getId()}/active" method="post" style="display:inline"
+                    <form action="/admin/users/${String.valueOf(user.getId())}/active" method="post" style="display:inline"
                           onsubmit="return confirm('Are you sure you want to activate this user?');">
                         <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
                         <button type="submit" class="btn btn-bg-light btn-active-color-primary btn-sm d-block w-100 d-flex justify-content-start ms-2">
@@ -82,7 +82,7 @@
             <!--begin::Menu item-->
             @if(!user.getEmail().equals("admin@madania.com"))
                 <div class="menu-item px-5">
-                    <form action="/admin/users/${user.getId()}/delete" method="post" style="display:inline"
+                    <form action="/admin/users/${String.valueOf(user.getId())}/delete" method="post" style="display:inline"
                           onsubmit="return confirm('Are you sure you want to delete this user? This cannot be undone.');">
                         <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
                         <button type="submit" class="btn btn-bg-light btn-active-color-danger btn-sm d-block w-100 d-flex justify-content-start ms-2">

@@ -1,6 +1,7 @@
 package com.madania.management.controller.admin;
 
 import com.madania.management.dto.PatientRequest;
+import com.madania.management.entity.Patient;
 import com.madania.management.repository.PatientRepository;
 import com.madania.management.service.PatientService;
 import jakarta.validation.Valid;
@@ -54,6 +55,44 @@ public class AdminPatientController {
     public String patient(@PathVariable UUID id, Model model) {
         model.addAttribute("patient", patientService.getPatientById(id));
         return "pages/patient";
+    }
+
+    @GetMapping("/patient/{id}/edit")
+    public String editPatientForm(@PathVariable UUID id, Model model) {
+        Patient patient = patientService.getPatientById(id);
+
+        PatientRequest request = new PatientRequest();
+        request.setFullName(patient.getFullName());
+        request.setDateOfBirth(patient.getDateOfBirth());
+        request.setGender(patient.getGender());
+        request.setDiagnosis(patient.getDiagnosis());
+        request.setNotes(patient.getNotes());
+
+        model.addAttribute("request", request);
+        model.addAttribute("patient", patient);
+        return "pages/patient-edit";
+    }
+
+    @PostMapping("/patient/{id}/edit")
+    public String editPatient(@PathVariable UUID id,
+                              @Valid @ModelAttribute("request") PatientRequest request,
+                              BindingResult bindingResult,
+                              Model model) {
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(System.out::println);
+            Patient patient = patientService.getPatientById(id);
+            model.addAttribute("patient", patient);
+            model.addAttribute("bindingResult", bindingResult);
+            model.addAttribute("patientId", id);
+            return "pages/patient-edit";
+        }
+
+        patientService.updatePatient(id, request.getFullName(),
+                request.getDateOfBirth(), request.getGender(),
+                request.getDiagnosis(), request.getNotes(),
+                request.isActive());
+
+        return "redirect:/admin/patients";
     }
 
 }

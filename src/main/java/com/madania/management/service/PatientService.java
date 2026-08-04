@@ -60,4 +60,20 @@ public class PatientService {
         return patientRepository.save(patient);
     }
 
+    @Transactional
+    public Patient updatePatient(UUID id, String fullName, LocalDate dateOfBirth,
+                                 Gender gender, String diagnosis, String notes, boolean active) {
+        Patient patient = getPatientById(id);
+
+        patient.setFullName(fullName);
+        patient.setDateOfBirth(dateOfBirth);
+        patient.setGender(gender);
+        patient.setDiagnosis(diagnosis);
+        patient.setNotes(notes);
+        patient.setActive(active);
+
+        return patientRepository.save(patient);
+    }
+
+
 }

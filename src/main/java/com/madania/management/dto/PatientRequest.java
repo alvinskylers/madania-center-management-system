@@ -11,7 +11,6 @@ import java.util.UUID;
 @Data
 public class PatientRequest {
 
-    @NotNull(message = "Parent is required")
     private UUID parentId;
 
     @NotBlank(message = "Full name is required")
@@ -20,9 +19,12 @@ public class PatientRequest {
     @NotNull(message = "Date of birth is required")
     private LocalDate dateOfBirth;
 
+    @NotNull(message = "Gender is required")
     private Gender gender;
 
     private String diagnosis;
 
     private String notes;
+
+    private boolean isActive;
 }

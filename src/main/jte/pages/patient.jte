@@ -33,7 +33,6 @@
         </div>
     </div>
     <!--end::Toolbar-->
-
     <!--begin::Content-->
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <div id="kt_app_content_container" class="app-container container-fluid">
@@ -69,7 +68,7 @@
                                 <div class="fw-bold rotate collapsible" data-bs-toggle="collapse" href="#kt_user_view_details" role="button" aria-expanded="false" aria-controls="kt_user_view_details">Details
                                     <span class="ms-2 rotate-180"><i class="ki-outline ki-down fs-3"></i></span></div>
                                 <span data-bs-toggle="tooltip" data-bs-trigger="hover" title="Edit patient details">
-                                    <a href="#" class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_update_details">Edit</a>
+                                    <a href="/admin/patient/${String.valueOf(patient.getId())}/edit" class="btn btn-sm btn-light-primary"> Edit </a>
                                 </span>
                             </div>
                             <div class="separator"></div>
@@ -195,8 +194,6 @@
                                             <tr><td>Diagnosis</td><td>${patient.getDiagnosis() != null ? patient.getDiagnosis() : "—"}</td><td class="text-end"></td></tr>
                                             <tr><td>Parent</td><td>${patient.getParent() != null ? patient.getParent().getFullName() : "—"}</td><td class="text-end"></td></tr>
                                             <tr><td>Notes</td><td>${patient.getNotes() != null ? patient.getNotes() : "—"}</td><td class="text-end"></td></tr>
-                                            <tr><td>Created At</td><td>${patient.getCreatedAt() != null ? patient.getCreatedAt().format(DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a")) : "—"}</td><td class="text-end"></td></tr>
-                                            <tr><td>Updated At</td><td>${patient.getUpdatedAt() != null ? patient.getUpdatedAt().format(DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a")) : "—"}</td><td class="text-end"></td></tr>
                                             </tbody>
                                         </table>
                                     </div>

@@ -23,7 +23,7 @@
                 <!--end::Left side-->
                 <!--begin::Right side: Action buttons-->
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
-                    <a href="#" class="btn btn-flex btn-outline btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">Add Patient</a>
+                    <a href="/admin/patient/create" class="btn btn-flex btn-outline btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">Add Patient</a>
                     <a href="#" class="btn btn-flex btn-primary h-40px fs-7 fw-bold">New Campaign</a>
                 </div>
                 <!--end::Right side-->

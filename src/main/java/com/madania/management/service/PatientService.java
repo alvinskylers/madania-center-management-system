@@ -2,11 +2,14 @@ package com.madania.management.service;
 
 import com.madania.management.entity.Parent;
 import com.madania.management.entity.Patient;
+import com.madania.management.enums.Gender;
 import com.madania.management.repository.ParentRepository;
 import com.madania.management.repository.PatientRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,6 +39,25 @@ public class PatientService {
     public Patient getPatientById(UUID id) {
         return patientRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Patient not found with id: " + id));
+    }
+
+    @Transactional
+    public Patient createPatient(UUID parentId, String fullName, LocalDate dateOfBirth,
+                                 Gender gender, String diagnosis, String notes) {
+        Parent parent = parentRepository.findById(parentId)
+                .orElseThrow(() -> new RuntimeException("Parent not found with id: " + parentId));
+
+        Patient patient = Patient.builder()
+                .parent(parent)
+                .fullName(fullName)
+                .dateOfBirth(dateOfBirth)
+                .gender(gender)
+                .diagnosis(diagnosis)
+                .notes(notes)
+                .isActive(true)
+                .build();
+
+        return patientRepository.save(patient);
     }
 
 }

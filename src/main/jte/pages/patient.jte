@@ -5,9 +5,18 @@
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param String role
 @param Patient patient
+@param String success
 
 @template.layout.base(title = "Patient Details", role = role, content = @`
     <!--begin::Toolbar (Page title & actions)-->
+
+    @if(success != null)
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong>${success}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <div id="kt_app_toolbar" class="app-toolbar pt-7 pt-lg-10">
         <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
@@ -25,8 +34,15 @@
                 <!--end::Page title-->
                 <!--begin::Actions-->
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
-                    <a href="#" class="btn btn-flex btn-outline btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold" data-bs-toggle="modal" data-bs-target="#kt_modal_view_users">Add Member</a>
-                    <a href="#" class="btn btn-flex btn-primary h-40px fs-7 fw-bold" data-bs-toggle="modal" data-bs-target="#kt_modal_create_campaign">New Campaign</a>
+                    <span data-bs-toggle="tooltip" data-bs-trigger="hover" title="Edit patient details">
+                        <a href="/admin/patient/${String.valueOf(patient.getId())}/edit" class="btn btn-light-primary"> Edit </a>
+                    </span>
+                    <span data-bs-toggle="tooltip" data-bs-trigger="hover" title="Delete patient ">
+                        <form action="/admin/patient/${String.valueOf(patient.getId())}/delete" method="post">
+                            <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
+                            <button type="submit" class="btn btn-light-danger"> Delete</button>
+                        </form>
+                    </span>
                 </div>
                 <!--end::Actions-->
             </div>
@@ -67,9 +83,6 @@
                             <div class="d-flex flex-stack fs-4 py-3">
                                 <div class="fw-bold rotate collapsible" data-bs-toggle="collapse" href="#kt_user_view_details" role="button" aria-expanded="false" aria-controls="kt_user_view_details">Details
                                     <span class="ms-2 rotate-180"><i class="ki-outline ki-down fs-3"></i></span></div>
-                                <span data-bs-toggle="tooltip" data-bs-trigger="hover" title="Edit patient details">
-                                    <a href="/admin/patient/${String.valueOf(patient.getId())}/edit" class="btn btn-sm btn-light-primary"> Edit </a>
-                                </span>
                             </div>
                             <div class="separator"></div>
                             <!--begin::Details content-->
@@ -99,30 +112,6 @@
                     <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
                         <li class="nav-item"><a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#kt_user_view_overview_tab">Schedule</a></li>
                         <li class="nav-item"><a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true" data-bs-toggle="tab" href="#kt_user_view_overview_security">Profile</a></li>
-                        <li class="nav-item ms-auto">
-                            <a href="#" class="btn btn-primary ps-7" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">Actions <i class="ki-outline ki-down fs-2 me-0"></i></a>
-                            <!-- Dropdown menu -->
-                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold py-4 w-250px fs-6" data-kt-menu="true">
-                                <div class="menu-item px-5"><div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">Payments</div></div>
-                                <div class="menu-item px-5"><a href="#" class="menu-link px-5">Create invoice</a></div>
-                                <div class="menu-item px-5"><a href="#" class="menu-link flex-stack px-5">Create payments <span class="ms-2" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"><i class="ki-outline ki-information fs-7"></i></span></a></div>
-                                <div class="menu-item px-5" data-kt-menu-trigger="hover" data-kt-menu-placement="left-start">
-                                    <a href="#" class="menu-link px-5"><span class="menu-title">Subscription</span><span class="menu-arrow"></span></a>
-                                    <div class="menu-sub menu-sub-dropdown w-175px py-4">
-                                        <div class="menu-item px-3"><a href="#" class="menu-link px-5">Apps</a></div>
-                                        <div class="menu-item px-3"><a href="#" class="menu-link px-5">Billing</a></div>
-                                        <div class="menu-item px-3"><a href="#" class="menu-link px-5">Statements</a></div>
-                                        <div class="separator my-2"></div>
-                                        <div class="menu-item px-3"><div class="menu-content px-3"><label class="form-check form-switch form-check-custom form-check-solid"><input class="form-check-input w-30px h-20px" type="checkbox" value="" name="notifications" checked="checked" /><span class="form-check-label text-muted fs-6">Notifications</span></label></div></div>
-                                    </div>
-                                </div>
-                                <div class="separator my-3"></div>
-                                <div class="menu-item px-5"><div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">Account</div></div>
-                                <div class="menu-item px-5"><a href="#" class="menu-link px-5">Reports</a></div>
-                                <div class="menu-item px-5 my-1"><a href="#" class="menu-link px-5">Account Settings</a></div>
-                                <div class="menu-item px-5"><a href="#" class="menu-link text-danger px-5">Delete patient</a></div>
-                            </div>
-                        </li>
                     </ul>
                     <!--end:::Tabs-->
 
@@ -134,7 +123,7 @@
                             <div class="card card-flush mb-6 mb-xl-9">
                                 <div class="card-header mt-6">
                                     <div class="card-title flex-column">
-                                        <h2 class="mb-1">Patient's Schedule</h2>
+                                        <h2 class="mb-1">Patient Schedule</h2>
                                         <div class="fs-6 fw-semibold text-muted">2 upcoming meetings</div>
                                     </div>
                                     <div class="card-toolbar">

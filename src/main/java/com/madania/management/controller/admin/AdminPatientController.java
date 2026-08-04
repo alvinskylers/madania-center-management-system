@@ -2,7 +2,6 @@ package com.madania.management.controller.admin;
 
 import com.madania.management.dto.PatientRequest;
 import com.madania.management.entity.Patient;
-import com.madania.management.repository.PatientRepository;
 import com.madania.management.service.PatientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.UUID;
 
@@ -18,7 +18,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AdminPatientController {
 
-    private final PatientRepository patientRepository;
     private final PatientService patientService;
 
     @GetMapping("/patients")
@@ -77,6 +76,7 @@ public class AdminPatientController {
     public String editPatient(@PathVariable UUID id,
                               @Valid @ModelAttribute("request") PatientRequest request,
                               BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes,
                               Model model) {
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(System.out::println);
@@ -91,7 +91,19 @@ public class AdminPatientController {
                 request.getDateOfBirth(), request.getGender(),
                 request.getDiagnosis(), request.getNotes(),
                 request.isActive());
+        redirectAttributes.addFlashAttribute("success", "Patient successfully updated.");
+        return "redirect:/admin/patient/{id}";
+    }
 
+    @PostMapping("/patient/{id}/delete")
+    public String deletePatient(@PathVariable UUID id,
+                                RedirectAttributes redirectAttributes) {
+        try {
+            patientService.deletePatient(id);
+            redirectAttributes.addFlashAttribute("success", "Patient successfully deleted.");
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
         return "redirect:/admin/patients";
     }
 

@@ -75,5 +75,15 @@ public class PatientService {
         return patientRepository.save(patient);
     }
 
+    @Transactional
+    public void deletePatient(UUID id) {
+        Patient patient = getPatientById(id);
+
+        if (patient.isActive()) {
+            throw new RuntimeException("Cannot delete an active patient. Please deactivate the patient first.");
+        }
+
+        patientRepository.delete(patient);
+    }
 
 }

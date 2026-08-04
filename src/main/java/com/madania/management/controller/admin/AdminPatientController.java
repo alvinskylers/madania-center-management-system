@@ -36,6 +36,7 @@ public class AdminPatientController {
     @PostMapping("/patient/create")
     public String createPatient(@Valid @ModelAttribute("request") PatientRequest request,
                                 BindingResult bindingResult,
+                                RedirectAttributes redirectAttributes,
                                 Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("parents", patientService.getAllParents());
@@ -46,7 +47,7 @@ public class AdminPatientController {
         patientService.createPatient(request.getParentId(), request.getFullName(),
                 request.getDateOfBirth(), request.getGender(),
                 request.getDiagnosis(), request.getNotes());
-
+        redirectAttributes.addFlashAttribute("success", "Patient successfully created.");
         return "redirect:/admin/patients";
     }
 

@@ -23,7 +23,7 @@
         <!--end::Avatar-->
 
         <!--begin::Name-->
-        <a href="#" class="fs-4 text-gray-800 text-hover-primary fw-bold mb-0">${patient.getFullName()}</a>
+        <a href="/admin/patient/${String.valueOf(patient.getId())}" class="fs-4 text-gray-800 text-hover-primary fw-bold mb-0">${patient.getFullName()}</a>
         <!--end::Name-->
 
         <!--begin::Parent (or other info)-->

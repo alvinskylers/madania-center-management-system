@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface TherapySessionRepository extends JpaRepository<TherapySession, Long> {
-    List<TherapySession> findByTherapyPackageId(Long packageId);
+    List<TherapySession> findByTherapyPackageId(UUID packageId);
     List<TherapySession> findByPatientId(UUID patientId);
     List<TherapySession> findByPatientIdAndStatus(UUID patientId, SessionStatus status);
     List<TherapySession> findByTherapistId(UUID therapistId);

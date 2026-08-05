@@ -1,8 +1,9 @@
 package com.madania.management.entity;
 
-import com.madania.management.enums.DayOfWeek;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.DayOfWeek;
 
 @Entity
 @Getter

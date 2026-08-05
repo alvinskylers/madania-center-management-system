@@ -10,7 +10,7 @@ title = "Therapy Packages",
 role = role,
 content = @`
     <h1>Therapy Packages</h1>
-    <a href="/admin/packages/create" class="btn btn-primary">+ Create New Package</a>
+    <a href="/admin/package/create" class="btn btn-primary">+ Create New Package</a>
 
     <table class="table">
         <thead>
@@ -24,7 +24,7 @@ content = @`
         </tr>
         </thead>
         <tbody>
-        @if(packages.isEmpty())
+        @if(packages != null && !packages.isEmpty())
             @for(TherapyPackage pkg : packages)
                 @template.components.package-row(therapyPackage = pkg, _csrf = _csrf)
             @endfor

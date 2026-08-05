@@ -56,7 +56,7 @@ public class TherapyPackage {
     private String notes;
 
     @CreationTimestamp
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.UUID;
 
-public interface TherapyPackageRepository extends JpaRepository<TherapyPackage, Long> {
+public interface TherapyPackageRepository extends JpaRepository<TherapyPackage, UUID> {
     List<TherapyPackage> findByPatientId(UUID patientId);
     List<TherapyPackage> findByTherapistId(UUID therapistId);
     List<TherapyPackage> findByStatus(PackageStatus status);

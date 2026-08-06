@@ -3,6 +3,10 @@ package com.madania.management.controller.admin;
 import com.madania.management.entity.User;
 import com.madania.management.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,25 +22,19 @@ public class AdminUserController {
     private final UserService userService;
 
     @GetMapping("/users")
-    public String users(Model model) {
-        List<User> users = userService.getAllUsers();
-        model.addAttribute("users" , users);
-        return "pages/users";
-    }
+    public String users(Model model,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "asc") String sort) {
+        Page<User> userPage = userService.getAll(page, size, sort);
 
-    @GetMapping("/users/{id}/edit")
-    public String editUserForm(@PathVariable UUID id, Model model) {
-        User user = userService.getUserById(id);
-        model.addAttribute("user", user);
-        return "pages/user-edit";
-    }
+        model.addAttribute("users" , userPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", userPage.getTotalPages());
+        model.addAttribute("totalItems", userPage.getTotalElements());
+        model.addAttribute("pageSize", size);
 
-    @PostMapping("/users/{id}/edit")
-    public String editUser(@PathVariable UUID id,
-                           @RequestParam String username,
-                           @RequestParam String email) {
-        userService.updateUser(id, username, email);
-        return "redirect:/admin/users";
+        return "pages/admin/user/index";
     }
 
     @PostMapping("/users/{id}/deactive")

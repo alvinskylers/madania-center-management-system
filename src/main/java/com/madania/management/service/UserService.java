@@ -9,6 +9,10 @@ import com.madania.management.repository.TherapistRepository;
 import com.madania.management.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +31,16 @@ public class UserService {
 
     public List<User> getAllUsers () {
         return userRepository.findAll();
+    }
+
+    public Page<User> getAll(int page, int size, String direction) {
+        Sort sort = Sort.by(Sort.Direction.fromString(direction), "createdAt");
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return userRepository.findAll(pageable);
+    }
+
+    public Page<User> getAllQueried(Pageable pageable, String query ) {
+        return userRepository.searchUsersByQuery(pageable, query);
     }
 
     public User getUserById(UUID id) {

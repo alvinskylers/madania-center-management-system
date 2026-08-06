@@ -33,9 +33,13 @@ public class TherapyPackageService {
         return packageRepository.findAll();
     }
 
-    public TherapyPackage findPackageById(UUID id) {
+    public TherapyPackage getPackageById(UUID id) {
         return packageRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Package with not found with id: " + id));
+    }
+
+    public List<TherapySession> getSessionsByPackageId(UUID packageId) {
+        return sessionRepository.findByTherapyPackageId(packageId);
     }
 
     public List<DayOfWeek> getDays() {
@@ -83,8 +87,6 @@ public class TherapyPackageService {
         LocalDate cursor = startDate;
         int sessionNumber = 1;
 
-        System.out.println("Days received: " + days);
-        System.out.println("Days types: " + days.getClass() + " contents type: " + (days.isEmpty() ? "empty" : days.get(0).getClass()));
         while (sessionNumber <= 12 ) {
             if (days.contains((cursor.getDayOfWeek()))) {
                 LocalDateTime startTime = LocalDateTime.of(cursor, preferredTime);
@@ -95,6 +97,7 @@ public class TherapyPackageService {
                         .patient(patient)
                         .therapist(therapist)
                         .sessionNumber(sessionNumber)
+                        .day(cursor.getDayOfWeek())
                         .startTime(startTime)
                         .endTime(endTime)
                         .status(SessionStatus.SCHEDULED)
@@ -109,6 +112,22 @@ public class TherapyPackageService {
         packageRepository.save(therapyPackage);
 
         return therapyPackage;
+    }
+
+    @Transactional
+    public void cancelPackage(UUID id) {
+        TherapyPackage therapyPackage = getPackageById(id);
+        therapyPackage.setStatus(PackageStatus.CANCELLED);
+        packageRepository.save(therapyPackage);
+
+        List<TherapySession> sessions = sessionRepository.findByTherapyPackageId(id);
+        for (TherapySession session : sessions) {
+            if (session.getStatus() == SessionStatus.SCHEDULED) {
+                session.setStatus(SessionStatus.CANCELLED);
+                session.setCancellationReason("Package cancelled");
+            }
+        }
+        sessionRepository.saveAll(sessions);
     }
 
 }

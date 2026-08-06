@@ -18,12 +18,12 @@
         @endif
     </td>
     <td>
-        <a href="/admin/packages/${String.valueOf(therapyPackage.getId())}" class="btn btn-icon btn-bg-light btn-sm">
+        <a href="/admin/package/${String.valueOf(therapyPackage.getId())}" class="btn btn-icon btn-bg-light btn-sm">
             <i class="ki-outline ki-eye fs-3"></i>
         </a>
 
         @if(therapyPackage.getStatus().name().equals("ACTIVE"))
-            <form action="/admin/packages/${String.valueOf(therapyPackage.getId())}/cancel" method="post" class="d-inline-block"
+            <form action="/admin/package/${String.valueOf(therapyPackage.getId())}/cancel" method="post" class="d-inline-block"
                   onsubmit="return confirm('Cancel this package? All remaining scheduled sessions will be cancelled.');">
                 <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
                 <button type="submit" class="btn btn-icon btn-bg-light btn-sm">

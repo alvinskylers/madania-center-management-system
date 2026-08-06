@@ -2,6 +2,7 @@ package com.madania.management.controller.admin;
 
 import com.madania.management.config.security.CustomUserDetails;
 import com.madania.management.dto.PackageCreateRequest;
+import com.madania.management.entity.TherapyPackage;
 import com.madania.management.repository.TherapistRepository;
 import com.madania.management.service.PatientService;
 import com.madania.management.service.TherapyPackageService;
@@ -11,10 +12,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin")
@@ -29,6 +29,14 @@ public class AdminPackageController {
     public String packages(Model model) {
         model.addAttribute("packages", packageService.getAllPackages());
         return "pages/packages";
+    }
+
+    @GetMapping("/package/{id}")
+    public String viewPackage(@PathVariable UUID id, Model model) {
+        TherapyPackage therapyPackage = packageService.getPackageById(id);
+        model.addAttribute("therapyPackage", therapyPackage);
+        model.addAttribute("sessions", packageService.getSessionsByPackageId(id));
+        return "pages/package-detail";
     }
 
     @GetMapping("/package/create")
@@ -65,7 +73,13 @@ public class AdminPackageController {
                 userDetails.getUser().getId(), request.getStartDate(),
                 request.getPreferredTime(), request.getDays(), request.getNotes());
 
-        return "redirect:/admin/dashboard";
+        return "redirect:/admin/packages";
+    }
+
+    @PostMapping("/package/{id}/cancel")
+    public String cancelPackage(@PathVariable UUID id) {
+        packageService.cancelPackage(id);
+        return "redirect:/admin/packages";
     }
 
 

@@ -50,6 +50,14 @@
                         </a>
                     </div>
 
+                    <!-- Schedule -->
+                    <div class="menu-item">
+                        <a class="menu-link" href="/admin/packages" title="View all packages" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-parcel fs-2"></i></span>
+                            <span class="menu-title">View Package</span>
+                        </a>
+                    </div>
+
                     <!-- Journals -->
                     <div class="menu-item">
                         <a class="menu-link" href="/admin/journals" title="View all journals" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">

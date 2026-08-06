@@ -4,8 +4,8 @@
 
 @param Page<User> users
 @param String role
-@param String search
-@param String status
+@param String query
+@param CsrfToken _csrf
 
 @template.layout.base(
 title = "Users",
@@ -54,35 +54,20 @@ content = @`
                     <!--begin::Card title-->
                     <div class="card-title">
                         <!--begin::Search-->
-                        <div class="d-flex align-items-center position-relative my-1">
-                            <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
-                            <input type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="Search Users" value="" />
-                        </div>
-                        <!--end::Search-->
-                    </div>
-                    <!--begin::Card toolbar-->
-                    <div class="card-toolbar">
-                        <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                            <!--begin::Filter-->
-
-                            <!--end::Filter-->
-                            <!--begin::Export-->
-                            <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_users_export_modal">
-                                <i class="ki-outline ki-exit-up fs-2"></i>Export
-                            </button>
-                            <!--end::Export-->
-                            <!--begin::Add user-->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">Add User</button>
-                            <!--end::Add user-->
-                        </div>
-                        <!--begin::Group actions-->
-                        <div class="d-flex justify-content-end align-items-center d-none" data-kt-user-table-toolbar="selected">
-                            <div class="fw-bold me-5">
-                                <span class="me-2" data-kt-user-table-select="selected_count"></span>Selected
+                        <form action="/admin/users" method="get" enctype="text/plain">
+                            <input type="hidden" name="_csrf" value="${_csrf.getToken()}"/>
+                            <div class="d-flex align-items-center position-relative my-1">
+                                <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
+                                <input type="text"
+                                       name="query"
+                                       class="form-control form-control-solid w-250px ps-13"
+                                       placeholder="Search Users"
+                                       value="${query != null ? query : ""}" />
+                                <input type="hidden" name="page" value="0" />
+                                <button type="submit" class="btn btn-light-primary me-3 gap-3">Search</button>
                             </div>
-                            <button type="button" class="btn btn-danger" data-kt-user-table-select="delete_selected">Delete Selected</button>
-                        </div>
-                        <!--end::Group actions-->
+                        </form>
+                        <!--end::Search-->
                     </div>
                     <!--end::Card toolbar-->
                 </div>
@@ -131,7 +116,7 @@ content = @`
                                 <!-- Previous -->
                                 @if(users.hasPrevious())
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${users.getNumber() - 1}&search=${search != null ? search : ""}&status=${status != null ? status : "all"}">Previous</a>
+                                        <a class="page-link" href="?page=${users.getNumber() - 1}&query=${query != null ? query : ""}">Previous</a>
                                     </li>
                                 @else
                                     <li class="page-item disabled"><span class="page-link">Previous</span></li>
@@ -143,7 +128,7 @@ content = @`
                                         <li class="page-item active"><span class="page-link">${i + 1}</span></li>
                                     @else
                                         <li class="page-item">
-                                            <a class="page-link" href="?page=${i}&search=${search != null ? search : ""}&status=${status != null ? status : "all"}">${i + 1}</a>
+                                            <a class="page-link" href="?page=${i}&query=${query != null ? query : ""}">${i + 1}</a>
                                         </li>
                                     @endif
                                 @endfor
@@ -151,7 +136,7 @@ content = @`
                                 <!-- Next -->
                                 @if(users.hasNext())
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${users.getNumber() + 1}&search=${search != null ? search : ""}&status=${status != null ? status : "all"}">Next</a>
+                                            <a class="page-link" href="?page=${users.getNumber() + 1}&query=${query != null ? query : ""}">Next</a>
                                     </li>
                                 @else
                                     <li class="page-item disabled"><span class="page-link">Next</span></li>

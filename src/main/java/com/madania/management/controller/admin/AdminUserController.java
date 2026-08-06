@@ -25,14 +25,16 @@ public class AdminUserController {
     public String users(Model model,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "asc") String sort) {
-        Page<User> userPage = userService.getAll(page, size, sort);
+            @RequestParam(defaultValue = "asc") String sort,
+            @RequestParam(required = false) String query) {
+        Page<User> userPage = userService.getAllQueried(query, page, size, sort);
 
         model.addAttribute("users" , userPage);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", userPage.getTotalPages());
         model.addAttribute("totalItems", userPage.getTotalElements());
         model.addAttribute("pageSize", size);
+        model.addAttribute("query", query);
 
         return "pages/admin/user/index";
     }

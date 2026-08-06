@@ -39,7 +39,9 @@ public class UserService {
         return userRepository.findAll(pageable);
     }
 
-    public Page<User> getAllQueried(Pageable pageable, String query ) {
+    public Page<User> getAllQueried(String query, int page, int size, String direction) {
+        Sort sort = Sort.by(Sort.Direction.fromString(direction), "createdAt");
+        Pageable pageable = PageRequest.of(page, size, sort);
         return userRepository.searchUsersByQuery(pageable, query);
     }
 

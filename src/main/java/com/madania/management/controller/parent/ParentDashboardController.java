@@ -10,7 +10,7 @@ public class ParentDashboardController {
 
     @GetMapping("/dashboard")
     public String dashboard() {
-        return "parent/dashboard";
+        return "pages/parent/dashboard";
     }
 
     @GetMapping("/schedule")

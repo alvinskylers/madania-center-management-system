@@ -10,13 +10,8 @@ public class TherapistDashboardController {
 
     @GetMapping("/dashboard")
     public String dashboard() {
-        return "therapist/dashboard";
+        return "pages/therapist/dashboard";
     }
-
-//    @GetMapping("/schedule")
-//    public String schedule() {
-//        return "pages/schedule";
-//    }
 
     @GetMapping("/journals")
     public String journals() {

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.DayOfWeek;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -16,7 +17,7 @@ public class TherapyDaySchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "therapy_package_id")

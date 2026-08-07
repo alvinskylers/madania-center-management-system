@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -20,7 +21,7 @@ public class TherapyJournal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private UUID id;
 
     @OneToOne
     @JoinColumn(name = "therapy_session_id", nullable = false, unique = true)
@@ -58,6 +59,9 @@ public class TherapyJournal {
 
     @Column
     private String documentationUrl;
+
+    @Enumerated(EnumType.STRING)
+    private TherapyType therapyType;
 
     @Enumerated(EnumType.STRING)
     private MoodRating mood;

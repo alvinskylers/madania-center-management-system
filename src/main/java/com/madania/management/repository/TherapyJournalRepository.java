@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface TherapyJournalRepository extends JpaRepository<TherapyJournal, Long> {
+public interface TherapyJournalRepository extends JpaRepository<TherapyJournal, UUID> {
     List<TherapyJournal> findByTherapistId(UUID therapistId);
     List<TherapyJournal> findByPatientId(UUID patientId);
-    Optional<TherapyJournal> findBySessionId(Long sessionId);
+    Optional<TherapyJournal> findBySessionId(UUID sessionId);
 
 }

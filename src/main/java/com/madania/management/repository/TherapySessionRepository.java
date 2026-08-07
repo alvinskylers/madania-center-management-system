@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-public interface TherapySessionRepository extends JpaRepository<TherapySession, Long> {
+public interface TherapySessionRepository extends JpaRepository<TherapySession, UUID> {
     List<TherapySession> findByTherapyPackageId(UUID packageId);
     List<TherapySession> findByPatientId(UUID patientId);
     List<TherapySession> findByPatientIdAndStatus(UUID patientId, SessionStatus status);

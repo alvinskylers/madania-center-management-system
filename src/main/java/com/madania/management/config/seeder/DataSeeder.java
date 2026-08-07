@@ -75,7 +75,7 @@ public class DataSeeder implements CommandLineRunner{
             therapistRepository.save(therapist);
         }
 
-        if (!parentExists) {
+
             User parentUser  = User.builder()
                     .email("parent@mail.com")
                     .password(passwordEncoder.encode(password))
@@ -126,7 +126,7 @@ public class DataSeeder implements CommandLineRunner{
 
                 patientRepository.saveAll(List.of(patient1, patient2, patient3));
             }
-        }
+
 
         log.warn("==============================================================");
         log.warn(" No admin account existed — created one for first login:");

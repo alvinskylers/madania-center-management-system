@@ -26,7 +26,7 @@ public class TherapistScheduleController {
 
     @GetMapping("/schedule")
     public String schedule() {
-        return "pages/therapist/schedule";
+        return "pages/therapist/schedule/index";
     }
 
     @GetMapping("/schedule/events")

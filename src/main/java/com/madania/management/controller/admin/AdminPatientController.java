@@ -23,14 +23,14 @@ public class AdminPatientController {
     @GetMapping("/patients")
     public String patient(Model model) {
         model.addAttribute("patients", patientService.getAllPatients());
-        return "pages/patients";
+        return "pages/admin/patient/index";
     }
 
     @GetMapping("/patient/create")
     public String createPatientForm(Model model) {
         model.addAttribute("request", new PatientRequest());
         model.addAttribute("parents", patientService.getAllParents());
-        return "pages/patient-create";
+        return "pages/admin/patient/create";
     }
 
     @PostMapping("/patient/create")
@@ -41,7 +41,7 @@ public class AdminPatientController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("parents", patientService.getAllParents());
             model.addAttribute("bindingResult", bindingResult);
-            return "pages/patient-create";
+            return "pages/admin/patient/create";
         }
 
         patientService.createPatient(request.getParentId(), request.getFullName(),
@@ -54,7 +54,7 @@ public class AdminPatientController {
     @GetMapping("/patient/{id}")
     public String patient(@PathVariable UUID id, Model model) {
         model.addAttribute("patient", patientService.getPatientById(id));
-        return "pages/patient";
+        return "pages/admin/patient/view";
     }
 
     @GetMapping("/patient/{id}/edit")
@@ -70,7 +70,7 @@ public class AdminPatientController {
 
         model.addAttribute("request", request);
         model.addAttribute("patient", patient);
-        return "pages/patient-edit";
+        return "pages/admin/patient/edit";
     }
 
     @PostMapping("/patient/{id}/edit")
@@ -85,7 +85,7 @@ public class AdminPatientController {
             model.addAttribute("patient", patient);
             model.addAttribute("bindingResult", bindingResult);
             model.addAttribute("patientId", id);
-            return "pages/patient-edit";
+            return "pages/admin/patient/edit";
         }
 
         patientService.updatePatient(id, request.getFullName(),

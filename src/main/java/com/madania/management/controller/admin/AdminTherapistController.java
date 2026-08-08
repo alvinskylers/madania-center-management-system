@@ -29,13 +29,13 @@ public class AdminTherapistController {
     public String therapist(Model model) {
         List<Therapist> therapists = therapistService.getAllTherapists();
         model.addAttribute("therapists", therapists);
-        return "pages/user-therapists";
+        return "pages/admin/therapist/index";
     }
 
     @GetMapping("/therapist/create")
     public String createTherapistForm(Model model) {
         model.addAttribute("request", new TherapistCreateRequest());
-        return "pages/user-create-therapist";
+        return "pages/admin/therapist/create";
     }
 
     @PostMapping("/therapist/create")
@@ -56,7 +56,7 @@ public class AdminTherapistController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("request", request);
             model.addAttribute("bindingResult", bindingResult);
-            return "pages/user-create-therapist";
+            return "pages/admin/therapist/create";
         }
 
         therapistService.createTherapist(
@@ -81,7 +81,7 @@ public class AdminTherapistController {
 
         model.addAttribute("request", request);
         model.addAttribute("userId", id);
-        return "pages/user-edit-therapist";
+        return "pages/admin/therapist/edit";
     }
 
     @PostMapping("/therapist/{id}/edit")
@@ -92,7 +92,7 @@ public class AdminTherapistController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("userId", id);
             model.addAttribute("bindingResult", bindingResult);
-            return "pages/user-edit-therapist";
+            return "pages/admin/therapist/edit";
         }
 
         therapistService.updateTherapist(id, request.getEmail(),

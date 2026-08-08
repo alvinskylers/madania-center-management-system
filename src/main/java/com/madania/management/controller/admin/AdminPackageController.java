@@ -28,7 +28,7 @@ public class AdminPackageController {
     @GetMapping("/packages")
     public String packages(Model model) {
         model.addAttribute("packages", packageService.getAllPackages());
-        return "pages/packages";
+        return "pages/admin/packet/index";
     }
 
     @GetMapping("/package/{id}")
@@ -36,7 +36,7 @@ public class AdminPackageController {
         TherapyPackage therapyPackage = packageService.getPackageById(id);
         model.addAttribute("therapyPackage", therapyPackage);
         model.addAttribute("sessions", packageService.getSessionsByPackageId(id));
-        return "pages/package-detail";
+        return "pages/admin/packet/view";
     }
 
     @GetMapping("/package/create")
@@ -45,7 +45,7 @@ public class AdminPackageController {
         model.addAttribute("patients", patientService.getActivePatients());
         model.addAttribute("therapists", therapistRepository.findAll());
         model.addAttribute("days", packageService.getDays());
-        return "pages/package-create";
+        return "pages/admin/packet/create";
     }
 
     @PostMapping("/package/create")
@@ -62,7 +62,7 @@ public class AdminPackageController {
             model.addAttribute("therapists", therapistRepository.findAll());
             model.addAttribute("days", packageService.getDays());
             model.addAttribute("bindingResult", bindingResult);
-            return "pages/package-create";
+            return "pages/admin/packet/create";
         }
 
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();

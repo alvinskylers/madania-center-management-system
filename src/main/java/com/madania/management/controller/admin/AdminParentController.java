@@ -29,13 +29,13 @@ public class AdminParentController {
     public String parents(Model model) {
         List<Parent> parents = parentService.getAllParent();
         model.addAttribute("parents", parents);
-        return "pages/user-parents";
+        return "pages/admin/parent/index";
     }
 
     @GetMapping("/parent/create")
     public String createParentForm(Model model) {
         model.addAttribute("request", new ParentCreateRequest());
-        return "pages/user-create-parent";
+        return "pages/admin/parent/create";
     }
 
     @PostMapping("/parent/create")
@@ -55,7 +55,7 @@ public class AdminParentController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("request", request);
             model.addAttribute("bindingResult", bindingResult);
-            return "pages/user-create-parent";
+            return "pages/admin/parent/create";
         }
 
         parentService.createParent(
@@ -80,7 +80,7 @@ public class AdminParentController {
 
         model.addAttribute("request", request);
         model.addAttribute("userId", id);
-        return "pages/user-edit-parent";
+        return "pages/admin/parent/edit";
     }
 
     @PostMapping("/parent/{id}/edit")
@@ -91,7 +91,7 @@ public class AdminParentController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("userId", id);
             model.addAttribute("bindingResult", bindingResult);
-            return "pages/user-edit-parent";
+            return "pages/admin/parent/edit";
         }
 
         parentService.updateParent(id, request.getEmail(),

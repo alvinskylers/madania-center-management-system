@@ -13,21 +13,6 @@ public class TherapistDashboardController {
         return "pages/therapist/dashboard";
     }
 
-    @GetMapping("/journals")
-    public String journals() {
-        return "pages/journals";
-    }
-
-    @GetMapping("/journal")
-    public String journal() {
-        return "pages/journal";
-    }
-
-    @GetMapping("/journal/create")
-    public String createJournal() {
-        return "pages/journal-create";
-    }
-
     @GetMapping("/patients")
     public String patient() {
         return "pages/patients";

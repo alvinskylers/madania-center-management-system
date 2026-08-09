@@ -35,10 +35,6 @@ public class TherapyJournal {
     @JoinColumn(name = "therapist_id", nullable = false)
     private Therapist therapist;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private TherapyType type;
-
     @Column(nullable = false)
     private String title;
 
@@ -61,6 +57,7 @@ public class TherapyJournal {
     private String documentationUrl;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TherapyType therapyType;
 
     @Enumerated(EnumType.STRING)

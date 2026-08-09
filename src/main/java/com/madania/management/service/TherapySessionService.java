@@ -27,4 +27,9 @@ public class TherapySessionService {
         return sessionRepository.findByTherapistId(therapistId);
     }
 
+    public TherapySession getSessionById(UUID sessionId) {
+        return sessionRepository.findById(sessionId)
+                .orElseThrow(() -> new RuntimeException("Session not found with id: " + sessionId));
+    }
+
 }

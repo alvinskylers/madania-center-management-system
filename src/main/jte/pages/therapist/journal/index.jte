@@ -41,7 +41,7 @@ content = @`
                             @endif
                         </td>
                         <td>
-                            <a href="/parent/journal/${String.valueOf(journal.getId())}"
+                            <a href="/therapist/journal/${String.valueOf(journal.getId())}/edit"
                                class="btn btn-sm btn-light-primary">
                                 View
                             </a>

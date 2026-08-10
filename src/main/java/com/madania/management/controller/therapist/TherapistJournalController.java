@@ -5,6 +5,8 @@ import com.madania.management.dto.JournalRequest;
 import com.madania.management.entity.Therapist;
 import com.madania.management.entity.TherapyJournal;
 import com.madania.management.entity.TherapySession;
+import com.madania.management.enums.TherapyType;
+import com.madania.management.enums.MoodRating;
 import com.madania.management.service.TherapyJournalService;
 import com.madania.management.service.TherapySessionService;
 import jakarta.validation.Valid;
@@ -86,5 +88,51 @@ public class TherapistJournalController {
                 request.getDocumentationUrl());
 
         return "redirect:/therapist/sessions";
+    }
+
+    @GetMapping("/journal/{id}/edit")
+    public String editJournalForm(@PathVariable UUID id, Model model) {
+        TherapyJournal journal = journalService.getJournalById(id);
+
+        JournalRequest request = new JournalRequest();
+        request.setTitle(journal.getTitle());
+        request.setTherapyType(journal.getTherapyType());
+        request.setSessionGoals(journal.getSessionGoals());
+        request.setContent(journal.getContent());
+        request.setProgressNotes(journal.getProgressNotes());
+        request.setGoalsAchieved(journal.getGoalsAchieved());
+        request.setParentRecommendations(journal.getParentRecommendations());
+        request.setMoodRating(journal.getMood());
+        request.setDocumentationUrl(journal.getDocumentationUrl());
+
+        model.addAttribute("journal", journal);
+        model.addAttribute("request", request);
+        model.addAttribute("therapyTypes", TherapyType.values());
+        model.addAttribute("moodRatings", MoodRating.values());
+        return "pages/therapist/journal/edit";
+    }
+
+    @PostMapping("/journal/{id}/edit")
+    public String updateJournal(@PathVariable UUID id,
+                                @Valid @ModelAttribute("request") JournalRequest request,
+                                BindingResult bindingResult,
+                                Model model) {
+        if (bindingResult.hasErrors()) {
+            TherapyJournal journal = journalService.getJournalById(id);
+            model.addAttribute("journal", journal);
+            model.addAttribute("request", request);
+            model.addAttribute("therapyTypes", com.madania.management.enums.TherapyType.values());
+            model.addAttribute("moodRatings", com.madania.management.enums.MoodRating.values());
+            return "pages/therapist/journal/edit";
+        }
+
+        journalService.updateJournal(id,
+                request.getTitle(), request.getTherapyType(),
+                request.getSessionGoals(), request.getContent(),
+                request.getProgressNotes(), request.getGoalsAchieved(),
+                request.getParentRecommendations(), request.getMoodRating(),
+                request.getDocumentationUrl());
+
+        return "redirect:/therapist/journals";
     }
 }

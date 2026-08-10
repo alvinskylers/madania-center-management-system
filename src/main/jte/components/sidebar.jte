@@ -38,7 +38,7 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/admin/profile" title="View My Profile" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-profile-circle fs-2"></i></span>
-                            <span class="menu-title">View Profile</span>
+                            <span class="menu-title">Profile</span>
                         </a>
                     </div>
 
@@ -46,7 +46,7 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/admin/schedule" title="View all schedules" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-calendar fs-2"></i></span>
-                            <span class="menu-title">View Schedule</span>
+                            <span class="menu-title">Schedule</span>
                         </a>
                     </div>
 
@@ -54,7 +54,7 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/admin/packages" title="View all packages" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-parcel fs-2"></i></span>
-                            <span class="menu-title">View Package</span>
+                            <span class="menu-title">Package</span>
                         </a>
                     </div>
 
@@ -62,7 +62,7 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/admin/journals" title="View all journals" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-book fs-2"></i></span>
-                            <span class="menu-title">View Journals</span>
+                            <span class="menu-title">Journals</span>
                         </a>
                     </div>
 
@@ -106,7 +106,7 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/therapist/profile" title="View My Profile" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-profile-circle fs-2"></i></span>
-                            <span class="menu-title">View Profile</span>
+                            <span class="menu-title">Profile</span>
                         </a>
                     </div>
 
@@ -114,7 +114,15 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/therapist/schedule" title="View all schedules" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-calendar fs-2"></i></span>
-                            <span class="menu-title">View Schedule</span>
+                            <span class="menu-title">Schedule</span>
+                        </a>
+                    </div>
+
+                    <!-- Sessions -->
+                    <div class="menu-item">
+                        <a class="menu-link" href="/therapist/sessions" title="View all schedules" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-calendar fs-2"></i></span>
+                            <span class="menu-title">Sessions</span>
                         </a>
                     </div>
 
@@ -122,7 +130,7 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/therapist/journals" title="View all journals" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-book fs-2"></i></span>
-                            <span class="menu-title">View Journals</span>
+                            <span class="menu-title">Journals</span>
                         </a>
                     </div>
 
@@ -146,7 +154,7 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/parent/profile" title="View My Profile" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-profile-circle fs-2"></i></span>
-                            <span class="menu-title">View Profile</span>
+                            <span class="menu-title">Profile</span>
                         </a>
                     </div>
 
@@ -154,7 +162,7 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/parent/schedule" title="View all schedules" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-calendar fs-2"></i></span>
-                            <span class="menu-title">View Schedule</span>
+                            <span class="menu-title">Schedule</span>
                         </a>
                     </div>
 
@@ -162,7 +170,7 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/parent/journals" title="View all journals" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-book fs-2"></i></span>
-                            <span class="menu-title">View Journals</span>
+                            <span class="menu-title">Journals</span>
                         </a>
                     </div>
                 @endif

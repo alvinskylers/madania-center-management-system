@@ -71,4 +71,25 @@ public class TherapyJournalService {
 
         return journalRepository.save(journal);
     }
+
+    @Transactional
+    public TherapyJournal updateJournal(UUID id, String title, TherapyType therapyType,
+                                        String sessionGoals, String content,
+                                        String progressNotes, String goalsAchieved,
+                                        String parentRecommendations, MoodRating moodRating,
+                                        String documentationUrl) {
+
+        TherapyJournal journal = getJournalById(id);
+        journal.setTitle(title);
+        journal.setTherapyType(therapyType);
+        journal.setSessionGoals(sessionGoals);
+        journal.setContent(content);
+        journal.setProgressNotes(progressNotes);
+        journal.setGoalsAchieved(goalsAchieved);
+        journal.setParentRecommendations(parentRecommendations);
+        journal.setMood(moodRating);
+        journal.setDocumentationUrl(documentationUrl);
+
+        return journalRepository.save(journal);
+    }
 }

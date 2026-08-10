@@ -43,7 +43,11 @@ content = @`
                         <td>
                             <a href="/therapist/journal/${String.valueOf(journal.getId())}/edit"
                                class="btn btn-sm btn-light-primary">
-                                View
+                                <i class="ki-outline ki-pencil fs-3"></i>
+                            </a>
+                            <a href="/therapist/journal/${String.valueOf(journal.getId())}"
+                               class="btn btn-icon btn-bg-light btn-sm">
+                                <i class="ki-outline ki-eye fs-3"></i>
                             </a>
                         </td>
                     </tr>

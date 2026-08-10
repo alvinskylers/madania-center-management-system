@@ -36,6 +36,13 @@ public class TherapistJournalController {
         return "pages/therapist/journal/index";
     }
 
+    @GetMapping("/journal/{id}")
+    public String viewJournal(@PathVariable UUID id, Model model) {
+        TherapyJournal journal = journalService.getJournalById(id);
+        model.addAttribute("journal", journal);
+        return "pages/therapist/journal/view";
+    }
+
     @GetMapping("/journal/create/{sessionId}")
     public String createJournalForm(@PathVariable UUID sessionId,
                                     Authentication authentication,

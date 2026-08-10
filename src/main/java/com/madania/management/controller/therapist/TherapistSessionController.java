@@ -8,8 +8,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
+
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,5 +30,11 @@ public class TherapistSessionController {
         model.addAttribute("sessions", sessionService.getSessionsByTherapistId(therapist.getId()));
 
         return "pages/therapist/session/index";
+    }
+
+    @PostMapping("/session/{sessionId}/complete")
+    public String completeSession(@PathVariable UUID sessionId) {
+        sessionService.completeSession(sessionId);
+        return "redirect:/therapist/sessions";
     }
 }

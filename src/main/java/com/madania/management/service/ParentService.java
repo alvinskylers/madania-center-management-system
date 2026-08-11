@@ -1,10 +1,12 @@
 package com.madania.management.service;
 
 import com.madania.management.entity.Parent;
+import com.madania.management.entity.Patient;
 import com.madania.management.entity.Therapist;
 import com.madania.management.entity.User;
 import com.madania.management.enums.Role;
 import com.madania.management.repository.ParentRepository;
+import com.madania.management.repository.PatientRepository;
 import com.madania.management.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ParentService {
 
+    private final PatientRepository patientRepository;
     private final ParentRepository parentRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -91,4 +94,14 @@ public class ParentService {
     public User getUserByParentId(UUID id) {
         return getParentById(id).getUser();
     }
+
+    public Parent getParentByUserId(UUID userId) {
+        return parentRepository.findByUserId(userId)
+                .orElseThrow(() -> new RuntimeException("Parent profile not found for user id: " + userId));
+    }
+
+    public List<Patient> getPatientsByParentId(UUID parentId) {
+        return patientRepository.findByParentId(parentId);
+    }
+
 }

@@ -37,6 +37,10 @@ public class TherapySessionService {
                 .orElseThrow(() -> new RuntimeException("Session not found with id: " + sessionId));
     }
 
+    public List<TherapySession> getSessionsByPatientId(UUID patientId) {
+        return sessionRepository.findByPatientId(patientId);
+    }
+
     @Transactional
     public void completeSession(UUID sessionId) {
         TherapySession session = getSessionById(sessionId);

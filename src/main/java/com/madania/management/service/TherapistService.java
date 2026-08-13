@@ -88,6 +88,11 @@ public class TherapistService {
                 .orElseThrow(() -> new RuntimeException("Therapist profile not found for user id: " + id));
     }
 
+    public Therapist getTherapistByUserId(UUID id) {
+        return therapistRepository.findByUserId(id)
+                .orElseThrow(() -> new RuntimeException("Therapist profile not found for user id: " + id));
+    }
+
     public User getUserByTherapistId(UUID id) {
         return getTherapistById(id).getUser();
     }

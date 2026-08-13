@@ -35,12 +35,6 @@
                             <span class="menu-title">Dashboard</span>
                         </a>
                     </div>
-                    <div class="menu-item">
-                        <a class="menu-link" href="/admin/profile" title="View My Profile" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-bullet"><i class="ki-outline ki-profile-circle fs-2"></i></span>
-                            <span class="menu-title">Profile</span>
-                        </a>
-                    </div>
 
                     <!-- Schedule -->
                     <div class="menu-item">
@@ -104,7 +98,7 @@
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a class="menu-link" href="/therapist/profile" title="View My Profile" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/profile" title="View My Profile" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-profile-circle fs-2"></i></span>
                             <span class="menu-title">Profile</span>
                         </a>
@@ -152,7 +146,7 @@
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a class="menu-link" href="/parent/profile" title="View My Profile" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/profile" title="View My Profile" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-profile-circle fs-2"></i></span>
                             <span class="menu-title">Profile</span>
                         </a>

@@ -7,13 +7,13 @@
 @param BindingResult bindingResult = null
 
 @template.layout.base(
-title = "My Profile",
+title = "Edit Profile",
 role = role,
 content = @`
-    <!--begin::My Profile - view-only card with all fields-->
+    <!--begin::My Profile - only the user details card (no slider)-->
     <div class="row g-7 justify-content-center">
         <div class="col-12 col-lg-8 col-xl-6">
-            <!--begin::Card-->
+            <!--begin::Card (copied from new HTML's left sidebar)-->
             <div class="card mb-5 mb-xl-8">
                 <!--begin::Card header with title and buttons-->
                 <div class="card-header">
@@ -50,7 +50,7 @@ content = @`
 
                     <!--begin::User Info (avatar + name)-->
                     <div class="d-flex flex-center flex-column py-5">
-                        <!--begin::Avatar (initials)-->
+                        <!--begin::Avatar (using static blank.png, or you can use initials)-->
                         <div class="symbol symbol-100px symbol-circle mb-7">
                             <img src="/media/avatars/blank.png" alt="user" />
                         </div>
@@ -66,23 +66,10 @@ content = @`
                         </div>
                         <!--end::Position-->
 
-                        <!--begin::Stats (optional placeholder)-->
-                        <div class="fw-bold mb-3">Account Information</div>
-                        <div class="d-flex flex-wrap flex-center">
-                            <div class="border border-gray-300 border-dashed rounded py-3 px-3 mb-3">
-                                <div class="fs-4 fw-bold text-gray-700">${request.getEmail()}</div>
-                                <div class="fw-semibold text-muted">Email</div>
-                            </div>
-                            <div class="border border-gray-300 border-dashed rounded py-3 px-3 mx-4 mb-3">
-                                <div class="fs-4 fw-bold text-gray-700">${request.getPhone() != null && !request.getPhone().isEmpty() ? request.getPhone() : "Not set"}</div>
-                                <div class="fw-semibold text-muted">Phone</div>
-                            </div>
-                        </div>
-                        <!--end::Stats-->
                     </div>
                     <!--end::User Info-->
 
-                    <!--begin::Details toggle-->
+                    <!--begin::Details toggle (optional)-->
                     <div class="d-flex flex-stack fs-4 py-3">
                         <div class="fw-bold rotate collapsible" data-bs-toggle="collapse" href="#kt_user_view_details" role="button" aria-expanded="true" aria-controls="kt_user_view_details">
                             Details
@@ -93,12 +80,9 @@ content = @`
                     </div>
                     <div class="separator"></div>
 
-                    <!--begin::Details content - all fields from the form -->
+                    <!--begin::Details content-->
                     <div id="kt_user_view_details" class="collapse show">
                         <div class="pb-5 fs-6">
-                            <!-- Full Name -->
-                            <div class="fw-bold mt-5">Full Name</div>
-                            <div class="text-gray-600">${request.getUsername()}</div>
 
                             <!-- Email -->
                             <div class="fw-bold mt-5">Email</div>
@@ -112,15 +96,9 @@ content = @`
 
                             <!-- Address -->
                             <div class="fw-bold mt-5">Address</div>
-                            <div class="text-gray-600">${request.getAddress() != null && !request.getAddress().isEmpty() ? request.getAddress() : "Not provided"}</div>
+                            <div class="text-gray-600">${request.getAddress() != null && !request.getAddress().isEmpty() ? request.getAddress() : "Not specified"}</div>
 
-                            <!-- Specialization (from the original template) -->
-                            <div class="fw-bold mt-5">Specialization</div>
-                            <div class="text-gray-600">${request.getSpecialization() != null && !request.getSpecialization().isEmpty() ? request.getSpecialization() : "Not specified"}</div>
 
-                            <!-- You can add Role here as well -->
-                            <div class="fw-bold mt-5">Role</div>
-                            <div class="text-gray-600">${role}</div>
                         </div>
                     </div>
                     <!--end::Details content-->

@@ -83,6 +83,29 @@ public class TherapistService {
         userRepository.delete(therapistUser);
     }
 
+    @Transactional
+    public void updateProfile(UUID userId, String fullName, String email,
+                              String phone, String specialization) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!user.getEmail().equals(email) && userRepository.existsByEmail(email)) {
+            throw new RuntimeException("Email already in use");
+        }
+
+        user.setName(fullName);
+        user.setEmail(email);
+        userRepository.save(user);
+
+        Therapist therapist = therapistRepository.findByUserId(userId)
+                .orElseThrow(() -> new RuntimeException("Therapist profile not found"));
+
+        therapist.setFullName(fullName);
+        therapist.setPhone(phone);
+        therapist.setSpecialization(specialization);
+        therapistRepository.save(therapist);
+    }
+
     public Therapist getTherapistById(UUID id) {
         return therapistRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Therapist profile not found for user id: " + id));

@@ -91,6 +91,29 @@ public class ParentService {
                 .orElseThrow(() -> new RuntimeException("Parent profile not found for user id: " + id));
     }
 
+    @Transactional
+    public void updateProfile(UUID userId, String fullName, String email,
+                              String phone, String address) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!user.getEmail().equals(email) && userRepository.existsByEmail(email)) {
+            throw new RuntimeException("Email already in use");
+        }
+
+        user.setName(fullName);
+        user.setEmail(email);
+        userRepository.save(user);
+
+        Parent parent = parentRepository.findByUserId(userId)
+                .orElseThrow(() -> new RuntimeException("Parent profile not found"));
+
+        parent.setFullName(fullName);
+        parent.setPhone(phone);
+        parent.setAddress(address);
+        parentRepository.save(parent);
+    }
+
     public User getUserByParentId(UUID id) {
         return getParentById(id).getUser();
     }

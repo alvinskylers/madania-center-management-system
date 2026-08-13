@@ -27,6 +27,10 @@ public class TherapyJournalService {
         return journalRepository.findByTherapistId(therapistId);
     }
 
+    public List<TherapyJournal> getJournalsByPatientId(UUID patientId) {
+        return journalRepository.findByPatientId(patientId);
+    }
+
     public TherapyJournal getJournalBySessionId(UUID sessionId) {
         return journalRepository.findBySessionId(sessionId).orElse(null);
     }

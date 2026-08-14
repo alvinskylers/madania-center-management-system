@@ -5,11 +5,20 @@
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param ProfileUpdateRequest request
 @param BindingResult bindingResult = null
+@param String success
 
 @template.layout.base(
 title = "Edit Profile",
 role = role,
 content = @`
+
+    @if(success != null)
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong>${success}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <!--begin::My Profile - only the user details card (no slider)-->
     <div class="row g-7 justify-content-center">
         <div class="col-12 col-lg-8 col-xl-6">

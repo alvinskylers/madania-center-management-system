@@ -105,6 +105,22 @@ public class UserService {
         userRepository.save(user);
     }
 
+    @Transactional
+    public void changePassword(UUID userId, String currentPassword, String newPassword, String confirmPassword) {
+        User user = getUserById(userId);
+
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            throw new RuntimeException("Current password is incorrect");
+        }
+
+        if (!newPassword.equals(confirmPassword)) {
+            throw new RuntimeException("New passwords do not match.");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
+
     private void validateUniqueness(String email) {
         if (userRepository.existsByEmail(email)) {
             throw new RuntimeException("Email already in use: " + email);

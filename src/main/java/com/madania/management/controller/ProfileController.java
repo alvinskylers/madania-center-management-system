@@ -1,6 +1,7 @@
 package com.madania.management.controller;
 
 import com.madania.management.config.security.CustomUserDetails;
+import com.madania.management.dto.ChangePasswordRequest;
 import com.madania.management.dto.ProfileUpdateRequest;
 import com.madania.management.entity.Parent;
 import com.madania.management.entity.Therapist;
@@ -99,8 +100,14 @@ public class ProfileController {
                                 RedirectAttributes redirectAttributes,
                                 Model model) {
 
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        UUID userId = userDetails.getUser().getId();
+        Role role = userDetails.getUser().getRole();
 
-        if (userService.emailExists(request.getEmail())) {
+        boolean emailExists =  userService.emailExists(request.getEmail());
+        boolean isCurrentUserEmail = userDetails.getUser().getEmail().equals(request.getEmail());
+
+        if (emailExists &&  !isCurrentUserEmail) {
             bindingResult.addError(new FieldError(
                     "request",
                     "email",
@@ -112,10 +119,6 @@ public class ProfileController {
             model.addAttribute("bindingResult", bindingResult);
             return getProfileView(authentication);
         }
-
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        UUID userId = userDetails.getUser().getId();
-        Role role = userDetails.getUser().getRole();
 
         try {
             if (role == Role.THERAPIST) {
@@ -139,6 +142,42 @@ public class ProfileController {
         return role == Role.THERAPIST
                 ? "pages/therapist/profile/edit"
                 : "pages/parent/profile/edit";
+    }
+
+    @GetMapping("/password")
+    public String changePasswordForm(Model model) {
+        model.addAttribute("request", new ChangePasswordRequest());
+        return "pages/change-password";
+    }
+
+    @PostMapping("/password")
+    public String changePassword(@Valid @ModelAttribute("request") ChangePasswordRequest request,
+                                 BindingResult bindingResult,
+                                 Authentication authentication,
+                                 RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            return "pages/change-password";
+        }
+
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+
+        try {
+            userService.changePassword(userDetails.getUser().getId(),
+                    request.getCurrentPassword(),
+                    request.getNewPassword(),
+                    request.getConfirmPassword());
+            redirectAttributes.addFlashAttribute("success", "Password changed successfully");
+        } catch (RuntimeException e) {
+            bindingResult.addError(new FieldError(
+                    "request",
+                    "password",
+                    e.getMessage()
+            ));
+            return "pages/change-password";
+        }
+
+        return "redirect:/profile";
     }
 
 }

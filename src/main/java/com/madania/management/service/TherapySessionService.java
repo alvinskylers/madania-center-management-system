@@ -65,6 +65,12 @@ public class TherapySessionService {
                 .toList();
     }
 
+    public List<TherapySession> getUpcomingSessionsByPatientId(UUID id) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime endOfWeek = now.plusDays(7);
+        return sessionRepository.findByPatientIdAndStartTimeBetween(id, now, endOfWeek);
+    }
+
     @Transactional
     public void completeSession(UUID sessionId) {
         TherapySession session = getSessionById(sessionId);

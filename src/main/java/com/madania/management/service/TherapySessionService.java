@@ -83,6 +83,10 @@ public class TherapySessionService {
         return sessionRepository.findByPatientIdAndStartTimeBetween(id, now, endOfWeek);
     }
 
+    public List<TherapySession> getAllSessions() {
+        return sessionRepository.findAll();
+    }
+
     @Transactional
     public void completeSession(UUID sessionId) {
         TherapySession session = getSessionById(sessionId);

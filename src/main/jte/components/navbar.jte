@@ -1,3 +1,7 @@
+
+@import org.springframework.security.web.csrf.CsrfToken
+@param CsrfToken _csrf
+
 <!--begin::Header-->
 <div id="kt_app_header" class="app-header">
     <!--begin::Header container-->
@@ -134,7 +138,16 @@
                     <!--end::Menu item-->
                     <!--begin::Menu item-->
                     <div class="menu-item px-5">
-                        <a href="" class="menu-link px-5">Sign Out</a>
+                        <form action="/logout" method="post">
+                            <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
+                            <button type="submit" class="btn menu-link px-5 border-0 w-100 text-start">
+                                 <span class="menu-title position-relative">Sign out
+                                    <span class="ms-5 position-absolute translate-middle-y top-50 end-0">
+                                        <i class="ki-outline ki-exit-left theme-light-show fs-2"></i>
+                                    </span>
+                                </span>
+                            </button>
+                        </form>
                     </div>
                     <!--end::Menu item-->
                 </div>

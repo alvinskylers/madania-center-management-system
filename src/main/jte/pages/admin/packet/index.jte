@@ -8,6 +8,7 @@
 @template.layout.base(
 title = "Therapy Packages",
 role = role,
+_csrf = _csrf,
 content = @`
     <h1>Therapy Packages</h1>
     <a href="/admin/package/create" class="btn btn-primary">+ Create New Package</a>

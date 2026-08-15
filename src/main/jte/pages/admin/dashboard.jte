@@ -1,5 +1,13 @@
+
+@import org.springframework.security.web.csrf.CsrfToken
+@param CsrfToken _csrf
 @param String role
-@template.layout.base(title = "Dashboard", role = role, content = @`
+
+@template.layout.base(
+title = "Dashboard",
+role = role,
+_csrf = _csrf,
+content = @`
     <!--begin::Row-->
     <div class="row gx-5 gx-xl-10">
         <!--begin::Col-->

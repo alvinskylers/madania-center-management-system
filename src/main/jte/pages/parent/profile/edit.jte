@@ -9,6 +9,7 @@
 @template.layout.base(
 title = "My Profile",
 role = role,
+_csrf = _csrf,
 content = @`
     <!--begin::Edit Profile - form card-->
     <div class="row g-7 justify-content-center">

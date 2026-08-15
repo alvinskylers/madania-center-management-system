@@ -11,6 +11,7 @@
 @template.layout.base(
 title = "Edit Parent",
 role = role,
+_csrf = _csrf,
 content = @`
     <h1>Edit Parent</h1>
 

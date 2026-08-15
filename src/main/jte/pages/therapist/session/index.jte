@@ -9,6 +9,7 @@
 @template.layout.base(
 title = "My Sessions",
 role = role,
+_csrf = _csrf,
 content = @`
     <div class="d-flex justify-content-between align-items-center mb-5">
         <h1 class="page-heading">My Sessions</h1>

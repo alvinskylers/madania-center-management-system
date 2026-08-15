@@ -17,6 +17,7 @@
 @template.layout.base(
 title = "Create Therapy Package",
 role = role,
+_csrf = _csrf,
 content = @`
     <h1>Create Therapy Package</h1>
     <p>This will assign a patient to a therapist for 12 sessions, 3 times per week.</p>

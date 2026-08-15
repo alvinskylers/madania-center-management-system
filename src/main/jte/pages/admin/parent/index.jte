@@ -9,6 +9,7 @@
 @template.layout.base(
 title = "Parents",
 role = role,
+_csrf = _csrf,
 content = @`
 
     <!--begin::Content wrapper-->

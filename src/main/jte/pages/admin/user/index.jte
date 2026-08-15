@@ -10,6 +10,7 @@
 @template.layout.base(
 title = "Users",
 role = role,
+_csrf = _csrf,
 content = @`
     <div id="kt_app_toolbar" class="app-toolbar pt-7 pt-lg-10">
         <!--begin::Toolbar container-->

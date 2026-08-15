@@ -7,7 +7,11 @@
 @param Patient patient
 @param BindingResult bindingResult
 
-@template.layout.base(title = "Patient Edit", role = role, content = @`
+@template.layout.base(
+title = "Patient Edit",
+role = role,
+_csrf = _csrf,
+content = @`
 
     @if(bindingResult != null && bindingResult.hasErrors())
         @for(var error : bindingResult.getAllErrors())

@@ -7,7 +7,11 @@
 @param Patient patient
 @param String success
 
-@template.layout.base(title = "Patient Details", role = role, content = @`
+@template.layout.base(
+title = "Patient Details",
+role = role,
+_csrf = _csrf,
+content = @`
     <!--begin::Toolbar (Page title & actions)-->
 
     @if(success != null)

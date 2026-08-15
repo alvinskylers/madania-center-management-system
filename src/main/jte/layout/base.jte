@@ -1,8 +1,11 @@
 @import gg.jte.Content
+@import org.springframework.security.web.csrf.CsrfToken
 
 @param String title
 @param Content content
 @param String role
+@param CsrfToken _csrf
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +47,7 @@
     <!--begin::Page-->
     <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
         <!--begin::Navbar-->
-        @template.components.navbar()
+        @template.components.navbar(_csrf = _csrf)
         <!--end:Navbar-->
         <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
             <!--begin::Sidebar-->

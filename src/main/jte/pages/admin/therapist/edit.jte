@@ -11,6 +11,7 @@
 @template.layout.base(
 title = "Edit Therapist",
 role = role,
+_csrf = _csrf,
 content = @`
     <h1>Edit Therapist</h1>
 

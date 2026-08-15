@@ -13,6 +13,7 @@
 @template.layout.base(
 title = "Add Patient",
 role = role,
+_csrf = _csrf,
 content = @`
 
     @if(bindingResult != null && bindingResult.hasErrors())

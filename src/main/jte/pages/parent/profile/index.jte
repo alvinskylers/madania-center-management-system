@@ -10,6 +10,7 @@
 @template.layout.base(
 title = "Edit Profile",
 role = role,
+_csrf = _csrf,
 content = @`
 
     @if(success != null)

@@ -9,6 +9,7 @@
 @template.layout.base(
 title = "Therapists",
 role = role,
+_csrf = _csrf,
 content = @`
 
     <!--begin::Content wrapper-->

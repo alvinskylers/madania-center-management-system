@@ -9,6 +9,7 @@
 @template.layout.base(
 title = "Add Parent",
 role = role,
+_csrf = _csrf,
 content = @`
     <h1>Add Parent</h1>
 

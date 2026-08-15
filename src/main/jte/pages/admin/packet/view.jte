@@ -11,6 +11,7 @@
 @template.layout.base(
 title = "Package Details",
 role = role,
+_csrf = _csrf,
 content = @`
     <h1>Package Details</h1>
 

@@ -9,6 +9,7 @@
 @template.layout.base(
 title = "Add Therapist",
 role = role,
+_csrf = _csrf,
 content = @`
     <h1>Add Therapist</h1>
 

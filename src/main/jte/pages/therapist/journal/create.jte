@@ -15,6 +15,7 @@
 @template.layout.base(
 title = "Write Journal",
 role = role,
+_csrf = _csrf,
 content = @`
     <div class="d-flex justify-content-between align-items-center mb-5">
         <h1 class="page-heading">Write Journal</h1>

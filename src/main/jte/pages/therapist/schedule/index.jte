@@ -4,6 +4,7 @@
 @template.layout.base(
 title = "My Schedule",
 role = role,
+_csrf = _csrf,
 content = @`
     <div class="d-flex justify-content-between align-items-center mb-5">
         <h1 class="page-heading">My Schedule</h1>

@@ -6,7 +6,11 @@
 @param String error
 @param java.util.List<Patient> patients
 
-@template.layout.base(title = "Patients", role = role, content = @`
+@template.layout.base(
+title = "Patients",
+role = role,
+_csrf = _csrf,
+content = @`
 
     @if(success != null)
         <div class="alert alert-primary alert-dismissible fade show" role="alert">

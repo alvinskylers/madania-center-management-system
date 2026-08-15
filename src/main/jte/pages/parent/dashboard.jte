@@ -16,6 +16,7 @@
 @template.layout.base(
 title = "Dashboard",
 role = role,
+_csrf = _csrf,
 content = @`
 
     <!--begin::Header-->

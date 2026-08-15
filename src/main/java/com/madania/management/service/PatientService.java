@@ -41,6 +41,14 @@ public class PatientService {
                 .orElseThrow(() -> new RuntimeException("Patient not found with id: " + id));
     }
 
+    public long countActivePatients() {
+        return patientRepository.findByIsActiveTrue().size();
+    }
+
+    public long countAllPatients() {
+        return patientRepository.findAll().size();
+    }
+
     @Transactional
     public Patient createPatient(UUID parentId, String fullName, LocalDate dateOfBirth,
                                  Gender gender, String diagnosis, String notes) {

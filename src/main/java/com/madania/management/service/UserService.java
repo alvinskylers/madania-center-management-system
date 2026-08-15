@@ -130,4 +130,13 @@ public class UserService {
     public boolean emailExists(String email) {
         return userRepository.existsByEmail(email);
     }
+
+    public long countUsersByRole(Role role) {
+        return userRepository.findAll().stream()
+                .filter(s -> s.getRole() == role).count();
+    }
+
+    public long countAllUsers() {
+        return userRepository.count();
+    }
 }

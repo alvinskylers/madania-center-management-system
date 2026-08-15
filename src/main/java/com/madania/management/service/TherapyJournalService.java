@@ -40,6 +40,10 @@ public class TherapyJournalService {
                 .orElseThrow(() -> new RuntimeException("Journal not found with id: " + id));
     }
 
+    public long countAllJournals() {
+        return journalRepository.count();
+    }
+
     @Transactional
     public TherapyJournal createJournal(UUID sessionId, UUID therapistId,
                                         String title, TherapyType therapyType,

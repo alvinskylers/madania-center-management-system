@@ -65,6 +65,18 @@ public class TherapySessionService {
                 .toList();
     }
 
+    public List<TherapySession> getTodaySessionsAllTherapist() {
+        LocalDateTime startOfDay = LocalDate.now().atStartOfDay();
+        LocalDateTime endOfDay = LocalDate.now().atTime(23 ,59, 59);
+        return sessionRepository.findByStartTimeBetween(startOfDay, endOfDay);
+    }
+
+    public long countCompletedSessions() {
+        return sessionRepository.findAll().stream()
+                .filter(s -> s.getStatus() == SessionStatus.COMPLETED)
+                .count();
+    }
+
     public List<TherapySession> getUpcomingSessionsByPatientId(UUID id) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime endOfWeek = now.plusDays(7);
@@ -91,5 +103,4 @@ public class TherapySessionService {
 
         packageRepository.save(pkg);
     }
-
 }

@@ -13,10 +13,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -44,6 +41,23 @@ public class TherapyPackageService {
 
     public List<DayOfWeek> getDays() {
         return Arrays.asList(DayOfWeek.values());
+    }
+
+    public long countActivePackages() {
+        return packageRepository.findByStatus(PackageStatus.ACTIVE).size();
+    }
+
+    public List<TherapyPackage> getRecentPackages() {
+        return packageRepository.findAll().stream()
+        .sorted((a,b) -> b.getCreatedAt().compareTo(a.getCreatedAt()))
+        .limit(5)
+        .toList();
+    }
+
+    public long countCompletedPackages() {
+        return packageRepository.findAll().stream()
+                .filter(p -> p.getStatus() == PackageStatus.COMPLETED)
+                .count();
     }
 
     @Transactional

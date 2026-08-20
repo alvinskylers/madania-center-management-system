@@ -44,6 +44,10 @@ public class TherapyJournalService {
         return journalRepository.count();
     }
 
+    public List<TherapyJournal> getAllJournals() {
+        return journalRepository.findAll();
+    }
+
     @Transactional
     public TherapyJournal createJournal(UUID sessionId, UUID therapistId,
                                         String title, TherapyType therapyType,

@@ -15,12 +15,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class TherapySessionService {
+
+    private static final DateTimeFormatter CONFLICT_DATE_FORMAT = DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy HH:mm");
+    private static final LocalTime CLINIC_OPENING = LocalTime.of(8,0);
+    private static final LocalTime CLINIC_CLOSING = LocalTime.of(17,0);
 
     private final TherapySessionRepository sessionRepository;
     private final TherapistRepository therapistRepository;
@@ -39,6 +46,39 @@ public class TherapySessionService {
     public TherapySession getSessionById(UUID sessionId) {
         return sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new RuntimeException("Session not found with id: " + sessionId));
+    }
+
+    public Optional<TherapySession> findConflict(UUID therapistId, LocalDateTime startTime, LocalDateTime endTime, UUID excludeId) {
+        List<TherapySession> scheduledSessions = sessionRepository.findByTherapistIdAndStatus(therapistId, SessionStatus.SCHEDULED);
+
+        return scheduledSessions.stream()
+                .filter(s -> excludeId == null || !s.getId().equals(excludeId))
+                .filter(s -> startTime.isBefore(s.getEndTime()) && endTime.isAfter(s.getStartTime()))
+                .findFirst();
+    }
+
+    public boolean hasConflict(UUID therapistId, LocalDateTime startTime, LocalDateTime endTime, UUID excludeSessionId) {
+        return findConflict(therapistId, startTime, endTime, excludeSessionId).isPresent();
+    }
+
+    public void validateNoConflict(UUID therapistId, LocalDateTime startTime, LocalDateTime endTime, UUID excludeSessionId) {
+        findConflict(therapistId, startTime, endTime, excludeSessionId).ifPresent(existing -> {
+            throw new RuntimeException(
+                    "Therapist already has a session with " + existing.getPatient().getFullName() +
+                            " on " + existing.getStartTime().format(CONFLICT_DATE_FORMAT) +
+                            " (until " + existing.getEndTime().toLocalTime() + "), " +
+                            "which overlaps with the requested time on " + startTime.format(CONFLICT_DATE_FORMAT) + "."
+            );
+        });
+    }
+
+    public void validateWithinOperatingHours(LocalTime sessionStart, LocalTime sessionEnd) {
+        if (sessionStart.isBefore(CLINIC_OPENING) || sessionEnd.isAfter(CLINIC_CLOSING)) {
+            throw new RuntimeException(
+                    "Session time " + sessionStart + " - " + sessionEnd +
+                            " is outside clinic operating hours (08:00 - 17:00)."
+            );
+        }
     }
 
     public List<TherapySession> getSessionsByPatientId(UUID patientId) {

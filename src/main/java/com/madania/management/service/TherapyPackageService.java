@@ -23,6 +23,7 @@ public class TherapyPackageService {
     private final TherapyPackageRepository packageRepository;
     private final TherapySessionRepository sessionRepository;
     private final TherapistRepository therapistRepository;
+    private final TherapySessionService sessionService;
     private final PatientRepository patientRepository;
     private final UserRepository userRepository;
 
@@ -69,12 +70,16 @@ public class TherapyPackageService {
             throw new RuntimeException("Exactly 3 days must be selected for a package");
         }
 
+        sessionService.validateWithinOperatingHours(preferredTime, preferredTime.plusHours(1));
+
         Patient patient = patientRepository.findById(patientId)
                 .orElseThrow(() -> new RuntimeException("Patient not found."));
         Therapist therapist = therapistRepository.findById(therapistId)
                 .orElseThrow(() -> new RuntimeException("Therapist not found."));
         User assigner = userRepository.findById(createdByUserId)
                 .orElseThrow(() -> new RuntimeException("User not found."));
+
+        validateNoActivePackageOverlap(patientId, startDate);
 
         TherapyPackage therapyPackage = TherapyPackage.builder()
                 .patient(patient)
@@ -105,6 +110,8 @@ public class TherapyPackageService {
             if (days.contains((cursor.getDayOfWeek()))) {
                 LocalDateTime startTime = LocalDateTime.of(cursor, preferredTime);
                 LocalDateTime endTime = startTime.plusHours(1);
+
+                sessionService.validateNoConflict(therapistId, startTime, endTime, null);
 
                 TherapySession session = TherapySession.builder()
                         .therapyPackage(therapyPackage)
@@ -142,6 +149,24 @@ public class TherapyPackageService {
             }
         }
         sessionRepository.saveAll(sessions);
+    }
+
+    private void validateNoActivePackageOverlap(UUID patientId, LocalDate newStartDate) {
+        List<TherapyPackage> existingPackages = packageRepository.findByPatientId(patientId);
+
+        Optional<TherapyPackage> blocking = existingPackages.stream()
+                .filter(p -> p.getStatus() == PackageStatus.ACTIVE)
+                .filter(p -> p.getEndDate() == null || !newStartDate.isAfter(p.getEndDate()))
+                .findFirst();
+
+        blocking.ifPresent(p -> {
+            throw new RuntimeException(
+                    "Patient already has an active package running until " +
+                            (p.getEndDate() != null ? p.getEndDate() : "an undetermined date") +
+                            ". The new package must start on or after " +
+                            (p.getEndDate() != null ? p.getEndDate().plusDays(1) : "that package's end date") + "."
+            );
+        });
     }
 
 }

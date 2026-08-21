@@ -67,11 +67,20 @@ public class AdminPackageController {
 
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 
-        System.out.println(userDetails.getUser().getId());
-        packageService.createPackage(
-                request.getPatientId(), request.getTherapistId(),
-                userDetails.getUser().getId(), request.getStartDate(),
-                request.getPreferredTime(), request.getDays(), request.getNotes());
+        try {
+            packageService.createPackage(
+                    request.getPatientId(), request.getTherapistId(),
+                    userDetails.getUser().getId(), request.getStartDate(),
+                    request.getPreferredTime(), request.getDays(), request.getNotes()
+            );
+        } catch(RuntimeException e) {
+            model.addAttribute("scheduleError", e.getMessage());
+            model.addAttribute("patients", patientService.getActivePatients());
+            model.addAttribute("therapists", therapistRepository.findAll());
+            model.addAttribute("days", packageService.getDays());
+            model.addAttribute("bindingResult", bindingResult);
+            return "pages/admin/packet/create";
+        }
 
         return "redirect:/admin/packages";
     }

@@ -12,6 +12,7 @@
 @param List<Therapist> therapists
 @param List<DayOfWeek> days
 @param String daysError = null
+@param String scheduleError = null
 @param BindingResult bindingResult = null
 
 @template.layout.base(
@@ -32,6 +33,9 @@ content = @`
 
     @if(daysError != null)
         <div class="alert alert-danger"><p>${daysError}</p></div>
+    @endif
+    @if(scheduleError != null)
+        <div class="alert alert-danger"><p>${scheduleError}</p></div>
     @endif
 
     <form action="/admin/package/create" method="post">

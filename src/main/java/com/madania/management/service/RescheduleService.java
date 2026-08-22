@@ -35,6 +35,10 @@ public class RescheduleService {
                 .orElseThrow(()-> new RuntimeException("Request schedule not found: " + id));
     }
 
+    public List<RescheduleRequest> getAllRequests() {
+        return rescheduleRepository.findAllByOrderByCreatedAtDesc();
+    }
+
     @Transactional
     public RescheduleRequest submitRequest(UUID sessionId, UUID requestedByUserId,
                                            LocalDateTime requestedStartTime, String reason, String notes) {
@@ -72,4 +76,56 @@ public class RescheduleService {
         return rescheduleRepository.save(request);
     }
 
+    @Transactional
+    public RescheduleRequest approveRequest(UUID requestId, String adminNotes) {
+        RescheduleRequest request = rescheduleRepository.findById(requestId)
+                .orElseThrow(() -> new RuntimeException("Reschedule request not found: " + requestId));
+
+        if (request.getStatus() != RescheduleStatus.PENDING) {
+            throw new RuntimeException("Only a pending request can be approved. Current status: " + request.getStatus());
+        }
+
+        TherapySession oldSession = request.getSession();
+        LocalDateTime newStart = request.getRequestedStartTime();
+        LocalDateTime newEnd = newStart.plusHours(1);
+
+        sessionService.validateWithinOperatingHours(newStart.toLocalTime(), newEnd.toLocalTime());
+        sessionService.validateNoConflict(oldSession.getTherapist().getId(), newStart, newEnd, oldSession.getId());
+
+        TherapySession newSession = TherapySession.builder()
+                .therapyPackage(oldSession.getTherapyPackage())
+                .patient(oldSession.getPatient())
+                .therapist(oldSession.getTherapist())
+                .sessionNumber(oldSession.getSessionNumber())
+                .day(newStart.getDayOfWeek())
+                .startTime(newStart)
+                .endTime(newEnd)
+                .status(SessionStatus.SCHEDULED)
+                .build();
+        sessionRepository.save(newSession);
+
+        oldSession.setStatus(SessionStatus.RESCHEDULED);
+        oldSession.setCancellationReason(
+                "Rescheduled" + (request.getReason() != null ? ": " + request.getReason() : "")
+        );
+        oldSession.setRescheduledTo(newSession);
+        request.setAdminNotes(adminNotes);
+
+        return rescheduleRepository.save(request);
+    }
+
+    @Transactional
+    public RescheduleRequest rejectRequest(UUID requestId, String adminNotes) {
+        RescheduleRequest request = rescheduleRepository.findById(requestId)
+                .orElseThrow(() -> new RuntimeException("Reschedule request not found: " + requestId));
+
+        if (request.getStatus() != RescheduleStatus.PENDING) {
+            throw new RuntimeException("Only a pending request can be rejected. Current status: " + request.getStatus());
+        }
+
+        request.setStatus(RescheduleStatus.REJECTED);
+        request.setAdminNotes(adminNotes);
+
+        return rescheduleRepository.save(request);
+    }
 }

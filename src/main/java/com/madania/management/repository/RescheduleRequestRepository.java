@@ -11,5 +11,6 @@ public interface RescheduleRequestRepository extends JpaRepository<RescheduleReq
 
     List<RescheduleRequest> findByStatus(RescheduleStatus status);
     List<RescheduleRequest> findBySessionId(UUID sessionId);
+    List<RescheduleRequest> findAllByOrderByCreatedAtDesc();
     List<RescheduleRequest> findByRequestedById(UUID userId);
 }

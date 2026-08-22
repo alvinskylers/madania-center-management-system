@@ -44,7 +44,15 @@
                         </a>
                     </div>
 
-                    <!-- Schedule -->
+                    <!-- Reschedule Requests -->
+                    <div class="menu-item">
+                        <a class="menu-link" href="/admin/reschedules" title="View reschedule requests" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-time fs-2"></i></span>
+                            <span class="menu-title">Reschedule Requests</span>
+                        </a>
+                    </div>
+
+                    <!-- Packages -->
                     <div class="menu-item">
                         <a class="menu-link" href="/admin/packages" title="View all packages" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-parcel fs-2"></i></span>

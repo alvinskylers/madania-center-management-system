@@ -1,3 +1,4 @@
+@import com.madania.management.entity.Notification
 @import com.madania.management.entity.TherapySession
 @import com.madania.management.enums.SessionStatus
 @import java.util.List
@@ -5,11 +6,15 @@
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param List<TherapySession> sessions
+@param long unreadNotificationCount = 0
+@param List<Notification> recentNotifications = null
 
 @template.layout.base(
 title = "My Sessions",
 role = role,
 _csrf = _csrf,
+unreadNotificationCount = unreadNotificationCount,
+recentNotifications = recentNotifications,
 content = @`
     <div class="d-flex justify-content-between align-items-center mb-5">
         <h1 class="page-heading">My Sessions</h1>

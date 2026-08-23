@@ -1,15 +1,21 @@
 @import com.madania.management.dto.ParentCreateRequest
+@import com.madania.management.entity.Notification
 @import org.springframework.validation.BindingResult
+@import java.util.List
 
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param ParentCreateRequest request
 @param BindingResult bindingResult = null
+@param long unreadNotificationCount = 0
+@param List<Notification> recentNotifications = null
 
 @template.layout.base(
 title = "Add Parent",
 role = role,
 _csrf = _csrf,
+unreadNotificationCount = unreadNotificationCount,
+recentNotifications = recentNotifications,
 content = @`
     <h1>Add Parent</h1>
 

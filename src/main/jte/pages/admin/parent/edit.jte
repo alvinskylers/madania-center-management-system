@@ -1,5 +1,7 @@
 @import com.madania.management.dto.ParentEditRequest
+@import com.madania.management.entity.Notification
 @import org.springframework.validation.BindingResult
+@import java.util.List
 @import java.util.UUID
 
 @param String role
@@ -7,11 +9,15 @@
 @param ParentEditRequest request
 @param UUID userId
 @param BindingResult bindingResult = null
+@param long unreadNotificationCount = 0
+@param List<Notification> recentNotifications = null
 
 @template.layout.base(
 title = "Edit Parent",
 role = role,
 _csrf = _csrf,
+unreadNotificationCount = unreadNotificationCount,
+recentNotifications = recentNotifications,
 content = @`
     <h1>Edit Parent</h1>
 

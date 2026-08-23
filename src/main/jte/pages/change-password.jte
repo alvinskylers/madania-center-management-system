@@ -10,6 +10,8 @@
 title = "Change Password",
 role = role,
 _csrf = _csrf,
+unreadNotificationCount = unreadNotificationCount,
+recentNotifications = recentNotifications,
 content = @`
     <div class="d-flex justify-content-between align-items-center mb-5">
         <h1 class="page-heading">Change Password</h1>

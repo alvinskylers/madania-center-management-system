@@ -1,4 +1,5 @@
 @import com.madania.management.dto.PatientRequest
+@import com.madania.management.entity.Notification
 @import com.madania.management.entity.Parent
 @import com.madania.management.enums.Gender
 @import org.springframework.validation.BindingResult
@@ -9,11 +10,15 @@
 @param PatientRequest request
 @param List<Parent> parents
 @param BindingResult bindingResult = null
+@param long unreadNotificationCount = 0
+@param List<Notification> recentNotifications = null
 
 @template.layout.base(
 title = "Add Patient",
 role = role,
 _csrf = _csrf,
+unreadNotificationCount = unreadNotificationCount,
+recentNotifications = recentNotifications,
 content = @`
 
     @if(bindingResult != null && bindingResult.hasErrors())

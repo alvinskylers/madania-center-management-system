@@ -1,3 +1,4 @@
+@import com.madania.management.entity.Notification
 @import com.madania.management.entity.RescheduleRequest
 @import java.util.List
 
@@ -6,11 +7,15 @@
 @param List<RescheduleRequest> requests
 @param String rescheduleError = null
 @param String rescheduleSuccess = null
+@param long unreadNotificationCount = 0
+@param List<Notification> recentNotifications = null
 
 @template.layout.base(
 title = "Reschedule Requests",
 role = role,
 _csrf = _csrf,
+unreadNotificationCount = unreadNotificationCount,
+recentNotifications = recentNotifications,
 content = @`
     <div class="d-flex justify-content-between align-items-center mb-5">
         <h1 class="page-heading">Reschedule Requests</h1>

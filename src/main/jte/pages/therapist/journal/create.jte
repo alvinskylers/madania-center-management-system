@@ -1,8 +1,10 @@
 @import com.madania.management.dto.JournalRequest
+@import com.madania.management.entity.Notification
 @import com.madania.management.entity.TherapySession
 @import com.madania.management.enums.TherapyType
 @import com.madania.management.enums.MoodRating
 @import org.springframework.validation.BindingResult
+@import java.util.List
 
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
@@ -11,11 +13,15 @@
 @param TherapyType[] therapyTypes
 @param MoodRating[] moodRatings
 @param BindingResult bindingResult = null
+@param long unreadNotificationCount = 0
+@param List<Notification> recentNotifications = null
 
 @template.layout.base(
 title = "Write Journal",
 role = role,
 _csrf = _csrf,
+unreadNotificationCount = unreadNotificationCount,
+recentNotifications = recentNotifications,
 content = @`
     <div class="d-flex justify-content-between align-items-center mb-5">
         <h1 class="page-heading">Write Journal</h1>

@@ -1,10 +1,14 @@
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
+@param long unreadNotificationCount = 0
+@param java.util.List<com.madania.management.entity.Notification> recentNotifications = null
 
 @template.layout.base(
 title = "All Sessions",
 role = role,
 _csrf =  _csrf,
+unreadNotificationCount = unreadNotificationCount,
+recentNotifications = recentNotifications,
 content = @`
     <div class="d-flex justify-content-between align-items-center mb-5">
         <h1 class="page-heading">All Sessions</h1>

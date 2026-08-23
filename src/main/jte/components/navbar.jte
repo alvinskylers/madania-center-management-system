@@ -1,6 +1,11 @@
 
 @import org.springframework.security.web.csrf.CsrfToken
+@import com.madania.management.entity.Notification
+@import java.util.List
+
 @param CsrfToken _csrf
+@param long unreadNotificationCount = 0
+@param List<Notification> recentNotifications = null
 
 <!--begin::Header-->
 <div id="kt_app_header" class="app-header">
@@ -22,6 +27,46 @@
         <div class="app-navbar flex-lg-grow-1" id="kt_app_header_navbar">
             <div class="app-navbar-item d-flex align-items-stretch flex-lg-grow-1">
             </div>
+            <!--begin::Notifications-->
+            <div class="app-navbar-item ms-1 ms-md-3">
+                <div class="btn btn-icon btn-custom w-35px h-35px w-md-40px h-md-40px position-relative" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                    <i class="ki-outline ki-notification-status fs-2"></i>
+                    @if(unreadNotificationCount > 0)
+                        <span class="badge badge-circle badge-danger position-absolute top-0 start-100 translate-middle" style="font-size: 0.65rem; padding: 0.35em 0.5em;">
+                            ${unreadNotificationCount > 9 ? "9+" : String.valueOf(unreadNotificationCount)}
+                        </span>
+                    @endif
+                </div>
+                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg fw-semibold py-4 fs-6 w-300px" data-kt-menu="true">
+                    <div class="menu-item px-3">
+                        <div class="menu-content d-flex justify-content-between align-items-center px-3">
+                            <span class="fw-bold fs-5">Notifications</span>
+                            @if(unreadNotificationCount > 0)
+                                <form action="/notifications/mark-all-read" method="post">
+                                    <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
+                                    <button type="submit" class="btn btn-sm btn-link p-0 fs-8">Mark all read</button>
+                                </form>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="separator my-2"></div>
+                    @if(recentNotifications != null && !recentNotifications.isEmpty())
+                        @for(Notification n : recentNotifications)
+                            <div class="menu-item px-3">
+                                <div class="menu-content px-3 py-2 ${n.isRead() ? "" : "bg-light-primary rounded"}">
+                                    <div class="fs-7">${n.getMessage()}</div>
+                                    <div class="text-muted fs-8">${n.getTimeAgo()}</div>
+                                </div>
+                            </div>
+                        @endfor
+                    @else
+                        <div class="menu-item px-3">
+                            <div class="menu-content px-3 py-2 text-muted fs-7">No notifications yet</div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+            <!--end::Notifications-->
             <!--begin::User menu-->
             <div class="app-navbar-item ms-1 ms-md-3" id="kt_header_user_menu_toggle">
                 <!--begin::Menu wrapper-->

@@ -1,16 +1,22 @@
+@import com.madania.management.entity.Notification
 @import com.madania.management.entity.User
 @import org.springframework.data.domain.Page
 @import org.springframework.security.web.csrf.CsrfToken
+@import java.util.List
 
 @param Page<User> users
 @param String role
 @param String query
 @param CsrfToken _csrf
+@param long unreadNotificationCount = 0
+@param List<Notification> recentNotifications = null
 
 @template.layout.base(
 title = "Users",
 role = role,
 _csrf = _csrf,
+unreadNotificationCount = unreadNotificationCount,
+recentNotifications = recentNotifications,
 content = @`
     <div id="kt_app_toolbar" class="app-toolbar pt-7 pt-lg-10">
         <!--begin::Toolbar container-->

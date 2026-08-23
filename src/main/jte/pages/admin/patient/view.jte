@@ -1,16 +1,22 @@
+@import com.madania.management.entity.Notification
 @import com.madania.management.entity.Patient
 @import com.madania.management.enums.Gender
 @import java.time.format.DateTimeFormatter
+@import java.util.List
 
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param String role
 @param Patient patient
 @param String success
+@param long unreadNotificationCount = 0
+@param List<Notification> recentNotifications = null
 
 @template.layout.base(
 title = "Patient Details",
 role = role,
 _csrf = _csrf,
+unreadNotificationCount = unreadNotificationCount,
+recentNotifications = recentNotifications,
 content = @`
     <!--begin::Toolbar (Page title & actions)-->
 

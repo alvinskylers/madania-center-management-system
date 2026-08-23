@@ -1,10 +1,14 @@
 @import gg.jte.Content
 @import org.springframework.security.web.csrf.CsrfToken
+@import com.madania.management.entity.Notification
+@import java.util.List
 
 @param String title
 @param Content content
 @param String role
 @param CsrfToken _csrf
+@param long unreadNotificationCount = 0
+@param List<Notification> recentNotifications = null
 
 
 <!DOCTYPE html>
@@ -47,7 +51,7 @@
     <!--begin::Page-->
     <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
         <!--begin::Navbar-->
-        @template.components.navbar(_csrf = _csrf)
+        @template.components.navbar(_csrf = _csrf, unreadNotificationCount = unreadNotificationCount, recentNotifications = recentNotifications)
         <!--end:Navbar-->
         <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
             <!--begin::Sidebar-->

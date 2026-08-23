@@ -1,4 +1,5 @@
 @import com.madania.management.dto.PackageCreateRequest
+@import com.madania.management.entity.Notification
 @import com.madania.management.entity.Patient
 @import com.madania.management.entity.Therapist
 @import org.springframework.validation.BindingResult
@@ -14,11 +15,15 @@
 @param String daysError = null
 @param String scheduleError = null
 @param BindingResult bindingResult = null
+@param long unreadNotificationCount = 0
+@param List<Notification> recentNotifications = null
 
 @template.layout.base(
 title = "Create Therapy Package",
 role = role,
 _csrf = _csrf,
+unreadNotificationCount = unreadNotificationCount,
+recentNotifications = recentNotifications,
 content = @`
     <h1>Create Therapy Package</h1>
     <p>This will assign a patient to a therapist for 12 sessions, 3 times per week.</p>

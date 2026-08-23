@@ -1,15 +1,21 @@
 @import com.madania.management.dto.ProfileUpdateRequest
+@import com.madania.management.entity.Notification
 @import org.springframework.validation.BindingResult
+@import java.util.List
 
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param ProfileUpdateRequest request
 @param BindingResult bindingResult = null
+@param long unreadNotificationCount = 0
+@param List<Notification> recentNotifications = null
 
 @template.layout.base(
 title = "My Profile",
 role = role,
 _csrf = _csrf,
+unreadNotificationCount = unreadNotificationCount,
+recentNotifications = recentNotifications,
 content = @`
     <div class="d-flex justify-content-between align-items-center mb-5">
         <h1 class="page-heading">My Profile</h1>

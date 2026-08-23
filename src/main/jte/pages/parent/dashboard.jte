@@ -1,3 +1,4 @@
+@import com.madania.management.entity.Notification
 @import com.madania.management.entity.Parent
 @import com.madania.management.entity.Patient
 @import com.madania.management.entity.TherapySession
@@ -12,11 +13,16 @@
 @param long totalCompletedSessions
 @param long totalJournals
 @param int upcomingCount
+@param long unreadNotificationCount = 0
+@param List<Notification> recentNotifications = null
+
 
 @template.layout.base(
 title = "Dashboard",
 role = role,
 _csrf = _csrf,
+unreadNotificationCount = unreadNotificationCount,
+recentNotifications = recentNotifications,
 content = @`
 
     <!--begin::Header-->

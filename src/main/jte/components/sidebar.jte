@@ -128,6 +128,14 @@
                         </a>
                     </div>
 
+                    <!-- Leave Requests -->
+                    <div class="menu-item">
+                        <a class="menu-link" href="/therapist/leave" title="Request leave" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-airplane fs-2"></i></span>
+                            <span class="menu-title">Leave Requests</span>
+                        </a>
+                    </div>
+
                     <!-- Journals -->
                     <div class="menu-item">
                         <a class="menu-link" href="/therapist/journals" title="View all journals" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">

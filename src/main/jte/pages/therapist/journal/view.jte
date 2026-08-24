@@ -1,3 +1,4 @@
+@import com.madania.management.entity.JournalComment
 @import com.madania.management.entity.Notification
 @import com.madania.management.entity.TherapyJournal
 @import java.util.List
@@ -7,6 +8,7 @@
 @param TherapyJournal journal
 @param long unreadNotificationCount = 0
 @param List<Notification> recentNotifications = null
+@param List<JournalComment> comments
 
 @template.layout.base(
 title = "Journal Detail",
@@ -44,7 +46,7 @@ content = @`
         </div>
     </div>
 
-    <div class="card">
+    <div class="card mb-5">
         <div class="card-body">
 
             <div class="mb-7">
@@ -92,6 +94,23 @@ content = @`
                 </div>
             @endif
 
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="fw-bold mb-5">Parent Responses</h5>
+
+            @if(comments != null && !comments.isEmpty())
+                @for(JournalComment comment : comments)
+                    <div class="d-flex flex-column mb-4 p-3 bg-light rounded">
+                        <div class="fs-7 text-gray-800">${comment.getContent()}</div>
+                        <div class="fs-8 text-muted mt-1">${comment.getTimeAgo()}</div>
+                    </div>
+                @endfor
+            @else
+                <p class="text-muted">No responses from the parent yet.</p>
+            @endif
         </div>
     </div>
 `

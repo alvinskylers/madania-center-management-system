@@ -7,6 +7,7 @@ import com.madania.management.entity.TherapyJournal;
 import com.madania.management.entity.TherapySession;
 import com.madania.management.enums.TherapyType;
 import com.madania.management.enums.MoodRating;
+import com.madania.management.service.JournalCommentService;
 import com.madania.management.service.TherapyJournalService;
 import com.madania.management.service.TherapySessionService;
 import jakarta.validation.Valid;
@@ -26,6 +27,7 @@ public class TherapistJournalController {
 
     private final TherapySessionService sessionService;
     private final TherapyJournalService journalService;
+    private final JournalCommentService commentService;
 
     @GetMapping("/journals")
     public String journals(Authentication authentication, Model model) {
@@ -40,6 +42,7 @@ public class TherapistJournalController {
     public String viewJournal(@PathVariable UUID id, Model model) {
         TherapyJournal journal = journalService.getJournalById(id);
         model.addAttribute("journal", journal);
+        model.addAttribute("comments", commentService.getCommentsForJournal(id));
         return "pages/therapist/journal/view";
     }
 

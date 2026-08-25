@@ -80,12 +80,6 @@ public class LeaveService {
                 .toList();
     }
 
-    /**
-     * Suggests the next available slot for a session affected by leave, searching forward
-     * week-by-week (same weekday/time) starting the day after the leave ends.
-     * `claimedSlots` tracks start-times already suggested earlier in this same batch,
-     * so two affected sessions don't collide with each other before either is saved.
-     */
     public Optional<LocalDateTime> suggestNextAvailableSlot(TherapySession session, LocalDate leaveEndDate,
                                                             Set<LocalDateTime> claimedSlots) {
         LocalTime time = session.getStartTime().toLocalTime();
@@ -112,5 +106,86 @@ public class LeaveService {
         }
 
         return Optional.empty();
+    }
+
+    public Map<TherapySession, LocalDateTime> getSuggestedSlotsForLeave(LeaveRequest leave) {
+        List<TherapySession> affected = getAffectedSessions(leave);
+        Map<TherapySession, LocalDateTime> suggestions = new LinkedHashMap<>();
+        Set<LocalDateTime> claimedSlots = new HashSet<>();
+
+        for (TherapySession session : affected) {
+            Optional<LocalDateTime> suggestion = suggestNextAvailableSlot(session, leave.getEndDate(), claimedSlots);
+            suggestion.ifPresent(claimedSlots::add);
+            suggestions.put(session, suggestion.orElse(null));
+        }
+
+        return suggestions;
+    }
+
+    @Transactional
+    public LeaveRequest approveLeave(UUID leaveId, Map<UUID, LocalDateTime> chosenTimes, String adminNotes) {
+        LeaveRequest leave = getRequestById(leaveId);
+
+        if (leave.getStatus() != LeaveStatus.PENDING) {
+            throw new RuntimeException("Only a pending leave request can be approved. Current status: " + leave.getStatus());
+        }
+
+        List<TherapySession> affected = getAffectedSessions(leave);
+
+        for (TherapySession oldSession : affected) {
+            LocalDateTime newStart = chosenTimes.get(oldSession.getId());
+            if (newStart == null) {
+                throw new RuntimeException("No new time was chosen for session " + oldSession.getSessionNumber()
+                        + " on " + oldSession.getStartTime());
+            }
+
+            LocalDateTime newEnd = newStart.plusHours(1);
+            sessionService.validateWithinOperatingHours(newStart.toLocalTime(), newEnd.toLocalTime());
+            sessionService.validateNoConflict(oldSession.getTherapist().getId(), newStart, newEnd, oldSession.getId());
+
+            TherapySession newSession = TherapySession.builder()
+                    .therapyPackage(oldSession.getTherapyPackage())
+                    .patient(oldSession.getPatient())
+                    .therapist(oldSession.getTherapist())
+                    .sessionNumber(oldSession.getSessionNumber())
+                    .day(newStart.getDayOfWeek())
+                    .startTime(newStart)
+                    .endTime(newEnd)
+                    .status(SessionStatus.SCHEDULED)
+                    .build();
+            sessionRepository.save(newSession);
+
+            oldSession.setStatus(SessionStatus.RESCHEDULED);
+            oldSession.setCancellationReason("Therapist leave (" + leave.getStartDate() + " to " + leave.getEndDate() + ")");
+            oldSession.setRescheduledTo(newSession);
+
+            User parentUser = oldSession.getPatient().getParent().getUser();
+            User therapistUser = oldSession.getTherapist().getUser();
+            String message = "Session on " + oldSession.getStartTime() + " was moved to " + newStart + " due to therapist leave";
+            notificationService.notify(parentUser, NotificationType.RESCHEDULE_APPROVED, message, newSession);
+            notificationService.notify(therapistUser, NotificationType.RESCHEDULE_APPROVED, message, newSession);
+        }
+
+        leave.setStatus(LeaveStatus.APPROVED);
+        leave.setAdminNotes(adminNotes);
+        return leaveRepository.save(leave);
+    }
+
+    @Transactional
+    public LeaveRequest rejectLeave(UUID leaveId, String adminNotes) {
+        LeaveRequest leave = getRequestById(leaveId);
+
+        if (leave.getStatus() != LeaveStatus.PENDING) {
+            throw new RuntimeException("Only a pending leave request can be rejected. Current status: " + leave.getStatus());
+        }
+
+        leave.setStatus(LeaveStatus.REJECTED);
+        leave.setAdminNotes(adminNotes);
+
+        String message = "Your leave request for " + leave.getStartDate() + " to " + leave.getEndDate() + " was rejected."
+                + (adminNotes != null ? " Note: " + adminNotes : "");
+        notificationService.notify(leave.getTherapist().getUser(), NotificationType.LEAVE_REJECTED, message, null);
+
+        return leaveRepository.save(leave);
     }
 }

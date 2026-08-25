@@ -52,6 +52,14 @@
                         </a>
                     </div>
 
+                    <!-- Leave Requests -->
+                    <div class="menu-item">
+                        <a class="menu-link" href="/admin/leaves" title="View leave requests" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-airplane fs-2"></i></span>
+                            <span class="menu-title">Leave Requests</span>
+                        </a>
+                    </div>
+
                     <!-- Packages -->
                     <div class="menu-item">
                         <a class="menu-link" href="/admin/packages" title="View all packages" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">

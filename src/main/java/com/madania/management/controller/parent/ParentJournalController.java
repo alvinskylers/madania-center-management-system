@@ -1,7 +1,7 @@
 package com.madania.management.controller.parent;
 
 import com.madania.management.config.security.CustomUserDetails;
-
+import com.madania.management.entity.JournalComment;
 import com.madania.management.entity.Parent;
 import com.madania.management.entity.Patient;
 import com.madania.management.entity.TherapyJournal;
@@ -50,8 +50,18 @@ public class ParentJournalController {
 
     @GetMapping("/journal/{id}")
     public String journal(Authentication authentication, Model model,
-                          @PathVariable UUID id) {
+                          @PathVariable UUID id,
+                          RedirectAttributes redirectAttributes) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        Parent parent = parentService.getParentByUserId(userDetails.getUser().getId());
+
         TherapyJournal journal = journalService.getJournalById(id);
+        boolean ownsChild = journal.getPatient().getParent().getId().equals(parent.getId());
+        if (!ownsChild) {
+            redirectAttributes.addFlashAttribute("journalError", "You can only view your own child's journal entries.");
+            return "redirect:/parent/journals";
+        }
+
         model.addAttribute("journal", journal);
         model.addAttribute("comments", commentService.getCommentsForJournal(id));
         return "pages/parent/detail";

@@ -7,6 +7,7 @@
 @param List<TherapyJournal> journals
 @param long unreadNotificationCount = 0
 @param List<Notification> recentNotifications = null
+@param String journalError = null
 
 @template.layout.base(
 title = "Journals",
@@ -17,6 +18,9 @@ recentNotifications = recentNotifications,
 content = @`
     <div class="d-flex justify-content-between align-items-center mb-5">
         <h1 class="page-heading">Progress Journals</h1>
+        @if(journalError != null)
+            <div class="alert alert-danger"><p>${journalError}</p></div>
+        @endif
     </div>
 
     <div class="card">

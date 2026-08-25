@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.UUID;
 
@@ -39,8 +40,19 @@ public class TherapistJournalController {
     }
 
     @GetMapping("/journal/{id}")
-    public String viewJournal(@PathVariable UUID id, Model model) {
+    public String viewJournal(@PathVariable UUID id, Model model,
+                              Authentication authentication,
+                              RedirectAttributes redirectAttributes) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        Therapist therapist = sessionService.getTherapistByUserId(userDetails.getUser().getId());
+
         TherapyJournal journal = journalService.getJournalById(id);
+        boolean ownsJournal = journal.getTherapist().getId().equals(therapist.getId());
+        if (!ownsJournal) {
+            redirectAttributes.addFlashAttribute("journalError", "You can only view journal entries you wrote.");
+            return "redirect:/therapist/journals";
+        }
+
         model.addAttribute("journal", journal);
         model.addAttribute("comments", commentService.getCommentsForJournal(id));
         return "pages/therapist/journal/view";

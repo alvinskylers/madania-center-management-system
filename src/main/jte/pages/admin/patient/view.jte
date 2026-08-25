@@ -1,22 +1,16 @@
-@import com.madania.management.entity.Notification
 @import com.madania.management.entity.Patient
 @import com.madania.management.enums.Gender
 @import java.time.format.DateTimeFormatter
-@import java.util.List
 
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param String role
 @param Patient patient
 @param String success
-@param long unreadNotificationCount = 0
-@param List<Notification> recentNotifications = null
 
 @template.layout.base(
 title = "Patient Details",
 role = role,
 _csrf = _csrf,
-unreadNotificationCount = unreadNotificationCount,
-recentNotifications = recentNotifications,
 content = @`
     <!--begin::Toolbar (Page title & actions)-->
 
@@ -129,51 +123,20 @@ content = @`
                     <div class="tab-content" id="myTabContent">
                         <!--begin:::Tab pane: Schedule-->
                         <div class="tab-pane fade show active" id="kt_user_view_overview_tab" role="tabpanel">
-                            <!-- Card: Schedule placeholder -->
                             <div class="card card-flush mb-6 mb-xl-9">
                                 <div class="card-header mt-6">
                                     <div class="card-title flex-column">
                                         <h2 class="mb-1">Patient Schedule</h2>
-                                        <div class="fs-6 fw-semibold text-muted">2 upcoming meetings</div>
+                                        <div class="fs-6 fw-semibold text-muted">All therapy sessions for ${patient.getFullName()}</div>
                                     </div>
                                     <div class="card-toolbar">
-                                        <button type="button" class="btn btn-light-primary btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_add_schedule"><i class="ki-outline ki-brush fs-3"></i>Add Schedule</button>
+                                        <a href="/admin/package/create" class="btn btn-light-primary btn-sm"><i class="ki-outline ki-brush fs-3"></i>Add Schedule</a>
                                     </div>
                                 </div>
                                 <div class="card-body p-9 pt-4">
-                                    <!-- Date tabs (static) -->
-                                    <ul class="nav nav-pills d-flex flex-nowrap hover-scroll-x py-2">
-                                        <li class="nav-item me-1"><a class="nav-link btn d-flex flex-column flex-center rounded-pill min-w-40px me-2 py-4 btn-active-primary" data-bs-toggle="tab" href="#kt_schedule_day_0"><span class="opacity-50 fs-7 fw-semibold">Su</span><span class="fs-6 fw-bolder">21</span></a></li>
-                                        <li class="nav-item me-1"><a class="nav-link btn d-flex flex-column flex-center rounded-pill min-w-40px me-2 py-4 btn-active-primary active" data-bs-toggle="tab" href="#kt_schedule_day_1"><span class="opacity-50 fs-7 fw-semibold">Mo</span><span class="fs-6 fw-bolder">22</span></a></li>
-                                        <!-- Add more days as needed -->
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div id="kt_schedule_day_0" class="tab-pane fade show">
-                                            <div class="d-flex flex-stack position-relative mt-6">
-                                                <div class="position-absolute h-100 w-4px bg-secondary rounded top-0 start-0"></div>
-                                                <div class="fw-semibold ms-5">
-                                                    <div class="fs-7 mb-1">12:00 - 13:00 <span class="fs-7 text-muted text-uppercase">pm</span></div>
-                                                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary mb-2">Creative Content Initiative</a>
-                                                    <div class="fs-7 text-muted">Lead by <a href="#">Sean Bean</a></div>
-                                                </div>
-                                                <a href="#" class="btn btn-light bnt-active-light-primary btn-sm">View</a>
-                                            </div>
-                                        </div>
-                                        <div id="kt_schedule_day_1" class="tab-pane fade show active">
-                                            <div class="d-flex flex-stack position-relative mt-6">
-                                                <div class="position-absolute h-100 w-4px bg-secondary rounded top-0 start-0"></div>
-                                                <div class="fw-semibold ms-5">
-                                                    <div class="fs-7 mb-1">14:30 - 15:30 <span class="fs-7 text-muted text-uppercase">pm</span></div>
-                                                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary mb-2">Weekly Team Stand-Up</a>
-                                                    <div class="fs-7 text-muted">Lead by <a href="#">Yannis Gloverson</a></div>
-                                                </div>
-                                                <a href="#" class="btn btn-light bnt-active-light-primary btn-sm">View</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <div id="kt_patient_calendar"></div>
                                 </div>
                             </div>
-
                         </div>
                         <!--end:::Tab pane-->
 
@@ -211,4 +174,28 @@ content = @`
         </div>
     </div>
     <!--end::Content-->
+
+    <link href="/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet">
+    <script src="/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var calendarEl = document.getElementById("kt_patient_calendar");
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: "timeGridWeek",
+                height: "auto",
+                headerToolbar: {
+                    left: "prev,next today",
+                    center: "title",
+                    right: "dayGridMonth,timeGridWeek,timeGridDay"
+                },
+                slotMinTime: "07:00:00",
+                slotMaxTime: "20:00:00",
+                allDaySlot: false,
+                events: "/admin/patient/${String.valueOf(patient.getId())}/events"
+            });
+
+            calendar.render();
+        });
+    </script>
 `)

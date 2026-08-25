@@ -7,6 +7,10 @@ import com.madania.management.repository.ParentRepository;
 import com.madania.management.repository.PatientRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,6 +26,12 @@ public class PatientService {
 
     public List<Patient> getAllPatients() {
         return patientRepository.findAll();
+    }
+
+    public Page<Patient> getAllQueried(String query, int page, int size, String direction) {
+        Sort sort = Sort.by(Sort.Direction.fromString(direction), "createdAt");
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return patientRepository.searchPatientsByQuery(pageable, query);
     }
 
     public List<Parent> getAllParents() {

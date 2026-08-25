@@ -5,6 +5,7 @@ import com.madania.management.entity.Patient;
 import com.madania.management.service.PatientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -21,8 +22,20 @@ public class AdminPatientController {
     private final PatientService patientService;
 
     @GetMapping("/patients")
-    public String patient(Model model) {
-        model.addAttribute("patients", patientService.getAllPatients());
+    public String patient(Model model,
+                          @RequestParam(defaultValue = "0") int page,
+                          @RequestParam(defaultValue = "12") int size,
+                          @RequestParam(defaultValue = "asc") String sort,
+                          @RequestParam(required = false) String query) {
+        Page<Patient> patientPage = patientService.getAllQueried(query, page, size, sort);
+
+        model.addAttribute("patients", patientPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", patientPage.getTotalPages());
+        model.addAttribute("totalItems", patientPage.getTotalElements());
+        model.addAttribute("pageSize", size);
+        model.addAttribute("query", query);
+
         return "pages/admin/patient/index";
     }
 

@@ -1,21 +1,21 @@
-@import com.madania.management.entity.Notification
 @import com.madania.management.entity.Patient
-@import java.util.List
+@import org.springframework.data.domain.Page
 
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param String role
-@param String success
-@param String error
-@param java.util.List<Patient> patients
-@param long unreadNotificationCount = 0
-@param List<Notification> recentNotifications = null
+@param String success = null
+@param String error = null
+@param Page<Patient> patients
+@param int currentPage = 0
+@param int totalPages = 0
+@param long totalItems = 0
+@param int pageSize = 12
+@param String query = null
 
 @template.layout.base(
 title = "Patients",
 role = role,
 _csrf = _csrf,
-unreadNotificationCount = unreadNotificationCount,
-recentNotifications = recentNotifications,
 content = @`
 
     @if(success != null)
@@ -40,11 +40,11 @@ content = @`
                 <div class="d-flex flex-wrap align-items-center my-1">
                     <h1 class="page-heading text-gray-900 fw-bold fs-3 m-0 me-5">Patients</h1>
                     <!-- Search form -->
-                    <form method="GET" action="" class="d-flex align-items-center position-relative my-1">
+                    <form method="GET" action="/admin/patients" class="d-flex align-items-center position-relative my-1">
                         <i class="ki-outline ki-magnifier fs-3 position-absolute ms-3"></i>
-                        <input type="text" name="search" id="patientSearch" class="form-control form-control-sm border-body bg-body w-200px ps-10" placeholder="Search patients..." value="" />
+                        <input type="text" name="query" id="patientSearch" class="form-control form-control-sm border-body bg-body w-200px ps-10" placeholder="Search patients..." value="${query != null ? query : ""}" />
+                        <input type="hidden" name="page" value="0" />
                         <button type="submit" class="btn btn-primary ms-2 d-none d-sm-inline-block">Search</button>
-                        <!-- optional: if you want to keep the button hidden and rely on Enter, you can remove the button and just use input -->
                     </form>
                 </div>
                 <!--end::Left side-->
@@ -72,12 +72,61 @@ content = @`
                 @else
                     <div class="col-12">
                         <div class="alert alert-info text-center">
-                            No patients registered yet.
+                            No patients found.
                         </div>
                     </div>
                 @endif
             </div>
             <!--end::Patients Grid-->
+
+            <!-- ===== START PAGINATION ===== -->
+            @if(totalPages > 0)
+                <div class="d-flex justify-content-between align-items-center pt-8">
+                    <!-- Entries summary -->
+                    <div class="text-muted fs-7">
+                        Showing
+                        ${currentPage * pageSize + 1}
+                        to
+                        ${Math.min((currentPage + 1) * pageSize, totalItems)}
+                        of
+                        ${totalItems}
+                        entries
+                    </div>
+
+                    <!-- Pagination controls -->
+                    <ul class="pagination m-0">
+                        <!-- Previous -->
+                        @if(patients.hasPrevious())
+                            <li class="page-item">
+                                <a class="page-link" href="?page=${currentPage - 1}&query=${query != null ? query : ""}">Previous</a>
+                            </li>
+                        @else
+                            <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                        @endif
+
+                        <!-- Page numbers -->
+                        @for(int i = 0; i < totalPages; i++)
+                            @if(i == currentPage)
+                                <li class="page-item active"><span class="page-link">${i + 1}</span></li>
+                            @else
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=${i}&query=${query != null ? query : ""}">${i + 1}</a>
+                                </li>
+                            @endif
+                        @endfor
+
+                        <!-- Next -->
+                        @if(patients.hasNext())
+                            <li class="page-item">
+                                <a class="page-link" href="?page=${currentPage + 1}&query=${query != null ? query : ""}">Next</a>
+                            </li>
+                        @else
+                            <li class="page-item disabled"><span class="page-link">Next</span></li>
+                        @endif
+                    </ul>
+                </div>
+            @endif
+            <!-- ===== END PAGINATION ===== -->
         </div>
     </div>
     <!--end::Content-->

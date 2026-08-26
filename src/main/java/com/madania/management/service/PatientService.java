@@ -34,6 +34,16 @@ public class PatientService {
         return patientRepository.searchPatientsByQuery(pageable, query);
     }
 
+    public Page<Patient> getQueriedForTherapist(UUID therapistId, String query, int page, int size, String direction) {
+        Sort sort = Sort.by(Sort.Direction.fromString(direction), "createdAt");
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return patientRepository.searchPatientsByTherapistAndQuery(pageable, therapistId, query);
+    }
+
+    public boolean isAssignedToTherapist(UUID patientId, UUID therapistId) {
+        return patientRepository.isPatientAssignedToTherapist(patientId, therapistId);
+    }
+
     public List<Parent> getAllParents() {
         return parentRepository.findAll();
     }

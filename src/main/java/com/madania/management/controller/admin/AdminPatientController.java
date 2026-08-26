@@ -1,8 +1,15 @@
 package com.madania.management.controller.admin;
 
+import com.madania.management.dto.PackageJournalGroup;
 import com.madania.management.dto.PatientRequest;
+import com.madania.management.dto.SessionJournalPair;
 import com.madania.management.entity.Patient;
+import com.madania.management.entity.TherapyJournal;
+import com.madania.management.entity.TherapyPackage;
 import com.madania.management.entity.TherapySession;
+import com.madania.management.repository.TherapyJournalRepository;
+import com.madania.management.repository.TherapyPackageRepository;
+import com.madania.management.repository.TherapySessionRepository;
 import com.madania.management.service.PatientService;
 import com.madania.management.service.TherapySessionService;
 import jakarta.validation.Valid;
@@ -15,10 +22,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -28,6 +32,8 @@ public class AdminPatientController {
 
     private final PatientService patientService;
     private final TherapySessionService sessionService;
+    private final TherapyJournalRepository journalRepository;
+    private final TherapyPackageRepository packageRepository;
 
     @GetMapping("/patients")
     public String patient(Model model,
@@ -74,7 +80,9 @@ public class AdminPatientController {
 
     @GetMapping("/patient/{id}")
     public String patient(@PathVariable UUID id, Model model) {
-        model.addAttribute("patient", patientService.getPatientById(id));
+        Patient patient = patientService.getPatientById(id);
+        model.addAttribute("patient", patient);
+        model.addAttribute("packageGroups", buildPackageJournalGroups(id));
         return "pages/admin/patient/view";
     }
 
@@ -154,4 +162,26 @@ public class AdminPatientController {
         return "redirect:/admin/patients";
     }
 
+    private List<PackageJournalGroup> buildPackageJournalGroups(UUID patientId) {
+        List<TherapyPackage> packages = packageRepository.findByPatientId(patientId);
+
+        List<PackageJournalGroup> groups = new ArrayList<>();
+        for (TherapyPackage pkg : packages) {
+            List<TherapySession> sessions = sessionService.getSessionsByTherapyPackageId(pkg.getId()).stream()
+                    .sorted(Comparator.comparing(TherapySession::getSessionNumber))
+                    .toList();
+
+            List<SessionJournalPair> pairs = sessions.stream()
+                    .map(session -> {
+                        TherapyJournal journal = journalRepository.findBySessionId(session.getId()).orElse(null);
+                        return new SessionJournalPair(session, journal);
+                    })
+                    .collect(Collectors.toList());
+
+            groups.add(new PackageJournalGroup(pkg, pairs));
+        }
+
+        groups.sort(Comparator.comparing(g -> g.getTherapyPackage().getStartDate(), Comparator.reverseOrder()));
+        return groups;
+    }
 }

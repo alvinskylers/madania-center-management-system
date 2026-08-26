@@ -1,10 +1,15 @@
 @import com.madania.management.entity.Patient
 @import com.madania.management.enums.Gender
+@import com.madania.management.enums.SessionStatus
+@import com.madania.management.dto.PackageJournalGroup
+@import com.madania.management.dto.SessionJournalPair
 @import java.time.format.DateTimeFormatter
+@import java.util.List
 
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param String role
 @param Patient patient
+@param List<PackageJournalGroup> packageGroups
 @param String success
 
 @template.layout.base(
@@ -115,6 +120,7 @@ content = @`
                     <!--begin:::Tabs-->
                     <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
                         <li class="nav-item"><a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#kt_user_view_overview_tab">Schedule</a></li>
+                        <li class="nav-item"><a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_user_view_journals_tab">Journals</a></li>
                         <li class="nav-item"><a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true" data-bs-toggle="tab" href="#kt_user_view_overview_security">Profile</a></li>
                     </ul>
                     <!--end:::Tabs-->
@@ -135,6 +141,33 @@ content = @`
                                 </div>
                                 <div class="card-body p-9 pt-4">
                                     <div id="kt_patient_calendar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end:::Tab pane-->
+
+                        <!--begin:::Tab pane: Journals-->
+                        <div class="tab-pane fade" id="kt_user_view_journals_tab" role="tabpanel">
+                            <div class="card card-flush mb-6 mb-xl-9">
+                                <div class="card-header mt-6">
+                                    <div class="card-title flex-column">
+                                        <h2 class="mb-1">Therapy Packages &amp; Journals</h2>
+                                        <div class="fs-6 fw-semibold text-muted">All packages and session journals for ${patient.getFullName()}</div>
+                                    </div>
+                                </div>
+                                <div class="card-body p-9 pt-4">
+                                    @if(packageGroups == null || packageGroups.isEmpty())
+                                        <div class="alert alert-info">No therapy packages yet for this patient.</div>
+                                    @else
+                                        <div class="accordion" id="kt_patient_packages_accordion">
+                                            @for(int i = 0; i < packageGroups.size(); i++)
+                                                @template.pages.admin.patient.row(
+                                                group = packageGroups.get(i),
+                                                index = i
+                                                )
+                                            @endfor
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

@@ -48,6 +48,10 @@ public class TherapySessionService {
                 .orElseThrow(() -> new RuntimeException("Session not found with id: " + sessionId));
     }
 
+    public List<TherapySession> getSessionsByTherapyPackageId(UUID packageId) {
+        return sessionRepository.findByTherapyPackageId(packageId);
+    }
+
     public Optional<TherapySession> findConflict(UUID therapistId, LocalDateTime startTime, LocalDateTime endTime, UUID excludeId) {
         List<TherapySession> scheduledSessions = sessionRepository.findByTherapistIdAndStatus(therapistId, SessionStatus.SCHEDULED);
 

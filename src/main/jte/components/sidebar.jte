@@ -191,6 +191,14 @@
                             <span class="menu-title">Journals</span>
                         </a>
                     </div>
+
+                    <!-- Children -->
+                    <div class="menu-item">
+                        <a class="menu-link" href="/parent/children" title="View all children" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-people fs-2"></i></span>
+                            <span class="menu-title">My Children</span>
+                        </a>
+                    </div>
                 @endif
 
             </div>

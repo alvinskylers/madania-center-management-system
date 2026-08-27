@@ -1,4 +1,3 @@
-# application-dev.yaml
 spring:
   application:
     name: management
@@ -14,10 +13,25 @@ spring:
       hibernate:
         format_sql: true
 
+# 1. Error details
+server:
+  error:
+    include-exception: true      # includes the exception class name
+    include-stacktrace: always   # prints the full stack trace (both in logs and response)
+    include-message: always      # includes the exception message
+
+# 2. Logging configuration
 logging:
   level:
+    # Debug-level logging for web and error handling
+    org.springframework.web: DEBUG
+    org.springframework.boot.web.servlet.error: DEBUG
+    # Optionally, set root to DEBUG to see everything (can be noisy)
+    # root: DEBUG
+    # Keep your existing env logging if you still need it
     org.springframework.core.env: debug
 
+# JTE template engine (unrelated, but keep it)
 gg:
   jte:
     development-mode: true

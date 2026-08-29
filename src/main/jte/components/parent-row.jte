@@ -35,6 +35,11 @@
         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-6 w-150px py-4" data-kt-menu="true">
             <!--begin::Menu item-->
             <div class="menu-item px-5">
+                <a href="/admin/parent/${String.valueOf(parent.getId())}" class="btn btn-bg-light btn-active-color-success btn-sm d-block w-100 d-flex justify-content-start ms-2">
+                    <i class="ki-outline ki-eye fs-3"></i> View
+                </a>
+            </div>
+            <div class="menu-item px-5">
                 <form action="/admin/parent/${String.valueOf(parent.getId())}/edit" method="get" style="display:inline">
                     <button type="submit" class="btn btn-bg-light btn-active-color-success btn-sm d-block w-100 d-flex justify-content-start ms-2">
                         <i class="ki-outline ki-notepad-edit fs-3"></i> Edit

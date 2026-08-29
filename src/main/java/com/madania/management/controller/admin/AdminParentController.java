@@ -3,6 +3,7 @@ package com.madania.management.controller.admin;
 import com.madania.management.dto.ParentCreateRequest;
 import com.madania.management.dto.ParentEditRequest;
 import com.madania.management.entity.Parent;
+import com.madania.management.entity.Patient;
 import com.madania.management.service.ParentService;
 
 import com.madania.management.service.UserService;
@@ -15,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -42,6 +44,16 @@ public class AdminParentController {
 
         return "pages/admin/parent/index";
     }
+
+    @GetMapping("/parent/{id}")
+    public String viewParent(@PathVariable UUID id, Model model) {
+        Parent parent = parentService.getParentById(id);
+        List<Patient> children = parentService.getPatientsByParentId(id);
+        model.addAttribute("parent", parent);
+        model.addAttribute("children", children);
+        return "pages/admin/parent/view";
+    }
+
     @GetMapping("/parent/create")
     public String createParentForm(Model model) {
         model.addAttribute("request", new ParentCreateRequest());

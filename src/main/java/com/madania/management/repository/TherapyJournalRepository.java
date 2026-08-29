@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,4 +26,15 @@ public interface TherapyJournalRepository extends JpaRepository<TherapyJournal, 
                                         @Param("patientId") UUID patientId,
                                         @Param("sessionNumber") Integer sessionNumber);
 
+    @Query("SELECT j FROM TherapyJournal j WHERE j.patient.parent.id = :parentId AND " +
+            "j.patient.id = COALESCE(:patientId, j.patient.id) AND " +
+            "j.session.sessionNumber = COALESCE(:sessionNumber, j.session.sessionNumber) AND " +
+            "j.createdAt >= COALESCE(:startDate, j.createdAt) AND " +
+            "j.createdAt <= COALESCE(:endDate, j.createdAt)")
+    Page<TherapyJournal> searchJournalsForParent(Pageable pageable,
+                                                 @Param("parentId") UUID parentId,
+                                                 @Param("patientId") UUID patientId,
+                                                 @Param("sessionNumber") Integer sessionNumber,
+                                                 @Param("startDate") LocalDateTime startDate,
+                                                 @Param("endDate") LocalDateTime endDate);
 }

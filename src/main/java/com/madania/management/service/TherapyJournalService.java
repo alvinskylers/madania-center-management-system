@@ -16,6 +16,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,6 +39,16 @@ public class TherapyJournalService {
         Sort sort = Sort.by(Sort.Direction.fromString(direction), "createdAt").descending();
         Pageable pageable = PageRequest.of(page, size, sort);
         return journalRepository.searchJournals(pageable, therapistId, patientId, sessionNumber);
+    }
+
+    public Page<TherapyJournal> getQueriedForParent(UUID parentId, UUID patientId, Integer sessionNumber,
+                                                    LocalDate startDate, LocalDate endDate,
+                                                    int page, int size, String direction) {
+        Sort sort = Sort.by(Sort.Direction.fromString(direction), "createdAt").descending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        LocalDateTime start = startDate != null ? startDate.atStartOfDay() : null;
+        LocalDateTime end = endDate != null ? endDate.atTime(LocalTime.MAX) : null;
+        return journalRepository.searchJournalsForParent(pageable, parentId, patientId, sessionNumber, start, end);
     }
 
     public List<TherapyJournal> getJournalsByPatientId(UUID patientId) {

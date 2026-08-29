@@ -9,6 +9,7 @@ import com.madania.management.service.JournalCommentService;
 import com.madania.management.service.ParentService;
 import com.madania.management.service.TherapyJournalService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -33,20 +35,38 @@ public class ParentJournalController {
     private final JournalCommentService commentService;
 
     @GetMapping("/journals")
-    public String journals(Authentication authentication, Model model) {
+    public String journals(Authentication authentication, Model model,
+                           @RequestParam(defaultValue = "0") int page,
+                           @RequestParam(defaultValue = "10") int size,
+                           @RequestParam(defaultValue = "desc") String sort,
+                           @RequestParam(required = false) UUID patientId,
+                           @RequestParam(required = false) Integer sessionNumber,
+                           @RequestParam(required = false) LocalDate startDate,
+                           @RequestParam(required = false) LocalDate endDate) {
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         Parent parent = parentService.getParentByUserId(userDetails.getUser().getId());
         List<Patient> children = parentService.getPatientsByParentId(parent.getId());
 
-        List<TherapyJournal> allJournals = new ArrayList<>();
-        for (Patient child: children) {
-            allJournals.addAll(journalService.getJournalsByPatientId(child.getId()));
-        }
+        Page<TherapyJournal> journalPage = journalService.getQueriedForParent(
+                parent.getId(), patientId, sessionNumber, startDate, endDate, page, size, sort);
 
-        model.addAttribute("journals", allJournals);
+        model.addAttribute("journals", journalPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", journalPage.getTotalPages());
+        model.addAttribute("totalItems", journalPage.getTotalElements());
+        model.addAttribute("pageSize", size);
+
         model.addAttribute("children", children);
+        model.addAttribute("sessionNumbers", List.of(1,2,3,4,5,6,7,8,9,10,11,12));
+
+        model.addAttribute("selectedPatientId", patientId);
+        model.addAttribute("selectedSessionNumber", sessionNumber);
+        model.addAttribute("selectedStartDate", startDate);
+        model.addAttribute("selectedEndDate", endDate);
+
         return "pages/parent/journal";
     }
+
 
     @GetMapping("/journal/{id}")
     public String journal(Authentication authentication, Model model,

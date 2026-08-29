@@ -38,6 +38,7 @@ public class Patient {
 
     private String diagnosis;
 
+    @Column(columnDefinition = "TEXT")
     private String notes;
 
     private boolean isActive;

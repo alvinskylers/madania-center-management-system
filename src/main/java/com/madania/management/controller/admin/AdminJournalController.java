@@ -1,6 +1,7 @@
 package com.madania.management.controller.admin;
 
 import com.madania.management.entity.TherapyJournal;
+import com.madania.management.service.JournalCommentService;
 import com.madania.management.service.TherapyJournalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import java.util.List;
 public class AdminJournalController {
 
     private final TherapyJournalService journalService;
+    private final JournalCommentService commentService;
 
     @GetMapping("/journals")
     public String journals(Model model) {
@@ -29,6 +31,7 @@ public class AdminJournalController {
     public String viewJournal(@PathVariable java.util.UUID id, Model model) {
         TherapyJournal journal = journalService.getJournalById(id);
         model.addAttribute("journal", journal);
+        model.addAttribute("comments", commentService.getCommentsForJournal(id));
         return "pages/admin/journal/view";
     }
 }

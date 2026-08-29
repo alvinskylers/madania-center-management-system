@@ -8,13 +8,13 @@ import com.madania.management.service.ParentService;
 import com.madania.management.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -26,12 +26,22 @@ public class AdminParentController {
     private final UserService userService;
 
     @GetMapping("/parents")
-    public String parents(Model model) {
-        List<Parent> parents = parentService.getAllParent();
-        model.addAttribute("parents", parents);
+    public String parents(Model model,
+                          @RequestParam(defaultValue = "0") int page,
+                          @RequestParam(defaultValue = "10") int size,
+                          @RequestParam(defaultValue = "asc") String sort,
+                          @RequestParam(required = false) String query) {
+        Page<Parent> parentPage = parentService.getAllQueried(query, page, size, sort);
+
+        model.addAttribute("parents", parentPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", parentPage.getTotalPages());
+        model.addAttribute("totalItems", parentPage.getTotalElements());
+        model.addAttribute("pageSize", size);
+        model.addAttribute("query", query);
+
         return "pages/admin/parent/index";
     }
-
     @GetMapping("/parent/create")
     public String createParentForm(Model model) {
         model.addAttribute("request", new ParentCreateRequest());

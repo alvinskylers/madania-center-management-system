@@ -2,7 +2,6 @@ package com.madania.management.service;
 
 import com.madania.management.entity.Parent;
 import com.madania.management.entity.Patient;
-import com.madania.management.entity.Therapist;
 import com.madania.management.entity.User;
 import com.madania.management.enums.Role;
 import com.madania.management.repository.ParentRepository;
@@ -10,6 +9,10 @@ import com.madania.management.repository.PatientRepository;
 import com.madania.management.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,13 @@ public class ParentService {
     public List<Parent> getAllParent() {
         return parentRepository.findAll();
     }
+
+    public Page<Parent> getAllQueried(String query, int page, int size, String direction) {
+        Sort sort = Sort.by(Sort.Direction.fromString(direction), "fullName");
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return parentRepository.searchParentsByQuery(pageable, query);
+    }
+
     @Transactional
     public User createParent(String name, String email, String password,
                              String phone, String address) {

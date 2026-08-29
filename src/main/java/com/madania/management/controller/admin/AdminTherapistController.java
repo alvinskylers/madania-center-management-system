@@ -3,24 +3,32 @@ package com.madania.management.controller.admin;
 import com.madania.management.dto.TherapistCreateRequest;
 import com.madania.management.dto.TherapistEditRequest;
 import com.madania.management.entity.Therapist;
+import com.madania.management.entity.TherapySession;
 import com.madania.management.service.TherapistService;
+import com.madania.management.service.TherapySessionService;
 import com.madania.management.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 public class AdminTherapistController {
 
+    private final TherapySessionService sessionService;
     private final TherapistService therapistService;
     private final UserService userService;
 
@@ -40,6 +48,38 @@ public class AdminTherapistController {
         model.addAttribute("query", query);
 
         return "pages/admin/therapist/index";
+    }
+
+    @GetMapping("/therapist/{id}")
+    public String viewTherapist(@PathVariable UUID id, Model model) {
+        Therapist therapist = therapistService.getTherapistById(id);
+        model.addAttribute("therapist", therapist);
+        return "pages/admin/therapist/view";
+    }
+
+    @GetMapping("/therapist/{id}/events")
+    @ResponseBody
+    public ResponseEntity<List<Map<String, Object>>> getTherapistEvents(@PathVariable UUID id) {
+        List<TherapySession> sessions = sessionService.getSessionsByTherapistId(id);
+
+        List<Map<String, Object>> events = sessions.stream().map(session -> {
+            Map<String, Object> event = new HashMap<>();
+            event.put("id", session.getId());
+            event.put("title", "Session " + session.getSessionNumber() + " - " + session.getPatient().getFullName());
+            event.put("start", session.getStartTime().toString());
+            event.put("end", session.getEndTime().toString());
+            event.put("status", session.getStatus().name());
+            event.put("color", switch (session.getStatus().name()) {
+                case "SCHEDULED"   -> "#1B84FF";
+                case "COMPLETED"   -> "#17C653";
+                case "CANCELLED"   -> "#F1416C";
+                case "RESCHEDULED" -> "#FFA800";
+                default            -> "#7E8299";
+            });
+            return event;
+        }).collect(Collectors.toList());
+
+        return ResponseEntity.ok(events);
     }
 
     @GetMapping("/therapist/create")

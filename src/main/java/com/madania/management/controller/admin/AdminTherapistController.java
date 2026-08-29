@@ -3,18 +3,17 @@ package com.madania.management.controller.admin;
 import com.madania.management.dto.TherapistCreateRequest;
 import com.madania.management.dto.TherapistEditRequest;
 import com.madania.management.entity.Therapist;
-import com.madania.management.entity.User;
 import com.madania.management.service.TherapistService;
 import com.madania.management.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -26,9 +25,20 @@ public class AdminTherapistController {
     private final UserService userService;
 
     @GetMapping("/therapists")
-    public String therapist(Model model) {
-        List<Therapist> therapists = therapistService.getAllTherapists();
-        model.addAttribute("therapists", therapists);
+    public String therapist(Model model,
+                            @RequestParam(defaultValue = "0") int page,
+                            @RequestParam(defaultValue = "10") int size,
+                            @RequestParam(defaultValue = "asc") String sort,
+                            @RequestParam(required = false) String query) {
+        Page<Therapist> therapistPage = therapistService.getAllQueried(query, page, size, sort);
+
+        model.addAttribute("therapists", therapistPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", therapistPage.getTotalPages());
+        model.addAttribute("totalItems", therapistPage.getTotalElements());
+        model.addAttribute("pageSize", size);
+        model.addAttribute("query", query);
+
         return "pages/admin/therapist/index";
     }
 

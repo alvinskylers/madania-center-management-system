@@ -7,6 +7,10 @@ import com.madania.management.repository.TherapistRepository;
 import com.madania.management.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +27,12 @@ public class TherapistService {
 
     public List<Therapist> getAllTherapists() {
         return therapistRepository.findAll();
+    }
+
+    public Page<Therapist> getAllQueried(String query, int page, int size, String direction) {
+        Sort sort = Sort.by(Sort.Direction.fromString(direction), "fullName");
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return therapistRepository.searchTherapistsByQuery(pageable, query);
     }
 
     @Transactional

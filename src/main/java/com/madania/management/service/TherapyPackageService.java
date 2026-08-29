@@ -43,6 +43,10 @@ public class TherapyPackageService {
         return packageRepository.searchPackages(pageable, therapistId, patientId, dateFrom, dateTo);
     }
 
+    public List<Patient> getAssignedPatients(UUID therapistId) {
+        return packageRepository.findDistinctPatientsByTherapistId(therapistId);
+    }
+
     public TherapyPackage getPackageById(UUID id) {
         return packageRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Package with not found with id: " + id));

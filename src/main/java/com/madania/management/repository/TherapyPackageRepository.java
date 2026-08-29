@@ -1,5 +1,6 @@
 package com.madania.management.repository;
 
+import com.madania.management.entity.Patient;
 import com.madania.management.entity.TherapyPackage;
 import com.madania.management.enums.PackageStatus;
 import org.springframework.data.domain.Page;
@@ -18,14 +19,19 @@ public interface TherapyPackageRepository extends JpaRepository<TherapyPackage, 
     List<TherapyPackage> findByStatus(PackageStatus status);
 
     @Query("SELECT tp FROM TherapyPackage tp WHERE " +
-            "(:therapistId IS NULL OR tp.therapist.id = :therapistId) AND " +
-            "(:patientId IS NULL OR tp.patient.id = :patientId) AND " +
-            "(:dateFrom IS NULL OR tp.startDate >= :dateFrom) AND " +
-            "(:dateTo IS NULL OR tp.startDate <= :dateTo)")
+            "tp.therapist.id = COALESCE(:therapistId, tp.therapist.id) AND " +
+            "tp.patient.id = COALESCE(:patientId, tp.patient.id) AND " +
+            "tp.startDate >= COALESCE(:dateFrom, tp.startDate) AND " +
+            "tp.startDate <= COALESCE(:dateTo, tp.startDate)")
     Page<TherapyPackage> searchPackages(Pageable pageable,
                                         @Param("therapistId") UUID therapistId,
                                         @Param("patientId") UUID patientId,
                                         @Param("dateFrom") LocalDate dateFrom,
                                         @Param("dateTo") LocalDate dateTo);
+
+    @Query("SELECT DISTINCT tp.patient FROM TherapyPackage tp " +
+            "WHERE tp.therapist.id = :therapistId ORDER BY tp.patient.fullName")
+    List<Patient> findDistinctPatientsByTherapistId(@Param("therapistId") UUID therapistId);
+
 
 }

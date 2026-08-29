@@ -7,6 +7,10 @@ import com.madania.management.enums.SessionStatus;
 import com.madania.management.repository.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -29,6 +33,14 @@ public class TherapyPackageService {
 
     public List<TherapyPackage> getAllPackages(){
         return packageRepository.findAll();
+    }
+
+    public Page<TherapyPackage> getAllQueried(UUID therapistId, UUID patientId,
+                                              LocalDate dateFrom, LocalDate dateTo,
+                                              int page, int size, String direction) {
+        Sort sort = Sort.by(Sort.Direction.fromString(direction), "startDate");
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return packageRepository.searchPackages(pageable, therapistId, patientId, dateFrom, dateTo);
     }
 
     public TherapyPackage getPackageById(UUID id) {

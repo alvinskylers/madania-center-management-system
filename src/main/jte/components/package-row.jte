@@ -10,26 +10,16 @@
     <td>${therapyPackage.getCompletedSessions()} / ${therapyPackage.getTotalSessions()}</td>
     <td>
         @if(therapyPackage.getStatus().name().equals("ACTIVE"))
-            <span class="badge badge-success">Active</span>
+            <span class="badge badge-light-success">Active</span>
         @elseif(therapyPackage.getStatus().name().equals("COMPLETED"))
-            <span class="badge badge-primary">Completed</span>
+            <span class="badge badge-light-primary">Completed</span>
         @else
-            <span class="badge badge-danger">Cancelled</span>
+            <span class="badge badge-light-danger">Cancelled</span>
         @endif
     </td>
     <td>
-        <a href="/admin/package/${String.valueOf(therapyPackage.getId())}" class="btn btn-icon btn-bg-light btn-sm">
-            <i class="ki-outline ki-eye fs-3"></i>
+        <a href="/admin/package/${String.valueOf(therapyPackage.getId())}" class="btn btn-bg-light btn-active-color-primary btn-sm justify-content-end">
+            <i class="ki-outline ki-eye fs-3"></i> View
         </a>
-
-        @if(therapyPackage.getStatus().name().equals("ACTIVE"))
-            <form action="/admin/package/${String.valueOf(therapyPackage.getId())}/cancel" method="post" class="d-inline-block"
-                  onsubmit="return confirm('Cancel this package? All remaining scheduled sessions will be cancelled.');">
-                <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
-                <button type="submit" class="btn btn-icon btn-bg-light btn-sm">
-                    <i class="ki-outline ki-cross-circle fs-3"></i>
-                </button>
-            </form>
-        @endif
     </td>
 </tr>

@@ -9,6 +9,10 @@ import com.madania.management.repository.TherapistRepository;
 import com.madania.management.repository.TherapyJournalRepository;
 import com.madania.management.repository.TherapySessionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +29,13 @@ public class TherapyJournalService {
 
     public List<TherapyJournal> getJournalsByTherapistId(UUID therapistId) {
         return journalRepository.findByTherapistId(therapistId);
+    }
+
+    public Page<TherapyJournal> getAllQueried(UUID therapistId, UUID patientId, Integer sessionNumber,
+                                              int page, int size, String direction) {
+        Sort sort = Sort.by(Sort.Direction.fromString(direction), "createdAt").descending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return journalRepository.searchJournals(pageable, therapistId, patientId, sessionNumber);
     }
 
     public List<TherapyJournal> getJournalsByPatientId(UUID patientId) {

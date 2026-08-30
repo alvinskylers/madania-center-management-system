@@ -51,6 +51,16 @@ public class TherapyJournalService {
         return journalRepository.searchJournalsForParent(pageable, parentId, patientId, sessionNumber, start, end);
     }
 
+    public Page<TherapyJournal> getQueriedForTherapist(UUID therapistId, UUID patientId, Integer sessionNumber,
+                                                       LocalDate startDate, LocalDate endDate,
+                                                       int page, int size, String direction) {
+        Sort sort = Sort.by(Sort.Direction.fromString(direction), "createdAt").descending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        LocalDateTime start = startDate != null ? startDate.atStartOfDay() : null;
+        LocalDateTime end = endDate != null ? endDate.atTime(LocalTime.MAX) : null;
+        return journalRepository.searchJournalsForTherapist(pageable, therapistId, patientId, sessionNumber, start, end);
+    }
+
     public List<TherapyJournal> getJournalsByPatientId(UUID patientId) {
         return journalRepository.findByPatientId(patientId);
     }

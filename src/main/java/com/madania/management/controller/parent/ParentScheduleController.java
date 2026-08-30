@@ -38,8 +38,10 @@ public class ParentScheduleController {
         List<Patient> children = parentService.getPatientsByParentId(parent.getId());
 
         model.addAttribute("children", children);
+        model.addAttribute("myRescheduleRequests", rescheduleService.getRequestsByUserId(userDetails.getUser().getId()));
         return "pages/parent/schedule";
     }
+
 
     @GetMapping("/schedule/events")
     @ResponseBody

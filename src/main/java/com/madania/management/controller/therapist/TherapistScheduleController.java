@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.ui.Model;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,9 +28,12 @@ public class TherapistScheduleController {
     private final RescheduleService rescheduleService;
 
     @GetMapping("/schedule")
-    public String schedule() {
+    public String schedule(Authentication authentication, Model model) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        model.addAttribute("myRescheduleRequests", rescheduleService.getRequestsByUserId(userDetails.getUser().getId()));
         return "pages/therapist/schedule/index";
     }
+
 
     @GetMapping("/schedule/events")
     @ResponseBody

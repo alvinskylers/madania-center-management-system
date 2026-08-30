@@ -35,6 +35,12 @@ public class RescheduleService {
         return rescheduleRepository.findByStatus(RescheduleStatus.PENDING);
     }
 
+    public List<RescheduleRequest> getRequestsByUserId(UUID userId) {
+        return rescheduleRepository.findByRequestedById(userId).stream()
+                .sorted((a, b) -> b.getCreatedAt().compareTo(a.getCreatedAt()))
+                .toList();
+    }
+
     public RescheduleRequest getRescheduleRequestById(UUID id) {
         return rescheduleRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Request schedule not found: " + id));

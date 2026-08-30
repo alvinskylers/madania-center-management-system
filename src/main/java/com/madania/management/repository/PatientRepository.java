@@ -30,4 +30,8 @@ public interface PatientRepository extends JpaRepository<Patient, UUID> {
 
     @Query("SELECT COUNT(p) > 0 FROM Patient p JOIN TherapyPackage tp ON tp.patient = p WHERE p.id = :patientId AND tp.therapist.id = :therapistId")
     boolean isPatientAssignedToTherapist(@Param("patientId") UUID patientId, @Param("therapistId") UUID therapistId);
+
+    @Query("SELECT DISTINCT p FROM Patient p JOIN TherapyPackage tp ON tp.patient = p WHERE tp.therapist.id = :therapistId ORDER BY p.fullName")
+    List<Patient> findDistinctByTherapistId(@Param("therapistId") UUID therapistId);
+
 }

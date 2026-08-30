@@ -29,12 +29,24 @@ public interface TherapyJournalRepository extends JpaRepository<TherapyJournal, 
     @Query("SELECT j FROM TherapyJournal j WHERE j.patient.parent.id = :parentId AND " +
             "j.patient.id = COALESCE(:patientId, j.patient.id) AND " +
             "j.session.sessionNumber = COALESCE(:sessionNumber, j.session.sessionNumber) AND " +
-            "j.createdAt >= COALESCE(:startDate, j.createdAt) AND " +
-            "j.createdAt <= COALESCE(:endDate, j.createdAt)")
+            "j.session.startTime >= COALESCE(:startDate, j.session.startTime) AND " +
+            "j.session.startTime <= COALESCE(:endDate, j.session.startTime)")
     Page<TherapyJournal> searchJournalsForParent(Pageable pageable,
                                                  @Param("parentId") UUID parentId,
                                                  @Param("patientId") UUID patientId,
                                                  @Param("sessionNumber") Integer sessionNumber,
                                                  @Param("startDate") LocalDateTime startDate,
                                                  @Param("endDate") LocalDateTime endDate);
+
+    @Query("SELECT j FROM TherapyJournal j WHERE j.therapist.id = :therapistId AND " +
+            "j.patient.id = COALESCE(:patientId, j.patient.id) AND " +
+            "j.session.sessionNumber = COALESCE(:sessionNumber, j.session.sessionNumber) AND " +
+            "j.session.startTime >= COALESCE(:startDate, j.session.startTime) AND " +
+            "j.session.startTime <= COALESCE(:endDate, j.session.startTime)")
+    Page<TherapyJournal> searchJournalsForTherapist(Pageable pageable,
+                                                    @Param("therapistId") UUID therapistId,
+                                                    @Param("patientId") UUID patientId,
+                                                    @Param("sessionNumber") Integer sessionNumber,
+                                                    @Param("startDate") LocalDateTime startDate,
+                                                    @Param("endDate") LocalDateTime endDate);
 }

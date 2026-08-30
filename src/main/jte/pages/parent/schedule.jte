@@ -1,12 +1,16 @@
 @import com.madania.management.entity.Notification
 @import com.madania.management.entity.Patient
 @import com.madania.management.entity.User
+@import com.madania.management.entity.RescheduleRequest
+@import com.madania.management.enums.RescheduleStatus
+@import java.time.format.DateTimeFormatter
 @import java.util.List
 
 @param User user
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param List<Patient> children
+@param List<RescheduleRequest> myRescheduleRequests
 @param String rescheduleError = null
 @param String rescheduleSuccess = null
 @param long unreadNotificationCount = 0
@@ -25,10 +29,16 @@ content = @`
     </div>
 
     @if(rescheduleSuccess != null)
-        <div class="alert alert-success"><p>${rescheduleSuccess}</p></div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>${rescheduleSuccess}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     @endif
     @if(rescheduleError != null)
-        <div class="alert alert-danger"><p>${rescheduleError}</p></div>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>${rescheduleError}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     @endif
 
     <div class="card mb-5">
@@ -44,11 +54,72 @@ content = @`
         </div>
     </div>
 
-    <div class="card">
+    <div class="card mb-6">
         <div class="card-body">
             <div id="kt_calendar"></div>
         </div>
     </div>
+
+    <!--begin::My Reschedule Requests-->
+    <div class="card card-flush">
+        <div class="card-header pt-7">
+            <div class="card-title">
+                <i class="ki-outline ki-calendar-8 fs-1 text-primary me-2"></i>
+                <h2>My Reschedule Requests</h2>
+            </div>
+        </div>
+        <div class="card-body pt-5">
+            <div class="table-responsive">
+                <table class="table align-middle table-row-dashed fs-6 gy-4">
+                    <thead>
+                    <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+                        <th>Child</th>
+                        <th>Original Time</th>
+                        <th>Requested Time</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                        <th>Admin Notes</th>
+                        <th>Submitted</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @if(myRescheduleRequests != null && !myRescheduleRequests.isEmpty())
+                        @for(RescheduleRequest r : myRescheduleRequests)
+                            <tr>
+                                <td class="fw-semibold text-gray-800">${r.getSession().getPatient().getFullName()}</td>
+                                <td class="text-muted">${r.getSession().getStartTime().toString()}</td>
+                                <td>${r.getRequestedStartTime().toString()}</td>
+                                <td class="text-gray-700">${r.getReason() != null && !r.getReason().isBlank() ? r.getReason() : "—"}</td>
+                                <td>
+                                    @if(r.getStatus() == RescheduleStatus.PENDING)
+                                        <span class="badge badge-light-warning">Pending</span>
+                                    @elseif(r.getStatus() == RescheduleStatus.APPROVED)
+                                        <span class="badge badge-light-success">Approved</span>
+                                    @else
+                                        <span class="badge badge-light-danger">Rejected</span>
+                                    @endif
+                                </td>
+                                <td class="text-muted fs-7">
+                                    ${r.getAdminNotes() != null && !r.getAdminNotes().isBlank() ? r.getAdminNotes() : "—"}
+                                </td>
+                                <td class="text-muted fs-7">
+                                    ${r.getCreatedAt() != null ? r.getCreatedAt().format(DateTimeFormatter.ofPattern("dd MMM yyyy")) : "—"}
+                                </td>
+                            </tr>
+                        @endfor
+                    @else
+                        <tr>
+                            <td colspan="7">
+                                <div class="alert alert-info text-center mb-0">You haven't submitted any reschedule requests yet.</div>
+                            </td>
+                        </tr>
+                    @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--end::My Reschedule Requests-->
 
     <!--begin::Modal - Session Details-->
     <div class="modal fade" id="kt_modal_session_details" tabindex="-1" aria-hidden="true">

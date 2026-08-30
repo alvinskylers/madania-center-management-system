@@ -1,8 +1,10 @@
 @import com.madania.management.entity.Therapist
+@import com.madania.management.entity.User
 @import org.springframework.data.domain.Page
 @import org.springframework.security.web.csrf.CsrfToken
 
 @param Page<Therapist> therapists
+@param User user
 @param String role
 @param String query
 @param CsrfToken _csrf
@@ -10,6 +12,7 @@
 @template.layout.base(
 title = "Therapists",
 role = role,
+user = user,
 _csrf = _csrf,
 content = @`
     <div id="kt_app_toolbar" class="app-toolbar pt-7 pt-lg-10">

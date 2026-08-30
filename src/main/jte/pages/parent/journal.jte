@@ -1,3 +1,4 @@
+@import com.madania.management.entity.User
 @import com.madania.management.entity.Patient
 @import com.madania.management.entity.TherapyJournal
 @import org.springframework.data.domain.Page
@@ -5,6 +6,7 @@
 @import java.util.UUID
 @import java.time.LocalDate
 
+@param User user
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param Page<TherapyJournal> journals
@@ -23,6 +25,7 @@
 @template.layout.base(
 title = "Progress Journals",
 role = role,
+user = user,
 _csrf = _csrf,
 content = @`
     <div class="d-flex justify-content-between align-items-center mb-5">

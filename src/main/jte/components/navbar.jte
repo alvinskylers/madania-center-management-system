@@ -1,11 +1,12 @@
-
 @import org.springframework.security.web.csrf.CsrfToken
 @import com.madania.management.entity.Notification
+@import com.madania.management.entity.User
 @import java.util.List
 
 @param CsrfToken _csrf
 @param long unreadNotificationCount = 0
 @param List<Notification> recentNotifications = null
+@param User user
 
 <!--begin::Header-->
 <div id="kt_app_header" class="app-header">
@@ -18,7 +19,7 @@
             </div>
             <!--begin::Logo image-->
             <a href="index.html">
-                <img alt="Logo" src="/media/logos/demo38-small.svg" class="h-30px" />
+                <img alt="Logo" src="/media/logos/madania.png" class="h-30px" />
             </a>
             <!--end::Logo image-->
         </div>
@@ -85,8 +86,8 @@
                             <!--end::Avatar-->
                             <!--begin::Username-->
                             <div class="d-flex flex-column">
-                                <div class="fw-bold d-flex align-items-center fs-5">Max Smith </div>
-                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">max@kt.com</a>
+                                <div class="fw-bold d-flex align-items-center fs-5">${user.getName()} </div>
+                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">${user.getEmail()}</a>
                             </div>
                             <!--end::Username-->
                         </div>
@@ -208,4 +209,4 @@
     </div>
     <!--end::Header container-->
 </div>
-<!--end::Header-->
+<!--end::Header-->>

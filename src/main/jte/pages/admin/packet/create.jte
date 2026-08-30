@@ -1,11 +1,13 @@
 @import com.madania.management.dto.PackageCreateRequest
 @import com.madania.management.entity.Notification
+@import com.madania.management.entity.User
 @import com.madania.management.entity.Patient
 @import com.madania.management.entity.Therapist
 @import org.springframework.validation.BindingResult
 @import java.time.DayOfWeek
 @import java.util.List
 
+@param User user
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param PackageCreateRequest request
@@ -25,6 +27,7 @@
 @template.layout.base(
 title = "Create Therapy Package",
 role = role,
+user = user,
 _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,

@@ -1,11 +1,13 @@
 @import com.madania.management.dto.JournalRequest
 @import com.madania.management.entity.Notification
 @import com.madania.management.entity.TherapyJournal
+@import com.madania.management.entity.User
 @import com.madania.management.enums.TherapyType
 @import com.madania.management.enums.MoodRating
 @import org.springframework.validation.BindingResult
 @import java.util.List
 
+@param User user
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param JournalRequest request
@@ -19,6 +21,7 @@
 @template.layout.base(
 title = "Edit Journal",
 role = role,
+user = user,
 _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,

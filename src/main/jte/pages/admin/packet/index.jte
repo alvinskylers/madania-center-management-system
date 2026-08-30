@@ -2,11 +2,13 @@
 @import com.madania.management.entity.TherapyPackage
 @import com.madania.management.entity.Therapist
 @import com.madania.management.entity.Patient
+@import com.madania.management.entity.User
 @import org.springframework.data.domain.Page
 @import java.time.LocalDate
 @import java.util.List
 @import java.util.UUID
 
+@param User user
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param Page<TherapyPackage> packages
@@ -32,6 +34,7 @@
 @template.layout.base(
 title = "Therapy Packages",
 role = role,
+user = user,
 _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,

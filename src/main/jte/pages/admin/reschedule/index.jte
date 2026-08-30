@@ -1,7 +1,9 @@
 @import com.madania.management.entity.Notification
 @import com.madania.management.entity.RescheduleRequest
+@import com.madania.management.entity.User
 @import java.util.List
 
+@param User user
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param List<RescheduleRequest> requests
@@ -13,6 +15,7 @@
 @template.layout.base(
 title = "Reschedule Requests",
 role = role,
+user = user,
 _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,

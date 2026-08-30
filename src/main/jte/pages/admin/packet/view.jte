@@ -1,9 +1,11 @@
 @import com.madania.management.entity.Notification
 @import com.madania.management.entity.TherapyPackage
 @import com.madania.management.entity.TherapySession
+@import com.madania.management.entity.User
 @import java.time.format.DateTimeFormatter
 @import java.util.List
 
+@param User user
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param TherapyPackage therapyPackage
@@ -21,6 +23,7 @@
 title = "Package Details",
 role = role,
 _csrf = _csrf,
+user = user,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,
 content = @`

@@ -1,10 +1,12 @@
 @import com.madania.management.dto.PatientRequest
 @import com.madania.management.entity.Notification
 @import com.madania.management.entity.Parent
+@import com.madania.management.entity.User
 @import com.madania.management.enums.Gender
 @import org.springframework.validation.BindingResult
 @import java.util.List
 
+@param User user
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param PatientRequest request
@@ -16,6 +18,7 @@
 @template.layout.base(
 title = "Add Patient",
 role = role,
+user = user,
 _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,

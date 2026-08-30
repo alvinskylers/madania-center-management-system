@@ -1,12 +1,15 @@
 @import com.madania.management.entity.Therapist
+@import com.madania.management.entity.User
 
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param String role
+@param User user
 @param Therapist therapist
 
 @template.layout.base(
 title = "Therapist Details",
 role = role,
+user = user,
 _csrf = _csrf,
 content = @`
     <!--begin::Toolbar-->

@@ -1,9 +1,11 @@
 @import com.madania.management.entity.Notification
 @import com.madania.management.entity.TherapyPackage
 @import com.madania.management.entity.TherapySession
+@import com.madania.management.entity.User
 @import java.util.List
 
 @param String role
+@param User user
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param long totalTherapists
 @param long totalParents
@@ -22,6 +24,7 @@
 @template.layout.base(
 title = "Admin Dashboard",
 role = role,
+user = user,
 _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,

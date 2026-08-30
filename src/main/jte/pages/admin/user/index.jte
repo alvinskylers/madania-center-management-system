@@ -4,6 +4,7 @@
 @import org.springframework.security.web.csrf.CsrfToken
 @import java.util.List
 
+@param User user
 @param Page<User> users
 @param String role
 @param String query
@@ -14,6 +15,7 @@
 @template.layout.base(
 title = "Users",
 role = role,
+user = user,
 _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,

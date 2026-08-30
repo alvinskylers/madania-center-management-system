@@ -1,15 +1,18 @@
 @import com.madania.management.entity.Parent
 @import com.madania.management.entity.Patient
+@import com.madania.management.entity.User
 @import java.util.List
 
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param String role
+@param User user
 @param Parent parent
 @param List<Patient> children
 
 @template.layout.base(
 title = "Parent Details",
 role = role,
+user = user,
 _csrf = _csrf,
 content = @`
     <!--begin::Toolbar-->

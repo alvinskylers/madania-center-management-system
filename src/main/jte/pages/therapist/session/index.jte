@@ -1,10 +1,12 @@
 @import com.madania.management.dto.PackageJournalGroup
 @import com.madania.management.entity.Notification
 @import com.madania.management.entity.Patient
+@import com.madania.management.entity.User
 @import java.time.LocalDate
 @import java.util.List
 @import java.util.UUID
 
+@param User user
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param List<PackageJournalGroup> packageGroups
@@ -29,6 +31,7 @@
 @template.layout.base(
 title = "My Sessions",
 role = role,
+user = user,
 _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,

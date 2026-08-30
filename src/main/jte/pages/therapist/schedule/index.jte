@@ -1,3 +1,6 @@
+@import com.madania.management.entity.User
+
+@param User user
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param String rescheduleError = null
@@ -8,6 +11,7 @@
 @template.layout.base(
 title = "My Schedule",
 role = role,
+user = user,
 _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,

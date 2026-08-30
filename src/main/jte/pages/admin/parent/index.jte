@@ -1,15 +1,18 @@
 @import com.madania.management.entity.Parent
+@import com.madania.management.entity.User
 @import org.springframework.data.domain.Page
 @import org.springframework.security.web.csrf.CsrfToken
 
 @param Page<Parent> parents
 @param String role
+@param User user
 @param String query
 @param CsrfToken _csrf
 
 @template.layout.base(
 title = "Parents",
 role = role,
+user = user,
 _csrf = _csrf,
 content = @`
     <div id="kt_app_toolbar" class="app-toolbar pt-7 pt-lg-10">

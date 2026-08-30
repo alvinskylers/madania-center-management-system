@@ -1,8 +1,10 @@
 @import com.madania.management.dto.ProfileUpdateRequest
 @import com.madania.management.entity.Notification
+@import com.madania.management.entity.User
 @import org.springframework.validation.BindingResult
 @import java.util.List
 
+@param User user
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param ProfileUpdateRequest request
@@ -13,6 +15,7 @@
 @template.layout.base(
 title = "My Profile",
 role = role,
+user = user,
 _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,

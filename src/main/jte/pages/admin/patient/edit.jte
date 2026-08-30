@@ -1,10 +1,12 @@
 @import com.madania.management.entity.Notification
 @import com.madania.management.entity.Patient
+@import com.madania.management.entity.User
 @import com.madania.management.enums.Gender
 @import org.springframework.validation.BindingResult
 @import java.util.List
 
 @param org.springframework.security.web.csrf.CsrfToken _csrf
+@param User user
 @param String role
 @param Patient patient
 @param BindingResult bindingResult
@@ -14,6 +16,7 @@
 @template.layout.base(
 title = "Patient Edit",
 role = role,
+user = user,
 _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,

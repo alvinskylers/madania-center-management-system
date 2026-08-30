@@ -2,6 +2,7 @@ package com.madania.management.config;
 
 import com.madania.management.config.security.CustomUserDetails;
 import com.madania.management.entity.Notification;
+import com.madania.management.entity.User;
 import com.madania.management.service.NotificationService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,14 @@ import java.util.List;
 public class GlobalModelAttribute {
 
     private final NotificationService notificationService;
+
+    @ModelAttribute("user")
+    public User user(Authentication authentication) {
+        if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails userDetails) {
+            return userDetails.getUser();
+        }
+        return null;
+    }
 
     @ModelAttribute("_csrf")
     public CsrfToken csrfToken(HttpServletRequest request) {

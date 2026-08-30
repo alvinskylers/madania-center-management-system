@@ -1,7 +1,9 @@
 @import com.madania.management.entity.Patient
+@import com.madania.management.entity.User
 @import org.springframework.data.domain.Page
 
 @param org.springframework.security.web.csrf.CsrfToken _csrf
+@param User user
 @param String role
 @param String success = null
 @param String error = null
@@ -15,6 +17,7 @@
 @template.layout.base(
 title = "Patients",
 role = role,
+user = user,
 _csrf = _csrf,
 content = @`
 

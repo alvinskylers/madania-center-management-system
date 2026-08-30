@@ -1,8 +1,10 @@
 @import com.madania.management.entity.LeaveRequest
 @import com.madania.management.entity.Notification
+@import com.madania.management.entity.User
 @import com.madania.management.enums.LeaveStatus
 @import java.util.List
 
+@param User user
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param List<LeaveRequest> requests
@@ -14,6 +16,7 @@
 @template.layout.base(
 title = "Leave Requests",
 role = role,
+user = user,
 _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,

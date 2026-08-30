@@ -1,9 +1,11 @@
 @import com.madania.management.entity.Notification
 @import com.madania.management.entity.Patient
+@import com.madania.management.entity.User
 @import java.util.List
 
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param String role
+@param User user
 @param List<Patient> children
 @param String patientError = null
 @param long unreadNotificationCount = 0
@@ -12,6 +14,7 @@
 @template.layout.base(
 title = "My Children",
 role = role,
+user = user,
 _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,

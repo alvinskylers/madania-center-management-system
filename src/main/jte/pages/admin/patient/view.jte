@@ -3,11 +3,13 @@
 @import com.madania.management.enums.SessionStatus
 @import com.madania.management.dto.PackageJournalGroup
 @import com.madania.management.dto.SessionJournalPair
+@import com.madania.management.entity.User
 @import java.time.format.DateTimeFormatter
 @import java.util.List
 
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param String role
+@param User user
 @param Patient patient
 @param List<PackageJournalGroup> packageGroups
 @param String success
@@ -15,6 +17,7 @@
 @template.layout.base(
 title = "Patient Details",
 role = role,
+user = user,
 _csrf = _csrf,
 content = @`
     <!--begin::Toolbar (Page title & actions)-->

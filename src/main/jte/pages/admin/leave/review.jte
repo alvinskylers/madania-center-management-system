@@ -1,3 +1,4 @@
+@import com.madania.management.entity.User
 @import com.madania.management.entity.LeaveRequest
 @import com.madania.management.entity.TherapySession
 @import com.madania.management.entity.Notification
@@ -6,6 +7,7 @@
 @import java.util.List
 @import java.util.Map
 
+@param User user
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param LeaveRequest leave
@@ -17,6 +19,7 @@
 @template.layout.base(
 title = "Review Leave Request",
 role = role,
+user = user,
 _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,

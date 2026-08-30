@@ -1,11 +1,12 @@
+@import com.madania.management.entity.User
 @import com.madania.management.entity.Patient
 @import com.madania.management.enums.Gender
 @import com.madania.management.dto.PackageJournalGroup
-@import java.time.format.DateTimeFormatter
 @import java.util.List
 @import java.util.UUID
 
 @param org.springframework.security.web.csrf.CsrfToken _csrf
+@param User user
 @param String role
 @param Patient patient
 @param List<PackageJournalGroup> packageGroups
@@ -14,6 +15,7 @@
 @template.layout.base(
 title = "Patient Details",
 role = role,
+user = user,
 _csrf = _csrf,
 content = @`
     <div id="kt_app_toolbar" class="app-toolbar pt-7 pt-lg-10">

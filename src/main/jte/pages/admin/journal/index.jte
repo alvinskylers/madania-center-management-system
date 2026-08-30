@@ -1,3 +1,4 @@
+@import com.madania.management.entity.User
 @import com.madania.management.entity.Patient
 @import com.madania.management.entity.Therapist
 @import com.madania.management.entity.TherapyJournal
@@ -5,6 +6,7 @@
 @import java.util.List
 @import java.util.UUID
 
+@param User user
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param Page<TherapyJournal> journals
@@ -22,6 +24,7 @@
 @template.layout.base(
 title = "All Journals",
 role = role,
+user = user,
 _csrf = _csrf,
 content = @`
     <div id="kt_app_toolbar" class="app-toolbar pt-7 pt-lg-10">

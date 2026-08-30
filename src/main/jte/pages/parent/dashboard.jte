@@ -1,9 +1,11 @@
 @import com.madania.management.entity.Notification
 @import com.madania.management.entity.Parent
 @import com.madania.management.entity.Patient
+@import com.madania.management.entity.User
 @import com.madania.management.entity.TherapySession
 @import java.util.List
 
+@param User user
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param Parent parent
@@ -21,6 +23,7 @@
 title = "Dashboard",
 role = role,
 _csrf = _csrf,
+user = user,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,
 content = @`

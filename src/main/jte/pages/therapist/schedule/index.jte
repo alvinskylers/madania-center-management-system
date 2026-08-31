@@ -13,7 +13,7 @@
 @param java.util.List<com.madania.management.entity.Notification> recentNotifications = null
 
 @template.layout.base(
-title = "My Schedule",
+title = "Jadwal Saya",
 role = role,
 user = user,
 _csrf = _csrf,
@@ -21,7 +21,7 @@ unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,
 content = @`
     <div class="d-flex justify-content-between align-items-center mb-5">
-        <h1 class="page-heading">My Schedule</h1>
+        <h1 class="page-heading">Jadwal Saya</h1>
     </div>
 
     @if(rescheduleSuccess != null)
@@ -48,7 +48,7 @@ content = @`
         <div class="card-header pt-7">
             <div class="card-title">
                 <i class="ki-outline ki-calendar-8 fs-1 text-primary me-2"></i>
-                <h2>My Reschedule Requests</h2>
+                <h2>Permohonan Reschedule Saya</h2>
             </div>
         </div>
         <div class="card-body pt-5">

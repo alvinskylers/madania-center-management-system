@@ -29,8 +29,8 @@ content = @`
     <!--begin::Header-->
     <div class="d-flex justify-content-between align-items-center mb-7">
         <div>
-            <h1 class="page-heading">Welcome, ${therapist.getFullName()}</h1>
-            <p class="text-muted">${therapist.getSpecialization()}</p>
+            <h1 class="page-heading">Selamat Datang, ${therapist.getFullName()}</h1>
+            <p class="text-muted">Spesialis ${therapist.getSpecialization()}</p>
         </div>
     </div>
     <!--end::Header-->
@@ -49,7 +49,7 @@ content = @`
                     </div>
                     <div>
                         <span class="fs-2x fw-bold text-gray-800">${todayCount}</span>
-                        <p class="text-muted mb-0">Today's Sessions</p>
+                        <p class="text-muted mb-0">Sesi terapi hari ini</p>
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@ content = @`
                     </div>
                     <div>
                         <span class="fs-2x fw-bold text-gray-800">${totalPatients}</span>
-                        <p class="text-muted mb-0">Total Patients</p>
+                        <p class="text-muted mb-0">Total Pasien</p>
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@ content = @`
                     </div>
                     <div>
                         <span class="fs-2x fw-bold text-gray-800">${pendingJournalCount}</span>
-                        <p class="text-muted mb-0">Pending Journals</p>
+                        <p class="text-muted mb-0">Jurnal Pending</p>
                     </div>
                 </div>
             </div>
@@ -103,7 +103,7 @@ content = @`
                     </div>
                     <div>
                         <span class="fs-2x fw-bold text-gray-800">${upcomingSessions.size()}</span>
-                        <p class="text-muted mb-0">Upcoming (7 days)</p>
+                        <p class="text-muted mb-0">Sesi akan Datang (7 hari)</p>
                     </div>
                 </div>
             </div>
@@ -119,13 +119,13 @@ content = @`
         <div class="col-md-6">
             <div class="card h-100">
                 <div class="card-header">
-                    <h3 class="card-title">Today's Sessions</h3>
+                    <h3 class="card-title">Sesi Hari ini</h3>
                 </div>
                 <div class="card-body">
                     @if(todaySessions.isEmpty())
                         <div class="text-center py-10">
                             <i class="ki-outline ki-calendar-2 fs-3x text-muted mb-3"></i>
-                            <p class="text-muted">No sessions today</p>
+                            <p class="text-muted">Tidak ada sesi hari ini</p>
                         </div>
                     @else
                         <div class="d-flex flex-column gap-4">
@@ -159,16 +159,16 @@ content = @`
         <div class="col-md-6">
             <div class="card h-100">
                 <div class="card-header">
-                    <h3 class="card-title">Pending Journals</h3>
+                    <h3 class="card-title">Jurnal Pending</h3>
                     <div class="card-toolbar">
-                        <a href="/therapist/sessions" class="btn btn-sm btn-light">View All</a>
+                        <a href="/therapist/sessions" class="btn btn-sm btn-light">Lihat Semua</a>
                     </div>
                 </div>
                 <div class="card-body">
                     @if(pendingJournals.isEmpty())
                         <div class="text-center py-10">
                             <i class="ki-outline ki-notepad-edit fs-3x text-muted mb-3"></i>
-                            <p class="text-muted">All sessions have journals</p>
+                            <p class="text-muted">Semua sesi memiliki jurnal</p>
                         </div>
                     @else
                         <div class="d-flex flex-column gap-4">
@@ -182,8 +182,8 @@ content = @`
                                         </small>
                                     </div>
                                     <a href="/therapist/journal/create/${String.valueOf(session.getId())}"
-                                       class="btn btn-sm btn-warning">
-                                        Write
+                                       class="btn btn-sm btn-info">
+                                        Tulis
                                     </a>
                                 </div>
                             @endfor
@@ -201,25 +201,25 @@ content = @`
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Upcoming Sessions (Next 7 Days)</h3>
+                    <h3 class="card-title">Sesi Terapi Dalam 7 hari Kedepan</h3>
                     <div class="card-toolbar">
-                        <a href="/therapist/schedule" class="btn btn-sm btn-light">Full Schedule</a>
+                        <a href="/therapist/schedule" class="btn btn-sm btn-light">Lihat Jadwal</a>
                     </div>
                 </div>
                 <div class="card-body">
                     @if(upcomingSessions.isEmpty())
                         <div class="text-center py-10">
                             <i class="ki-outline ki-calendar-2 fs-3x text-muted mb-3"></i>
-                            <p class="text-muted">No upcoming sessions in the next 7 days</p>
+                            <p class="text-muted">Tidak ada sesi terapi dalam 7 hari kedepan</p>
                         </div>
                     @else
                         <table class="table table-row-dashed">
                             <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Patient</th>
-                                <th>Date</th>
-                                <th>Time</th>
+                                <th>No. #</th>
+                                <th>Pasien</th>
+                                <th>Tanggal</th>
+                                <th>Waktu</th>
                                 <th>Status</th>
                             </tr>
                             </thead>
@@ -231,9 +231,9 @@ content = @`
                                     <td>${session.getStartTime().toLocalDate().toString()}</td>
                                     <td>${session.getStartTime().toLocalTime().toString()}</td>
                                     <td>
-                                                <span class="badge badge-light-primary">
-                                                    ${session.getStatus().name()}
-                                                </span>
+                                        <span class="badge badge-light-primary">
+                                            ${session.getStatus().getLabel()}
+                                        </span>
                                     </td>
                                 </tr>
                             @endfor

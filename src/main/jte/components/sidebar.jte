@@ -115,18 +115,12 @@
                             <span class="menu-title">Dashboard</span>
                         </a>
                     </div>
-                    <div class="menu-item">
-                        <a class="menu-link" href="/profile" title="View My Profile" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-bullet"><i class="ki-outline ki-profile-circle fs-2"></i></span>
-                            <span class="menu-title">Profile</span>
-                        </a>
-                    </div>
 
                     <!-- Schedule -->
                     <div class="menu-item">
                         <a class="menu-link" href="/therapist/schedule" title="View all schedules" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-calendar fs-2"></i></span>
-                            <span class="menu-title">Schedule</span>
+                            <span class="menu-title">Jadwal Terapi</span>
                         </a>
                     </div>
 
@@ -134,15 +128,7 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/therapist/sessions" title="View all schedules" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-calendar fs-2"></i></span>
-                            <span class="menu-title">Sessions</span>
-                        </a>
-                    </div>
-
-                    <!-- Leave Requests -->
-                    <div class="menu-item">
-                        <a class="menu-link" href="/therapist/leave" title="Request leave" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-bullet"><i class="ki-outline ki-airplane fs-2"></i></span>
-                            <span class="menu-title">Leave Requests</span>
+                            <span class="menu-title">Sesi Terapi</span>
                         </a>
                     </div>
 
@@ -150,7 +136,7 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/therapist/journals" title="View all journals" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-book fs-2"></i></span>
-                            <span class="menu-title">Journals</span>
+                            <span class="menu-title">Jurnal Pasien</span>
                         </a>
                     </div>
 
@@ -158,9 +144,25 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/therapist/patients" title="View all patients" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-people fs-2"></i></span>
-                            <span class="menu-title">Patients</span>
+                            <span class="menu-title">Pasien Saya</span>
                         </a>
                     </div>
+
+                    <!-- Leave Requests -->
+                    <div class="menu-item">
+                        <a class="menu-link" href="/therapist/leave" title="Request leave" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-time fs-2"></i></span>
+                            <span class="menu-title">Permohonan Cuti</span>
+                        </a>
+                    </div>
+
+                    <div class="menu-item">
+                        <a class="menu-link" href="/profile" title="View My Profile" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-profile-circle fs-2"></i></span>
+                            <span class="menu-title">Profil Saya</span>
+                        </a>
+                    </div>
+
                 @endif
 
                 @if(role.equals("PARENT"))

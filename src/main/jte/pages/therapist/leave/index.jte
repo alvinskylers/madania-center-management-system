@@ -19,7 +19,7 @@
 !{long rejectedCount = requests == null ? 0 : requests.stream().filter(r -> r.getStatus() == LeaveStatus.REJECTED).count();}
 
 @template.layout.base(
-title = "Leave Requests",
+title = "Permohonan Cuti",
 role = role,
 user = user,
 _csrf = _csrf,
@@ -32,11 +32,11 @@ content = @`
         <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
-                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">My Leave Requests</h1>
+                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Permohonan Cuti Saya</h1>
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
-                        <li class="breadcrumb-item text-muted"><a href="/therapist/dashboard" class="text-muted text-hover-primary">Home</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="/therapist/dashboard" class="text-muted text-hover-primary">Dashboard</a></li>
                         <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
-                        <li class="breadcrumb-item text-muted">Leave Requests</li>
+                        <li class="breadcrumb-item text-muted">Permohonan Cuti</li>
                     </ul>
                 </div>
             </div>
@@ -88,7 +88,7 @@ content = @`
                             </div>
                             <div>
                                 <div class="fs-2 fw-bold text-gray-900">${approvedCount}</div>
-                                <div class="fs-7 text-muted">Approved</div>
+                                <div class="fs-7 text-muted">Disetujui</div>
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@ content = @`
                             </div>
                             <div>
                                 <div class="fs-2 fw-bold text-gray-900">${rejectedCount}</div>
-                                <div class="fs-7 text-muted">Rejected</div>
+                                <div class="fs-7 text-muted">Ditolak</div>
                             </div>
                         </div>
                     </div>
@@ -118,7 +118,7 @@ content = @`
                         <div class="card-header pt-7">
                             <div class="card-title">
                                 <i class="ki-outline ki-calendar-remove fs-1 text-primary me-2"></i>
-                                <h2>Request Leave</h2>
+                                <h2>Permohonan Cuti</h2>
                             </div>
                         </div>
                         <div class="card-body pt-5">
@@ -129,7 +129,7 @@ content = @`
                                     <div class="col">
                                         <div class="fv-row mb-7">
                                             <label class="fs-6 fw-semibold form-label mt-3">
-                                                <span class="required">Start Date</span>
+                                                <span class="required">Tanggal Mulai</span>
                                             </label>
                                             <input type="date" id="kt_leave_start_date" class="form-control form-control-solid" name="startDate" required/>
                                         </div>
@@ -137,7 +137,7 @@ content = @`
                                     <div class="col">
                                         <div class="fv-row mb-7">
                                             <label class="fs-6 fw-semibold form-label mt-3">
-                                                <span class="required">End Date</span>
+                                                <span class="required">Tanggal Akhir</span>
                                             </label>
                                             <input type="date" id="kt_leave_end_date" class="form-control form-control-solid" name="endDate" required/>
                                         </div>
@@ -146,7 +146,7 @@ content = @`
 
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold form-label mt-3">
-                                        <span>Reason</span>
+                                        <span>Alasan</span>
                                         <span class="fs-7 fw-normal text-muted ms-2">Optional</span>
                                     </label>
                                     <textarea class="form-control form-control-solid" name="reason" rows="3"
@@ -156,7 +156,7 @@ content = @`
                                 <div class="separator mb-6"></div>
                                 <div class="d-flex justify-content-end">
                                     <button type="submit" class="btn btn-primary">
-                                        <span class="indicator-label">Submit Leave Request</span>
+                                        <span class="indicator-label">Ajukan Permohonan Izin</span>
                                     </button>
                                 </div>
                             </form>
@@ -171,13 +171,13 @@ content = @`
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-4">
                                 <i class="ki-outline ki-information-5 fs-1 text-primary me-3"></i>
-                                <h3 class="text-gray-900 fs-5 fw-bold m-0">Good to know</h3>
+                                <h3 class="text-gray-900 fs-5 fw-bold m-0">Prosedur Permohonan Cuti</h3>
                             </div>
                             <ul class="text-gray-700 fs-6 ps-4 mb-0" style="list-style: disc;">
-                                <li class="mb-3">Your request goes to the admin team for review before it's approved.</li>
-                                <li class="mb-3">Any therapy sessions falling within your leave dates will need to be rescheduled once approved.</li>
-                                <li class="mb-3">Submitting as early as possible gives patients more notice if a session needs to move.</li>
-                                <li class="mb-0">You'll see the status update below once the admin reviews your request.</li>
+                                <li class="mb-3">Permintaan Anda akan ditinjau oleh tim admin sebelum disetujui.</li>
+                                <li class="mb-3">Sesi terapi apa pun yang jatuh pada tanggal cuti Anda perlu dijadwalkan ulang setelah permintaan disetujui.</li>
+                                <li class="mb-3">Mengajukan permintaan sedini mungkin memberikan pemberitahuan lebih awal kepada pasien jika ada sesi yang perlu diubah jadwalnya.</li>
+                                <li class="mb-0">Anda akan melihat pembaruan status di bawah ini setelah admin meninjau permintaan Anda.</li>
                             </ul>
                         </div>
                     </div>

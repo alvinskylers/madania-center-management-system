@@ -12,59 +12,134 @@
 @param long unreadNotificationCount = 0
 @param List<Notification> recentNotifications = null
 
+!{String initials = request.getUsername() != null && !request.getUsername().isBlank() ? request.getUsername().substring(0, 1).toUpperCase() : "?";}
+
 @template.layout.base(
-title = "My Profile",
+title = "Edit Profil",
 role = role,
-user = user,
+    user = user,
 _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,
 content = @`
-    <div class="d-flex justify-content-between align-items-center mb-5">
-        <h1 class="page-heading">My Profile</h1>
-        <a href="/profile/password" class="btn btn-light">Change Password</a>
-    </div>
 
-    @if(bindingResult != null && bindingResult.hasErrors())
-        <div class="alert alert-danger">
-            @for(var error : bindingResult.getAllErrors())
-                <p>${error.getDefaultMessage()}</p>
-            @endfor
-        </div>
-    @endif
-
-    <div class="card">
-        <div class="card-body">
-            <form action="/profile/edit" method="post">
-                <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
-
-                <div class="mb-5">
-                    <label class="form-label">Full Name</label>
-                    <input type="text" name="username" class="form-control"
-                           value="${request.getUsername()}" required>
+    <!--begin::Toolbar-->
+    <div id="kt_app_toolbar" class="app-toolbar pt-7 pt-lg-10">
+        <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
+            <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
+                <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
+                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Edit Profil</h1>
+                    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
+                        <li class="breadcrumb-item text-muted"><a href="/therapist/dashboard" class="text-muted text-hover-primary">Beranda</a></li>
+                        <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
+                        <li class="breadcrumb-item text-muted"><a href="/profile" class="text-muted text-hover-primary">Profil Saya</a></li>
+                        <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
+                        <li class="breadcrumb-item text-muted">Edit</li>
+                    </ul>
                 </div>
-
-                <div class="mb-5">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control"
-                           value="${request.getEmail()}" required>
+                <div class="align-items-center">
+                    <a href="/profile" class="btn btn-light h-40px fs-7 fw-bold">
+                        <i class="ki-outline ki-black-left fs-3"></i>Kembali ke Profil
+                    </a>
                 </div>
-
-                <div class="mb-5">
-                    <label class="form-label">Phone</label>
-                    <input type="text" name="phone" class="form-control"
-                           value="${request.getPhone() != null ? request.getPhone() : ""}">
-                </div>
-
-                <div class="mb-5">
-                    <label class="form-label">Specialization</label>
-                    <input type="text" name="specialization" class="form-control"
-                           value="${request.getSpecialization() != null ? request.getSpecialization() : ""}" required>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-            </form>
+            </div>
         </div>
     </div>
+    <!--end::Toolbar-->
+
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <div id="kt_app_content_container" class="app-container container-fluid">
+
+            @if(bindingResult != null && bindingResult.hasErrors())
+                <div class="alert alert-danger d-flex flex-column alert-dismissible fade show" role="alert">
+                    @for(var error : bindingResult.getAllErrors())
+                        <span>${error.getDefaultMessage()}</span>
+                    @endfor
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            <div class="row g-7 justify-content-center">
+                <!--begin::Form column-->
+                <div class="col-12 col-lg-8 col-xl-6">
+                    <div class="card card-flush">
+                        <div class="card-body pt-9">
+                            <!--begin::Avatar-->
+                            <div class="d-flex flex-center flex-column py-5 mb-5">
+                                <div class="symbol symbol-90px symbol-circle mb-4">
+                                    <span class="symbol-label bg-light-primary text-primary fs-2 fw-bold">${initials}</span>
+                                </div>
+                                <span class="badge badge-lg badge-light-primary">Terapis</span>
+                            </div>
+                            <!--end::Avatar-->
+
+                            <div class="separator mb-8"></div>
+
+                            <form action="/profile/edit" method="post" class="form">
+                                <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}" />
+
+                                <!--begin::Full Name-->
+                                <div class="fv-row mb-7">
+                                    <label class="fs-6 fw-semibold form-label mt-3">
+                                        <span class="required">Nama Lengkap</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid"
+                                           name="username" value="${request.getUsername()}"
+                                           placeholder="Masukkan nama lengkap" required/>
+                                </div>
+                                <!--end::Full Name-->
+
+                                <!--begin::Email-->
+                                <div class="fv-row mb-7">
+                                    <label class="fs-6 fw-semibold form-label mt-3">
+                                        <span class="required">Email</span>
+                                    </label>
+                                    <input type="email" class="form-control form-control-solid"
+                                           name="email" value="${request.getEmail()}"
+                                           placeholder="Masukkan alamat email" required/>
+                                </div>
+                                <!--end::Email-->
+
+                                <!--begin::Phone-->
+                                <div class="fv-row mb-7">
+                                    <label class="fs-6 fw-semibold form-label mt-3">
+                                        <span>Telepon</span>
+                                        <span class="fs-7 fw-normal text-muted ms-2">Opsional</span>
+                                    </label>
+                                    <input type="tel" class="form-control form-control-solid"
+                                           name="phone" value="${request.getPhone() != null ? request.getPhone() : ""}"
+                                           placeholder="Masukkan nomor telepon"/>
+                                </div>
+                                <!--end::Phone-->
+
+                                <!--begin::Specialization-->
+                                <div class="fv-row mb-7">
+                                    <label class="fs-6 fw-semibold form-label mt-3">
+                                        <span class="required">Spesialisasi</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-solid"
+                                           name="specialization" value="${request.getSpecialization() != null ? request.getSpecialization() : ""}"
+                                           placeholder="cth. Terapi Okupasi" required/>
+                                </div>
+                                <!--end::Specialization-->
+
+                                <div class="separator mb-6"></div>
+                                <div class="d-flex justify-content-end">
+                                    <a href="/profile" class="btn btn-light me-3">Batal</a>
+                                    <button type="submit" class="btn btn-primary">
+                                        <span class="indicator-label">Simpan Perubahan</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--end::Form column-->
+            </div>
+
+        </div>
+    </div>
+    <!--end::Content-->
 `
 )

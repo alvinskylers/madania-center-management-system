@@ -29,7 +29,7 @@
 !{boolean hasFilters = patientId != null || dateFrom != null || dateTo != null;}
 
 @template.layout.base(
-title = "My Sessions",
+title = "Sesi Terapi Saya",
 role = role,
 user = user,
 _csrf = _csrf,
@@ -42,8 +42,8 @@ content = @`
         <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
-                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">My Sessions</h1>
-                    <div class="fs-6 text-muted">Browse your therapy packages and their scheduled sessions</div>
+                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Sesi Terapi Saya</h1>
+                    <div class="fs-6 text-muted">Paket Terapi dan Jurnal Terapi anda.</div>
                 </div>
             </div>
         </div>
@@ -76,9 +76,9 @@ content = @`
 
                         <!--begin::Patient filter-->
                         <div class="col-sm-6 col-lg-4">
-                            <label class="form-label fs-7 fw-semibold text-gray-700 mb-1">Patient</label>
+                            <label class="form-label fs-7 fw-semibold text-gray-700 mb-1">Pasien</label>
                             <select name="patientId" class="form-select form-select-sm">
-                                <option value="">All Patients</option>
+                                <option value="">Semua Pasien</option>
                                 @for(Patient patient : patients)
                                     @if(patientIdStr.equals(String.valueOf(patient.getId())))
                                         <option value="${String.valueOf(patient.getId())}" selected>${patient.getFullName()}</option>
@@ -92,14 +92,14 @@ content = @`
 
                         <!--begin::Date From-->
                         <div class="col-sm-6 col-lg-3">
-                            <label class="form-label fs-7 fw-semibold text-gray-700 mb-1">Start Date From</label>
+                            <label class="form-label fs-7 fw-semibold text-gray-700 mb-1">Tanggal Batas Awal</label>
                             <input type="date" name="dateFrom" class="form-control form-control-sm" value="${dateFromStr}"/>
                         </div>
                         <!--end::Date From-->
 
                         <!--begin::Date To-->
                         <div class="col-sm-6 col-lg-3">
-                            <label class="form-label fs-7 fw-semibold text-gray-700 mb-1">Start Date To</label>
+                            <label class="form-label fs-7 fw-semibold text-gray-700 mb-1">Tanggal Batas Akhir</label>
                             <input type="date" name="dateTo" class="form-control form-control-sm" value="${dateToStr}"/>
                         </div>
                         <!--end::Date To-->
@@ -125,7 +125,7 @@ content = @`
             <div class="card">
                 <div class="card-body">
                     @if(packageGroups == null || packageGroups.isEmpty())
-                        <div class="alert alert-info text-center mb-0">No therapy packages found for the selected filters.</div>
+                        <div class="alert alert-info text-center mb-0">Paket Terapi tidak ditemukan dengan kriteria tersebut.</div>
                     @else
                         <div class="accordion" id="kt_therapist_sessions_accordion">
                             @for(int i = 0; i < packageGroups.size(); i++)
@@ -147,22 +147,22 @@ content = @`
                     @if(totalPages > 0)
                         <div class="d-flex justify-content-between align-items-center pt-6">
                             <div class="text-muted fs-7">
-                                Showing
+                                Menampilkan
                                 ${currentPage * pageSize + 1}
-                                to
+                                sampai
                                 ${Math.min((currentPage + 1) * pageSize, totalItems)}
-                                of
+                                dari
                                 ${totalItems}
-                                packages
+                                item
                             </div>
 
                             <ul class="pagination m-0">
                                 @if(currentPage > 0)
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${currentPage - 1}&size=${pageSize}&patientId=${patientIdStr}&dateFrom=${dateFromStr}&dateTo=${dateToStr}">Previous</a>
+                                        <a class="page-link" href="?page=${currentPage - 1}&size=${pageSize}&patientId=${patientIdStr}&dateFrom=${dateFromStr}&dateTo=${dateToStr}">Sebelum</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Sebelum</span></li>
                                 @endif
 
                                 @for(int i = 0; i < totalPages; i++)
@@ -177,10 +177,10 @@ content = @`
 
                                 @if(currentPage < totalPages - 1)
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${currentPage + 1}&size=${pageSize}&patientId=${patientIdStr}&dateFrom=${dateFromStr}&dateTo=${dateToStr}">Next</a>
+                                        <a class="page-link" href="?page=${currentPage + 1}&size=${pageSize}&patientId=${patientIdStr}&dateFrom=${dateFromStr}&dateTo=${dateToStr}">Berikut</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Next</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Berikut</span></li>
                                 @endif
                             </ul>
                         </div>

@@ -32,12 +32,12 @@ content = @`
         <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <div class="d-flex flex-wrap align-items-center my-1">
-                    <h1 class="page-heading text-gray-900 fw-bold fs-3 m-0 me-5">My Patients</h1>
+                    <h1 class="page-heading text-gray-900 fw-bold fs-3 m-0 me-5">Pasien Saya</h1>
                     <form method="GET" action="/therapist/patients" class="d-flex align-items-center position-relative my-1">
                         <i class="ki-outline ki-magnifier fs-3 position-absolute ms-3"></i>
-                        <input type="text" name="query" class="form-control form-control-sm border-body bg-body w-200px ps-10" placeholder="Search my patients..." value="${query != null ? query : ""}" />
+                        <input type="text" name="query" class="form-control form-control-sm border-body bg-body w-200px ps-10" placeholder="Cari pasien saya..." value="${query != null ? query : ""}" />
                         <input type="hidden" name="page" value="0" />
-                        <button type="submit" class="btn btn-primary ms-2 d-none d-sm-inline-block">Search</button>
+                        <button type="submit" class="btn btn-primary ms-2 d-none d-sm-inline-block">Cari</button>
                     </form>
                 </div>
             </div>
@@ -58,7 +58,7 @@ content = @`
                 @else
                     <div class="col-12">
                         <div class="alert alert-info text-center">
-                            No patients assigned to you yet.
+                            Anda belum memiliki pasien
                         </div>
                     </div>
                 @endif
@@ -67,22 +67,22 @@ content = @`
             @if(totalPages > 0)
                 <div class="d-flex justify-content-between align-items-center pt-8">
                     <div class="text-muted fs-7">
-                        Showing
+                        Menampilkan
                         ${currentPage * pageSize + 1}
-                        to
+                        sampai
                         ${Math.min((currentPage + 1) * pageSize, totalItems)}
-                        of
+                        dari
                         ${totalItems}
-                        entries
+                        item
                     </div>
 
                     <ul class="pagination m-0">
                         @if(patients.hasPrevious())
                             <li class="page-item">
-                                <a class="page-link" href="?page=${currentPage - 1}&query=${query != null ? query : ""}">Previous</a>
+                                <a class="page-link" href="?page=${currentPage - 1}&query=${query != null ? query : ""}">Sebelum</a>
                             </li>
                         @else
-                            <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                            <li class="page-item disabled"><span class="page-link">Sebelum</span></li>
                         @endif
 
                         @for(int i = 0; i < totalPages; i++)
@@ -97,10 +97,10 @@ content = @`
 
                         @if(patients.hasNext())
                             <li class="page-item">
-                                <a class="page-link" href="?page=${currentPage + 1}&query=${query != null ? query : ""}">Next</a>
+                                <a class="page-link" href="?page=${currentPage + 1}&query=${query != null ? query : ""}">Berikut</a>
                             </li>
                         @else
-                            <li class="page-item disabled"><span class="page-link">Next</span></li>
+                            <li class="page-item disabled"><span class="page-link">Berikut</span></li>
                         @endif
                     </ul>
                 </div>

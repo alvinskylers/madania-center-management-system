@@ -31,7 +31,7 @@
 
             <!--begin::Parent (or other info)-->
             <div class="fw-semibold text-gray-500 mb-6">
-                ${patient.getAge().getYears()} Years old
+                ${patient.getAge().getYears()} Tahun
             </div>
             <!--end::Parent-->
         </a>

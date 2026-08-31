@@ -30,18 +30,18 @@
                     ${group.getTherapyPackage().getPatient().getFullName()}
                     <span class="text-muted fs-7">
                         &nbsp;&middot;&nbsp; ${group.getTherapyPackage().getStartDate().toString()}
-                        to ${group.getTherapyPackage().getEndDate() != null ? group.getTherapyPackage().getEndDate().toString() : "ongoing"}
+                        sampai ${group.getTherapyPackage().getEndDate() != null ? group.getTherapyPackage().getEndDate().toString() : "ongoing"}
                     </span>
                 </span>
                 <span class="fs-7 text-muted">
-                    ${group.getTherapyPackage().getCompletedSessions()} / ${group.getTherapyPackage().getTotalSessions()} sessions
+                    ${group.getTherapyPackage().getCompletedSessions()} / ${group.getTherapyPackage().getTotalSessions()} Sesi
                     &nbsp;
                     @if(group.getTherapyPackage().getStatus() == PackageStatus.ACTIVE)
-                        <span class="badge badge-light-success">Active</span>
+                        <span class="badge badge-light-success">Aktif</span>
                     @elseif(group.getTherapyPackage().getStatus() == PackageStatus.COMPLETED)
-                        <span class="badge badge-light-primary">Completed</span>
+                        <span class="badge badge-light-primary">Tuntas</span>
                     @else
-                        <span class="badge badge-light-danger">Cancelled</span>
+                        <span class="badge badge-light-danger">Dibatalkan</span>
                     @endif
                 </span>
             </div>
@@ -54,11 +54,11 @@
                 <table class="table align-middle table-row-dashed gy-3">
                     <thead>
                     <tr class="fs-7 text-muted text-uppercase">
-                        <th>#</th>
-                        <th>Date</th>
-                        <th>Time</th>
+                        <th>No Sesi</th>
+                        <th>Tanggal</th>
+                        <th>Waktu</th>
                         <th>Status</th>
-                        <th class="text-end">Actions</th>
+                        <th class="text-end">Aksi</th>
                     </tr>
                     </thead>
                     <tbody class="fs-6">
@@ -71,11 +71,11 @@
                             <td>${pair.getSession().getStartTime().toLocalTime().toString()} - ${pair.getSession().getEndTime().toLocalTime().toString()}</td>
                             <td>
                                 @if(pair.getSession().getStatus() == SessionStatus.SCHEDULED)
-                                    <span class="badge badge-light-primary">Scheduled</span>
+                                    <span class="badge badge-light-primary">Dijadwalkan</span>
                                 @elseif(pair.getSession().getStatus() == SessionStatus.COMPLETED)
-                                    <span class="badge badge-light-success">Completed</span>
+                                    <span class="badge badge-light-success">Tuntas</span>
                                 @elseif(pair.getSession().getStatus() == SessionStatus.CANCELLED)
-                                    <span class="badge badge-light-danger">Cancelled</span>
+                                    <span class="badge badge-light-danger">Dibatalkan</span>
                                 @else
                                     <span class="badge badge-light-warning">Rescheduled</span>
                                 @endif
@@ -92,11 +92,11 @@
                                         <input type="hidden" name="dateFrom" value="${dateFromStr}"/>
                                         <input type="hidden" name="dateTo" value="${dateToStr}"/>
                                         @if(datePassed)
-                                            <button type="submit" class="btn btn-sm btn-light-success">Mark Complete</button>
+                                            <button type="submit" class="btn btn-sm btn-light-success">Tandai Tuntas</button>
                                         @else
                                             <button type="button" class="btn btn-sm btn-light" disabled
                                                     data-bs-toggle="tooltip" title="Available once the session date has passed">
-                                                Mark Complete
+                                                Tandai Tuntas
                                             </button>
                                         @endif
                                     </form>
@@ -105,16 +105,16 @@
                                 @if(pair.getSession().getStatus() != SessionStatus.CANCELLED)
                                     @if(hasJournal)
                                         <a href="/therapist/journal/create/${String.valueOf(pair.getSession().getId())}" class="btn btn-sm btn-light-primary">
-                                            View Journal
+                                            Lihat Jurnal
                                         </a>
                                     @elseif(datePassed)
                                         <a href="/therapist/journal/create/${String.valueOf(pair.getSession().getId())}" class="btn btn-sm btn-primary">
-                                            Write Journal
+                                            Tulis Jurnal
                                         </a>
                                     @else
                                         <button type="button" class="btn btn-sm btn-light" disabled
                                                 data-bs-toggle="tooltip" title="Available once the session date has passed">
-                                            Write Journal
+                                            Tulis Jurnal
                                         </button>
                                     @endif
                                 @endif

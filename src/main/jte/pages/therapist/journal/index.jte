@@ -25,7 +25,7 @@
 @param List<Notification> recentNotifications = null
 
 @template.layout.base(
-title = "Journals",
+title = "Jurnal",
 role = role,
 user = user,
 _csrf = _csrf,
@@ -36,11 +36,11 @@ content = @`
         <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
-                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">My Journals</h1>
+                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Jurnal Saya</h1>
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                         <li class="breadcrumb-item text-muted"><a href="/therapist/dashboard" class="text-muted text-hover-primary">Dashboard</a></li>
                         <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
-                        <li class="breadcrumb-item text-muted">Journals</li>
+                        <li class="breadcrumb-item text-muted">Jurnal Saya</li>
                     </ul>
                 </div>
             </div>
@@ -56,12 +56,12 @@ content = @`
                             <input type="hidden" name="page" value="0" />
 
                             <div>
-                                <label class="fs-8 text-muted mb-1 d-block">Patient</label>
+                                <label class="fs-8 text-muted mb-1 d-block">Pasien</label>
                                 <select name="patientId"
                                         class="form-select form-select-solid w-200px tom-select"
                                         onchange="this.form.submit()"
                                         data-placeholder="Search patient...">
-                                    <option value="">All Patients</option>
+                                    <option value="">Semua Pasien</option>
                                     @for(Patient p : patients)
                                         @if(selectedPatientId != null && selectedPatientId.equals(p.getId()))
                                             <option value="${String.valueOf(p.getId())}" selected>${p.getFullName()}</option>
@@ -73,9 +73,9 @@ content = @`
                             </div>
 
                             <div>
-                                <label class="fs-8 text-muted mb-1 d-block">Session</label>
+                                <label class="fs-8 text-muted mb-1 d-block">No Sesi</label>
                                 <select name="sessionNumber" class="form-select form-select-solid w-150px" onchange="this.form.submit()">
-                                    <option value="">All Sessions</option>
+                                    <option value="">Semua Sesi</option>
                                     @for(Integer n : sessionNumbers)
                                         @if(selectedSessionNumber != null && selectedSessionNumber.equals(n))
                                             <option value="${n}" selected>Session ${n}</option>
@@ -87,13 +87,13 @@ content = @`
                             </div>
 
                             <div>
-                                <label class="fs-8 text-muted mb-1 d-block">From</label>
+                                <label class="fs-8 text-muted mb-1 d-block">Tanggal Batas Awal</label>
                                 <input type="date" name="startDate" class="form-control form-control-solid w-150px"
                                        value="${selectedStartDate != null ? selectedStartDate.toString() : ""}" />
                             </div>
 
                             <div>
-                                <label class="fs-8 text-muted mb-1 d-block">To</label>
+                                <label class="fs-8 text-muted mb-1 d-block">Tanggal Batas Akhir</label>
                                 <input type="date" name="endDate" class="form-control form-control-solid w-150px"
                                        value="${selectedEndDate != null ? selectedEndDate.toString() : ""}" />
                             </div>
@@ -112,12 +112,12 @@ content = @`
                         <table class="table table-row-dashed align-middle fs-6 gy-5">
                             <thead>
                             <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
-                                <th>Title</th>
-                                <th>Patient</th>
-                                <th>Session #</th>
-                                <th>Therapy Type</th>
+                                <th>Judul</th>
+                                <th>Pasien</th>
+                                <th>No Sesi</th>
+                                <th>Jenis Terapi</th>
                                 <th>Mood</th>
-                                <th>Date</th>
+                                <th>Tanggal</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -128,10 +128,10 @@ content = @`
                                         <td>${journal.getTitle()}</td>
                                         <td>${journal.getPatient().getFullName()}</td>
                                         <td>${journal.getSession().getSessionNumber()}</td>
-                                        <td>${journal.getTherapyType().name()}</td>
+                                        <td>${journal.getTherapyType().getLabel()}</td>
                                         <td>
                                             @if(journal.getMood() != null)
-                                                ${journal.getMood().name()}
+                                                ${journal.getMood().getEmoji()} ${journal.getMood().getLabel()}
                                             @else
                                                 -
                                             @endif
@@ -146,7 +146,7 @@ content = @`
                                     </tr>
                                 @endfor
                             @else
-                                <tr><td colspan="7" class="text-center text-muted">No journals match these filters.</td></tr>
+                                <tr><td colspan="7" class="text-center text-muted">Tidak ada jurnal dengan kriteria tersebut</td></tr>
                             @endif
                             </tbody>
                         </table>
@@ -156,22 +156,22 @@ content = @`
                     @if(totalPages > 0)
                         <div class="d-flex justify-content-between align-items-center pt-5">
                             <div class="text-muted fs-7">
-                                Showing
+                                Menampilkan
                                 ${currentPage * pageSize + 1}
-                                to
+                                sampai
                                 ${Math.min((currentPage + 1) * pageSize, totalItems)}
-                                of
+                                dari
                                 ${totalItems}
-                                entries
+                                item
                             </div>
 
                             <ul class="pagination m-0">
                                 @if(currentPage > 0)
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${currentPage - 1}&patientId=${selectedPatientId != null ? String.valueOf(selectedPatientId) : ""}&sessionNumber=${selectedSessionNumber != null ? String.valueOf(selectedSessionNumber) : ""}&startDate=${selectedStartDate != null ? selectedStartDate.toString() : ""}&endDate=${selectedEndDate != null ? selectedEndDate.toString() : ""}">Previous</a>
+                                        <a class="page-link" href="?page=${currentPage - 1}&patientId=${selectedPatientId != null ? String.valueOf(selectedPatientId) : ""}&sessionNumber=${selectedSessionNumber != null ? String.valueOf(selectedSessionNumber) : ""}&startDate=${selectedStartDate != null ? selectedStartDate.toString() : ""}&endDate=${selectedEndDate != null ? selectedEndDate.toString() : ""}">Sebelum</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Sebelum</span></li>
                                 @endif
 
                                 @for(int i = 0; i < totalPages; i++)
@@ -186,10 +186,10 @@ content = @`
 
                                 @if(currentPage < totalPages - 1)
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${currentPage + 1}&patientId=${selectedPatientId != null ? String.valueOf(selectedPatientId) : ""}&sessionNumber=${selectedSessionNumber != null ? String.valueOf(selectedSessionNumber) : ""}&startDate=${selectedStartDate != null ? selectedStartDate.toString() : ""}&endDate=${selectedEndDate != null ? selectedEndDate.toString() : ""}">Next</a>
+                                        <a class="page-link" href="?page=${currentPage + 1}&patientId=${selectedPatientId != null ? String.valueOf(selectedPatientId) : ""}&sessionNumber=${selectedSessionNumber != null ? String.valueOf(selectedSessionNumber) : ""}&startDate=${selectedStartDate != null ? selectedStartDate.toString() : ""}&endDate=${selectedEndDate != null ? selectedEndDate.toString() : ""}">Berikut</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Next</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Berikut</span></li>
                                 @endif
                             </ul>
                         </div>

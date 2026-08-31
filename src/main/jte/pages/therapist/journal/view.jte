@@ -21,12 +21,12 @@ unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,
 content = @`
     <div class="d-flex justify-content-between align-items-center mb-5 jdoc-no-print">
-        <h1 class="page-heading">Therapy Journal</h1>
+        <h1 class="page-heading">Jurnal Terapi</h1>
         <div class="d-flex gap-3">
             <a href="/therapist/journal/${String.valueOf(journal.getId())}/edit" class="btn btn-primary">
-                Edit Journal
+                Ubah Jurnal
             </a>
-            <a href="/therapist/journals" class="btn btn-light">Back</a>
+            <a href="/therapist/journals" class="btn btn-light">Kembali</a>
         </div>
     </div>
 
@@ -34,7 +34,7 @@ content = @`
 
     <div class="card mt-5 jdoc-no-print" style="max-width: 900px; margin: 0 auto;">
         <div class="card-body">
-            <h5 class="fw-bold mb-5">Parent Responses</h5>
+            <h5 class="fw-bold mb-5">Tanggapan Wali Pasien</h5>
 
             @if(comments != null && !comments.isEmpty())
                 @for(JournalComment comment : comments)
@@ -44,7 +44,7 @@ content = @`
                     </div>
                 @endfor
             @else
-                <p class="text-muted">No responses from the parent yet.</p>
+                <p class="text-muted">Wali Pasien belum berkomentar.</p>
             @endif
         </div>
     </div>

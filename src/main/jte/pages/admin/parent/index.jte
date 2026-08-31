@@ -10,7 +10,7 @@
 @param CsrfToken _csrf
 
 @template.layout.base(
-title = "Parents",
+title = "Wali Pasien",
 role = role,
 user = user,
 _csrf = _csrf,
@@ -19,7 +19,7 @@ content = @`
         <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
-                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Parent List</h1>
+                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Wali Pasien</h1>
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                         <li class="breadcrumb-item text-muted">
                             <a href="/admin/dashboard" class="text-muted text-hover-primary">Dashboard</a>
@@ -27,7 +27,7 @@ content = @`
                         <li class="breadcrumb-item">
                             <span class="bullet bg-gray-500 w-5px h-2px"></span>
                         </li>
-                        <li class="breadcrumb-item text-muted">Parents</li>
+                        <li class="breadcrumb-item text-muted">Wali Pasien</li>
                     </ul>
                 </div>
             </div>
@@ -46,16 +46,16 @@ content = @`
                                 <input type="text"
                                        name="query"
                                        class="form-control form-control-solid w-250px ps-13"
-                                       placeholder="Search Parents"
+                                       placeholder="Cari wali"
                                        value="${query != null ? query : ""}" />
                                 <input type="hidden" name="page" value="0" />
-                                <button type="submit" class="btn btn-light-primary me-3 gap-3">Search</button>
+                                <button type="submit" class="btn btn-light-primary me-3 gap-3">Cari</button>
                             </div>
                         </form>
                     </div>
                     <div class="card-toolbar">
                         <a href="/admin/parent/create" class="btn btn-primary">
-                            <i class="ki-outline ki-plus fs-2"></i>Add Parent
+                            <i class="ki-outline ki-plus fs-2"></i>Tambahkan Wali Pasien
                         </a>
                     </div>
                 </div>
@@ -65,10 +65,10 @@ content = @`
                         <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_parents_table">
                             <thead>
                             <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
-                                <th class="min-w-250px">Parent</th>
-                                <th class="min-w-125px">Phone</th>
-                                <th class="min-w-125px">Address</th>
-                                <th class="text-end min-w-70px">Actions</th>
+                                <th class="min-w-250px">Wali Pasien</th>
+                                <th class="min-w-125px">No Telepon</th>
+                                <th class="min-w-125px">Alamat</th>
+                                <th class="text-end min-w-70px">Tindakan</th>
                             </tr>
                             </thead>
                             <tbody class="fw-semibold text-gray-600">
@@ -83,22 +83,22 @@ content = @`
                     @if(parents.getTotalPages() > 0)
                         <div class="d-flex justify-content-between align-items-center pt-5">
                             <div class="text-muted fs-7">
-                                Showing
+                                Menampilkan
                                 ${parents.getNumber() * parents.getSize() + 1}
-                                to
+                                sampai
                                 ${Math.min((parents.getNumber() + 1) * parents.getSize(), parents.getTotalElements())}
-                                of
+                                dari
                                 ${parents.getTotalElements()}
-                                entries
+                                item
                             </div>
 
                             <ul class="pagination m-0">
                                 @if(parents.hasPrevious())
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${parents.getNumber() - 1}&query=${query != null ? query : ""}">Previous</a>
+                                        <a class="page-link" href="?page=${parents.getNumber() - 1}&query=${query != null ? query : ""}">Sebelum</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Sebelum</span></li>
                                 @endif
 
                                 @for(int i = 0; i < parents.getTotalPages(); i++)
@@ -113,10 +113,10 @@ content = @`
 
                                 @if(parents.hasNext())
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${parents.getNumber() + 1}&query=${query != null ? query : ""}">Next</a>
+                                        <a class="page-link" href="?page=${parents.getNumber() + 1}&query=${query != null ? query : ""}">Berikut</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Next</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Berikut</span></li>
                                 @endif
                             </ul>
                         </div>

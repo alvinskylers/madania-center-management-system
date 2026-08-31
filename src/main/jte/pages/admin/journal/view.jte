@@ -16,15 +16,15 @@ user = user,
 _csrf = _csrf,
 content = @`
     <div class="d-flex justify-content-between align-items-center mb-5 jdoc-no-print">
-        <h1 class="page-heading">Therapy Journal</h1>
-        <a href="/admin/journals" class="btn btn-light">Back</a>
+        <h1 class="page-heading">Jurnal Terapi</h1>
+        <a href="/admin/journals" class="btn btn-light">Kembali</a>
     </div>
 
     @template.components.journal-document(journal = journal)
 
     <div class="card mt-5 jdoc-no-print" style="max-width: 900px; margin: 0 auto;">
         <div class="card-body">
-            <h5 class="fw-bold mb-5">Parent Responses</h5>
+            <h5 class="fw-bold mb-5">Komentar Wali</h5>
 
             @if(comments != null && !comments.isEmpty())
                 @for(JournalComment comment : comments)
@@ -34,7 +34,7 @@ content = @`
                     </div>
                 @endfor
             @else
-                <p class="text-muted">No responses from the parent yet.</p>
+                <p class="text-muted">Wali belum berkomentar.</p>
             @endif
         </div>
     </div>

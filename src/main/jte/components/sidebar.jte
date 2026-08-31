@@ -40,23 +40,7 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/admin/schedule" title="View all schedules" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-calendar fs-2"></i></span>
-                            <span class="menu-title">Schedule</span>
-                        </a>
-                    </div>
-
-                    <!-- Reschedule Requests -->
-                    <div class="menu-item">
-                        <a class="menu-link" href="/admin/reschedules" title="View reschedule requests" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-bullet"><i class="ki-outline ki-time fs-2"></i></span>
-                            <span class="menu-title">Reschedule Requests</span>
-                        </a>
-                    </div>
-
-                    <!-- Leave Requests -->
-                    <div class="menu-item">
-                        <a class="menu-link" href="/admin/leaves" title="View leave requests" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-bullet"><i class="ki-outline ki-airplane fs-2"></i></span>
-                            <span class="menu-title">Leave Requests</span>
+                            <span class="menu-title">Jadwal Terapi</span>
                         </a>
                     </div>
 
@@ -64,7 +48,7 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/admin/packages" title="View all packages" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-parcel fs-2"></i></span>
-                            <span class="menu-title">Package</span>
+                            <span class="menu-title">Paket Terapi</span>
                         </a>
                     </div>
 
@@ -72,7 +56,7 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/admin/journals" title="View all journals" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-book fs-2"></i></span>
-                            <span class="menu-title">Journals</span>
+                            <span class="menu-title">Jurnal Terapi</span>
                         </a>
                     </div>
 
@@ -80,7 +64,21 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/admin/patients" title="View all patients" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-people fs-2"></i></span>
-                            <span class="menu-title">Patients</span>
+                            <span class="menu-title">Pasien</span>
+                        </a>
+                    </div>
+
+                    <div class="menu-item">
+                        <a class="menu-link" href="/admin/parents"  title="View all parents" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-user fs-2"></i></span>
+                            <span class="menu-title">Wali Pasien</span>
+                        </a>
+                    </div>
+
+                    <div class="menu-item">
+                        <a class="menu-link" href="/admin/therapists"  title="View all therapists" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-user fs-2"></i></span>
+                            <span class="menu-title">Terapis</span>
                         </a>
                     </div>
 
@@ -88,19 +86,23 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/admin/users" title="View all users" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-people fs-2"></i></span>
-                            <span class="menu-title">Users</span>
+                            <span class="menu-title">Pengguna</span>
                         </a>
                     </div>
+
+                    <!-- Leave Requests -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/admin/parents"  title="View all parents" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-bullet"><i class="ki-outline ki-user fs-2"></i></span>
-                            <span class="menu-title">Parents</span>
+                        <a class="menu-link" href="/admin/leaves" title="View leave requests" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-time fs-2"></i></span>
+                            <span class="menu-title">Permintaan Izin</span>
                         </a>
                     </div>
+
+                    <!-- Reschedule Requests -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/admin/therapists"  title="View all therapists" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-bullet"><i class="ki-outline ki-user fs-2"></i></span>
-                            <span class="menu-title">Therapists</span>
+                        <a class="menu-link" href="/admin/reschedules" title="View reschedule requests" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-time fs-2"></i></span>
+                            <span class="menu-title">Permintaan Reschedule</span>
                         </a>
                     </div>
                 @endif

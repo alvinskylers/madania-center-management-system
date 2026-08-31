@@ -34,11 +34,11 @@ content = @`
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <!--begin::Page title-->
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
-                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Patient Details</h1>
+                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Informasi Pasien</h1>
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
-                        <li class="breadcrumb-item text-muted"><a href="/admin/dashboard" class="text-muted text-hover-primary">Home</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="/admin/dashboard" class="text-muted text-hover-primary">Dashboard</a></li>
                         <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
-                        <li class="breadcrumb-item text-muted"><a href="/admin/patients" class="text-muted text-hover-primary">Patients</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="/admin/patients" class="text-muted text-hover-primary">Pasien</a></li>
                         <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
                         <li class="breadcrumb-item text-muted">${patient.getFullName()}</li>
                     </ul>
@@ -46,13 +46,13 @@ content = @`
                 <!--end::Page title-->
                 <!--begin::Actions-->
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
-                    <span data-bs-toggle="tooltip" data-bs-trigger="hover" title="Edit patient details">
-                        <a href="/admin/patient/${String.valueOf(patient.getId())}/edit" class="btn btn-light-primary"> Edit </a>
+                    <span data-bs-toggle="tooltip" data-bs-trigger="hover" title="Ubah informasi pasien">
+                        <a href="/admin/patient/${String.valueOf(patient.getId())}/edit" class="btn btn-light-primary"> Ubah </a>
                     </span>
-                    <span data-bs-toggle="tooltip" data-bs-trigger="hover" title="Delete patient ">
+                    <span data-bs-toggle="tooltip" data-bs-trigger="hover" title="Hapus pasien">
                         <form action="/admin/patient/${String.valueOf(patient.getId())}/delete" method="post">
                             <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
-                            <button type="submit" class="btn btn-light-danger"> Delete</button>
+                            <button type="submit" class="btn btn-light-danger"> Hapus</button>
                         </form>
                     </span>
                 </div>
@@ -100,13 +100,13 @@ content = @`
                             <!--begin::Details content-->
                             <div id="kt_user_view_details" class="collapse show">
                                 <div class="pb-5 fs-6">
-                                    <div class="fw-bold mt-5">Patient ID</div>
+                                    <div class="fw-bold mt-5">ID Pasien</div>
                                     <div class="text-gray-600">${patient.getId().toString()}</div>
-                                    <div class="fw-bold mt-5">Patient Status</div>
-                                    <div class="text-gray-600"> ${patient.isActive() ? "Active" : "Inactive"}</div>
-                                    <div class="fw-bold mt-5">Registered At</div>
+                                    <div class="fw-bold mt-5">Status Pasien</div>
+                                    <div class="text-gray-600"> ${patient.isActive() ? "Aktif" : "Tidak Aktif"}</div>
+                                    <div class="fw-bold mt-5">Terdaftar Tanggal</div>
                                     <div class="text-gray-600">${patient.getCreatedAt() != null ? patient.getCreatedAt().format(DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a")) : "—"}</div>
-                                    <div class="fw-bold mt-5">Last Update</div>
+                                    <div class="fw-bold mt-5">Terakhir Diubah</div>
                                     <div class="text-gray-600">${patient.getUpdatedAt() != null ? patient.getCreatedAt().format(DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a")) : "—"}</div>
                                 </div>
                             </div>
@@ -122,9 +122,9 @@ content = @`
                 <div class="flex-lg-row-fluid ms-lg-15">
                     <!--begin:::Tabs-->
                     <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
-                        <li class="nav-item"><a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#kt_user_view_overview_tab">Schedule</a></li>
-                        <li class="nav-item"><a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_user_view_journals_tab">Journals</a></li>
-                        <li class="nav-item"><a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true" data-bs-toggle="tab" href="#kt_user_view_overview_security">Profile</a></li>
+                        <li class="nav-item"><a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#kt_user_view_overview_tab">Jadwal</a></li>
+                        <li class="nav-item"><a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_user_view_journals_tab">Jurnal</a></li>
+                        <li class="nav-item"><a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true" data-bs-toggle="tab" href="#kt_user_view_overview_security">Biodata</a></li>
                     </ul>
                     <!--end:::Tabs-->
 
@@ -135,11 +135,11 @@ content = @`
                             <div class="card card-flush mb-6 mb-xl-9">
                                 <div class="card-header mt-6">
                                     <div class="card-title flex-column">
-                                        <h2 class="mb-1">Patient Schedule</h2>
-                                        <div class="fs-6 fw-semibold text-muted">All therapy sessions for ${patient.getFullName()}</div>
+                                        <h2 class="mb-1">Jadwal Pasien</h2>
+                                        <div class="fs-6 fw-semibold text-muted">Jadwal Terapi Ananda ${patient.getFullName()}</div>
                                     </div>
                                     <div class="card-toolbar">
-                                        <a href="/admin/package/create" class="btn btn-light-primary btn-sm"><i class="ki-outline ki-brush fs-3"></i>Add Schedule</a>
+                                        <a href="/admin/package/create" class="btn btn-light-primary btn-sm"><i class="ki-outline ki-brush fs-3"></i>Tambahkan Jadwal</a>
                                     </div>
                                 </div>
                                 <div class="card-body p-9 pt-4">
@@ -154,13 +154,13 @@ content = @`
                             <div class="card card-flush mb-6 mb-xl-9">
                                 <div class="card-header mt-6">
                                     <div class="card-title flex-column">
-                                        <h2 class="mb-1">Therapy Packages &amp; Journals</h2>
-                                        <div class="fs-6 fw-semibold text-muted">All packages and session journals for ${patient.getFullName()}</div>
+                                        <h2 class="mb-1">Paket &amp; Jurnal Terapi</h2>
+                                        <div class="fs-6 fw-semibold text-muted">Semua Paket & Jurnal Sesi Terapi Ananda ${patient.getFullName()}</div>
                                     </div>
                                 </div>
                                 <div class="card-body p-9 pt-4">
                                     @if(packageGroups == null || packageGroups.isEmpty())
-                                        <div class="alert alert-info">No therapy packages yet for this patient.</div>
+                                        <div class="alert alert-info">Pasien tidak memiliki paket terapi</div>
                                     @else
                                         <div class="accordion" id="kt_patient_packages_accordion">
                                             @for(int i = 0; i < packageGroups.size(); i++)
@@ -180,18 +180,18 @@ content = @`
                         <div class="tab-pane fade" id="kt_user_view_overview_security" role="tabpanel">
                             <!-- Profile fields -->
                             <div class="card pt-4 mb-6 mb-xl-9">
-                                <div class="card-header border-0"><div class="card-title"><h2>Profile</h2></div></div>
+                                <div class="card-header border-0"><div class="card-title"><h2>Biodata</h2></div></div>
                                 <div class="card-body pt-0 pb-5">
                                     <div class="table-responsive">
                                         <table class="table align-middle table-row-dashed gy-5">
                                             <tbody class="fs-6 fw-semibold text-gray-600">
-                                            <tr><td>Full Name</td><td>${patient.getFullName()}</td><td class="text-end"></td></tr>
-                                            <tr><td>Age</td><td>${patient.getAge().getYears() + " years, " +patient.getAge().getMonths() + " months old" }</td><td class="text-end"></td></tr>
-                                            <tr><td>Date of Birth</td><td>${patient.getDateOfBirth() != null ? patient.getDateOfBirth().toString() : "—"}</td><td class="text-end"></td></tr>
-                                            <tr><td>Gender</td><td>${patient.getGender() == Gender.MALE ? "Male" : "Female"}</td><td class="text-end"></td></tr>
+                                            <tr><td>Nama</td><td>${patient.getFullName()}</td><td class="text-end"></td></tr>
+                                            <tr><td>Usia</td><td>${patient.getAge().getYears() + " Tahun, " +patient.getAge().getMonths() + " Bulan" }</td><td class="text-end"></td></tr>
+                                            <tr><td>Tanggal Lahir</td><td>${patient.getDateOfBirth() != null ? patient.getDateOfBirth().toString() : "—"}</td><td class="text-end"></td></tr>
+                                            <tr><td>Jenis Kelamin</td><td>${patient.getGender() == Gender.MALE ? "Laki-laki" : "Perempuan"}</td><td class="text-end"></td></tr>
                                             <tr><td>Diagnosis</td><td>${patient.getDiagnosis() != null ? patient.getDiagnosis() : "—"}</td><td class="text-end"></td></tr>
-                                            <tr><td>Parent</td><td>${patient.getParent() != null ? patient.getParent().getFullName() : "—"}</td><td class="text-end"></td></tr>
-                                            <tr><td>Notes</td><td>${patient.getNotes() != null ? patient.getNotes() : "—"}</td><td class="text-end"></td></tr>
+                                            <tr><td>Wali</td><td>${patient.getParent() != null ? patient.getParent().getFullName() : "—"}</td><td class="text-end"></td></tr>
+                                            <tr><td>Catatan</td><td>${patient.getNotes() != null ? patient.getNotes() : "—"}</td><td class="text-end"></td></tr>
                                             </tbody>
                                         </table>
                                     </div>

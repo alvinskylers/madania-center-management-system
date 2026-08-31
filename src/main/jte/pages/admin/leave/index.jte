@@ -19,7 +19,7 @@
 !{long rejectedCount = requests == null ? 0 : requests.stream().filter(r -> r.getStatus() == LeaveStatus.REJECTED).count();}
 
 @template.layout.base(
-title = "Leave Requests",
+title = "Permohonan Cuti",
 role = role,
 user = user,
 _csrf = _csrf,
@@ -32,11 +32,11 @@ content = @`
         <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
-                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Leave Requests</h1>
+                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Permohonan Cuti</h1>
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
-                        <li class="breadcrumb-item text-muted"><a href="/admin/dashboard" class="text-muted text-hover-primary">Home</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="/admin/dashboard" class="text-muted text-hover-primary">Dashboard</a></li>
                         <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
-                        <li class="breadcrumb-item text-muted">Leave Requests</li>
+                        <li class="breadcrumb-item text-muted">Permohonan Cuti</li>
                     </ul>
                 </div>
             </div>
@@ -73,7 +73,7 @@ content = @`
                             </div>
                             <div>
                                 <div class="fs-2 fw-bold text-gray-900">${pendingCount}</div>
-                                <div class="fs-7 text-muted">Awaiting Review</div>
+                                <div class="fs-7 text-muted">Menunggu Hasil</div>
                             </div>
                         </div>
                     </div>
@@ -88,7 +88,7 @@ content = @`
                             </div>
                             <div>
                                 <div class="fs-2 fw-bold text-gray-900">${approvedCount}</div>
-                                <div class="fs-7 text-muted">Approved</div>
+                                <div class="fs-7 text-muted">Disetujui</div>
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@ content = @`
                             </div>
                             <div>
                                 <div class="fs-2 fw-bold text-gray-900">${rejectedCount}</div>
-                                <div class="fs-7 text-muted">Rejected</div>
+                                <div class="fs-7 text-muted">Ditolak</div>
                             </div>
                         </div>
                     </div>
@@ -115,7 +115,7 @@ content = @`
             <div class="card card-flush">
                 <div class="card-header pt-7">
                     <div class="card-title">
-                        <h2>All Requests</h2>
+                        <h2>Permohonan Cuti</h2>
                     </div>
                 </div>
                 <div class="card-body pt-5">
@@ -123,12 +123,12 @@ content = @`
                         <table class="table align-middle table-row-dashed fs-6 gy-4">
                             <thead>
                             <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                <th>Therapist</th>
-                                <th>Dates</th>
-                                <th>Reason</th>
+                                <th>Terapis</th>
+                                <th>Rentang Cuti</th>
+                                <th>Alasan</th>
                                 <th>Status</th>
-                                <th>Submitted</th>
-                                <th class="text-end">Actions</th>
+                                <th>Diajukan</th>
+                                <th>Aksi</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -149,11 +149,11 @@ content = @`
                                         <td class="text-gray-700">${r.getReason() != null && !r.getReason().isBlank() ? r.getReason() : "—"}</td>
                                         <td>
                                             @if(r.getStatus() == LeaveStatus.PENDING)
-                                                <span class="badge badge-light-warning">Pending</span>
+                                                    <span class="badge badge-light-warning">Pending</span>
                                             @elseif(r.getStatus() == LeaveStatus.APPROVED)
-                                                <span class="badge badge-light-success">Approved</span>
+                                                <span class="badge badge-light-success">Disetujui</span>
                                             @else
-                                                <span class="badge badge-light-danger">Rejected</span>
+                                                <span class="badge badge-light-danger">Ditolak</span>
                                             @endif
                                         </td>
                                         <td class="text-muted fs-7">
@@ -175,7 +175,7 @@ content = @`
                             @else
                                 <tr>
                                     <td colspan="6">
-                                        <div class="alert alert-info text-center mb-0">No leave requests yet.</div>
+                                        <div class="alert alert-info text-center mb-0">Belum ada permohonan cuti.</div>
                                     </td>
                                 </tr>
                             @endif

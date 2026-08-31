@@ -6,6 +6,8 @@
 @import org.springframework.validation.BindingResult
 @import java.time.DayOfWeek
 @import java.util.List
+@import java.time.format.TextStyle
+@import java.util.Locale
 
 @param User user
 @param String role
@@ -38,18 +40,18 @@ content = @`
         <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
-                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Create Therapy Package</h1>
+                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Buat Paket Terapi Baru</h1>
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
-                        <li class="breadcrumb-item text-muted"><a href="/admin/dashboard" class="text-muted text-hover-primary">Home</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="/admin/dashboard" class="text-muted text-hover-primary">Dashboard</a></li>
                         <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
-                        <li class="breadcrumb-item text-muted"><a href="/admin/packages" class="text-muted text-hover-primary">Therapy Packages</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="/admin/packages" class="text-muted text-hover-primary">Paket Terapi</a></li>
                         <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
-                        <li class="breadcrumb-item text-muted">Create</li>
+                        <li class="breadcrumb-item text-muted">Buat Baru</li>
                     </ul>
                 </div>
                 <div class="align-items-center">
                     <a href="/admin/packages" class="btn btn-light h-40px fs-7 fw-bold">
-                        <i class="ki-outline ki-black-left fs-3"></i>Back to Packages
+                        <i class="ki-outline ki-black-left fs-3"></i>Kembali ke Paket
                     </a>
                 </div>
             </div>
@@ -89,7 +91,7 @@ content = @`
                         <div class="card-header pt-7">
                             <div class="card-title">
                                 <i class="ki-outline ki-calendar-add fs-1 text-primary me-2"></i>
-                                <h2>Package Information</h2>
+                                <h2>Informasi Paket Terapi</h2>
                             </div>
                         </div>
                         <div class="card-body pt-5">
@@ -101,13 +103,13 @@ content = @`
                                     <div class="col">
                                         <div class="fv-row mb-7">
                                             <label class="fs-6 fw-semibold form-label mt-3">
-                                                <span class="required">Patient</span>
-                                                <span class="ms-1" data-bs-toggle="tooltip" title="Select the patient this package is for.">
+                                                <span class="required">Pasien</span>
+                                                <span class="ms-1" data-bs-toggle="tooltip" title="Pilihlah pasien untuk paket terapi yang akan dibuat.">
                                                     <i class="ki-outline ki-information fs-7"></i>
                                                 </span>
                                             </label>
                                             <select class="form-select form-select-solid" name="patientId" required>
-                                                <option value="">Select a patient</option>
+                                                <option value="">Pilih pasien</option>
                                                 @for(Patient patient : patients)
                                                     @if(selectedPatientId.equals(String.valueOf(patient.getId())))
                                                         <option value="${String.valueOf(patient.getId())}" selected>${patient.getFullName()}</option>
@@ -121,13 +123,13 @@ content = @`
                                     <div class="col">
                                         <div class="fv-row mb-7">
                                             <label class="fs-6 fw-semibold form-label mt-3">
-                                                <span class="required">Therapist</span>
-                                                <span class="ms-1" data-bs-toggle="tooltip" title="Select the therapist who will run the sessions.">
+                                                <span class="required">Terapis</span>
+                                                <span class="ms-1" data-bs-toggle="tooltip" title="Pilihlah terapis yang akan ditetapkan kepada pasien.">
                                                     <i class="ki-outline ki-information fs-7"></i>
                                                 </span>
                                             </label>
                                             <select class="form-select form-select-solid" name="therapistId" required>
-                                                <option value="">Select a therapist</option>
+                                                <option value="">Pilih terapis</option>
                                                 @for(Therapist therapist : therapists)
                                                     @if(selectedTherapistId.equals(String.valueOf(therapist.getId())))
                                                         <option value="${String.valueOf(therapist.getId())}" selected>${therapist.getFullName()}</option>
@@ -146,8 +148,8 @@ content = @`
                                     <div class="col">
                                         <div class="fv-row mb-7">
                                             <label class="fs-6 fw-semibold form-label mt-3">
-                                                <span class="required">Start Date</span>
-                                                <span class="ms-1" data-bs-toggle="tooltip" title="The date of the first session. Must be today or later.">
+                                                <span class="required">Tanggal Mulai</span>
+                                                <span class="ms-1" data-bs-toggle="tooltip" title="Tanggal sesi pertama dimulai dari hari ini atau setelahnya.">
                                                     <i class="ki-outline ki-information fs-7"></i>
                                                 </span>
                                             </label>
@@ -158,8 +160,8 @@ content = @`
                                     <div class="col">
                                         <div class="fv-row mb-7">
                                             <label class="fs-6 fw-semibold form-label mt-3">
-                                                <span class="required">Preferred Session Time</span>
-                                                <span class="ms-1" data-bs-toggle="tooltip" title="All 12 sessions will be scheduled at this time, on the selected days, for 1 hour each.">
+                                                <span class="required">Jam Sesi</span>
+                                                <span class="ms-1" data-bs-toggle="tooltip" title="Setiap 12 sesi akan dijadwalkan di jam ini pada hari yang telah di pilih dengan durasi 1 jam.">
                                                     <i class="ki-outline ki-information fs-7"></i>
                                                 </span>
                                             </label>
@@ -173,23 +175,25 @@ content = @`
                                 <!--begin::Days of week-->
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold form-label mt-3 d-flex flex-column">
-                                        <span class="required">Session Days</span>
-                                        <span class="fs-7 fw-normal text-muted mt-1">Pick exactly 3 days per week. 12 sessions will be generated automatically.</span>
+                                        <span class="required">Hari Sesi Terapi</span>
+                                        <span class="fs-7 fw-normal text-muted mt-1">Pilihlah 3 hari perminggu. 12 sesi akan di dibuat secara otomatis.</span>
                                     </label>
                                     <div class="d-flex flex-wrap gap-3 mt-3" id="kt_package_days_group">
                                         @for(DayOfWeek day : days)
-                                            @if(request.getDays() != null && request.getDays().contains(day))
-                                                <input type="checkbox" class="btn-check package-day-checkbox" name="days" value="${day}" id="day_${day}" checked/>
-                                            @else
-                                                <input type="checkbox" class="btn-check package-day-checkbox" name="days" value="${day}" id="day_${day}"/>
+                                            @if(day != DayOfWeek.SATURDAY && day != DayOfWeek.SUNDAY)
+                                                @if(request.getDays() != null && request.getDays().contains(day))
+                                                    <input type="checkbox" class="btn-check package-day-checkbox" name="days" value="${day}" id="day_${day}" checked/>
+                                                @else
+                                                    <input type="checkbox" class="btn-check package-day-checkbox" name="days" value="${day}" id="day_${day}"/>
+                                                @endif
+                                                <label class="btn btn-outline btn-outline-dashed btn-outline-default px-6 py-3" for="day_${day}">
+                                                    ${day.getDisplayName(TextStyle.FULL, new Locale("id", "ID"))}
+                                                </label>
                                             @endif
-                                            <label class="btn btn-outline btn-outline-dashed btn-outline-default px-6 py-3" for="day_${day}">
-                                                ${day.name().substring(0, 1)}${day.name().substring(1).toLowerCase()}
-                                            </label>
                                         @endfor
                                     </div>
                                     <div class="fs-7 text-muted mt-2">
-                                        Selected: <span id="kt_package_days_count">0</span> / 3
+                                        Terpilih: <span id="kt_package_days_count">0</span> / 3
                                     </div>
                                 </div>
                                 <!--end::Days of week-->
@@ -197,8 +201,8 @@ content = @`
                                 <!--begin::Notes-->
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold form-label mt-3">
-                                        <span>Notes</span>
-                                        <span class="ms-1" data-bs-toggle="tooltip" title="Any additional notes about this package (optional).">
+                                        <span>Catatan</span>
+                                        <span class="ms-1" data-bs-toggle="tooltip" title="Catatan tambahan tentang paket terapi ini (Opsional).">
                                             <i class="ki-outline ki-information fs-7"></i>
                                         </span>
                                     </label>
@@ -208,9 +212,9 @@ content = @`
 
                                 <div class="separator mb-6"></div>
                                 <div class="d-flex justify-content-end">
-                                    <a href="/admin/packages" class="btn btn-light me-3">Cancel</a>
+                                    <a href="/admin/packages" class="btn btn-light me-3">Batalkan</a>
                                     <button type="submit" class="btn btn-primary">
-                                        <span class="indicator-label">Create Package</span>
+                                        <span class="indicator-label">Buat Paket</span>
                                     </button>
                                 </div>
                             </form>
@@ -225,13 +229,13 @@ content = @`
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-4">
                                 <i class="ki-outline ki-information-5 fs-1 text-primary me-3"></i>
-                                <h3 class="text-gray-900 fs-5 fw-bold m-0">How this works</h3>
+                                <h3 class="text-gray-900 fs-5 fw-bold m-0">Cara Kerjanya</h3>
                             </div>
                             <ul class="text-gray-700 fs-6 ps-4 mb-0" style="list-style: disc;">
-                                <li class="mb-3">Every package runs for <strong>12 sessions</strong>, each <strong>1 hour</strong> long.</li>
-                                <li class="mb-3">Sessions are generated automatically on the <strong>3 selected days</strong> each week, starting from the start date.</li>
-                                <li class="mb-3">The system checks the therapist's schedule for conflicts and rejects overlapping sessions.</li>
-                                <li class="mb-0">A patient cannot have two overlapping active packages at the same time.</li>
+                                <li class="mb-3">Setiap paket berlangsung selama <strong>12 sesi</strong>, masing-masing berdurasi <strong>1 jam</strong>.</li>
+                                <li class="mb-3">Sesi dibuat secara otomatis pada <strong>3 hari yang dipilih</strong> setiap minggunya, dimulai dari tanggal mulai.</li>
+                                <li class="mb-3">Sistem memeriksa jadwal terapis untuk menghindari bentrok dan menolak sesi yang bertabrakan.</li>
+                                <li class="mb-0">Seorang pasien tidak boleh memiliki dua paket aktif yang waktunya bertabrakan pada saat yang sama.</li>
                             </ul>
                         </div>
                     </div>

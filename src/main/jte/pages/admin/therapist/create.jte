@@ -13,14 +13,14 @@
 @param List<Notification> recentNotifications = null
 
 @template.layout.base(
-title = "Add Therapist",
+title = "Buat Terapis",
 role = role,
 user = user,
 _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,
 content = @`
-    <h1>Add Therapist</h1>
+    <h1>Tambahkan Terapis</h1>
 
     @if(bindingResult != null && bindingResult.hasErrors())
         <div class="alert alert-danger">
@@ -44,21 +44,21 @@ content = @`
         </div>
 
         <div class="mb-5">
-            <label>Full Name</label>
+            <label>Nama Lengkap</label>
             <input type="text" name="fullName" class="form-control" required>
         </div>
 
         <div class="mb-5">
-            <label>Specialization</label>
+            <label>Spesialisasi</label>
             <input type="text" name="specialization" class="form-control" placeholder="e.g. Speech Therapy" required>
         </div>
 
         <div class="mb-5">
-            <label>Phone</label>
+            <label>Telepon</label>
             <input type="text" name="phone" class="form-control">
         </div>
 
-        <button type="submit" class="btn btn-primary">Create Therapist</button>
+        <button type="submit" class="btn btn-primary">Simpan Terapis</button>
     </form>
 `
 )

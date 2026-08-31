@@ -31,11 +31,11 @@ content = @`
         <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
-                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">All Journals</h1>
+                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Journal Terapi</h1>
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                         <li class="breadcrumb-item text-muted"><a href="/admin/dashboard" class="text-muted text-hover-primary">Dashboard</a></li>
                         <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
-                        <li class="breadcrumb-item text-muted">Journals</li>
+                        <li class="breadcrumb-item text-muted">Journal Terapi</li>
                     </ul>
                 </div>
             </div>
@@ -55,7 +55,7 @@ content = @`
                                     class="form-select form-select-solid w-200px tom-select"
                                     onchange="this.form.submit()"
                                     data-placeholder="Search therapist...">
-                                <option value="">All Therapists</option>
+                                <option value="">Pilih Terapis</option>
                                 @for(Therapist t : therapists)
                                     @if(selectedTherapistId != null && selectedTherapistId.equals(t.getId()))
                                         <option value="${String.valueOf(t.getId())}" selected>${t.getFullName()}</option>
@@ -70,7 +70,7 @@ content = @`
                                     class="form-select form-select-solid w-200px tom-select"
                                     onchange="this.form.submit()"
                                     data-placeholder="Search child...">
-                                <option value="">All Children</option>
+                                <option value="">Pilih Pasien</option>
                                 @for(Patient p : patients)
                                     @if(selectedPatientId != null && selectedPatientId.equals(p.getId()))
                                         <option value="${String.valueOf(p.getId())}" selected>${p.getFullName()}</option>
@@ -82,7 +82,7 @@ content = @`
 
                             <!-- Session filter (REGULAR DROPDOWN - left as requested) -->
                             <select name="sessionNumber" class="form-select form-select-solid w-150px" onchange="this.form.submit()">
-                                <option value="">All Sessions</option>
+                                <option value="">Pilih No Sesi</option>
                                 @for(Integer n : sessionNumbers)
                                     @if(selectedSessionNumber != null && selectedSessionNumber.equals(n))
                                         <option value="${n}" selected>Session ${n}</option>
@@ -93,7 +93,7 @@ content = @`
                             </select>
 
                             @if(selectedTherapistId != null || selectedPatientId != null || selectedSessionNumber != null)
-                                <a href="/admin/journals" class="btn btn-light-danger btn-sm">Clear Filters</a>
+                                <a href="/admin/journals" class="btn btn-light-danger btn-sm">Kosongkan Filter</a>
                             @endif
                         </form>
                     </div>
@@ -104,13 +104,13 @@ content = @`
                         <table class="table table-row-dashed align-middle fs-6 gy-5">
                             <thead>
                             <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
-                                <th>Title</th>
-                                <th>Patient</th>
-                                <th>Therapist</th>
-                                <th>Session #</th>
-                                <th>Therapy Type</th>
+                                <th>Judul</th>
+                                <th>Pasien</th>
+                                <th>Terapis</th>
+                                <th>Sesi #</th>
+                                <th>Jenis Terapy</th>
                                 <th>Mood</th>
-                                <th>Date</th>
+                                <th>Tanggal</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -122,10 +122,10 @@ content = @`
                                         <td>${journal.getPatient().getFullName()}</td>
                                         <td>${journal.getTherapist().getFullName()}</td>
                                         <td>${journal.getSession().getSessionNumber()}</td>
-                                        <td>${journal.getTherapyType().name()}</td>
+                                        <td>${journal.getTherapyType().getLabel()}</td>
                                         <td>
                                             @if(journal.getMood() != null)
-                                                ${journal.getMood().name()}
+                                                ${journal.getMood().getEmoji()} ${journal.getMood().getLabel()}
                                             @else
                                                 -
                                             @endif
@@ -140,7 +140,7 @@ content = @`
                                     </tr>
                                 @endfor
                             @else
-                                <tr><td colspan="8" class="text-center text-muted">No journals match these filters.</td></tr>
+                                <tr><td colspan="8" class="text-center text-muted">Jurnal dengan kriteria tersebut tidak ditemukan.</td></tr>
                             @endif
                             </tbody>
                         </table>
@@ -150,22 +150,22 @@ content = @`
                     @if(totalPages > 0)
                         <div class="d-flex justify-content-between align-items-center pt-5">
                             <div class="text-muted fs-7">
-                                Showing
+                                Menampilkan
                                 ${currentPage * pageSize + 1}
-                                to
+                                sampai
                                 ${Math.min((currentPage + 1) * pageSize, totalItems)}
-                                of
+                                dari
                                 ${totalItems}
-                                entries
+                                item
                             </div>
 
                             <ul class="pagination m-0">
                                 @if(currentPage > 0)
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${currentPage - 1}&therapistId=${selectedTherapistId != null ? String.valueOf(selectedTherapistId) : ""}&patientId=${selectedPatientId != null ? String.valueOf(selectedPatientId) : ""}&sessionNumber=${selectedSessionNumber != null ? String.valueOf(selectedSessionNumber) : ""}">Previous</a>
+                                        <a class="page-link" href="?page=${currentPage - 1}&therapistId=${selectedTherapistId != null ? String.valueOf(selectedTherapistId) : ""}&patientId=${selectedPatientId != null ? String.valueOf(selectedPatientId) : ""}&sessionNumber=${selectedSessionNumber != null ? String.valueOf(selectedSessionNumber) : ""}">Sebelum</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Sebelum</span></li>
                                 @endif
 
                                 @for(int i = 0; i < totalPages; i++)
@@ -180,10 +180,10 @@ content = @`
 
                                 @if(currentPage < totalPages - 1)
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${currentPage + 1}&therapistId=${selectedTherapistId != null ? String.valueOf(selectedTherapistId) : ""}&patientId=${selectedPatientId != null ? String.valueOf(selectedPatientId) : ""}&sessionNumber=${selectedSessionNumber != null ? String.valueOf(selectedSessionNumber) : ""}">Next</a>
+                                        <a class="page-link" href="?page=${currentPage + 1}&therapistId=${selectedTherapistId != null ? String.valueOf(selectedTherapistId) : ""}&patientId=${selectedPatientId != null ? String.valueOf(selectedPatientId) : ""}&sessionNumber=${selectedSessionNumber != null ? String.valueOf(selectedSessionNumber) : ""}">Berikut</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Next</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Berikut</span></li>
                                 @endif
                             </ul>
                         </div>

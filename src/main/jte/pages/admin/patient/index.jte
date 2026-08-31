@@ -15,7 +15,7 @@
 @param String query = null
 
 @template.layout.base(
-title = "Patients",
+title = "Pasien Klinik",
 role = role,
 user = user,
 _csrf = _csrf,
@@ -41,19 +41,19 @@ content = @`
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <!--begin::Left side: Title + Search Form-->
                 <div class="d-flex flex-wrap align-items-center my-1">
-                    <h1 class="page-heading text-gray-900 fw-bold fs-3 m-0 me-5">Patients</h1>
+                    <h1 class="page-heading text-gray-900 fw-bold fs-3 m-0 me-5">Pasien Klinik</h1>
                     <!-- Search form -->
                     <form method="GET" action="/admin/patients" class="d-flex align-items-center position-relative my-1">
                         <i class="ki-outline ki-magnifier fs-3 position-absolute ms-3"></i>
-                        <input type="text" name="query" id="patientSearch" class="form-control form-control-sm border-body bg-body w-200px ps-10" placeholder="Search patients..." value="${query != null ? query : ""}" />
+                        <input type="text" name="query" id="patientSearch" class="form-control form-control-sm border-body bg-body w-200px ps-10" placeholder="Cari Pasien..." value="${query != null ? query : ""}" />
                         <input type="hidden" name="page" value="0" />
-                        <button type="submit" class="btn btn-primary ms-2 d-none d-sm-inline-block">Search</button>
+                        <button type="submit" class="btn btn-primary ms-2 d-none d-sm-inline-block">Cari</button>
                     </form>
                 </div>
                 <!--end::Left side-->
                 <!--begin::Right side: Action buttons-->
                 <div class="align-items-center">
-                    <a href="/admin/patient/create" class="btn btn-primary h-40px fs-7 fw-bold"><i class="ki-solid ki-user-edit"></i>Add Patient</a>
+                    <a href="/admin/patient/create" class="btn btn-primary h-40px fs-7 fw-bold"><i class="ki-solid ki-user-edit"></i>Tambahkan Pasien</a>
                 </div>
                 <!--end::Right side-->
             </div>
@@ -87,13 +87,13 @@ content = @`
                 <div class="d-flex justify-content-between align-items-center pt-8">
                     <!-- Entries summary -->
                     <div class="text-muted fs-7">
-                        Showing
+                        Menampilkan
                         ${currentPage * pageSize + 1}
-                        to
+                        sampai
                         ${Math.min((currentPage + 1) * pageSize, totalItems)}
-                        of
+                        dari
                         ${totalItems}
-                        entries
+                        item
                     </div>
 
                     <!-- Pagination controls -->
@@ -101,10 +101,10 @@ content = @`
                         <!-- Previous -->
                         @if(patients.hasPrevious())
                             <li class="page-item">
-                                <a class="page-link" href="?page=${currentPage - 1}&query=${query != null ? query : ""}">Previous</a>
+                                <a class="page-link" href="?page=${currentPage - 1}&query=${query != null ? query : ""}">Sebelum</a>
                             </li>
                         @else
-                            <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                            <li class="page-item disabled"><span class="page-link">Sebelum</span></li>
                         @endif
 
                         <!-- Page numbers -->
@@ -121,10 +121,10 @@ content = @`
                         <!-- Next -->
                         @if(patients.hasNext())
                             <li class="page-item">
-                                <a class="page-link" href="?page=${currentPage + 1}&query=${query != null ? query : ""}">Next</a>
+                                <a class="page-link" href="?page=${currentPage + 1}&query=${query != null ? query : ""}">Berikut</a>
                             </li>
                         @else
-                            <li class="page-item disabled"><span class="page-link">Next</span></li>
+                            <li class="page-item disabled"><span class="page-link">Berikut</span></li>
                         @endif
                     </ul>
                 </div>

@@ -15,7 +15,7 @@
 @param List<Notification> recentNotifications = null
 
 @template.layout.base(
-title = "Edit Parent",
+title = "Ubah Wali",
 role = role,
 user = user,
 _csrf = _csrf,
@@ -42,17 +42,17 @@ content = @`
         </div>
 
         <div class="mb-5">
-            <label>Full Name</label>
+            <label>Nama Wali</label>
             <input type="text" name="fullName" class="form-control" value="${request.getFullName()}" required>
         </div>
 
         <div class="mb-5">
-            <label>Phone</label>
+            <label>Telepon</label>
             <input type="text" name="phone" class="form-control" value="${request.getPhone()}">
         </div>
 
         <div class="mb-5">
-            <label>Address</label>
+            <label>Alamat</label>
             <input type="text" name="address" class="form-control" value="${request.getAddress()}">
         </div>
 

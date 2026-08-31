@@ -13,7 +13,7 @@
 @param List<Notification> recentNotifications = null
 
 @template.layout.base(
-title = "Users",
+title = "Pengguna",
 role = role,
 user = user,
 _csrf = _csrf,
@@ -28,7 +28,7 @@ content = @`
                 <!--begin::Page title-->
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                     <!--begin::Title-->
-                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">User List</h1>
+                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Pengguna</h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
@@ -41,7 +41,7 @@ content = @`
                             <span class="bullet bg-gray-500 w-5px h-2px"></span>
                         </li>
                         <!--begin::Item-->
-                        <li class="breadcrumb-item text-muted">Users</li>
+                        <li class="breadcrumb-item text-muted">Pengguna</li>
                         <!--end::Item-->
                     </ul>
                     <!--end::Breadcrumb-->
@@ -70,10 +70,10 @@ content = @`
                                 <input type="text"
                                        name="query"
                                        class="form-control form-control-solid w-250px ps-13"
-                                       placeholder="Search Users"
+                                       placeholder="Cari pengguna"
                                        value="${query != null ? query : ""}" />
                                 <input type="hidden" name="page" value="0" />
-                                <button type="submit" class="btn btn-light-primary me-3 gap-3">Search</button>
+                                <button type="submit" class="btn btn-light-primary me-3 gap-3">Cari</button>
                             </div>
                         </form>
                         <!--end::Search-->
@@ -89,12 +89,12 @@ content = @`
                         <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_users_table">
                             <thead>
                             <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
-                                <th class="min-w-125px">Name</th>
+                                <th class="min-w-125px">Nama</th>
                                 <th class="min-w-125px">Email</th>
                                 <th class="min-w-125px">Role</th>
                                 <th class="min-w-125px">Status</th>
-                                <th class="min-w-125px">Created Date</th>
-                                <th class="text-end min-w-70px">Actions</th>
+                                <th class="min-w-125px">Tanggal Dibuat</th>
+                                <th class="text-end min-w-70px">Tindakan</th>
                             </tr>
                             </thead>
                             <tbody class="fw-semibold text-gray-600">
@@ -111,13 +111,13 @@ content = @`
                         <div class="d-flex justify-content-between align-items-center pt-5">
                             <!-- Entries summary -->
                             <div class="text-muted fs-7">
-                                Showing
+                                Menampilkan
                                 ${users.getNumber() * users.getSize() + 1}
-                                to
+                                sampai
                                 ${Math.min((users.getNumber() + 1) * users.getSize(), users.getTotalElements())}
-                                of
+                                dari
                                 ${users.getTotalElements()}
-                                entries
+                                item
                             </div>
 
                             <!-- Pagination controls -->
@@ -125,10 +125,10 @@ content = @`
                                 <!-- Previous -->
                                 @if(users.hasPrevious())
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${users.getNumber() - 1}&query=${query != null ? query : ""}">Previous</a>
+                                        <a class="page-link" href="?page=${users.getNumber() - 1}&query=${query != null ? query : ""}">Sebelum</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Sebelum</span></li>
                                 @endif
 
                                 <!-- Page numbers -->
@@ -145,10 +145,10 @@ content = @`
                                 <!-- Next -->
                                 @if(users.hasNext())
                                     <li class="page-item">
-                                            <a class="page-link" href="?page=${users.getNumber() + 1}&query=${query != null ? query : ""}">Next</a>
+                                            <a class="page-link" href="?page=${users.getNumber() + 1}&query=${query != null ? query : ""}">Berikut</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Next</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Berikut</span></li>
                                 @endif
                             </ul>
                         </div>

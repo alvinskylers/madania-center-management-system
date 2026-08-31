@@ -46,13 +46,13 @@ content = @`
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <!--begin::Left side: Title-->
                 <div class="d-flex flex-wrap align-items-center my-1">
-                    <h1 class="page-heading text-gray-900 fw-bold fs-3 m-0">Therapy Packages</h1>
+                    <h1 class="page-heading text-gray-900 fw-bold fs-3 m-0">Paket Terapi</h1>
                 </div>
                 <!--end::Left side-->
                 <!--begin::Right side: Action buttons-->
                 <div class="align-items-center">
                     <a href="/admin/package/create" class="btn btn-primary h-40px fs-7 fw-bold">
-                        <i class="ki-outline ki-plus fs-3"></i>Create New Package
+                        <i class="ki-outline ki-plus fs-3"></i>Buat Paket Terapi
                     </a>
                 </div>
                 <!--end::Right side-->
@@ -73,9 +73,9 @@ content = @`
 
                         <!--begin::Therapist filter-->
                         <div class="col-sm-6 col-lg-3">
-                            <label class="form-label fs-7 fw-semibold text-gray-700 mb-1">Therapist</label>
+                            <label class="form-label fs-7 fw-semibold text-gray-700 mb-1">Terapis</label>
                             <select name="therapistId" class="form-select form-select-sm">
-                                <option value="">All Therapists</option>
+                                <option value="">Semua terapis</option>
                                 @for(Therapist therapist : therapists)
                                     @if(therapistIdStr.equals(String.valueOf(therapist.getId())))
                                         <option value="${String.valueOf(therapist.getId())}" selected>${therapist.getFullName()}</option>
@@ -89,9 +89,9 @@ content = @`
 
                         <!--begin::Patient filter-->
                         <div class="col-sm-6 col-lg-3">
-                            <label class="form-label fs-7 fw-semibold text-gray-700 mb-1">Patient</label>
+                            <label class="form-label fs-7 fw-semibold text-gray-700 mb-1">Pasien</label>
                             <select name="patientId" class="form-select form-select-sm">
-                                <option value="">All Patients</option>
+                                <option value="">Semua pasien</option>
                                 @for(Patient patient : patients)
                                     @if(patientIdStr.equals(String.valueOf(patient.getId())))
                                         <option value="${String.valueOf(patient.getId())}" selected>${patient.getFullName()}</option>
@@ -105,14 +105,14 @@ content = @`
 
                         <!--begin::Date From-->
                         <div class="col-sm-6 col-lg-2">
-                            <label class="form-label fs-7 fw-semibold text-gray-700 mb-1">Start Date From</label>
+                            <label class="form-label fs-7 fw-semibold text-gray-700 mb-1">Tanggal batas awal</label>
                             <input type="date" name="dateFrom" class="form-control form-control-sm" value="${dateFromStr}"/>
                         </div>
                         <!--end::Date From-->
 
                         <!--begin::Date To-->
                         <div class="col-sm-6 col-lg-2">
-                            <label class="form-label fs-7 fw-semibold text-gray-700 mb-1">Start Date To</label>
+                            <label class="form-label fs-7 fw-semibold text-gray-700 mb-1">Tanggal batas akhir</label>
                             <input type="date" name="dateTo" class="form-control form-control-sm" value="${dateToStr}"/>
                         </div>
                         <!--end::Date To-->
@@ -141,12 +141,12 @@ content = @`
                         <table class="table align-middle table-row-dashed fs-6 gy-4">
                             <thead>
                             <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                <th>Patient</th>
-                                <th>Therapist</th>
-                                <th>Start Date</th>
-                                <th>Progress</th>
+                                <th>Pasien</th>
+                                <th>Terapis</th>
+                                <th>Tanggal Sesi</th>
+                                <th>No Sesi</th>
                                 <th>Status</th>
-                                <th>Actions</th>
+                                <th>Tindakan</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -158,7 +158,7 @@ content = @`
                                 <tr>
                                     <td colspan="6">
                                         <div class="alert alert-info text-center mb-0">
-                                            No therapy packages found for the selected filters.
+                                            Paket dengan kritera tersebut tidak tersedia
                                         </div>
                                     </td>
                                 </tr>
@@ -172,13 +172,13 @@ content = @`
                         <div class="d-flex justify-content-between align-items-center pt-6">
                             <!-- Entries summary -->
                             <div class="text-muted fs-7">
-                                Showing
+                                Menampilkan
                                 ${currentPage * pageSize + 1}
-                                to
+                                sampai
                                 ${Math.min((currentPage + 1) * pageSize, totalItems)}
-                                of
+                                dari
                                 ${totalItems}
-                                entries
+                                item
                             </div>
 
                             <!-- Pagination controls -->
@@ -186,10 +186,10 @@ content = @`
                                 <!-- Previous -->
                                 @if(packages.hasPrevious())
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${currentPage - 1}&therapistId=${therapistIdStr}&patientId=${patientIdStr}&dateFrom=${dateFromStr}&dateTo=${dateToStr}">Previous</a>
+                                        <a class="page-link" href="?page=${currentPage - 1}&therapistId=${therapistIdStr}&patientId=${patientIdStr}&dateFrom=${dateFromStr}&dateTo=${dateToStr}">Sebelum</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Sebelum</span></li>
                                 @endif
 
                                 <!-- Page numbers -->
@@ -206,10 +206,10 @@ content = @`
                                 <!-- Next -->
                                 @if(packages.hasNext())
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${currentPage + 1}&therapistId=${therapistIdStr}&patientId=${patientIdStr}&dateFrom=${dateFromStr}&dateTo=${dateToStr}">Next</a>
+                                        <a class="page-link" href="?page=${currentPage + 1}&therapistId=${therapistIdStr}&patientId=${patientIdStr}&dateFrom=${dateFromStr}&dateTo=${dateToStr}">Berikut</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Next</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Berikut</span></li>
                                 @endif
                             </ul>
                         </div>

@@ -216,7 +216,7 @@
 <div class="jdoc-wrap">
     <div class="d-flex justify-content-end mb-3 jdoc-no-print">
         <button type="button" class="btn btn-light-primary btn-sm" onclick="window.print()">
-            <i class="ki-outline ki-printer fs-4 me-1"></i> Print / Save as PDF
+            <i class="ki-outline ki-printer fs-4 me-1"></i> Print / Simpan
         </button>
     </div>
 
@@ -233,7 +233,7 @@
                             <div class="jdoc-brand-tagline">Konsultan Psikologi &amp; Klinik Hypnotherapy</div>
                         </div>
                     </div>
-                    <div class="jdoc-doctype">Therapy Session Journal</div>
+                    <div class="jdoc-doctype">Jurnal Sesi Terapi</div>
                 </div>
 
                 <hr class="jdoc-rule-thick">
@@ -242,65 +242,65 @@
 
                 <div class="jdoc-meta">
                     <div class="jdoc-meta-item">
-                        <div class="jdoc-meta-label">Patient</div>
+                        <div class="jdoc-meta-label">Pasien</div>
                         <div class="jdoc-meta-value">${journal.getPatient().getFullName()}</div>
                     </div>
                     <div class="jdoc-meta-item">
-                        <div class="jdoc-meta-label">Therapist</div>
+                        <div class="jdoc-meta-label">Terapis</div>
                         <div class="jdoc-meta-value">${journal.getTherapist().getFullName()}</div>
                     </div>
                     <div class="jdoc-meta-item">
-                        <div class="jdoc-meta-label">Therapy Type</div>
-                        <div class="jdoc-meta-value">${journal.getTherapyType().name()}</div>
+                        <div class="jdoc-meta-label">Jenis Terapi</div>
+                        <div class="jdoc-meta-value">${journal.getTherapyType().getLabel()}</div>
                     </div>
                     <div class="jdoc-meta-item">
-                        <div class="jdoc-meta-label">Session Date</div>
+                        <div class="jdoc-meta-label">Tanggal Terapi</div>
                         <div class="jdoc-meta-value">${journal.getSession().getStartTime().toLocalDate().toString()}</div>
                     </div>
                     <div class="jdoc-meta-item">
-                        <div class="jdoc-meta-label">Session #</div>
+                        <div class="jdoc-meta-label">Sesi #</div>
                         <div class="jdoc-meta-value">${journal.getSession().getSessionNumber()}</div>
                     </div>
                     @if(journal.getMood() != null)
                         <div class="jdoc-meta-item">
-                            <div class="jdoc-meta-label">Child's Mood</div>
-                            <div class="jdoc-meta-value"><span class="jdoc-badge">${journal.getMood().name()}</span></div>
+                            <div class="jdoc-meta-label">Mood Pasien</div>
+                            <div class="jdoc-meta-value"><span class="jdoc-badge">${journal.getMood().getLabel()}</span></div>
                         </div>
                     @endif
                 </div>
 
                 <div class="jdoc-section">
-                    <div class="jdoc-section-label">Session Goals</div>
+                    <div class="jdoc-section-label">Target Sesi</div>
                     <div class="jdoc-section-body">${journal.getSessionGoals()}</div>
                 </div>
 
                 <div class="jdoc-section">
-                    <div class="jdoc-section-label">Session Notes</div>
+                    <div class="jdoc-section-label">Catatan Sesi</div>
                     <div class="jdoc-section-body">${journal.getContent()}</div>
                 </div>
 
                 <div class="jdoc-section">
-                    <div class="jdoc-section-label">Progress Notes</div>
+                    <div class="jdoc-section-label">Catatan Perkembangan</div>
                     <div class="jdoc-section-body">${journal.getProgressNotes()}</div>
                 </div>
 
                 @if(journal.getGoalsAchieved() != null)
                     <div class="jdoc-section">
-                        <div class="jdoc-section-label">Goals Achieved</div>
+                        <div class="jdoc-section-label">Pencapaian Sesi</div>
                         <div class="jdoc-section-body">${journal.getGoalsAchieved()}</div>
                     </div>
                 @endif
 
                 @if(journal.getParentRecommendations() != null)
                     <div class="jdoc-section">
-                        <div class="jdoc-section-label">Recommendations for Parents</div>
+                        <div class="jdoc-section-label">Saran dan Rekomendasi Bagi Wali Pasien</div>
                         <div class="jdoc-section-body">${journal.getParentRecommendations()}</div>
                     </div>
                 @endif
 
                 @if(journal.getDocumentationUrl() != null)
                     <div class="jdoc-section jdoc-no-print">
-                        <div class="jdoc-section-label">Session Documentation</div>
+                        <div class="jdoc-section-label">Dokumentasi Sesi Terapi</div>
                         <a href="${journal.getDocumentationUrl()}" target="_blank" class="btn btn-light-primary btn-sm">View Files</a>
                     </div>
                 @endif
@@ -308,7 +308,7 @@
                 <div class="jdoc-footer">
                     <div class="jdoc-footer-seal">
                         <img src="/media/logos/logo.png" alt="" />
-                        <div class="jdoc-footer-signed">Documented by <strong>${journal.getTherapist().getFullName()}</strong></div>
+                        <div class="jdoc-footer-signed">Ditulis oleh <strong>${journal.getTherapist().getFullName()}</strong></div>
                     </div>
                     <div class="jdoc-footer-date">${journal.getCreatedAt().format(DateTimeFormatter.ofPattern("d MMMM yyyy, HH:mm"))}</div>
                 </div>

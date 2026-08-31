@@ -13,7 +13,7 @@
 @param List<Notification> recentNotifications = null
 
 @template.layout.base(
-title = "Reschedule Requests",
+title = "Permohonan Reschedule",
 role = role,
 user = user,
 _csrf = _csrf,
@@ -37,14 +37,14 @@ content = @`
                 <thead>
                 <tr>
                 <tr>
-                    <th>Patient</th>
-                    <th>Therapist</th>
-                    <th>Current Time</th>
-                    <th>Requested Time</th>
-                    <th>Requested By</th>
-                    <th>Reason</th>
+                    <th>Pasien</th>
+                    <th>Terapis</th>
+                    <th>Tanggal Sesi</th>
+                    <th>Tanggal Ganti</th>
+                    <th>Pemohon</th>
+                    <th>Alasan</th>
                     <th>Status</th>
-                    <th>Actions</th>
+                    <th>Aksi</th>
                 </tr>
                 </tr>
                 </thead>
@@ -54,7 +54,7 @@ content = @`
                         @template.pages.admin.reschedule.row(request = request, _csrf = _csrf)
                     @endfor
                 @else
-                    <tr><td colspan="7">No pending reschedule requests</td></tr>
+                    <tr><td colspan="7">Belum ada permohonan...</td></tr>
                 @endif
                 </tbody>
             </table>
@@ -66,15 +66,15 @@ content = @`
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title">Confirm</h2>
+                    <h2 class="modal-title">Konfirmasi</h2>
                     <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
                         <i class="ki-outline ki-cross fs-1"></i>
                     </div>
                 </div>
                 <div class="modal-body" id="kt_modal_confirm_message"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="kt_modal_confirm_submit">Confirm</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" id="kt_modal_confirm_submit">Izinkan</button>
                 </div>
             </div>
         </div>
@@ -116,8 +116,8 @@ content = @`
                 </div>
                 <div class="modal-body" id="kt_modal_confirm_message"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="kt_modal_confirm_submit">Confirm</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batalkan</button>
+                    <button type="button" class="btn btn-primary" id="kt_modal_confirm_submit">Konfirmasi</button>
                 </div>
             </div>
         </div>

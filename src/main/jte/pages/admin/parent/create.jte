@@ -13,7 +13,7 @@
 @param List<Notification> recentNotifications = null
 
 @template.layout.base(
-title = "Add Parent",
+title = "Buat Wali Pasien",
 role = role,
 user = user,
 _csrf = _csrf,
@@ -49,21 +49,21 @@ content = @`
         </div>
 
         <div class="mb-5">
-            <label>Full Name</label>
+            <label>Nama Lengkap</label>
             <input type="text" name="fullName" class="form-control" required>
         </div>
 
         <div class="mb-5">
-            <label>Phone</label>
+            <label>Telepon</label>
             <input type="text" name="phone" class="form-control">
         </div>
 
         <div class="mb-5">
-            <label>Address</label>
+            <label>Alamat</label>
             <input type="text" name="address" class="form-control">
         </div>
 
-        <button type="submit" class="btn btn-primary">Create Parent</button>
+        <button type="submit" class="btn btn-primary">Buat Wali</button>
     </form>
 `
 )

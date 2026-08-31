@@ -10,7 +10,7 @@
 @param CsrfToken _csrf
 
 @template.layout.base(
-title = "Therapists",
+title = "Terapis",
 role = role,
 user = user,
 _csrf = _csrf,
@@ -19,7 +19,7 @@ content = @`
         <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
-                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Therapist List</h1>
+                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Terapis</h1>
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                         <li class="breadcrumb-item text-muted">
                             <a href="/admin/dashboard" class="text-muted text-hover-primary">Dashboard</a>
@@ -27,7 +27,7 @@ content = @`
                         <li class="breadcrumb-item">
                             <span class="bullet bg-gray-500 w-5px h-2px"></span>
                         </li>
-                        <li class="breadcrumb-item text-muted">Therapists</li>
+                        <li class="breadcrumb-item text-muted">Terapis</li>
                     </ul>
                 </div>
             </div>
@@ -46,16 +46,16 @@ content = @`
                                 <input type="text"
                                        name="query"
                                        class="form-control form-control-solid w-250px ps-13"
-                                       placeholder="Search Therapists"
+                                       placeholder="Cari terapis"
                                        value="${query != null ? query : ""}" />
                                 <input type="hidden" name="page" value="0" />
-                                <button type="submit" class="btn btn-light-primary me-3 gap-3">Search</button>
+                                <button type="submit" class="btn btn-light-primary me-3 gap-3">cari</button>
                             </div>
                         </form>
                     </div>
                     <div class="card-toolbar">
                         <a href="/admin/therapist/create" class="btn btn-primary">
-                            <i class="ki-outline ki-plus fs-2"></i>Add Therapist
+                            <i class="ki-outline ki-plus fs-2"></i>Buat Terapis
                         </a>
                     </div>
                 </div>
@@ -65,10 +65,10 @@ content = @`
                         <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_therapists_table">
                             <thead>
                             <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
-                                <th class="min-w-250px">Therapist</th>
-                                <th class="min-w-125px">Phone</th>
-                                <th class="min-w-125px">Specialization</th>
-                                <th class="text-end min-w-70px">Actions</th>
+                                <th class="min-w-250px">Terapis</th>
+                                <th class="min-w-125px">Telepon</th>
+                                <th class="min-w-125px">Spesialis</th>
+                                <th class="text-end min-w-70px">Tindakan</th>
                             </tr>
                             </thead>
                             <tbody class="fw-semibold text-gray-600">
@@ -83,22 +83,22 @@ content = @`
                     @if(therapists.getTotalPages() > 0)
                         <div class="d-flex justify-content-between align-items-center pt-5">
                             <div class="text-muted fs-7">
-                                Showing
+                                Menampilkan
                                 ${therapists.getNumber() * therapists.getSize() + 1}
-                                to
+                                sampai
                                 ${Math.min((therapists.getNumber() + 1) * therapists.getSize(), therapists.getTotalElements())}
-                                of
+                                dari
                                 ${therapists.getTotalElements()}
-                                entries
+                                item
                             </div>
 
                             <ul class="pagination m-0">
                                 @if(therapists.hasPrevious())
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${therapists.getNumber() - 1}&query=${query != null ? query : ""}">Previous</a>
+                                        <a class="page-link" href="?page=${therapists.getNumber() - 1}&query=${query != null ? query : ""}">Sebelum</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Sebelum</span></li>
                                 @endif
 
                                 @for(int i = 0; i < therapists.getTotalPages(); i++)
@@ -113,10 +113,10 @@ content = @`
 
                                 @if(therapists.hasNext())
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${therapists.getNumber() + 1}&query=${query != null ? query : ""}">Next</a>
+                                        <a class="page-link" href="?page=${therapists.getNumber() + 1}&query=${query != null ? query : ""}">Berikut</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Next</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Berikut</span></li>
                                 @endif
                             </ul>
                         </div>

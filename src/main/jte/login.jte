@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <base href="/" />
-    <title>Madania Therapy Center - Sign In</title>
+    <title>Madania Center - Sign In</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="/media/logos/favicon.ico" />
@@ -50,10 +50,10 @@
                 <img class="theme-dark-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20"
                      src="/media/auth/agency-dark.png" alt="" />
                 <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">
-                    Madania Therapy Center
+                    Madania Center
                 </h1>
                 <div class="text-gray-600 fs-base text-center fw-semibold">
-                    Providing specialized therapy for children with special needs.
+                    Menyediakan layanan terapi khusus bagi anak-anak berkebutuhan khusus.
                 </div>
             </div>
         </div>
@@ -72,22 +72,22 @@
 
                             <!--begin::Heading-->
                             <div class="text-center mb-11">
-                                <h1 class="text-gray-900 fw-bolder mb-3">Sign In</h1>
+                                <h1 class="text-gray-900 fw-bolder mb-3">Login</h1>
                                 <div class="text-gray-500 fw-semibold fs-6">
-                                    Madania Therapy Center Management System
+                                    Sistem Informasi Manajamen Biro Psikologi Madania Center
                                 </div>
                             </div>
                             <!--end::Heading-->
 
                             @if(error != null)
                                 <div class="alert alert-danger d-flex align-items-center mb-8">
-                                    <span>Invalid email or password. Please try again.</span>
+                                    <span>Email atau Password anda salah. Silahkan coba lagi.</span>
                                 </div>
                             @endif
 
                             @if(logout != null)
                                 <div class="alert alert-success d-flex align-items-center mb-8">
-                                    <span>You have been logged out successfully.</span>
+                                    <span>Anda telah berhasil logout</span>
                                 </div>
                             @endif
 

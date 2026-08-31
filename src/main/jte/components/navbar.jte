@@ -1,3 +1,4 @@
+@import com.madania.management.enums.Role
 @import org.springframework.security.web.csrf.CsrfToken
 @import com.madania.management.entity.Notification
 @import com.madania.management.entity.User
@@ -31,7 +32,7 @@
             <!--begin::Notifications-->
             <div class="app-navbar-item ms-1 ms-md-3">
                 <div class="btn btn-icon btn-custom w-35px h-35px w-md-40px h-md-40px position-relative" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                    <i class="ki-outline ki-notification-status fs-2"></i>
+                    <i class="ki-outline ki-notification fs-2"></i>
                     @if(unreadNotificationCount > 0)
                         <span class="badge badge-circle badge-danger position-absolute top-0 start-100 translate-middle" style="font-size: 0.65rem; padding: 0.35em 0.5em;">
                             ${unreadNotificationCount > 9 ? "9+" : String.valueOf(unreadNotificationCount)}
@@ -41,11 +42,11 @@
                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg fw-semibold py-4 fs-6 w-300px" data-kt-menu="true">
                     <div class="menu-item px-3">
                         <div class="menu-content d-flex justify-content-between align-items-center px-3">
-                            <span class="fw-bold fs-5">Notifications</span>
+                            <span class="fw-bold fs-5">Notifikasi</span>
                             @if(unreadNotificationCount > 0)
                                 <form action="/notifications/mark-all-read" method="post">
                                     <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
-                                    <button type="submit" class="btn btn-sm btn-link p-0 fs-8">Mark all read</button>
+                                    <button type="submit" class="btn btn-sm btn-link p-0 fs-8">Tandai Baca</button>
                                 </form>
                             @endif
                         </div>
@@ -62,7 +63,7 @@
                         @endfor
                     @else
                         <div class="menu-item px-3">
-                            <div class="menu-content px-3 py-2 text-muted fs-7">No notifications yet</div>
+                            <div class="menu-content px-3 py-2 text-muted fs-7">Belum ada notifikasi baru</div>
                         </div>
                     @endif
                 </div>
@@ -97,49 +98,16 @@
                     <div class="separator my-2"></div>
                     <!--end::Menu separator-->
                     <!--begin::Menu item-->
-                    <div class="menu-item px-5">
-                        <a href="" class="menu-link px-5">My Profile</a>
-                    </div>
-                    <!--end::Menu item-->
-                    <!--begin::Menu item-->
-                    <div class="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="left-start" data-kt-menu-offset="-15px, 0">
-                        <a href="#" class="menu-link px-5">
-                            <span class="menu-title position-relative">Language
-                                <span class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">English
-                                    <img class="w-15px h-15px rounded-1 ms-2" src="/media/flags/united-states.svg" alt="" />
-                                </span>
-                            </span>
-                        </a>
-                        <!--begin::Menu sub-->
-                        <div class="menu-sub menu-sub-dropdown w-175px py-4">
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="" class="menu-link d-flex px-5 active">
-                                    <span class="symbol symbol-20px me-4">
-                                        <img class="rounded-1" src="/media/flags/united-states.svg" alt="" />
-                                    </span>
-                                    English
-                                </a>
-                            </div>
-                            <!--end::Menu item-->
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="" class="menu-link d-flex px-5">
-                                    <span class="symbol symbol-20px me-4">
-                                        <img class="rounded-1" src="/media/flags/indonesia.svg" alt="" />
-                                    </span>
-                                    Indonesian
-                                </a>
-                            </div>
-                            <!--end::Menu item-->
+                    @if(user.getRole() != Role.ADMIN)
+                        <div class="menu-item px-5">
+                            <a href="/profile" class="menu-link px-5">Profil Saya</a>
                         </div>
-                        <!--end::Menu sub-->
-                    </div>
+                    @endif
                     <!--end::Menu item-->
                     <!--begin::Menu item-->
                     <div class="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="left-start" data-kt-menu-offset="-15px, 0">
                         <a href="#" class="menu-link px-5">
-                            <span class="menu-title position-relative">Mode
+                            <span class="menu-title position-relative">Tema Sistem
                                 <span class="ms-5 position-absolute translate-middle-y top-50 end-0">
                                     <i class="ki-outline ki-night-day theme-light-show fs-2"></i>
                                     <i class="ki-outline ki-moon theme-dark-show fs-2"></i>
@@ -154,7 +122,7 @@
                                     <span class="menu-icon" data-kt-element="icon">
                                         <i class="ki-outline ki-night-day fs-2"></i>
                                     </span>
-                                    <span class="menu-title">Light</span>
+                                    <span class="menu-title">Terang</span>
                                 </a>
                             </div>
                             <!--end::Menu item-->
@@ -164,7 +132,7 @@
                                     <span class="menu-icon" data-kt-element="icon">
                                         <i class="ki-outline ki-moon fs-2"></i>
                                     </span>
-                                    <span class="menu-title">Dark</span>
+                                    <span class="menu-title">Gelap</span>
                                 </a>
                             </div>
                             <!--end::Menu item-->
@@ -174,7 +142,7 @@
                                     <span class="menu-icon" data-kt-element="icon">
                                         <i class="ki-outline ki-screen fs-2"></i>
                                     </span>
-                                    <span class="menu-title">System</span>
+                                    <span class="menu-title">Sistem</span>
                                 </a>
                             </div>
                             <!--end::Menu item-->
@@ -187,7 +155,7 @@
                         <form action="/logout" method="post">
                             <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
                             <button type="submit" class="btn menu-link px-5 border-0 w-100 text-start">
-                                 <span class="menu-title position-relative">Sign out
+                                 <span class="menu-title position-relative">Logout
                                     <span class="ms-5 position-absolute translate-middle-y top-50 end-0">
                                         <i class="ki-outline ki-exit-left theme-light-show fs-2"></i>
                                     </span>

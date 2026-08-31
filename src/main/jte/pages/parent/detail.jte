@@ -25,7 +25,7 @@ content = @`
 
     <div class="card mt-5 jdoc-no-print" style="max-width: 900px; margin: 0 auto;">
         <div class="card-body">
-            <h5 class="mb-5">Your Responses</h5>
+            <h5 class="mb-5">Tanggapan Anda</h5>
 
             @if(commentError != null)
                 <div class="alert alert-danger"><p>${commentError}</p></div>
@@ -39,7 +39,7 @@ content = @`
                     </div>
                 @endfor
             @else
-                <p class="text-muted">No responses yet. Share your thoughts with the therapist below.</p>
+                <p class="text-muted">Tanggapan belum ada. Berilah tanggapan kepada jurnal ini.</p>
             @endif
 
             <form action="/parent/journal/${String.valueOf(journal.getId())}/comment" method="post" class="mt-5">
@@ -47,7 +47,7 @@ content = @`
                 <div class="fv-row mb-3">
                     <textarea class="form-control" name="content" rows="3" placeholder="Write a response to this journal entry..." required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Send Response</button>
+                <button type="submit" class="btn btn-primary">Kirim Tanggapan </button>
             </form>
         </div>
     </div>

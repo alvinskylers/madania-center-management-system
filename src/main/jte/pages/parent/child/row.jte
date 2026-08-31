@@ -2,6 +2,7 @@
 @import com.madania.management.dto.SessionJournalPair
 @import com.madania.management.enums.PackageStatus
 @import com.madania.management.enums.SessionStatus
+@import java.time.format.DateTimeFormatter
 @import java.util.UUID
 
 @param PackageJournalGroup group
@@ -16,19 +17,19 @@
                 aria-expanded="${index == 0 ? "true" : "false"}" aria-controls="pkg_collapse_${index}">
             <div class="d-flex flex-column flex-md-row justify-content-between w-100 me-5">
                 <span>
-                    Package: ${group.getTherapyPackage().getStartDate().toString()}
-                    to ${group.getTherapyPackage().getEndDate() != null ? group.getTherapyPackage().getEndDate().toString() : "ongoing"}
+                    Paket: ${group.getTherapyPackage().getStartDate().toString()}
+                    sampai ${group.getTherapyPackage().getEndDate() != null ? group.getTherapyPackage().getEndDate().toString() : "ongoing"}
                     &nbsp;&middot;&nbsp; ${group.getTherapyPackage().getTherapist().getFullName()}
                 </span>
                 <span class="fs-7 text-muted">
-                    ${group.getTherapyPackage().getCompletedSessions()} / ${group.getTherapyPackage().getTotalSessions()} sessions completed
+                    ${group.getTherapyPackage().getCompletedSessions()} / ${group.getTherapyPackage().getTotalSessions()} sesi tuntas
                     &nbsp;
                     @if(group.getTherapyPackage().getStatus() == PackageStatus.ACTIVE)
-                        <span class="badge badge-light-primary">Active</span>
+                        <span class="badge badge-light-primary">Aktif</span>
                     @elseif(group.getTherapyPackage().getStatus() == PackageStatus.COMPLETED)
-                        <span class="badge badge-light-success">Completed</span>
+                        <span class="badge badge-light-success">Tuntas</span>
                     @elseif(group.getTherapyPackage().getStatus() == PackageStatus.CANCELLED)
-                        <span class="badge badge-light-danger">Cancelled</span>
+                        <span class="badge badge-light-danger">Dibatalkan</span>
                     @endif
                 </span>
             </div>
@@ -40,24 +41,24 @@
             <table class="table align-middle table-row-dashed gy-3">
                 <thead>
                 <tr class="fs-7 text-muted text-uppercase">
-                    <th>Session #</th>
-                    <th>Date &amp; Time</th>
+                    <th>No Sesi #</th>
+                    <th>Waktu &amp; Tanggal</th>
                     <th>Status</th>
-                    <th>Journal</th>
+                    <th>Jurnal</th>
                 </tr>
                 </thead>
                 <tbody class="fs-6">
                 @for(SessionJournalPair pair : group.getSessions())
                     <tr>
                         <td>${pair.getSession().getSessionNumber()}</td>
-                        <td>${pair.getSession().getStartTime().toString()}</td>
+                        <td>${pair.getSession().getStartTime().format(DateTimeFormatter.ofPattern("hh:mm a, dd MMM yyyy"))}</td>
                         <td>
                             @if(pair.getSession().getStatus() == SessionStatus.SCHEDULED)
-                                <span class="badge badge-light-primary">Scheduled</span>
+                                <span class="badge badge-light-primary">Dijadwalkan</span>
                             @elseif(pair.getSession().getStatus() == SessionStatus.COMPLETED)
-                                <span class="badge badge-light-success">Completed</span>
+                                <span class="badge badge-light-success">Tuntas</span>
                             @elseif(pair.getSession().getStatus() == SessionStatus.CANCELLED)
-                                <span class="badge badge-light-danger">Cancelled</span>
+                                <span class="badge badge-light-danger">Dibatalkan</span>
                             @elseif(pair.getSession().getStatus() == SessionStatus.RESCHEDULED)
                                 <span class="badge badge-light-warning">Rescheduled</span>
                             @endif
@@ -66,13 +67,13 @@
                             @if(pair.getJournal() != null)
                                 @if(viewerTherapistId == null || pair.getJournal().getTherapist().getId().equals(viewerTherapistId))
                                     <a href="${journalBasePath}/${String.valueOf(pair.getJournal().getId())}" class="btn btn-light-primary btn-sm">
-                                        View Journal
+                                        Lihat Jurnal
                                     </a>
                                 @else
-                                    <span class="text-muted fs-7">Written by ${pair.getJournal().getTherapist().getFullName()}</span>
+                                    <span class="text-muted fs-7">Ditulis oleh ${pair.getJournal().getTherapist().getFullName()}</span>
                                 @endif
                             @else
-                                <span class="text-muted fs-7">Not written yet</span>
+                                <span class="text-muted fs-7">Belum ditulis</span>
                             @endif
                         </td>
                     </tr>

@@ -173,18 +173,12 @@
                             <span class="menu-title">Dashboard</span>
                         </a>
                     </div>
-                    <div class="menu-item">
-                        <a class="menu-link" href="/profile" title="View My Profile" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-bullet"><i class="ki-outline ki-profile-circle fs-2"></i></span>
-                            <span class="menu-title">Profile</span>
-                        </a>
-                    </div>
 
                     <!-- Schedule -->
                     <div class="menu-item">
                         <a class="menu-link" href="/parent/schedule" title="View all schedules" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-calendar fs-2"></i></span>
-                            <span class="menu-title">Schedule</span>
+                            <span class="menu-title">Jadwal Terapi</span>
                         </a>
                     </div>
 
@@ -192,7 +186,7 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/parent/journals" title="View all journals" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-book fs-2"></i></span>
-                            <span class="menu-title">Journals</span>
+                            <span class="menu-title">Jurnal Terapi</span>
                         </a>
                     </div>
 
@@ -200,7 +194,14 @@
                     <div class="menu-item">
                         <a class="menu-link" href="/parent/children" title="View all children" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-people fs-2"></i></span>
-                            <span class="menu-title">My Children</span>
+                            <span class="menu-title">Anak Saya</span>
+                        </a>
+                    </div>
+
+                    <div class="menu-item">
+                        <a class="menu-link" href="/profile" title="View My Profile" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-profile-circle fs-2"></i></span>
+                            <span class="menu-title">Profil Saya</span>
                         </a>
                     </div>
                 @endif

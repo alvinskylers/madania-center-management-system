@@ -17,7 +17,7 @@
 @param List<Notification> recentNotifications = null
 
 @template.layout.base(
-title = "Schedule",
+title = "Jadwal Terapi",
 role = role,
 user = user,
 _csrf = _csrf,
@@ -25,7 +25,7 @@ unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,
 content = @`
     <div class="d-flex justify-content-between align-items-center mb-5">
-        <h1 class="page-heading">My Children's Schedule</h1>
+        <h1 class="page-heading">Jadwal Anak Saya</h1>
     </div>
 
     @if(rescheduleSuccess != null)
@@ -65,7 +65,7 @@ content = @`
         <div class="card-header pt-7">
             <div class="card-title">
                 <i class="ki-outline ki-calendar-8 fs-1 text-primary me-2"></i>
-                <h2>My Reschedule Requests</h2>
+                <h2>Permohonan Reschedule Saya</h2>
             </div>
         </div>
         <div class="card-body pt-5">
@@ -73,13 +73,13 @@ content = @`
                 <table class="table align-middle table-row-dashed fs-6 gy-4">
                     <thead>
                     <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                        <th>Child</th>
-                        <th>Original Time</th>
-                        <th>Requested Time</th>
-                        <th>Reason</th>
+                        <th>Anak</th>
+                        <th>Waktu Sesi</th>
+                        <th>Waktu Reschedule</th>
+                        <th>Alasan</th>
                         <th>Status</th>
-                        <th>Admin Notes</th>
-                        <th>Submitted</th>
+                        <th>Catatan Admin</th>
+                        <th>Pengajuan</th>
                     </tr>
                     </thead>
                     <tbody>

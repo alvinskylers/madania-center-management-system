@@ -31,8 +31,8 @@ content = @`
     <!--begin::Header-->
     <div class="d-flex justify-content-between align-items-center mb-7">
         <div>
-            <h1 class="page-heading">Welcome, ${parent.getFullName()}</h1>
-            <p class="text-muted">Here's an overview of your children's therapy progress</p>
+            <h1 class="page-heading">Selamat Datang, ${parent.getFullName()}</h1>
+            <p class="text-muted">Berikut adalah rangkuman dari progres anak anda</p>
         </div>
     </div>
     <!--end::Header-->
@@ -51,7 +51,7 @@ content = @`
                     </div>
                     <div>
                         <span class="fs-2x fw-bold text-gray-800">${totalChildren}</span>
-                        <p class="text-muted mb-0">Children</p>
+                        <p class="text-muted mb-0">Anak</p>
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@ content = @`
                     </div>
                     <div>
                         <span class="fs-2x fw-bold text-gray-800">${upcomingCount}</span>
-                        <p class="text-muted mb-0">Upcoming Sessions</p>
+                        <p class="text-muted mb-0">Sesi yang akan datang</p>
                     </div>
                 </div>
             </div>
@@ -87,7 +87,7 @@ content = @`
                     </div>
                     <div>
                         <span class="fs-2x fw-bold text-gray-800">${totalCompletedSessions}</span>
-                        <p class="text-muted mb-0">Completed Sessions</p>
+                        <p class="text-muted mb-0">Sesi Tuntas</p>
                     </div>
                 </div>
             </div>
@@ -105,7 +105,7 @@ content = @`
                     </div>
                     <div>
                         <span class="fs-2x fw-bold text-gray-800">${totalJournals}</span>
-                        <p class="text-muted mb-0">Progress Journals</p>
+                        <p class="text-muted mb-0">Jurnal Perkembangan</p>
                     </div>
                 </div>
             </div>
@@ -121,7 +121,7 @@ content = @`
         <div class="col-md-5">
             <div class="card h-100">
                 <div class="card-header">
-                    <h3 class="card-title">My Children</h3>
+                    <h3 class="card-title">Anak-anak Saya</h3>
                 </div>
                 <div class="card-body">
                     <div class="d-flex flex-column gap-4">
@@ -138,10 +138,10 @@ content = @`
                                 </div>
                                 <div class="d-flex gap-2">
                                     <a href="/parent/schedule" class="btn btn-sm btn-light-primary">
-                                        Schedule
+                                        Jadwal
                                     </a>
                                     <a href="/parent/journals" class="btn btn-sm btn-light-info">
-                                        Journals
+                                        Jurnal
                                     </a>
                                 </div>
                             </div>
@@ -156,16 +156,16 @@ content = @`
         <div class="col-md-7">
             <div class="card h-100">
                 <div class="card-header">
-                    <h3 class="card-title">Upcoming Sessions</h3>
+                    <h3 class="card-title">Sesi yang akan datang</h3>
                     <div class="card-toolbar">
-                        <a href="/parent/schedule" class="btn btn-sm btn-light">Full Schedule</a>
+                        <a href="/parent/schedule" class="btn btn-sm btn-light">Lihat Jadwal</a>
                     </div>
                 </div>
                 <div class="card-body">
                     @if(upcomingSessions.isEmpty())
                         <div class="text-center py-10">
                             <i class="ki-outline ki-calendar-2 fs-3x text-muted mb-3"></i>
-                            <p class="text-muted">No upcoming sessions in the next 7 days</p>
+                            <p class="text-muted">Tidak ada sesi dalam 7 hari kedepan</p>
                         </div>
                     @else
                         <div class="d-flex flex-column gap-4">
@@ -184,7 +184,7 @@ content = @`
                                         </small>
                                     </div>
                                     <div class="text-end">
-                                        <small class="text-muted d-block">Therapist</small>
+                                        <small class="text-muted d-block">Terapis</small>
                                         <small class="fw-semibold">
                                             ${session.getTherapist().getFullName()}
                                         </small>

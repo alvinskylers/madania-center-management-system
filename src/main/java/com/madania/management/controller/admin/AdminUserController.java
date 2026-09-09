@@ -1,6 +1,7 @@
 package com.madania.management.controller.admin;
 
 import com.madania.management.entity.User;
+import com.madania.management.enums.Role;
 import com.madania.management.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,11 +24,22 @@ public class AdminUserController {
 
     @GetMapping("/users")
     public String users(Model model,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "asc") String sort,
-            @RequestParam(required = false) String query) {
-        Page<User> userPage = userService.getAllQueried(query, page, size, sort);
+                        @RequestParam(defaultValue = "0") int page,
+                        @RequestParam(defaultValue = "10") int size,
+                        @RequestParam(defaultValue = "asc") String sort,
+                        @RequestParam(required = false) String query,
+                        @RequestParam(required = false) String role) {
+
+        Role roleFilter = null;
+        if (role != null && !role.isBlank()) {
+            try {
+                roleFilter = Role.valueOf(role.toUpperCase());
+            } catch (IllegalArgumentException ignored) {
+                // unknown value - fall back to no filter rather than erroring out
+            }
+        }
+
+        Page<User> userPage = userService.getAllQueried(query, roleFilter, page, size, sort);
 
         model.addAttribute("users" , userPage);
         model.addAttribute("currentPage", page);
@@ -35,6 +47,7 @@ public class AdminUserController {
         model.addAttribute("totalItems", userPage.getTotalElements());
         model.addAttribute("pageSize", size);
         model.addAttribute("query", query);
+        model.addAttribute("roleFilter", role);
 
         return "pages/admin/user/index";
     }

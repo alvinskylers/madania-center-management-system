@@ -39,10 +39,10 @@ public class UserService {
         return userRepository.findAll(pageable);
     }
 
-    public Page<User> getAllQueried(String query, int page, int size, String direction) {
+    public Page<User> getAllQueried(String query, Role role, int page, int size, String direction) {
         Sort sort = Sort.by(Sort.Direction.fromString(direction), "createdAt");
         Pageable pageable = PageRequest.of(page, size, sort);
-        return userRepository.searchUsersByQuery(pageable, query);
+        return userRepository.searchUsersByQuery(pageable, query, role);
     }
 
     public User getUserById(UUID id) {

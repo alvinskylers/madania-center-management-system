@@ -1,5 +1,6 @@
 @import com.madania.management.entity.Notification
 @import com.madania.management.entity.User
+@import com.madania.management.enums.Role
 @import org.springframework.data.domain.Page
 @import org.springframework.security.web.csrf.CsrfToken
 @import java.util.List
@@ -8,6 +9,7 @@
 @param Page<User> users
 @param String role
 @param String query
+@param String roleFilter = null
 @param CsrfToken _csrf
 @param long unreadNotificationCount = 0
 @param List<Notification> recentNotifications = null
@@ -74,6 +76,23 @@ content = @`
                                        value="${query != null ? query : ""}" />
                                 <input type="hidden" name="page" value="0" />
                                 <button type="submit" class="btn btn-light-primary me-3 gap-3">Cari</button>
+
+                                <select name="role" class="form-select form-select-solid w-150px" onchange="this.form.submit()">
+                                    <option value="">Semua Role</option>
+                                    @for(Role r : Role.values())
+                                        <option value="${r.name()}" selected="${roleFilter != null && roleFilter.equals(r.name())}">
+                                            @if(r == Role.ADMIN) Admin
+                                            @elseif(r == Role.THERAPIST) Terapis
+                                            @elseif(r == Role.PARENT) Wali Pasien
+                                            @else ${r.name()}
+                                            @endif
+                                        </option>
+                                    @endfor
+                                </select>
+
+                                @if(roleFilter != null && !roleFilter.isBlank())
+                                    <a href="/admin/users${query != null && !query.isBlank() ? "?query=" + query : ""}" class="btn btn-light-danger btn-sm ms-3">Kosongkan Filter</a>
+                                @endif
                             </div>
                         </form>
                         <!--end::Search-->
@@ -147,7 +166,7 @@ content = @`
                                 <!-- Previous -->
                                 @if(users.hasPrevious())
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${users.getNumber() - 1}&query=${query != null ? query : ""}">Sebelum</a>
+                                        <a class="page-link" href="?page=${users.getNumber() - 1}&query=${query != null ? query : ""}&role=${roleFilter != null ? roleFilter : ""}">Sebelum</a>
                                     </li>
                                 @else
                                     <li class="page-item disabled"><span class="page-link">Sebelum</span></li>
@@ -159,7 +178,7 @@ content = @`
                                         <li class="page-item active"><span class="page-link">${i + 1}</span></li>
                                     @else
                                         <li class="page-item">
-                                            <a class="page-link" href="?page=${i}&query=${query != null ? query : ""}">${i + 1}</a>
+                                            <a class="page-link" href="?page=${i}&query=${query != null ? query : ""}&role=${roleFilter != null ? roleFilter : ""}">${i + 1}</a>
                                         </li>
                                     @endif
                                 @endfor
@@ -167,7 +186,7 @@ content = @`
                                 <!-- Next -->
                                 @if(users.hasNext())
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${users.getNumber() + 1}&query=${query != null ? query : ""}">Berikut</a>
+                                        <a class="page-link" href="?page=${users.getNumber() + 1}&query=${query != null ? query : ""}&role=${roleFilter != null ? roleFilter : ""}">Berikut</a>
                                     </li>
                                 @else
                                     <li class="page-item disabled"><span class="page-link">Berikut</span></li>

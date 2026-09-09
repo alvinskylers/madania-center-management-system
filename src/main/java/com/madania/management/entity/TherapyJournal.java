@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -69,5 +70,14 @@ public class TherapyJournal {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    public static final Duration EDIT_WINDOW = Duration.ofMinutes(15);
+
+    public boolean isEditable() {
+        if (createdAt == null)
+            return true;
+
+        return LocalDateTime.now().isBefore(createdAt.plus(EDIT_WINDOW));
+    }
 
 }

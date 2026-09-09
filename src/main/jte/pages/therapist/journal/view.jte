@@ -11,6 +11,7 @@
 @param long unreadNotificationCount = 0
 @param List<Notification> recentNotifications = null
 @param List<JournalComment> comments
+@param String journalError = null
 
 @template.layout.base(
 title = "Journal Detail",
@@ -23,12 +24,28 @@ content = @`
     <div class="d-flex justify-content-between align-items-center mb-5 jdoc-no-print">
         <h1 class="page-heading">Jurnal Terapi</h1>
         <div class="d-flex gap-3">
-            <a href="/therapist/journal/${String.valueOf(journal.getId())}/edit" class="btn btn-primary">
-                Ubah Jurnal
-            </a>
+            @if(journal.isEditable())
+                <a href="/therapist/journal/${String.valueOf(journal.getId())}/edit" class="btn btn-primary">
+                    Ubah Jurnal
+                </a>
+            @else
+                <button type="button" class="btn btn-secondary" disabled title="Batas waktu 15 menit untuk mengubah jurnal telah berakhir">
+                    Jurnal Terkunci
+                </button>
+            @endif
             <a href="/therapist/journals" class="btn btn-light">Kembali</a>
         </div>
     </div>
+
+    @if(journalError != null)
+        <div class="alert alert-danger jdoc-no-print"><p>${journalError}</p></div>
+    @endif
+
+    @if(!journal.isEditable())
+        <div class="alert alert-light border jdoc-no-print">
+            <p class="mb-0">Jurnal ini sudah terkunci karena telah melewati batas waktu 15 menit sejak dibuat. Untuk menambahkan catatan tambahan, gunakan bagian komentar di bawah.</p>
+        </div>
+    @endif
 
     @template.components.journal-document(journal = journal)
 

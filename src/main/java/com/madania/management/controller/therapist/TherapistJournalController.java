@@ -145,8 +145,15 @@ public class TherapistJournalController {
     }
 
     @GetMapping("/journal/{id}/edit")
-    public String editJournalForm(@PathVariable UUID id, Model model) {
+    public String editJournalForm(@PathVariable UUID id, Model model,
+                                  RedirectAttributes redirectAttributes) {
         TherapyJournal journal = journalService.getJournalById(id);
+
+        if (!journal.isEditable()) {
+            redirectAttributes.addFlashAttribute("journalError",
+                    "Waktu pengubahan jurnal telah lewat. Jurnal hanya dapat diubah 15 menit setelah di tulis.");
+            return "redirect:/therapist/journal/" + id;
+        }
 
         JournalRequest request = new JournalRequest();
         request.setTitle(journal.getTitle());
@@ -170,7 +177,15 @@ public class TherapistJournalController {
     public String updateJournal(@PathVariable UUID id,
                                 @Valid @ModelAttribute("request") JournalRequest request,
                                 BindingResult bindingResult,
-                                Model model) {
+                                Model model,
+                                RedirectAttributes redirectAttributes) {
+        TherapyJournal existingJournal = journalService.getJournalById(id);
+        if (!existingJournal.isEditable()) {
+            redirectAttributes.addFlashAttribute("journalError",
+                    "Waktu pengubahan jurnal telah lewat. Jurnal hanya dapat diubah 15 menit setelah di tulis.");
+            return "redirect:/therapist/journal/" + id;
+        }
+
         if (bindingResult.hasErrors()) {
             TherapyJournal journal = journalService.getJournalById(id);
             model.addAttribute("journal", journal);

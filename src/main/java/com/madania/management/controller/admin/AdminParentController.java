@@ -54,6 +54,12 @@ public class AdminParentController {
         return "pages/admin/parent/view";
     }
 
+    @GetMapping("/parent/by-user/{userId}")
+    public String viewParentByUserId(@PathVariable UUID userId) {
+        Parent parent = parentService.getParentByUserId(userId);
+        return "redirect:/admin/parent/" + parent.getId();
+    }
+
     @GetMapping("/parent/create")
     public String createParentForm(Model model) {
         model.addAttribute("request", new ParentCreateRequest());

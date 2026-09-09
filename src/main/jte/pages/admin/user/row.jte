@@ -1,6 +1,8 @@
 @import com.madania.management.entity.User
+@import com.madania.management.enums.Role
 @import java.time.format.DateTimeFormatter;
 
+@param String role
 @param User user
 
 <tr>
@@ -29,7 +31,11 @@
         <!--begin::Menu-->
         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
             <div class="menu-item px-3">
-                <a href="${"/users/details/{id}(id=user.id)"}" class="menu-link px-3">Lihat</a>
+                @if(user.getRole().equals(Role.THERAPIST))
+                    <a href="/admin/therapist/by-user/${String.valueOf(user.getId())}" class="menu-link px-3">Lihat Profil</a>
+                @elseif(user.getRole().equals(Role.PARENT))
+                    <a href="/admin/parent/by-user/${String.valueOf(user.getId())}" class="menu-link px-3">Lihat Profil</a>
+                @endif
             </div>
             <div class="menu-item px-3">
                 <!-- Delete form with CSRF protection -->

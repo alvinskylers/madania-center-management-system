@@ -78,6 +78,28 @@ content = @`
                         </form>
                         <!--end::Search-->
                     </div>
+                    <!--begin::Card toolbar-->
+                    <div class="card-toolbar">
+                        <!--begin::Add user dropdown-->
+                        <a href="#" class="btn btn-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                            <i class="ki-outline ki-plus fs-2"></i>Tambah Pengguna
+                        </a>
+                        <!--begin::Menu-->
+                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4" data-kt-menu="true">
+                            <div class="menu-item px-3">
+                                <a href="/admin/parent/create" class="menu-link px-3">
+                                    <i class="ki-outline ki-user fs-4 me-2"></i>Wali Pasien
+                                </a>
+                            </div>
+                            <div class="menu-item px-3">
+                                <a href="/admin/therapist/create" class="menu-link px-3">
+                                    <i class="ki-outline ki-user fs-4 me-2"></i>Terapis
+                                </a>
+                            </div>
+                        </div>
+                        <!--end::Menu-->
+                        <!--end::Add user dropdown-->
+                    </div>
                     <!--end::Card toolbar-->
                 </div>
                 <!--end::Card header-->
@@ -99,7 +121,7 @@ content = @`
                             </thead>
                             <tbody class="fw-semibold text-gray-600">
                             @for(User user : users)
-                                @template.pages.admin.user.row(user = user)
+                                @template.pages.admin.user.row(user = user, role = role)
                             @endfor
                             </tbody>
                         </table>
@@ -145,7 +167,7 @@ content = @`
                                 <!-- Next -->
                                 @if(users.hasNext())
                                     <li class="page-item">
-                                            <a class="page-link" href="?page=${users.getNumber() + 1}&query=${query != null ? query : ""}">Berikut</a>
+                                        <a class="page-link" href="?page=${users.getNumber() + 1}&query=${query != null ? query : ""}">Berikut</a>
                                     </li>
                                 @else
                                     <li class="page-item disabled"><span class="page-link">Berikut</span></li>

@@ -68,19 +68,6 @@
                         </a>
                     </div>
 
-                    <div class="menu-item">
-                        <a class="menu-link" href="/admin/parents"  title="View all parents" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-bullet"><i class="ki-outline ki-user fs-2"></i></span>
-                            <span class="menu-title">Wali Pasien</span>
-                        </a>
-                    </div>
-
-                    <div class="menu-item">
-                        <a class="menu-link" href="/admin/therapists"  title="View all therapists" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-bullet"><i class="ki-outline ki-user fs-2"></i></span>
-                            <span class="menu-title">Terapis</span>
-                        </a>
-                    </div>
 
                     <!-- User Management -->
                     <div class="menu-item">

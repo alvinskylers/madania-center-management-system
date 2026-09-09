@@ -57,6 +57,12 @@ public class AdminTherapistController {
         return "pages/admin/therapist/view";
     }
 
+    @GetMapping("/therapist/by-user/{userId}")
+    public String viewTherapistByUserId(@PathVariable UUID userId) {
+        Therapist therapist = therapistService.getTherapistByUserId(userId);
+        return "redirect:/admin/therapist/" + therapist.getId();
+    }
+
     @GetMapping("/therapist/{id}/events")
     @ResponseBody
     public ResponseEntity<List<Map<String, Object>>> getTherapistEvents(@PathVariable UUID id) {

@@ -149,6 +149,7 @@ content = @`
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <a href="#" id="btn_view_journal" class="btn btn-success" style="display:none;">View Journal</a>
                     <button type="button" class="btn btn-primary" id="btn_open_reschedule">Request Reschedule</button>
                 </div>
             </div>
@@ -203,6 +204,7 @@ content = @`
             var detailsModal = new bootstrap.Modal(document.getElementById("kt_modal_session_details"));
             var rescheduleModal = new bootstrap.Modal(document.getElementById("kt_modal_request_reschedule"));
             var btnOpenReschedule = document.getElementById("btn_open_reschedule");
+            var btnViewJournal = document.getElementById("btn_view_journal");
 
             var statusBadgeClass = {
                 SCHEDULED: "badge-light-primary",
@@ -245,6 +247,14 @@ content = @`
                         };
                     } else {
                         btnOpenReschedule.style.display = "none";
+                    }
+
+                    var journalId = info.event.extendedProps.journalId;
+                    if (status === "COMPLETED" && journalId) {
+                        btnViewJournal.style.display = "inline-block";
+                        btnViewJournal.href = "/parent/journal/" + journalId;
+                    } else {
+                        btnViewJournal.style.display = "none";
                     }
 
                     detailsModal.show();

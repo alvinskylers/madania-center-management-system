@@ -1,6 +1,8 @@
 package com.madania.management.controller.admin;
 
 import com.madania.management.entity.TherapySession;
+import com.madania.management.entity.TherapyJournal;
+import com.madania.management.service.TherapyJournalService;
 import com.madania.management.service.TherapySessionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 public class AdminScheduleController {
 
     private final TherapySessionService sessionService;
+    private final TherapyJournalService journalService;
 
     @GetMapping("/schedule")
     public String schedule() {
@@ -39,6 +42,13 @@ public class AdminScheduleController {
                     + " (Session " + session.getSessionNumber() + ")");
             event.put("start", session.getStartTime());
             event.put("end", session.getEndTime());
+            event.put("status", session.getStatus().name());
+            if (session.getStatus().name().equals("COMPLETED")) {
+                TherapyJournal journal = journalService.getJournalBySessionId(session.getId());
+                if (journal != null) {
+                    event.put("journalId", journal.getId().toString());
+                }
+            }
             event.put("color", switch (session.getStatus().name()) {
                 case "SCHEDULED"   -> "#1B84FF";
                 case "COMPLETED"   -> "#17C653";

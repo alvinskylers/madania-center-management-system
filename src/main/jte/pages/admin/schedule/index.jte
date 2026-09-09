@@ -42,11 +42,55 @@ content = @`
         </div>
     </div>
 
+    <!--begin::Modal - Session Details-->
+    <div class="modal fade" id="kt_modal_session_details" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Session Details</h2>
+                    <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+                        <i class="ki-outline ki-cross fs-1"></i>
+                    </div>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <span class="fw-semibold text-gray-600">Session:</span>
+                        <span id="detail_title"></span>
+                    </div>
+                    <div class="mb-3">
+                        <span class="fw-semibold text-gray-600">Scheduled time:</span>
+                        <span id="detail_time"></span>
+                    </div>
+                    <div class="mb-3">
+                        <span class="fw-semibold text-gray-600">Status:</span>
+                        <span id="detail_status" class="badge"></span>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <a href="#" id="btn_view_journal" class="btn btn-success" style="display:none;">View Journal</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Modal-->
+
     <link href="/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet">
     <script src="/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var calendarEl = document.getElementById("kt_calendar");
+            var detailsModal = new bootstrap.Modal(document.getElementById("kt_modal_session_details"));
+            var btnViewJournal = document.getElementById("btn_view_journal");
+
+            var statusBadgeClass = {
+                SCHEDULED: "badge-light-primary",
+                COMPLETED: "badge-light-success",
+                CANCELLED: "badge-light-danger",
+                RESCHEDULED: "badge-light-warning"
+            };
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: "timeGridWeek",
@@ -61,7 +105,25 @@ content = @`
                 allDaySlot: false,
                 events: "/admin/schedule/events",
                 eventClick: function (info) {
-                    alert(info.event.title);
+                    var status = info.event.extendedProps.status;
+
+                    document.getElementById("detail_title").innerText = info.event.title;
+                    document.getElementById("detail_time").innerText =
+                        info.event.start.toLocaleString() + " - " + info.event.end.toLocaleTimeString();
+
+                    var badge = document.getElementById("detail_status");
+                    badge.innerText = status;
+                    badge.className = "badge " + (statusBadgeClass[status] || "badge-light-secondary");
+
+                    var journalId = info.event.extendedProps.journalId;
+                    if (status === "COMPLETED" && journalId) {
+                        btnViewJournal.style.display = "inline-block";
+                        btnViewJournal.href = "/admin/journal/" + journalId;
+                    } else {
+                        btnViewJournal.style.display = "none";
+                    }
+
+                    detailsModal.show();
                 }
             });
 

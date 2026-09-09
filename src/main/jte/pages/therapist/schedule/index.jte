@@ -132,6 +132,8 @@ content = @`
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <a href="#" id="btn_view_journal" class="btn btn-success" style="display:none;">View Journal</a>
+                    <a href="#" id="btn_write_journal" class="btn btn-success" style="display:none;">Write Journal</a>
                     <button type="button" class="btn btn-primary" id="btn_open_reschedule">Request Reschedule</button>
                 </div>
             </div>
@@ -186,6 +188,8 @@ content = @`
             var detailsModal = new bootstrap.Modal(document.getElementById("kt_modal_session_details"));
             var rescheduleModal = new bootstrap.Modal(document.getElementById("kt_modal_request_reschedule"));
             var btnOpenReschedule = document.getElementById("btn_open_reschedule");
+            var btnViewJournal = document.getElementById("btn_view_journal");
+            var btnWriteJournal = document.getElementById("btn_write_journal");
 
             var statusBadgeClass = {
                 SCHEDULED: "badge-light-primary",
@@ -228,6 +232,21 @@ content = @`
                         };
                     } else {
                         btnOpenReschedule.style.display = "none";
+                    }
+
+                    var journalId = info.event.extendedProps.journalId;
+                    if (status === "COMPLETED" && journalId) {
+                        btnViewJournal.style.display = "inline-block";
+                        btnViewJournal.href = "/therapist/journal/" + journalId;
+                    } else {
+                        btnViewJournal.style.display = "none";
+                    }
+
+                    if (status === "COMPLETED" && !journalId) {
+                        btnWriteJournal.style.display = "inline-block";
+                        btnWriteJournal.href = "/therapist/journal/create/" + info.event.id;
+                    } else {
+                        btnWriteJournal.style.display = "none";
                     }
 
                     detailsModal.show();

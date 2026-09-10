@@ -193,6 +193,40 @@
                     </div>
                 @endif
 
+                @if(role.equals("RECEPTIONIST"))
+                    <!-- Home -->
+                    <div class="menu-item">
+                        <a class="menu-link" href="/dashboard" title="View Dashboard" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-home fs-2"></i></span>
+                            <span class="menu-title">Dashboard</span>
+                        </a>
+                    </div>
+
+                    <!-- Schedule (read-only) -->
+                    <div class="menu-item">
+                        <a class="menu-link" href="/receptionist/schedule" title="View clinic schedule" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-calendar fs-2"></i></span>
+                            <span class="menu-title">Jadwal Klinik</span>
+                        </a>
+                    </div>
+
+                    <!-- Parents -->
+                    <div class="menu-item">
+                        <a class="menu-link" href="/receptionist/parents" title="View all parents" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-user fs-2"></i></span>
+                            <span class="menu-title">Wali Pasien</span>
+                        </a>
+                    </div>
+
+                    <!-- Patients -->
+                    <div class="menu-item">
+                        <a class="menu-link" href="/receptionist/patients" title="View all patients" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-people fs-2"></i></span>
+                            <span class="menu-title">Pasien</span>
+                        </a>
+                    </div>
+                @endif
+
             </div>
             <!--end::Sidebar menu-->
         </div>

@@ -98,7 +98,7 @@
                     <div class="separator my-2"></div>
                     <!--end::Menu separator-->
                     <!--begin::Menu item-->
-                    @if(user.getRole() != Role.ADMIN)
+                    @if(user.getRole() != Role.ADMIN && user.getRole() != Role.RECEPTIONIST)
                         <div class="menu-item px-5">
                             <a href="/profile" class="menu-link px-5">Profil Saya</a>
                         </div>

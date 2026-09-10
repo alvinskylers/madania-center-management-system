@@ -225,6 +225,14 @@
                             <span class="menu-title">Pasien</span>
                         </a>
                     </div>
+
+                    <!-- Packages -->
+                    <div class="menu-item">
+                        <a class="menu-link" href="/receptionist/packages" title="View all packages" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-parcel fs-2"></i></span>
+                            <span class="menu-title">Paket Terapi</span>
+                        </a>
+                    </div>
                 @endif
 
             </div>

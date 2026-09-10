@@ -29,7 +29,7 @@
     </td>
     <td class="text-end">
         @if(request.getStatus() == RescheduleStatus.PENDING)
-            <form action="/admin/reschedules/${reqId}/approve" method="post" class="d-inline-block mb-1" id="approve-form-${reqId}">
+            <form action="/receptionist/reschedules/${reqId}/approve" method="post" class="d-inline-block mb-1" id="approve-form-${reqId}">
                 <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
                 <button type="button" class="btn btn-light-success btn-sm reschedule-confirm-btn"
                         data-form-id="approve-form-${reqId}"
@@ -38,7 +38,7 @@
                 </button>
             </form>
 
-            <form action="/admin/reschedules/${reqId}/reject" method="post" class="d-inline-block mb-1" id="reject-form-${reqId}">
+            <form action="/receptionist/reschedules/${reqId}/reject" method="post" class="d-inline-block mb-1" id="reject-form-${reqId}">
                 <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
                 <button type="button" class="btn btn-light-danger btn-sm reschedule-confirm-btn"
                         data-form-id="reject-form-${reqId}"

@@ -1,24 +1,25 @@
+@import com.madania.management.entity.LeaveRequest
 @import com.madania.management.entity.Notification
-@import com.madania.management.entity.RescheduleRequest
 @import com.madania.management.entity.User
-@import com.madania.management.enums.RescheduleStatus
+@import com.madania.management.enums.LeaveStatus
+@import java.time.format.DateTimeFormatter
 @import java.util.List
 
 @param User user
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
-@param List<RescheduleRequest> requests
-@param String rescheduleError = null
-@param String rescheduleSuccess = null
+@param List<LeaveRequest> requests
 @param long unreadNotificationCount = 0
 @param List<Notification> recentNotifications = null
+@param String leaveError = null
+@param String leaveSuccess = null
 
-!{long pendingCount = requests == null ? 0 : requests.stream().filter(r -> r.getStatus() == RescheduleStatus.PENDING).count();}
-!{long approvedCount = requests == null ? 0 : requests.stream().filter(r -> r.getStatus() == RescheduleStatus.APPROVED).count();}
-!{long rejectedCount = requests == null ? 0 : requests.stream().filter(r -> r.getStatus() == RescheduleStatus.REJECTED).count();}
+!{long pendingCount = requests == null ? 0 : requests.stream().filter(r -> r.getStatus() == LeaveStatus.PENDING).count();}
+!{long approvedCount = requests == null ? 0 : requests.stream().filter(r -> r.getStatus() == LeaveStatus.APPROVED).count();}
+!{long rejectedCount = requests == null ? 0 : requests.stream().filter(r -> r.getStatus() == LeaveStatus.REJECTED).count();}
 
 @template.layout.base(
-title = "Permintaan Reschedule",
+title = "Permohonan Cuti",
 role = role,
 user = user,
 _csrf = _csrf,
@@ -31,11 +32,11 @@ content = @`
         <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
-                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Permintaan Reschedule</h1>
+                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Permohonan Cuti</h1>
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
-                        <li class="breadcrumb-item text-muted"><a href="/admin/dashboard" class="text-muted text-hover-primary">Dashboard</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="/dashboard" class="text-muted text-hover-primary">Dashboard</a></li>
                         <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
-                        <li class="breadcrumb-item text-muted">Permintaan Reschedule</li>
+                        <li class="breadcrumb-item text-muted">Permohonan Cuti</li>
                     </ul>
                 </div>
             </div>
@@ -47,15 +48,15 @@ content = @`
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <div id="kt_app_content_container" class="app-container container-fluid">
 
-            @if(rescheduleSuccess != null)
+            @if(leaveSuccess != null)
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>${rescheduleSuccess}</strong>
+                    <strong>${leaveSuccess}</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-            @if(rescheduleError != null)
+            @if(leaveError != null)
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>${rescheduleError}</strong>
+                    <strong>${leaveError}</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
@@ -114,7 +115,7 @@ content = @`
             <div class="card card-flush">
                 <div class="card-header pt-7">
                     <div class="card-title">
-                        <h2>Permintaan Reschedule</h2>
+                        <h2>Permohonan Cuti</h2>
                     </div>
                 </div>
                 <div class="card-body pt-5">
@@ -122,25 +123,59 @@ content = @`
                         <table class="table align-middle table-row-dashed fs-6 gy-4">
                             <thead>
                             <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                <th>Pasien</th>
                                 <th>Terapis</th>
-                                <th>Tanggal Sesi</th>
-                                <th>Tanggal Ganti</th>
-                                <th>Pemohon</th>
+                                <th>Rentang Cuti</th>
                                 <th>Alasan</th>
                                 <th>Status</th>
-                                <th class="text-end">Aksi</th>
+                                <th>Diajukan</th>
+                                <th>Aksi</th>
                             </tr>
                             </thead>
                             <tbody>
                             @if(requests != null && !requests.isEmpty())
-                                @for(RescheduleRequest request : requests)
-                                    @template.pages.admin.reschedule.row(request = request, _csrf = _csrf)
+                                @for(LeaveRequest r : requests)
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="symbol symbol-35px symbol-circle me-3">
+                                                    <span class="symbol-label bg-light-primary text-primary fw-bold">
+                                                        ${r.getTherapist().getFullName().substring(0, 1).toUpperCase()}
+                                                    </span>
+                                                </div>
+                                                <span class="text-gray-800 fw-semibold">${r.getTherapist().getFullName()}</span>
+                                            </div>
+                                        </td>
+                                        <td>${r.getStartDate().toString()} &rarr; ${r.getEndDate().toString()}</td>
+                                        <td class="text-gray-700">${r.getReason() != null && !r.getReason().isBlank() ? r.getReason() : "—"}</td>
+                                        <td>
+                                            @if(r.getStatus() == LeaveStatus.PENDING)
+                                                    <span class="badge badge-light-warning">Pending</span>
+                                            @elseif(r.getStatus() == LeaveStatus.APPROVED)
+                                                <span class="badge badge-light-success">Disetujui</span>
+                                            @else
+                                                <span class="badge badge-light-danger">Ditolak</span>
+                                            @endif
+                                        </td>
+                                        <td class="text-muted fs-7">
+                                            ${r.getCreatedAt() != null ? r.getCreatedAt().format(DateTimeFormatter.ofPattern("dd MMM yyyy")) : "—"}
+                                        </td>
+                                        <td class="text-end">
+                                            @if(r.getStatus() == LeaveStatus.PENDING)
+                                                <a href="/receptionist/leaves/${String.valueOf(r.getId())}" class="btn btn-primary btn-sm">
+                                                    <i class="ki-outline ki-eye fs-4"></i>Review
+                                                </a>
+                                            @else
+                                                <a href="/receptionist/leaves/${String.valueOf(r.getId())}" class="btn btn-light btn-sm">
+                                                    <i class="ki-outline ki-eye fs-4"></i>View
+                                                </a>
+                                            @endif
+                                        </td>
+                                    </tr>
                                 @endfor
                             @else
                                 <tr>
-                                    <td colspan="8">
-                                        <div class="alert alert-info text-center mb-0">Belum ada permohonan reschedule.</div>
+                                    <td colspan="6">
+                                        <div class="alert alert-info text-center mb-0">Belum ada permohonan cuti.</div>
                                     </td>
                                 </tr>
                             @endif
@@ -154,48 +189,5 @@ content = @`
         </div>
     </div>
     <!--end::Content-->
-
-    <!--begin::Modal - Confirm Action-->
-    <div class="modal fade" id="kt_modal_confirm_action" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title">Konfirmasi</h2>
-                    <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
-                        <i class="ki-outline ki-cross fs-1"></i>
-                    </div>
-                </div>
-                <div class="modal-body" id="kt_modal_confirm_message"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-primary" id="kt_modal_confirm_submit">Konfirmasi</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--end::Modal-->
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var confirmModal = new bootstrap.Modal(document.getElementById("kt_modal_confirm_action"));
-            var confirmMessage = document.getElementById("kt_modal_confirm_message");
-            var confirmSubmitBtn = document.getElementById("kt_modal_confirm_submit");
-            var pendingFormId = null;
-
-            document.querySelectorAll(".reschedule-confirm-btn").forEach(function (btn) {
-                btn.addEventListener("click", function () {
-                    pendingFormId = btn.getAttribute("data-form-id");
-                    confirmMessage.innerText = btn.getAttribute("data-message");
-                    confirmModal.show();
-                });
-            });
-
-            confirmSubmitBtn.addEventListener("click", function () {
-                if (pendingFormId) {
-                    document.getElementById(pendingFormId).submit();
-                }
-            });
-        });
-    </script>
 `
 )

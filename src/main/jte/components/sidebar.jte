@@ -233,6 +233,22 @@
                             <span class="menu-title">Paket Terapi</span>
                         </a>
                     </div>
+
+                    <!-- Leave Requests -->
+                    <div class="menu-item">
+                        <a class="menu-link" href="/receptionist/leaves" title="View leave requests" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-time fs-2"></i></span>
+                            <span class="menu-title">Permintaan Izin</span>
+                        </a>
+                    </div>
+
+                    <!-- Reschedule Requests -->
+                    <div class="menu-item">
+                        <a class="menu-link" href="/receptionist/reschedules" title="View reschedule requests" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-time fs-2"></i></span>
+                            <span class="menu-title">Permintaan Reschedule</span>
+                        </a>
+                    </div>
                 @endif
 
             </div>

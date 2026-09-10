@@ -104,7 +104,7 @@ public class ReceptionistPackageController {
             packageService.createPackage(
                     request.getPatientId(), request.getTherapistId(),
                     userDetails.getUser().getId(), request.getPackageTypeId(), request.getStartDate(),
-                    request.getPreferredTime(), request.getDays(), request.getNotes()
+                    request.getPreferredTime(), request.getDays(), request.getNotes(), request.getDiagnosis()
             );
         } catch (RuntimeException e) {
             model.addAttribute("scheduleError", e.getMessage());

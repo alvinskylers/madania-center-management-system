@@ -35,6 +35,10 @@
     <div id="pkg_collapse_${index}" class="accordion-collapse collapse ${index == 0 ? "show" : ""}"
          aria-labelledby="pkg_heading_${index}" data-bs-parent="#kt_patient_packages_accordion">
         <div class="accordion-body">
+            <div class="mb-4">
+                <span class="fw-bold">Diagnosis saat paket ini dibuat:</span>
+                <span class="text-gray-600">${group.getTherapyPackage().getDiagnosis() != null && !group.getTherapyPackage().getDiagnosis().isBlank() ? group.getTherapyPackage().getDiagnosis() : "—"}</span>
+            </div>
             <table class="table align-middle table-row-dashed gy-3">
                 <thead>
                 <tr class="fs-7 text-muted text-uppercase">

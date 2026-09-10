@@ -143,6 +143,9 @@ content = @`
                                 <div class="fw-bold mt-5">Dibuat pada</div>
                                 <div class="text-gray-600">${therapyPackage.getCreatedAt() != null ? therapyPackage.getCreatedAt().format(DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a")) : "—"}</div>
 
+                                <div class="fw-bold mt-5">Diagnosis</div>
+                                <div class="text-gray-600">${therapyPackage.getDiagnosis() != null && !therapyPackage.getDiagnosis().isBlank() ? therapyPackage.getDiagnosis() : "—"}</div>
+
                                 @if(therapyPackage.getNotes() != null && !therapyPackage.getNotes().isBlank())
                                     <div class="fw-bold mt-5">Catatan</div>
                                     <div class="text-gray-600">${therapyPackage.getNotes()}</div>

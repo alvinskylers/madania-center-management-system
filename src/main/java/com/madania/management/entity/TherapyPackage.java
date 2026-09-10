@@ -36,12 +36,12 @@ public class TherapyPackage {
     @JoinColumn(name = "creator_id")
     private User createdBy;
 
-    // Which PackageType this was created from - kept for reporting even if
-    // that type's settings change later, since totalSessions below is a
-    // snapshot copied at creation time, not a live read of packageType.
     @ManyToOne
     @JoinColumn(name = "package_type_id")
     private PackageType packageType;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String diagnosis;
 
     @Column(nullable = false)
     private LocalDate startDate;

@@ -81,7 +81,7 @@ public class TherapyPackageService {
     @Transactional
     public TherapyPackage createPackage(UUID patientId, UUID therapistId, UUID createdByUserId, UUID packageTypeId,
                                         LocalDate startDate, LocalTime preferredTime,
-                                        List<DayOfWeek> days, String notes) {
+                                        List<DayOfWeek> days, String notes, String diagnosis) {
 
         PackageType packageType = packageTypeRepository.findById(packageTypeId)
                 .orElseThrow(() -> new RuntimeException("Package type not found."));
@@ -108,6 +108,7 @@ public class TherapyPackageService {
                 .therapist(therapist)
                 .createdBy(assigner)
                 .packageType(packageType)
+                .diagnosis(diagnosis)
                 .startDate(startDate)
                 .sessionTime(preferredTime)
                 .totalSessions(packageType.getTotalSessions())
@@ -116,6 +117,9 @@ public class TherapyPackageService {
                 .notes(notes)
                 .build();
         therapyPackage = packageRepository.save(therapyPackage);
+
+        patient.setDiagnosis(diagnosis);
+        patientRepository.save(patient);
 
         for (DayOfWeek day : days) {
             TherapyDaySchedule daySchedule = TherapyDaySchedule.builder()

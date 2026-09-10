@@ -28,6 +28,7 @@
 !{String selectedTherapistId = request.getTherapistId() != null ? String.valueOf(request.getTherapistId()) : "";}
 !{String selectedPackageTypeId = request.getPackageTypeId() != null ? String.valueOf(request.getPackageTypeId()) : "";}
 !{String notesValue = request.getNotes() != null ? request.getNotes() : "";}
+!{String diagnosisValue = request.getDiagnosis() != null ? request.getDiagnosis() : "";}
 
 @template.layout.base(
 title = "Create Therapy Package",
@@ -171,6 +172,18 @@ content = @`
                                     </div>
                                 </div>
                                 <!--end::Patient & Therapist-->
+
+                                <!--begin::Diagnosis-->
+                                <div class="fv-row mb-7">
+                                    <label class="fs-6 fw-semibold form-label mt-3">
+                                        <span class="required">Diagnosis</span>
+                                        <span class="ms-1" data-bs-toggle="tooltip" title="Diagnosis pasien yang menjadi dasar paket terapi ini. Wajib diisi sebelum paket dapat dibuat.">
+                                            <i class="ki-outline ki-information fs-7"></i>
+                                        </span>
+                                    </label>
+                                    <textarea class="form-control form-control-solid" name="diagnosis" rows="3" required>${diagnosisValue}</textarea>
+                                </div>
+                                <!--end::Diagnosis-->
 
                                 <!--begin::Start Date & Time-->
                                 <div class="row row-cols-1 row-cols-sm-2">

@@ -13,6 +13,8 @@
 @param CsrfToken _csrf
 @param long unreadNotificationCount = 0
 @param List<Notification> recentNotifications = null
+@param String success = null
+@param String error = null
 
 @template.layout.base(
 title = "Pengguna",
@@ -22,6 +24,19 @@ _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,
 content = @`
+    @if(success != null)
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>${success}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if(error != null)
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>${error}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <div id="kt_app_toolbar" class="app-toolbar pt-7 pt-lg-10">
         <!--begin::Toolbar container-->
         <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
@@ -82,6 +97,7 @@ content = @`
                                     @for(Role r : Role.values())
                                         <option value="${r.name()}" selected="${roleFilter != null && roleFilter.equals(r.name())}">
                                             @if(r == Role.ADMIN) Admin
+                                            @elseif(r == Role.RECEPTIONIST) Resepsionis
                                             @elseif(r == Role.THERAPIST) Terapis
                                             @elseif(r == Role.PARENT) Wali Pasien
                                             @else ${r.name()}
@@ -115,6 +131,11 @@ content = @`
                                     <i class="ki-outline ki-user fs-4 me-2"></i>Terapis
                                 </a>
                             </div>
+                            <div class="menu-item px-3">
+                                <a href="/admin/receptionist/create" class="menu-link px-3">
+                                    <i class="ki-outline ki-user fs-4 me-2"></i>Resepsionis
+                                </a>
+                            </div>
                         </div>
                         <!--end::Menu-->
                         <!--end::Add user dropdown-->
@@ -140,7 +161,7 @@ content = @`
                             </thead>
                             <tbody class="fw-semibold text-gray-600">
                             @for(User user : users)
-                                @template.pages.admin.user.row(user = user, role = role)
+                                @template.pages.admin.user.row(user = user, role = role, _csrf = _csrf)
                             @endfor
                             </tbody>
                         </table>

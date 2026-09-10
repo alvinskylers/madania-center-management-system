@@ -122,7 +122,7 @@ public class AdminTherapistController {
                 request.getSpecialization(),
                 request.getPhone());
 
-        return "redirect:/admin/therapists";
+        return "redirect:/admin/users";
     }
 
     @GetMapping("/therapist/{id}/edit")
@@ -154,14 +154,14 @@ public class AdminTherapistController {
         therapistService.updateTherapist(id, request.getEmail(),
                 request.getFullName(), request.getSpecialization(), request.getPhone());
 
-        return "redirect:/admin/therapists";
+        return "redirect:/admin/users";
     }
 
     @PostMapping("therapist/{id}/delete")
     public String deleteTherapist(@PathVariable UUID id) {
         therapistService.deleteTherapist(id);
         //TODO: add error binding to try to delete an active account
-        return "redirect:/admin/therapists";
+        return "redirect:/admin/users";
     }
 
 }

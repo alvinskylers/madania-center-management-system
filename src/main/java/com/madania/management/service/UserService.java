@@ -66,6 +66,21 @@ public class UserService {
     }
 
     @Transactional
+    public User createReceptionist(String name, String email, String password) {
+        validateUniqueness(email);
+
+        User user = User.builder()
+                .name(name)
+                .email(email)
+                .password(passwordEncoder.encode(password))
+                .role(Role.RECEPTIONIST)
+                .isActive(true)
+                .build();
+
+        return userRepository.save(user);
+    }
+
+    @Transactional
     public User updateUser(UUID id, String name, String email) {
         User user = getUserById(id);
 

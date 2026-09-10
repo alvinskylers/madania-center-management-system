@@ -93,7 +93,7 @@ public class AdminParentController {
                 request.getPhone(),
                 request.getAddress());
 
-        return "redirect:/admin/parents";
+        return "redirect:/admin/users";
     }
 
     @GetMapping("/parent/{id}/edit")
@@ -125,14 +125,14 @@ public class AdminParentController {
         parentService.updateParent(id, request.getEmail(),
                 request.getFullName(), request.getPhone(), request.getAddress());
 
-        return "redirect:/admin/parents";
+        return "redirect:/admin/users";
     }
 
     @PostMapping("parent/{id}/delete")
     public String deleteTherapist(@PathVariable UUID id) {
         parentService.deleteParent(id);
         //TODO: add error binding to try to delete an active account
-        return "redirect:/admin/parents";
+        return "redirect:/admin/users";
     }
 
 

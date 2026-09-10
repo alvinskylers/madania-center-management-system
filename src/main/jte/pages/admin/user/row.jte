@@ -4,16 +4,25 @@
 
 @param String role
 @param User user
+@param org.springframework.security.web.csrf.CsrfToken _csrf
 
 <tr>
     <td>
-        <a href="@{/users/details/{id}(id=user.id)}" class="text-gray-800 text-hover-primary mb-1">${user.getName()}</a>
+        <span class="text-gray-800 mb-1">${user.getName()}</span>
     </td>
     <td>
-        <a href="mailto:@user.email" class="text-gray-600 text-hover-primary mb-1">${user.getEmail()}</a>
+        <a href="mailto:${user.getEmail()}" class="text-gray-600 text-hover-primary mb-1">${user.getEmail()}</a>
     </td>
     <td>
-        <span class="badge badge-light">${user.getRole()}</span>
+        @if(user.getRole() == Role.ADMIN)
+            <span class="badge badge-light-danger">Admin</span>
+        @elseif(user.getRole() == Role.RECEPTIONIST)
+            <span class="badge badge-light-primary">Resepsionis</span>
+        @elseif(user.getRole() == Role.THERAPIST)
+            <span class="badge badge-light-info">Terapis</span>
+        @elseif(user.getRole() == Role.PARENT)
+            <span class="badge badge-light-warning">Wali Pasien</span>
+        @endif
     </td>
     <td>
         @if(user.isActive())
@@ -39,8 +48,8 @@
             </div>
             <div class="menu-item px-3">
                 <!-- Delete form with CSRF protection -->
-                <form method="post" action="${"/users/delete/{id}(id=user.id)"}" style="display:inline;">
-                    <input type="hidden" name="_csrf" value="@_csrf.token" />
+                <form method="post" action="/admin/users/${String.valueOf(user.getId())}/delete" style="display:inline;">
+                    <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}" />
                     <button type="submit" class="menu-link px-3" style="border:none; background:none; width:100%; text-align:left;"
                             onclick="return confirm('Are you sure you want to delete this user?')">
                         Hapus

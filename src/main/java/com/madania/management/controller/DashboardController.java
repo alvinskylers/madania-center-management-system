@@ -18,6 +18,7 @@ public class DashboardController {
             case ADMIN -> "redirect:/admin/dashboard";
             case THERAPIST -> "redirect:/therapist/dashboard";
             case PARENT -> "redirect:/parent/dashboard";
+            case RECEPTIONIST -> "redirect:/receptionist/dashboard";
         };
     }
 

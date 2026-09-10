@@ -48,6 +48,7 @@ public class SecurityConfig {
                         .requestMatchers("/", "/login").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/media/**", "/plugins/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/receptionist/**").hasRole("RECEPTIONIST")
                         .requestMatchers("/therapist/**").hasRole("THERAPIST")
                         .requestMatchers("/parent/**").hasRole("PARENT")
                         .anyRequest().authenticated()

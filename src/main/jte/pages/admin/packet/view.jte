@@ -125,6 +125,9 @@ content = @`
 
                             <!--begin::Details-->
                             <div class="pb-3 fs-6">
+                                <div class="fw-bold mt-5">Jenis Paket</div>
+                                <div class="text-gray-600">${therapyPackage.getPackageType() != null ? therapyPackage.getPackageType().getName() : "—"}</div>
+
                                 <div class="fw-bold mt-5">Tanggal Mulai</div>
                                 <div class="text-gray-600">${therapyPackage.getStartDate() != null ? therapyPackage.getStartDate().toString() : "—"}</div>
 

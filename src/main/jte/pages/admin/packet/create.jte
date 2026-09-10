@@ -3,6 +3,7 @@
 @import com.madania.management.entity.User
 @import com.madania.management.entity.Patient
 @import com.madania.management.entity.Therapist
+@import com.madania.management.entity.PackageType
 @import org.springframework.validation.BindingResult
 @import java.time.DayOfWeek
 @import java.util.List
@@ -15,6 +16,7 @@
 @param PackageCreateRequest request
 @param List<Patient> patients
 @param List<Therapist> therapists
+@param List<PackageType> packageTypes
 @param List<DayOfWeek> days
 @param String daysError = null
 @param String scheduleError = null
@@ -24,6 +26,7 @@
 
 !{String selectedPatientId = request.getPatientId() != null ? String.valueOf(request.getPatientId()) : "";}
 !{String selectedTherapistId = request.getTherapistId() != null ? String.valueOf(request.getTherapistId()) : "";}
+!{String selectedPackageTypeId = request.getPackageTypeId() != null ? String.valueOf(request.getPackageTypeId()) : "";}
 !{String notesValue = request.getNotes() != null ? request.getNotes() : "";}
 
 @template.layout.base(
@@ -98,6 +101,32 @@ content = @`
                             <form id="kt_package_create_form" class="form" action="/admin/package/create" method="post">
                                 <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}"/>
 
+                                <!--begin::Package type-->
+                                <div class="fv-row mb-7">
+                                    <label class="fs-6 fw-semibold form-label mt-3">
+                                        <span class="required">Jenis Paket</span>
+                                        <span class="ms-1" data-bs-toggle="tooltip" title="Menentukan total sesi dan berapa kali per minggu sesi akan dijadwalkan.">
+                                            <i class="ki-outline ki-information fs-7"></i>
+                                        </span>
+                                    </label>
+                                    <select class="form-select form-select-solid" name="packageTypeId" id="kt_package_type_select" required>
+                                        <option value="">Pilih jenis paket</option>
+                                        @for(PackageType type : packageTypes)
+                                            @if(selectedPackageTypeId.equals(String.valueOf(type.getId())))
+                                                <option value="${String.valueOf(type.getId())}"
+                                                        data-sessions-per-week="${type.getSessionsPerWeek()}"
+                                                        data-total-sessions="${type.getTotalSessions()}"
+                                                        selected>${type.getName()} (${type.getTotalSessions()} sesi, ${type.getSessionsPerWeek()}x/minggu)</option>
+                                            @else
+                                                <option value="${String.valueOf(type.getId())}"
+                                                        data-sessions-per-week="${type.getSessionsPerWeek()}"
+                                                        data-total-sessions="${type.getTotalSessions()}">${type.getName()} (${type.getTotalSessions()} sesi, ${type.getSessionsPerWeek()}x/minggu)</option>
+                                            @endif
+                                        @endfor
+                                    </select>
+                                </div>
+                                <!--end::Package type-->
+
                                 <!--begin::Patient & Therapist-->
                                 <div class="row row-cols-1 row-cols-sm-2">
                                     <div class="col">
@@ -161,7 +190,7 @@ content = @`
                                         <div class="fv-row mb-7">
                                             <label class="fs-6 fw-semibold form-label mt-3">
                                                 <span class="required">Jam Sesi</span>
-                                                <span class="ms-1" data-bs-toggle="tooltip" title="Setiap 12 sesi akan dijadwalkan di jam ini pada hari yang telah di pilih dengan durasi 1 jam.">
+                                                <span class="ms-1" data-bs-toggle="tooltip" title="Setiap sesi akan dijadwalkan di jam ini pada hari yang telah dipilih dengan durasi 1 jam.">
                                                     <i class="ki-outline ki-information fs-7"></i>
                                                 </span>
                                             </label>
@@ -176,7 +205,7 @@ content = @`
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold form-label mt-3 d-flex flex-column">
                                         <span class="required">Hari Sesi Terapi</span>
-                                        <span class="fs-7 fw-normal text-muted mt-1">Pilihlah 3 hari perminggu. 12 sesi akan di dibuat secara otomatis.</span>
+                                        <span class="fs-7 fw-normal text-muted mt-1" id="kt_package_days_hint">Pilih jenis paket terlebih dahulu untuk menentukan jumlah hari.</span>
                                     </label>
                                     <div class="d-flex flex-wrap gap-3 mt-3" id="kt_package_days_group">
                                         @for(DayOfWeek day : days)
@@ -193,7 +222,7 @@ content = @`
                                         @endfor
                                     </div>
                                     <div class="fs-7 text-muted mt-2">
-                                        Terpilih: <span id="kt_package_days_count">0</span> / 3
+                                        Terpilih: <span id="kt_package_days_count">0</span> / <span id="kt_package_days_required">-</span>
                                     </div>
                                 </div>
                                 <!--end::Days of week-->
@@ -232,8 +261,8 @@ content = @`
                                 <h3 class="text-gray-900 fs-5 fw-bold m-0">Cara Kerjanya</h3>
                             </div>
                             <ul class="text-gray-700 fs-6 ps-4 mb-0" style="list-style: disc;">
-                                <li class="mb-3">Setiap paket berlangsung selama <strong>12 sesi</strong>, masing-masing berdurasi <strong>1 jam</strong>.</li>
-                                <li class="mb-3">Sesi dibuat secara otomatis pada <strong>3 hari yang dipilih</strong> setiap minggunya, dimulai dari tanggal mulai.</li>
+                                <li class="mb-3">Setiap sesi berdurasi <strong>1 jam</strong>. Total sesi dan jumlah hari per minggu mengikuti <strong>jenis paket</strong> yang dipilih.</li>
+                                <li class="mb-3">Sesi dibuat secara otomatis pada hari-hari yang dipilih setiap minggunya, dimulai dari tanggal mulai.</li>
                                 <li class="mb-3">Sistem memeriksa jadwal terapis untuk menghindari bentrok dan menolak sesi yang bertabrakan.</li>
                                 <li class="mb-0">Seorang pasien tidak boleh memiliki dua paket aktif yang waktunya bertabrakan pada saat yang sama.</li>
                             </ul>
@@ -251,15 +280,45 @@ content = @`
         document.addEventListener("DOMContentLoaded", function () {
             var checkboxes = document.querySelectorAll(".package-day-checkbox");
             var counter = document.getElementById("kt_package_days_count");
+            var requiredLabel = document.getElementById("kt_package_days_required");
+            var hint = document.getElementById("kt_package_days_hint");
+            var packageTypeSelect = document.getElementById("kt_package_type_select");
+
+            function getRequiredDays() {
+                var selectedOption = packageTypeSelect.options[packageTypeSelect.selectedIndex];
+                var perWeek = selectedOption ? parseInt(selectedOption.getAttribute("data-sessions-per-week"), 10) : NaN;
+                return isNaN(perWeek) ? null : perWeek;
+            }
 
             function updateCount() {
+                var required = getRequiredDays();
                 var checked = document.querySelectorAll(".package-day-checkbox:checked");
                 counter.textContent = checked.length;
 
+                if (required == null) {
+                    requiredLabel.textContent = "-";
+                    hint.textContent = "Pilih jenis paket terlebih dahulu untuk menentukan jumlah hari.";
+                    checkboxes.forEach(function (cb) { cb.disabled = true; });
+                    return;
+                }
+
+                var selectedOption = packageTypeSelect.options[packageTypeSelect.selectedIndex];
+                var totalSessions = selectedOption.getAttribute("data-total-sessions");
+                requiredLabel.textContent = required;
+                hint.textContent = "Pilih tepat " + required + " hari per minggu. " + totalSessions + " sesi akan dibuat secara otomatis.";
+
                 checkboxes.forEach(function (cb) {
-                    cb.disabled = checked.length >= 3 && !cb.checked;
+                    cb.disabled = checked.length >= required && !cb.checked;
                 });
             }
+
+            // Changing the package type changes how many days are required, so
+            // clear the current day selection rather than leaving a stale, possibly
+            // now-invalid combination checked.
+            packageTypeSelect.addEventListener("change", function () {
+                checkboxes.forEach(function (cb) { cb.checked = false; });
+                updateCount();
+            });
 
             checkboxes.forEach(function (cb) {
                 cb.addEventListener("change", updateCount);

@@ -5,6 +5,7 @@ import com.madania.management.dto.PackageCreateRequest;
 import com.madania.management.entity.TherapyPackage;
 import com.madania.management.entity.TherapySession;
 import com.madania.management.repository.TherapistRepository;
+import com.madania.management.service.PackageTypeService;
 import com.madania.management.service.PatientService;
 import com.madania.management.service.TherapyPackageService;
 import jakarta.validation.Valid;
@@ -30,6 +31,7 @@ public class AdminPackageController {
     private final TherapyPackageService packageService;
     private final PatientService patientService;
     private final TherapistRepository therapistRepository;
+    private final PackageTypeService packageTypeService;
 
     @GetMapping("/packages")
     public String packages(Model model,
@@ -74,6 +76,7 @@ public class AdminPackageController {
         model.addAttribute("request", new PackageCreateRequest());
         model.addAttribute("patients", patientService.getActivePatients());
         model.addAttribute("therapists", therapistRepository.findAll());
+        model.addAttribute("packageTypes", packageTypeService.getActivePackageTypes());
         model.addAttribute("days", packageService.getDays());
         return "pages/admin/packet/create";
     }
@@ -83,13 +86,14 @@ public class AdminPackageController {
                                 BindingResult bindingResult,
                                 Authentication authentication,
                                 Model model) {
-        if (bindingResult.hasErrors() || request.getDays() == null || request.getDays().size() != 3) {
-            if (request.getDays() != null && request.getDays().size() != 3) {
-                model.addAttribute("daysError", "Please select exactly 3 days");
-                model.addAttribute("bindingResult", bindingResult);
+
+        if (bindingResult.hasErrors() || request.getDays() == null || request.getDays().isEmpty()) {
+            if (request.getDays() == null || request.getDays().isEmpty()) {
+                model.addAttribute("daysError", "Please select at least one day");
             }
             model.addAttribute("patients", patientService.getActivePatients());
             model.addAttribute("therapists", therapistRepository.findAll());
+            model.addAttribute("packageTypes", packageTypeService.getActivePackageTypes());
             model.addAttribute("days", packageService.getDays());
             model.addAttribute("bindingResult", bindingResult);
             return "pages/admin/packet/create";
@@ -100,13 +104,14 @@ public class AdminPackageController {
         try {
             packageService.createPackage(
                     request.getPatientId(), request.getTherapistId(),
-                    userDetails.getUser().getId(), request.getStartDate(),
+                    userDetails.getUser().getId(), request.getPackageTypeId(), request.getStartDate(),
                     request.getPreferredTime(), request.getDays(), request.getNotes()
             );
         } catch(RuntimeException e) {
             model.addAttribute("scheduleError", e.getMessage());
             model.addAttribute("patients", patientService.getActivePatients());
             model.addAttribute("therapists", therapistRepository.findAll());
+            model.addAttribute("packageTypes", packageTypeService.getActivePackageTypes());
             model.addAttribute("days", packageService.getDays());
             model.addAttribute("bindingResult", bindingResult);
             return "pages/admin/packet/create";

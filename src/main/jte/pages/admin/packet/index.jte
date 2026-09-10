@@ -50,7 +50,10 @@ content = @`
                 </div>
                 <!--end::Left side-->
                 <!--begin::Right side: Action buttons-->
-                <div class="align-items-center">
+                <div class="align-items-center d-flex gap-2">
+                    <a href="/admin/package-types" class="btn btn-light h-40px fs-7 fw-bold">
+                        <i class="ki-outline ki-setting-3 fs-3"></i>Kelola Jenis Paket
+                    </a>
                     <a href="/admin/package/create" class="btn btn-primary h-40px fs-7 fw-bold">
                         <i class="ki-outline ki-plus fs-3"></i>Buat Paket Terapi
                     </a>

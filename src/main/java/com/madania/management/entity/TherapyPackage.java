@@ -40,6 +40,10 @@ public class TherapyPackage {
     @JoinColumn(name = "package_type_id")
     private PackageType packageType;
 
+    @ManyToOne
+    @JoinColumn(name = "checkup_id")
+    private Checkup checkup;
+
     @Column(nullable = false, columnDefinition = "TEXT")
     private String diagnosis;
 

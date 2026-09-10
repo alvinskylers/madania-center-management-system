@@ -31,6 +31,7 @@ public class TherapyPackageService {
     private final PatientRepository patientRepository;
     private final UserRepository userRepository;
     private final PackageTypeRepository packageTypeRepository;
+    private final CheckupRepository checkupRepository;
 
     public List<TherapyPackage> getAllPackages(){
         return packageRepository.findAll();
@@ -81,7 +82,7 @@ public class TherapyPackageService {
     @Transactional
     public TherapyPackage createPackage(UUID patientId, UUID therapistId, UUID createdByUserId, UUID packageTypeId,
                                         LocalDate startDate, LocalTime preferredTime,
-                                        List<DayOfWeek> days, String notes, String diagnosis) {
+                                        List<DayOfWeek> days, String notes, String diagnosis, UUID checkupId) {
 
         PackageType packageType = packageTypeRepository.findById(packageTypeId)
                 .orElseThrow(() -> new RuntimeException("Package type not found."));
@@ -101,6 +102,12 @@ public class TherapyPackageService {
         User assigner = userRepository.findById(createdByUserId)
                 .orElseThrow(() -> new RuntimeException("User not found."));
 
+        Checkup checkup = null;
+        if (checkupId != null) {
+            checkup = checkupRepository.findById(checkupId)
+                    .orElseThrow(() -> new RuntimeException("Checkup not found."));
+        }
+
         validateNoActivePackageOverlap(patientId, startDate);
 
         TherapyPackage therapyPackage = TherapyPackage.builder()
@@ -108,6 +115,7 @@ public class TherapyPackageService {
                 .therapist(therapist)
                 .createdBy(assigner)
                 .packageType(packageType)
+                .checkup(checkup)
                 .diagnosis(diagnosis)
                 .startDate(startDate)
                 .sessionTime(preferredTime)

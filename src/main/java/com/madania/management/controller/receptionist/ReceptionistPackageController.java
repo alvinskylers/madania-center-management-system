@@ -2,9 +2,11 @@ package com.madania.management.controller.receptionist;
 
 import com.madania.management.config.security.CustomUserDetails;
 import com.madania.management.dto.PackageCreateRequest;
+import com.madania.management.entity.Checkup;
 import com.madania.management.entity.TherapyPackage;
 import com.madania.management.entity.TherapySession;
 import com.madania.management.repository.TherapistRepository;
+import com.madania.management.service.CheckupService;
 import com.madania.management.service.PackageTypeService;
 import com.madania.management.service.PatientService;
 import com.madania.management.service.TherapyPackageService;
@@ -32,6 +34,7 @@ public class ReceptionistPackageController {
     private final PatientService patientService;
     private final TherapistRepository therapistRepository;
     private final PackageTypeService packageTypeService;
+    private final CheckupService checkupService;
 
     @GetMapping("/packages")
     public String packages(Model model,
@@ -71,8 +74,18 @@ public class ReceptionistPackageController {
     }
 
     @GetMapping("/package/create")
-    public String createPackageForm(Model model) {
-        model.addAttribute("request", new PackageCreateRequest());
+    public String createPackageForm(@RequestParam(required = false) UUID checkupId, Model model) {
+        PackageCreateRequest request = new PackageCreateRequest();
+
+        if (checkupId != null) {
+            Checkup checkup = checkupService.getCheckupById(checkupId);
+            request.setCheckupId(checkup.getId());
+            request.setPatientId(checkup.getPatient().getId());
+            request.setTherapistId(checkup.getTherapist().getId());
+            request.setDiagnosis(checkup.getDiagnosisNotes());
+        }
+
+        model.addAttribute("request", request);
         model.addAttribute("patients", patientService.getActivePatients());
         model.addAttribute("therapists", therapistRepository.findAll());
         model.addAttribute("packageTypes", packageTypeService.getActivePackageTypes());
@@ -104,7 +117,8 @@ public class ReceptionistPackageController {
             packageService.createPackage(
                     request.getPatientId(), request.getTherapistId(),
                     userDetails.getUser().getId(), request.getPackageTypeId(), request.getStartDate(),
-                    request.getPreferredTime(), request.getDays(), request.getNotes(), request.getDiagnosis()
+                    request.getPreferredTime(), request.getDays(), request.getNotes(), request.getDiagnosis(),
+                    request.getCheckupId()
             );
         } catch (RuntimeException e) {
             model.addAttribute("scheduleError", e.getMessage());

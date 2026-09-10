@@ -23,6 +23,8 @@ public class PackageCreateRequest {
     @NotNull(message = "Package type is required")
     private UUID packageTypeId;
 
+    private UUID checkupId;
+
     @NotBlank(message = "Diagnosis is required before a therapy package can be created")
     private String diagnosis;
 

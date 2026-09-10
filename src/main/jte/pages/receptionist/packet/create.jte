@@ -91,6 +91,12 @@ content = @`
             <div class="row g-7">
                 <!--begin::Form column-->
                 <div class="col-xl-8">
+                    @if(request.getCheckupId() != null)
+                        <div class="alert alert-light-primary mb-7">
+                            <i class="ki-outline ki-information-5 fs-2 me-2"></i>
+                            Paket ini dibuat berdasarkan hasil checkup diagnosa. Data pasien, terapis, dan diagnosis telah diisi otomatis.
+                        </div>
+                    @endif
                     <div class="card card-flush">
                         <div class="card-header pt-7">
                             <div class="card-title">
@@ -101,6 +107,9 @@ content = @`
                         <div class="card-body pt-5">
                             <form id="kt_package_create_form" class="form" action="/receptionist/package/create" method="post">
                                 <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}"/>
+                                @if(request.getCheckupId() != null)
+                                    <input type="hidden" name="checkupId" value="${String.valueOf(request.getCheckupId())}"/>
+                                @endif
 
                                 <!--begin::Package type-->
                                 <div class="fv-row mb-7">

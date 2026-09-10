@@ -226,6 +226,14 @@
                         </a>
                     </div>
 
+                    <!-- Checkups -->
+                    <div class="menu-item">
+                        <a class="menu-link" href="/receptionist/checkups" title="View diagnosis checkups" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <span class="menu-bullet"><i class="ki-outline ki-stethoscope fs-2"></i></span>
+                            <span class="menu-title">Checkup Diagnosa</span>
+                        </a>
+                    </div>
+
                     <!-- Packages -->
                     <div class="menu-item">
                         <a class="menu-link" href="/receptionist/packages" title="View all packages" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">

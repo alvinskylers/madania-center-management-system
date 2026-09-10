@@ -45,8 +45,9 @@ content = @`
                     </div>
                     <div class="card-body pt-5">
                         <div class="alert alert-light-info mb-7">
-                            Cukup masukkan data dasar pasien. Diagnosis dan catatan klinis akan diisi
-                            oleh terapis/admin setelah sesi pertama.
+                            Cukup masukkan data dasar pasien. Setelah pasien terdaftar, jadwalkan
+                            checkup diagnosa awal terlebih dahulu — diagnosis akan diisi setelah
+                            checkup tersebut selesai dilakukan.
                         </div>
                         <form id="kt_ecommerce_settings_general_form" class="form"
                               action="/receptionist/patient/create" method="post"

@@ -19,6 +19,9 @@ public class PackageCreateRequest {
     @NotNull(message = "Therapist is required")
     private UUID therapistId;
 
+    @NotNull(message = "Package type is required")
+    private UUID packageTypeId;
+
     @NotNull(message = "Start date is required")
     @FutureOrPresent(message = "Start date cannot be in the past")
     private LocalDate startDate;
@@ -26,7 +29,7 @@ public class PackageCreateRequest {
     @NotNull(message = "Preferred time is required")
     private LocalTime preferredTime;
 
-    @NotNull(message = "Please select exactly 3 days")
+    @NotNull(message = "Please select the days for this package")
     private List<DayOfWeek> days;
 
     private String notes;

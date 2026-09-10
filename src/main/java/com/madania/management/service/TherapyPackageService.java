@@ -30,6 +30,7 @@ public class TherapyPackageService {
     private final TherapySessionService sessionService;
     private final PatientRepository patientRepository;
     private final UserRepository userRepository;
+    private final PackageTypeRepository packageTypeRepository;
 
     public List<TherapyPackage> getAllPackages(){
         return packageRepository.findAll();
@@ -66,9 +67,9 @@ public class TherapyPackageService {
 
     public List<TherapyPackage> getRecentPackages() {
         return packageRepository.findAll().stream()
-        .sorted((a,b) -> b.getCreatedAt().compareTo(a.getCreatedAt()))
-        .limit(5)
-        .toList();
+                .sorted((a,b) -> b.getCreatedAt().compareTo(a.getCreatedAt()))
+                .limit(5)
+                .toList();
     }
 
     public long countCompletedPackages() {
@@ -78,12 +79,17 @@ public class TherapyPackageService {
     }
 
     @Transactional
-    public TherapyPackage createPackage(UUID patientId, UUID therapistId, UUID createdByUserId,
+    public TherapyPackage createPackage(UUID patientId, UUID therapistId, UUID createdByUserId, UUID packageTypeId,
                                         LocalDate startDate, LocalTime preferredTime,
                                         List<DayOfWeek> days, String notes) {
 
-        if (days.size() != 3) {
-            throw new RuntimeException("Exactly 3 days must be selected for a package");
+        PackageType packageType = packageTypeRepository.findById(packageTypeId)
+                .orElseThrow(() -> new RuntimeException("Package type not found."));
+
+
+        if (days == null || days.size() != packageType.getSessionsPerWeek()) {
+            throw new RuntimeException("Please select exactly " + packageType.getSessionsPerWeek() +
+                    " day(s) per week for the \"" + packageType.getName() + "\" package.");
         }
 
         sessionService.validateWithinOperatingHours(preferredTime, preferredTime.plusHours(1));
@@ -101,9 +107,10 @@ public class TherapyPackageService {
                 .patient(patient)
                 .therapist(therapist)
                 .createdBy(assigner)
+                .packageType(packageType)
                 .startDate(startDate)
                 .sessionTime(preferredTime)
-                .totalSessions(12)
+                .totalSessions(packageType.getTotalSessions())
                 .completedSessions(0)
                 .status(PackageStatus.ACTIVE)
                 .notes(notes)
@@ -122,7 +129,7 @@ public class TherapyPackageService {
         LocalDate cursor = startDate;
         int sessionNumber = 1;
 
-        while (sessionNumber <= 12 ) {
+        while (sessionNumber <= packageType.getTotalSessions()) {
             if (days.contains((cursor.getDayOfWeek()))) {
                 LocalDateTime startTime = LocalDateTime.of(cursor, preferredTime);
                 LocalDateTime endTime = startTime.plusHours(1);

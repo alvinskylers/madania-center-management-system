@@ -1,4 +1,5 @@
 @import com.madania.management.entity.Notification
+@import com.madania.management.entity.Therapist
 @import com.madania.management.entity.TherapyPackage
 @import com.madania.management.entity.TherapySession
 @import com.madania.management.entity.User
@@ -12,11 +13,13 @@
 @param org.springframework.security.web.csrf.CsrfToken _csrf
 @param TherapyPackage therapyPackage
 @param List<TherapySession> sessions
+@param List<Therapist> therapists = null
 @param String success = null
 @param String error = null
 @param long unreadNotificationCount = 0
 @param List<Notification> recentNotifications = null
 
+!{String pkgId = String.valueOf(therapyPackage.getId());}
 !{String status = therapyPackage.getStatus().name();}
 !{int progressPercent = therapyPackage.getTotalSessions() > 0 ? (therapyPackage.getCompletedSessions() * 100 / therapyPackage.getTotalSessions()) : 0;}
 
@@ -45,6 +48,16 @@ content = @`
                     </ul>
                 </div>
                 <!--end::Page title-->
+                <!--begin::Actions-->
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+                    @if(status.equals("ACTIVE"))
+                        <button type="button" class="btn btn-light-primary" id="kt_package_reassign_btn"
+                                data-bs-toggle="tooltip" title="Reassign the therapist for remaining sessions">
+                            <i class="ki-outline ki-arrow-right-left fs-4"></i>Alihkan Terapis
+                        </button>
+                    @endif
+                </div>
+                <!--end::Actions-->
             </div>
         </div>
     </div>
@@ -212,5 +225,209 @@ content = @`
         </div>
     </div>
     <!--end::Content-->
+
+    <!--begin::Modal - Reassign Therapist-->
+    @if(status.equals("ACTIVE") && therapists != null)
+        <div class="modal fade" id="kt_package_reassign_modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Alihkan Terapis</h2>
+                        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+                            <i class="ki-outline ki-cross fs-1"></i>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div id="reassign_alert_area"></div>
+                        <div class="text-muted fs-7 mb-4">
+                            Sesi yang sudah <strong>Tuntas</strong>, <strong>Dibatalkan</strong>, atau sudah di-reschedule
+                            akan tetap tercatat pada <strong>${therapyPackage.getTherapist().getFullName()}</strong>.
+                            Hanya sesi yang masih <strong>Dijadwalkan</strong> yang akan dipindahkan.
+                        </div>
+
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-7">
+                                <label class="form-label fw-bold">Terapis Baru</label>
+                                <select class="form-select" id="reassign_new_therapist">
+                                    <option value="">-- Pilih terapis --</option>
+                                    @for(Therapist t : therapists)
+                                        @if(!t.getId().equals(therapyPackage.getTherapist().getId()))
+                                            <option value="${String.valueOf(t.getId())}">${t.getFullName()}</option>
+                                        @endif
+                                    @endfor
+                                </select>
+                            </div>
+                            <div class="col-md-5 d-flex align-items-end">
+                                <button type="button" class="btn btn-light-primary w-100" id="reassign_check_btn">Cek Jadwal</button>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Alasan (opsional)</label>
+                            <input type="text" class="form-control" id="reassign_reason" placeholder="mis. Terapis A mengundurkan diri">
+                        </div>
+
+                        <div id="reassign_sessions_area"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kembali</button>
+                        <button type="button" class="btn btn-primary" id="reassign_confirm_btn" disabled>Konfirmasi Pengalihan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+    <!--end::Modal-->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var reassignBtn = document.getElementById("kt_package_reassign_btn");
+            var reassignModalEl = document.getElementById("kt_package_reassign_modal");
+            if (!reassignBtn || !reassignModalEl) return;
+
+            var reassignModal = new bootstrap.Modal(reassignModalEl);
+            reassignBtn.addEventListener("click", function () { reassignModal.show(); });
+
+            var packageId = "${pkgId}";
+            var reassignPrefix = "/receptionist";
+            var csrfHeader = "${_csrf.getHeaderName()}";
+            var csrfToken = "${_csrf.getToken()}";
+
+            var checkBtn = document.getElementById("reassign_check_btn");
+            var confirmBtn = document.getElementById("reassign_confirm_btn");
+            var therapistSelect = document.getElementById("reassign_new_therapist");
+            var reasonInput = document.getElementById("reassign_reason");
+            var sessionsArea = document.getElementById("reassign_sessions_area");
+            var alertArea = document.getElementById("reassign_alert_area");
+
+            var overrides = {};
+
+            function showAlert(message, type) {
+                alertArea.innerHTML = '<div class="alert alert-' + type + '">' + message + '</div>';
+            }
+            function clearAlert() { alertArea.innerHTML = ""; }
+            function overridesArray() {
+                return Object.keys(overrides).map(function (sid) {
+                    return { sessionId: sid, newStartTime: overrides[sid] };
+                });
+            }
+
+            function runCheck() {
+                var newTherapistId = therapistSelect.value;
+                if (!newTherapistId) {
+                    showAlert("Silakan pilih terapis terlebih dahulu.", "warning");
+                    return;
+                }
+                clearAlert();
+                confirmBtn.disabled = true;
+                sessionsArea.innerHTML = '<div class="text-muted">Memeriksa jadwal...</div>';
+
+                fetch(reassignPrefix + "/package/" + packageId + "/reassign/conflicts", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", [csrfHeader]: csrfToken },
+                    body: JSON.stringify({ newTherapistId: newTherapistId, overrides: overridesArray() })
+                })
+                .then(function (res) { return res.json().then(function (body) { return { ok: res.ok, body: body }; }); })
+                .then(function (result) {
+                    if (!result.ok) {
+                        showAlert(result.body.error || "Gagal memeriksa jadwal.", "danger");
+                        sessionsArea.innerHTML = "";
+                        return;
+                    }
+                    renderSessions(result.body);
+                })
+                .catch(function () { showAlert("Terjadi kesalahan jaringan.", "danger"); });
+            }
+
+            function renderSessions(data) {
+                if (!data.sessions || data.sessions.length === 0) {
+                    sessionsArea.innerHTML = '<div class="alert alert-info">Tidak ada sesi terjadwal tersisa pada paket ini.</div>';
+                    confirmBtn.disabled = false;
+                    return;
+                }
+
+                var html = '<div class="table-responsive"><table class="table table-row-dashed align-middle fs-7">';
+                html += '<thead><tr class="text-muted text-uppercase fs-8"><th>#</th><th>Waktu</th><th>Konflik</th><th></th></tr></thead><tbody>';
+
+                data.sessions.forEach(function (s) {
+                    var inputValue = s.startTime.substring(0, 16);
+                    var hasConflict = s.conflicts && s.conflicts.length > 0;
+
+                    html += '<tr class="' + (hasConflict ? "table-danger" : "") + '">';
+                    html += '<td>' + s.sessionNumber + '</td>';
+                    html += '<td><input type="datetime-local" class="form-control form-control-sm reassign-time-input" data-session-id="' + s.sessionId + '" value="' + inputValue + '"></td>';
+                    html += '<td>';
+                    if (hasConflict) {
+                        s.conflicts.forEach(function (c) {
+                            html += '<div class="text-danger">' + c.patientName + ' &mdash; ' + c.startTime.replace("T", " ") + '</div>';
+                        });
+                    } else {
+                        html += '<span class="text-success">Tidak ada konflik</span>';
+                    }
+                    html += '</td><td>';
+                    if (hasConflict) {
+                        html += '<button type="button" class="btn btn-sm btn-light-primary reassign-recheck-btn" data-session-id="' + s.sessionId + '">Cek Ulang</button>';
+                    }
+                    html += '</td></tr>';
+                });
+
+                html += '</tbody></table></div>';
+                sessionsArea.innerHTML = html;
+
+                document.querySelectorAll(".reassign-recheck-btn").forEach(function (btn) {
+                    btn.addEventListener("click", function () {
+                        var sessionId = btn.getAttribute("data-session-id");
+                        var input = document.querySelector('.reassign-time-input[data-session-id="' + sessionId + '"]');
+                        overrides[sessionId] = input.value + ":00";
+                        runCheck();
+                    });
+                });
+
+                confirmBtn.disabled = data.hasConflicts;
+                if (data.hasConflicts) {
+                    showAlert("Beberapa sesi masih memiliki konflik jadwal. Sesuaikan waktu lalu klik \"Cek Ulang\".", "warning");
+                } else {
+                    clearAlert();
+                }
+            }
+
+            checkBtn.addEventListener("click", runCheck);
+            therapistSelect.addEventListener("change", function () {
+                overrides = {};
+                sessionsArea.innerHTML = "";
+                confirmBtn.disabled = true;
+                clearAlert();
+            });
+
+            confirmBtn.addEventListener("click", function () {
+                var newTherapistId = therapistSelect.value;
+                if (!newTherapistId) return;
+                confirmBtn.disabled = true;
+
+                fetch(reassignPrefix + "/package/" + packageId + "/reassign", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", [csrfHeader]: csrfToken },
+                    body: JSON.stringify({
+                        newTherapistId: newTherapistId,
+                        reason: reasonInput.value,
+                        overrides: overridesArray()
+                    })
+                })
+                .then(function (res) { return res.json().then(function (body) { return { ok: res.ok, body: body }; }); })
+                .then(function (result) {
+                    if (!result.ok) {
+                        showAlert(result.body.error || "Gagal mengalihkan terapis.", "danger");
+                        confirmBtn.disabled = false;
+                        return;
+                    }
+                    window.location.href = result.body.redirectUrl + "?success=" + encodeURIComponent("Terapis berhasil dialihkan.");
+                })
+                .catch(function () {
+                    showAlert("Terjadi kesalahan jaringan.", "danger");
+                    confirmBtn.disabled = false;
+                });
+            });
+        });
+    </script>
 `
 )

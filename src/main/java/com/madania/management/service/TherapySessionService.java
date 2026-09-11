@@ -65,6 +65,20 @@ public class TherapySessionService {
         return findConflict(therapistId, startTime, endTime, excludeSessionId).isPresent();
     }
 
+    /**
+     * Like findConflict, but returns every overlapping SCHEDULED session for the therapist
+     * instead of just the first one. Used by therapist-reassignment's conflict-check modal,
+     * which needs to show the admin the full picture rather than one-at-a-time.
+     */
+    public List<TherapySession> findAllConflicts(UUID therapistId, LocalDateTime startTime, LocalDateTime endTime, UUID excludeId) {
+        List<TherapySession> scheduledSessions = sessionRepository.findByTherapistIdAndStatus(therapistId, SessionStatus.SCHEDULED);
+
+        return scheduledSessions.stream()
+                .filter(s -> excludeId == null || !s.getId().equals(excludeId))
+                .filter(s -> startTime.isBefore(s.getEndTime()) && endTime.isAfter(s.getStartTime()))
+                .toList();
+    }
+
     public void validateNoConflict(UUID therapistId, LocalDateTime startTime, LocalDateTime endTime, UUID excludeSessionId) {
         findConflict(therapistId, startTime, endTime, excludeSessionId).ifPresent(existing -> {
             throw new RuntimeException(

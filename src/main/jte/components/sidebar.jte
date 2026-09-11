@@ -71,7 +71,7 @@
                     <!-- Checkups -->
                     <div class="menu-item">
                         <a class="menu-link" href="/admin/checkups" title="View diagnosis checkups" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-bullet"><i class="ki-outline ki-stethoscope fs-2"></i></span>
+                            <span class="menu-bullet"><i class="ki-outline ki-cheque fs-2"></i></span>
                             <span class="menu-title">Checkup Diagnosa</span>
                         </a>
                     </div>
@@ -146,7 +146,7 @@
                     <!-- Checkups -->
                     <div class="menu-item">
                         <a class="menu-link" href="/therapist/checkups" title="View diagnosis checkups" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-bullet"><i class="ki-outline ki-note fs-2"></i></span>
+                            <span class="menu-bullet"><i class="ki-outline ki-cheque fs-2"></i></span>
                             <span class="menu-title">Checkup Diagnosa</span>
                         </a>
                     </div>
@@ -245,7 +245,7 @@
                     <!-- Checkups -->
                     <div class="menu-item">
                         <a class="menu-link" href="/receptionist/checkups" title="View diagnosis checkups" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-bullet"><i class="ki-outline ki-stethoscope fs-2"></i></span>
+                            <span class="menu-bullet"><i class="ki-outline ki-cheque fs-2"></i></span>
                             <span class="menu-title">Checkup Diagnosa</span>
                         </a>
                     </div>

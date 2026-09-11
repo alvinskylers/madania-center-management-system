@@ -63,13 +63,18 @@ public class AdminPackageController {
     }
 
     @GetMapping("/package/{id}")
-    public String viewPackage(@PathVariable UUID id, Model model) {
+    public String viewPackage(@PathVariable UUID id, Model model,
+                              @RequestParam(required = false) String success,
+                              @RequestParam(required = false) String error) {
         TherapyPackage therapyPackage = packageService.getPackageById(id);
         List<TherapySession> sessions = packageService.getSessionsByPackageId(id).stream()
                 .sorted(Comparator.comparing(TherapySession::getSessionNumber))
                 .toList();
         model.addAttribute("therapyPackage", therapyPackage);
         model.addAttribute("sessions", sessions);
+        model.addAttribute("therapists", therapistRepository.findAll());
+        model.addAttribute("success", success);
+        model.addAttribute("error", error);
         return "pages/admin/packet/view";
     }
 

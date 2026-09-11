@@ -19,7 +19,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -44,10 +43,13 @@ public class TherapistPatientController {
                            @RequestParam(defaultValue = "0") int page,
                            @RequestParam(defaultValue = "12") int size,
                            @RequestParam(defaultValue = "asc") String sort,
-                           @RequestParam(required = false) String query) {
+                           @RequestParam(required = false) String query,
+                           @RequestParam(defaultValue = "false") boolean myPatients) {
         Therapist therapist = currentTherapist(authentication);
 
-        Page<Patient> patientPage = patientService.getQueriedForTherapist(therapist.getId(), query, page, size, sort);
+        Page<Patient> patientPage = myPatients
+                ? patientService.getQueriedForTherapist(therapist.getId(), query, page, size, sort)
+                : patientService.getAllQueried(query, page, size, sort);
 
         model.addAttribute("patients", patientPage);
         model.addAttribute("currentPage", page);
@@ -55,36 +57,26 @@ public class TherapistPatientController {
         model.addAttribute("totalItems", patientPage.getTotalElements());
         model.addAttribute("pageSize", size);
         model.addAttribute("query", query);
+        model.addAttribute("myPatients", myPatients);
 
         return "pages/therapist/patient/index";
     }
 
     @GetMapping("/patient/{id}")
-    public String patient(@PathVariable UUID id, Authentication authentication,
-                          Model model, RedirectAttributes redirectAttributes) {
+    public String patient(@PathVariable UUID id, Authentication authentication, Model model) {
         Therapist therapist = currentTherapist(authentication);
-
-        if (!patientService.isAssignedToTherapist(id, therapist.getId())) {
-            redirectAttributes.addFlashAttribute("patientError", "You don't have access to this patient's records.");
-            return "redirect:/therapist/patients";
-        }
 
         Patient patient = patientService.getPatientById(id);
         model.addAttribute("patient", patient);
         model.addAttribute("packageGroups", buildPackageJournalGroups(id));
         model.addAttribute("viewerTherapistId", therapist.getId());
+        model.addAttribute("isMyPatient", patientService.isAssignedToTherapist(id, therapist.getId()));
         return "pages/therapist/patient/view";
     }
 
     @GetMapping("/patient/{id}/events")
     @ResponseBody
-    public ResponseEntity<List<Map<String, Object>>> getPatientEvents(@PathVariable UUID id, Authentication authentication) {
-        Therapist therapist = currentTherapist(authentication);
-
-        if (!patientService.isAssignedToTherapist(id, therapist.getId())) {
-            return ResponseEntity.status(403).build();
-        }
-
+    public ResponseEntity<List<Map<String, Object>>> getPatientEvents(@PathVariable UUID id) {
         List<TherapySession> sessions = sessionService.getSessionsByPatientId(id);
 
         List<Map<String, Object>> events = sessions.stream().map(session -> {

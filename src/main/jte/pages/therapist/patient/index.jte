@@ -12,6 +12,7 @@
 @param int pageSize = 12
 @param String query = null
 @param String patientError = null
+@param boolean myPatients = false
 
 @template.layout.base(
 title = "My Patients",
@@ -32,13 +33,18 @@ content = @`
         <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <div class="d-flex flex-wrap align-items-center my-1">
-                    <h1 class="page-heading text-gray-900 fw-bold fs-3 m-0 me-5">Pasien Saya</h1>
+                    <h1 class="page-heading text-gray-900 fw-bold fs-3 m-0 me-5">${myPatients ? "Pasien Saya" : "Semua Pasien"}</h1>
                     <form method="GET" action="/therapist/patients" class="d-flex align-items-center position-relative my-1">
                         <i class="ki-outline ki-magnifier fs-3 position-absolute ms-3"></i>
-                        <input type="text" name="query" class="form-control form-control-sm border-body bg-body w-200px ps-10" placeholder="Cari pasien saya..." value="${query != null ? query : ""}" />
+                        <input type="text" name="query" class="form-control form-control-sm border-body bg-body w-200px ps-10" placeholder="Cari pasien..." value="${query != null ? query : ""}" />
                         <input type="hidden" name="page" value="0" />
+                        <input type="hidden" name="myPatients" value="${String.valueOf(myPatients)}" />
                         <button type="submit" class="btn btn-primary ms-2 d-none d-sm-inline-block">Cari</button>
                     </form>
+                    <div class="form-check form-switch form-check-custom form-check-solid ms-5">
+                        <input class="form-check-input" type="checkbox" id="myPatientsToggle" checked="${myPatients}" />
+                        <label class="form-check-label fw-semibold text-gray-700" for="myPatientsToggle">Pasien Saya saja</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,14 +57,14 @@ content = @`
             <div class="row g-6 g-xl-9" id="patientsGrid">
                 @if (patients != null && !patients.isEmpty())
                     @for (Patient patient : patients)
-                        <div class="col-md-3 col-xxl-3">
+                        <div class="col-md-6 col-xxl-4">
                             @template.pages.therapist.patient.card(patient = patient, basePath = "/therapist/patient")
                         </div>
                     @endfor
                 @else
                     <div class="col-12">
                         <div class="alert alert-info text-center">
-                            Anda belum memiliki pasien
+                            ${myPatients ? "Anda belum memiliki pasien" : "Tidak ada pasien ditemukan"}
                         </div>
                     </div>
                 @endif
@@ -79,7 +85,7 @@ content = @`
                     <ul class="pagination m-0">
                         @if(patients.hasPrevious())
                             <li class="page-item">
-                                <a class="page-link" href="?page=${currentPage - 1}&query=${query != null ? query : ""}">Sebelum</a>
+                                <a class="page-link" href="?page=${currentPage - 1}&query=${query != null ? query : ""}&myPatients=${String.valueOf(myPatients)}">Sebelum</a>
                             </li>
                         @else
                             <li class="page-item disabled"><span class="page-link">Sebelum</span></li>
@@ -90,14 +96,14 @@ content = @`
                                 <li class="page-item active"><span class="page-link">${i + 1}</span></li>
                             @else
                                 <li class="page-item">
-                                    <a class="page-link" href="?page=${i}&query=${query != null ? query : ""}">${i + 1}</a>
+                                    <a class="page-link" href="?page=${i}&query=${query != null ? query : ""}&myPatients=${String.valueOf(myPatients)}">${i + 1}</a>
                                 </li>
                             @endif
                         @endfor
 
                         @if(patients.hasNext())
                             <li class="page-item">
-                                <a class="page-link" href="?page=${currentPage + 1}&query=${query != null ? query : ""}">Berikut</a>
+                                <a class="page-link" href="?page=${currentPage + 1}&query=${query != null ? query : ""}&myPatients=${String.valueOf(myPatients)}">Berikut</a>
                             </li>
                         @else
                             <li class="page-item disabled"><span class="page-link">Berikut</span></li>
@@ -108,4 +114,17 @@ content = @`
         </div>
     </div>
     <!--end::Content-->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var toggle = document.getElementById("myPatientsToggle");
+            if (!toggle) return;
+            toggle.addEventListener("change", function () {
+                var params = new URLSearchParams(window.location.search);
+                params.set("myPatients", toggle.checked ? "true" : "false");
+                params.set("page", "0");
+                window.location.href = "/therapist/patients?" + params.toString();
+            });
+        });
+    </script>
 `)

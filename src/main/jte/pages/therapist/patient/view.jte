@@ -11,6 +11,7 @@
 @param Patient patient
 @param List<PackageJournalGroup> packageGroups
 @param UUID viewerTherapistId
+@param boolean isMyPatient = true
 
 @template.layout.base(
 title = "Informasi Pasien",
@@ -37,6 +38,12 @@ content = @`
 
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <div id="kt_app_content_container" class="app-container container-fluid">
+            @if(!isMyPatient)
+                <div class="alert alert-warning d-flex align-items-center mb-6">
+                    <i class="ki-outline ki-information-5 fs-2 me-3"></i>
+                    <div>You are viewing this patient outside your own caseload. They are not currently assigned to you.</div>
+                </div>
+            @endif
             <div class="d-flex flex-column flex-lg-row">
                 <div class="flex-column flex-lg-row-auto w-lg-250px w-xl-350px mb-10">
                     <div class="card mb-5 mb-xl-8">

@@ -29,8 +29,11 @@
         <!--end::Name-->
 
         <!--begin::Parent (or other info)-->
-        <div class="fw-semibold text-gray-500 mb-6">
+        <div class="fw-semibold text-gray-500">
             ${patient.getAge().getYears()} Tahun
+        </div>
+        <div class="fw-semibold text-gray-500 text-center">
+            ${patient.getParent().getAddress()}
         </div>
         <!--end::Parent-->
         </a>

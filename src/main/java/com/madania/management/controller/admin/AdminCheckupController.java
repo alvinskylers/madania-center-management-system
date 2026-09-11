@@ -1,4 +1,4 @@
-package com.madania.management.controller.receptionist;
+package com.madania.management.controller.admin;
 
 import com.madania.management.config.security.CustomUserDetails;
 import com.madania.management.dto.CheckupCreateRequest;
@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/receptionist")
+@RequestMapping("/admin")
 @RequiredArgsConstructor
-public class ReceptionistCheckupController {
+public class AdminCheckupController {
 
     private final CheckupService checkupService;
     private final PatientService patientService;
@@ -44,14 +44,14 @@ public class ReceptionistCheckupController {
         model.addAttribute("pageSize", size);
         model.addAttribute("status", status);
         model.addAttribute("query", query);
-        return "pages/receptionist/checkup/index";
+        return "pages/admin/checkup/index";
     }
 
     @GetMapping("/checkup/{id}")
     public String viewCheckup(@PathVariable UUID id, Model model) {
         model.addAttribute("checkup", checkupService.getCheckupById(id));
         model.addAttribute("decisionRequest", new CheckupDecisionRequest());
-        return "pages/receptionist/checkup/view";
+        return "pages/admin/checkup/view";
     }
 
     @GetMapping("/checkup/create")
@@ -59,7 +59,7 @@ public class ReceptionistCheckupController {
         model.addAttribute("request", new CheckupCreateRequest());
         model.addAttribute("patients", patientService.getActivePatients());
         model.addAttribute("therapists", therapistRepository.findAll());
-        return "pages/receptionist/checkup/create";
+        return "pages/admin/checkup/create";
     }
 
     @PostMapping("/checkup/create")
@@ -72,7 +72,7 @@ public class ReceptionistCheckupController {
             model.addAttribute("patients", patientService.getActivePatients());
             model.addAttribute("therapists", therapistRepository.findAll());
             model.addAttribute("bindingResult", bindingResult);
-            return "pages/receptionist/checkup/create";
+            return "pages/admin/checkup/create";
         }
 
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
@@ -86,10 +86,10 @@ public class ReceptionistCheckupController {
             model.addAttribute("scheduleError", e.getMessage());
             model.addAttribute("patients", patientService.getActivePatients());
             model.addAttribute("therapists", therapistRepository.findAll());
-            return "pages/receptionist/checkup/create";
+            return "pages/admin/checkup/create";
         }
 
-        return "redirect:/receptionist/checkups";
+        return "redirect:/admin/checkups";
     }
 
     @PostMapping("/checkup/{id}/decision")
@@ -101,7 +101,7 @@ public class ReceptionistCheckupController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("checkup", checkupService.getCheckupById(id));
             model.addAttribute("bindingResult", bindingResult);
-            return "pages/receptionist/checkup/view";
+            return "pages/admin/checkup/view";
         }
 
         try {
@@ -110,15 +110,15 @@ public class ReceptionistCheckupController {
             model.addAttribute("checkup", checkupService.getCheckupById(id));
             model.addAttribute("decisionRequest", request);
             model.addAttribute("error", e.getMessage());
-            return "pages/receptionist/checkup/view";
+            return "pages/admin/checkup/view";
         }
 
-        return "redirect:/receptionist/checkup/" + id;
+        return "redirect:/admin/checkup/" + id;
     }
 
     @PostMapping("/checkup/{id}/cancel")
     public String cancelCheckup(@PathVariable UUID id, @RequestParam(required = false) String reason) {
         checkupService.cancelCheckup(id, reason);
-        return "redirect:/receptionist/checkups";
+        return "redirect:/admin/checkups";
     }
 }

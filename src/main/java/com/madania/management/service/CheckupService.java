@@ -45,6 +45,14 @@ public class CheckupService {
         return checkupRepository.searchCheckups(pageable, status, query);
     }
 
+    public Page<Checkup> getCheckupsForTherapist(UUID therapistUserId, CheckupStatus status, int page, int size, String direction) {
+        Therapist therapist = therapistRepository.findByUserId(therapistUserId)
+                .orElseThrow(() -> new RuntimeException("Therapist profile not found."));
+        Sort sort = Sort.by(Sort.Direction.fromString(direction), "scheduledAt");
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return checkupRepository.searchCheckupsForTherapist(pageable, therapist.getId(), status);
+    }
+
     public Checkup getCheckupById(UUID id) {
         return checkupRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Checkup not found with id: " + id));
@@ -88,21 +96,39 @@ public class CheckupService {
     }
 
     @Transactional
-    public Checkup completeCheckup(UUID id, String diagnosisNotes, ParentDecision parentDecision) {
+    public Checkup diagnoseCheckup(UUID id, UUID therapistUserId, String diagnosisNotes) {
         Checkup checkup = getCheckupById(id);
 
         if (checkup.getStatus() != CheckupStatus.SCHEDULED) {
-            throw new RuntimeException("Only scheduled checkups can be completed.");
+            throw new RuntimeException("Only scheduled checkups can be diagnosed.");
+        }
+
+        Therapist therapist = therapistRepository.findByUserId(therapistUserId)
+                .orElseThrow(() -> new RuntimeException("Therapist profile not found."));
+
+        if (!checkup.getTherapist().getId().equals(therapist.getId())) {
+            throw new RuntimeException("You are not the assigned therapist for this checkup.");
         }
 
         checkup.setStatus(CheckupStatus.COMPLETED);
         checkup.setDiagnosisNotes(diagnosisNotes);
-        checkup.setParentDecision(parentDecision);
 
         Patient patient = checkup.getPatient();
         patient.setDiagnosis(diagnosisNotes);
         patientRepository.save(patient);
 
+        return checkupRepository.save(checkup);
+    }
+
+    @Transactional
+    public Checkup recordParentDecision(UUID id, ParentDecision parentDecision) {
+        Checkup checkup = getCheckupById(id);
+
+        if (checkup.getStatus() != CheckupStatus.COMPLETED) {
+            throw new RuntimeException("The therapist must enter a diagnosis before the parent's decision can be recorded.");
+        }
+
+        checkup.setParentDecision(parentDecision);
         return checkupRepository.save(checkup);
     }
 

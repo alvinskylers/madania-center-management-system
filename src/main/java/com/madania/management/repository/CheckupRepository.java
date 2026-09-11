@@ -25,5 +25,8 @@ public interface CheckupRepository extends JpaRepository<Checkup, UUID> {
             "LOWER(c.therapist.fullName) LIKE LOWER(CONCAT('%', :query, '%')))")
     Page<Checkup> searchCheckups(Pageable pageable, @Param("status") CheckupStatus status, @Param("query") String query);
 
+    @Query("SELECT c FROM Checkup c WHERE c.therapist.id = :therapistId AND (:status IS NULL OR c.status = :status)")
+    Page<Checkup> searchCheckupsForTherapist(Pageable pageable, @Param("therapistId") UUID therapistId, @Param("status") CheckupStatus status);
+
     List<Checkup> findByScheduledAtBetween(LocalDateTime start, LocalDateTime end);
 }

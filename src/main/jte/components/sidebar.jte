@@ -102,6 +102,15 @@
                     </div>
                 @endif
 
+                <!-- Therapist Utilization -->
+                <div class="menu-item">
+                    <a class="menu-link" href="/admin/therapist-utilization" title="View therapist utilization" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <span class="menu-bullet"><i class="ki-outline ki-chart-line-up fs-2"></i></span>
+                        <span class="menu-title">Utilisasi Terapis</span>
+                    </a>
+                </div>
+
+
                 @if(role.equals("THERAPIST"))
                     <!-- Home -->
                     <div class="menu-item">

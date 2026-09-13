@@ -19,7 +19,7 @@
     <div class="app-sidebar-navs flex-column-fluid py-6" id="kt_app_sidebar_navs">
         <div id="kt_app_sidebar_navs_wrappers" class="app-sidebar-wrapper hover-scroll-y my-2" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_sidebar_header" data-kt-scroll-wrappers="#kt_app_sidebar_navs" data-kt-scroll-offset="5px">
             <!--begin::Sidebar menu-->
-            <div id="#kt_app_sidebar_menu" class="app-sidebar-menu-primary menu menu-column menu-rounded menu-sub-indention menu-state-bullet-primary">
+            <div id="kt_app_sidebar_menu" class="app-sidebar-menu-primary menu menu-column menu-rounded menu-sub-indention menu-state-bullet-primary" data-kt-menu="true">
                 <!--begin::Heading-->
                 <div class="menu-item mb-2">
                     <div class="menu-heading text-uppercase fs-7 fw-bold">Menu</div>
@@ -36,80 +36,143 @@
                         </a>
                     </div>
 
-                    <!-- Schedule -->
-                    <div class="menu-item">
-                        <a class="menu-link" href="/admin/schedule" title="View all schedules" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                    <!--begin::Menu item-->
+                    <!-- Category: Manajemen Terapi -->
+                    <div class="menu-item menu-accordion" data-kt-menu-trigger="click">
+                        <!--begin::Menu link-->
+                        <span class="menu-link">
                             <span class="menu-bullet"><i class="ki-outline ki-calendar fs-2"></i></span>
-                            <span class="menu-title">Jadwal Terapi</span>
-                        </a>
-                    </div>
+                            <span class="menu-title">Manajemen Terapi</span>
+                            <span class="menu-arrow"></span>
+                        </span>
+                        <!--end::Menu link-->
+                        <!--begin::Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!-- Schedule -->
+                            <div class="menu-item">
+                                <a class="menu-link" href="/admin/schedule" title="View all schedules" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                    <span class="menu-bullet"><i class="ki-outline ki-calendar fs-2"></i></span>
+                                    <span class="menu-title">Jadwal Terapi</span>
+                                </a>
+                            </div>
 
-                    <!-- Packages -->
-                    <div class="menu-item">
-                        <a class="menu-link" href="/admin/packages" title="View all packages" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-bullet"><i class="ki-outline ki-parcel fs-2"></i></span>
-                            <span class="menu-title">Paket Terapi</span>
-                        </a>
-                    </div>
+                            <!-- Packages -->
+                            <div class="menu-item">
+                                <a class="menu-link" href="/admin/packages" title="View all packages" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                    <span class="menu-bullet"><i class="ki-outline ki-parcel fs-2"></i></span>
+                                    <span class="menu-title">Paket Terapi</span>
+                                </a>
+                            </div>
 
-                    <!-- Journals -->
-                    <div class="menu-item">
-                        <a class="menu-link" href="/admin/journals" title="View all journals" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-bullet"><i class="ki-outline ki-book fs-2"></i></span>
-                            <span class="menu-title">Jurnal Terapi</span>
-                        </a>
-                    </div>
+                            <!-- Journals -->
+                            <div class="menu-item">
+                                <a class="menu-link" href="/admin/journals" title="View all journals" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                    <span class="menu-bullet"><i class="ki-outline ki-book fs-2"></i></span>
+                                    <span class="menu-title">Jurnal Terapi</span>
+                                </a>
+                            </div>
 
-                    <!-- Patients -->
-                    <div class="menu-item">
-                        <a class="menu-link" href="/admin/patients" title="View all patients" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <!-- Checkups -->
+                            <div class="menu-item">
+                                <a class="menu-link" href="/admin/checkups" title="View diagnosis checkups" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                    <span class="menu-bullet"><i class="ki-outline ki-cheque fs-2"></i></span>
+                                    <span class="menu-title">Checkup Diagnosa</span>
+                                </a>
+                            </div>
+
+                            <!-- Therapist Utilization -->
+                            <div class="menu-item">
+                                <a class="menu-link" href="/admin/therapist-utilization" title="View therapist utilization" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                    <span class="menu-bullet"><i class="ki-outline ki-chart-line-up fs-2"></i></span>
+                                    <span class="menu-title">Utilisasi Terapis</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    <!--end::Menu sub-->
+                    </div>
+                    <!--end::Menu item-->
+
+                    <!--begin::Menu item-->
+                    <!-- Category: Manajemen Data -->
+                    <div class="menu-item menu-accordion" data-kt-menu-trigger="click">
+                        <!--begin::Menu link-->
+                        <span class="menu-link">
                             <span class="menu-bullet"><i class="ki-outline ki-people fs-2"></i></span>
-                            <span class="menu-title">Pasien</span>
-                        </a>
+                            <span class="menu-title">Manajemen Data</span>
+                            <span class="menu-arrow"></span>
+                        </span>
+                        <!--end::Menu link-->
+                        <!--begin::Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!-- Patients -->
+                            <div class="menu-item">
+                                <a class="menu-link" href="/admin/patients" title="View all patients" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                    <span class="menu-bullet"><i class="ki-outline ki-people fs-2"></i></span>
+                                    <span class="menu-title">Pasien</span>
+                                </a>
+                            </div>
+
+                            <!-- Parents -->
+                            <div class="menu-item">
+                                <a class="menu-link" href="/admin/parents" title="View all parents" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                    <span class="menu-bullet"><i class="ki-outline ki-profile-circle fs-2"></i></span>
+                                    <span class="menu-title">Wali Pasien</span>
+                                </a>
+                            </div>
+
+                            <!-- Therapists -->
+                            <div class="menu-item">
+                                <a class="menu-link" href="/admin/therapists" title="View all therapists" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                    <span class="menu-bullet"><i class="ki-outline ki-profile-circle fs-2"></i></span>
+                                    <span class="menu-title">Terapis</span>
+                                </a>
+                            </div>
+
+                            <!-- User Management -->
+                            <div class="menu-item">
+                                <a class="menu-link" href="/admin/users" title="View all users" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                    <span class="menu-bullet"><i class="ki-outline ki-profile-circle fs-2"></i></span>
+                                    <span class="menu-title">Pengguna</span>
+                                </a>
+                            </div>
+                        </div>
+                        <!--end::Menu sub-->
                     </div>
+                    <!--end::Menu item-->
 
-                    <!-- Checkups -->
-                    <div class="menu-item">
-                        <a class="menu-link" href="/admin/checkups" title="View diagnosis checkups" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-bullet"><i class="ki-outline ki-cheque fs-2"></i></span>
-                            <span class="menu-title">Checkup Diagnosa</span>
-                        </a>
-                    </div>
-
-
-                    <!-- User Management -->
-                    <div class="menu-item">
-                        <a class="menu-link" href="/admin/users" title="View all users" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-bullet"><i class="ki-outline ki-people fs-2"></i></span>
-                            <span class="menu-title">Pengguna</span>
-                        </a>
-                    </div>
-
-                    <!-- Leave Requests -->
-                    <div class="menu-item">
-                        <a class="menu-link" href="/admin/leaves" title="View leave requests" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                    <!--begin::Menu item-->
+                    <!-- Category: Permintaan -->
+                    <div class="menu-item menu-accordion" data-kt-menu-trigger="click">
+                        <!--begin::Menu link-->
+                        <span class="menu-link">
                             <span class="menu-bullet"><i class="ki-outline ki-time fs-2"></i></span>
-                            <span class="menu-title">Permintaan Izin</span>
-                        </a>
-                    </div>
+                            <span class="menu-title">Permintaan</span>
+                            <span class="menu-arrow"></span>
+                        </span>
+                        <!--end::Menu link-->
+                        <!--begin::Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!-- Leave Requests -->
+                            <div class="menu-item">
+                                <a class="menu-link" href="/admin/leaves" title="View leave requests" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                    <span class="menu-bullet"><i class="ki-outline ki-time fs-2"></i></span>
+                                    <span class="menu-title">Permintaan Izin</span>
+                                </a>
+                            </div>
 
-                    <!-- Reschedule Requests -->
-                    <div class="menu-item">
-                        <a class="menu-link" href="/admin/reschedules" title="View reschedule requests" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                            <span class="menu-bullet"><i class="ki-outline ki-time fs-2"></i></span>
-                            <span class="menu-title">Permintaan Reschedule</span>
-                        </a>
+                            <!-- Reschedule Requests -->
+                            <div class="menu-item">
+                                <a class="menu-link" href="/admin/reschedules" title="View reschedule requests" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                    <span class="menu-bullet"><i class="ki-outline ki-time fs-2"></i></span>
+                                    <span class="menu-title">Permintaan Reschedule</span>
+                                </a>
+                            </div>
+                        </div>
+                        <!--end::Menu sub-->
                     </div>
+                    <!--end::Menu item-->
                 @endif
-
-                <!-- Therapist Utilization -->
-                <div class="menu-item">
-                    <a class="menu-link" href="/admin/therapist-utilization" title="View therapist utilization" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                        <span class="menu-bullet"><i class="ki-outline ki-chart-line-up fs-2"></i></span>
-                        <span class="menu-title">Utilisasi Terapis</span>
-                    </a>
-                </div>
-
 
                 @if(role.equals("THERAPIST"))
                     <!-- Home -->

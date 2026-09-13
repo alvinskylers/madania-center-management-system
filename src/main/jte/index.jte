@@ -6,7 +6,7 @@
     <title>Madania Center – Konsultan Psikologi & Klinik Hypnotherapy</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="/css/styles.css"/>
-    <link rel="shortcut icon" href="/media/logos/favicon.ico" />
+    <link rel="shortcut icon" href="/media/logos/logo.png" />
 
 </head>
 <body>

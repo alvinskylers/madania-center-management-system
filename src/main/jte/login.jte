@@ -9,7 +9,7 @@
     <title>Madania Center - Sign In</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" href="/media/logos/favicon.ico" />
+    <link rel="shortcut icon" href="/media/logos/logo.png" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <link href="/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <link href="/css/style.bundle.css" rel="stylesheet" type="text/css" />

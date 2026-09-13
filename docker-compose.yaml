@@ -1,7 +1,31 @@
 services:
+  app:
+    build: .
+    container_name: madania_app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # spring
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      # postgres
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      # jte
+      GG_JTE_DEVELOPMENT_MODE: "false"
+      GG_JTE_USE_PRECOMPILED_TEMPLATES: "true"
+    ports:
+      - "8080:8080"
+
   postgres:
     image: postgres:16-alpine
-    container_name: therapy_postgres
+    container_name: madania_database
+    restart: unless-stopped
     env_file: .env
     ports:
       - "5432:5432"
@@ -14,7 +38,8 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4:latest
-    container_name: therapy_pgadmin
+    container_name: madania_pgadmin
+    restart: unless-stopped
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}

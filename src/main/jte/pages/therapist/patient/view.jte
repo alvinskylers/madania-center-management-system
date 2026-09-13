@@ -112,7 +112,8 @@ content = @`
                                                 group = packageGroups.get(i),
                                                 index = i,
                                                 journalBasePath = "/therapist/journal",
-                                                viewerTherapistId = viewerTherapistId
+                                                viewerTherapistId = viewerTherapistId,
+                                                showWriteJournalAction = true
                                                 )
                                             @endfor
                                         </div>

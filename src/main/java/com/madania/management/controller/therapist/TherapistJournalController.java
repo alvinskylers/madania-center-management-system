@@ -93,11 +93,21 @@ public class TherapistJournalController {
     @GetMapping("/journal/create/{sessionId}")
     public String createJournalForm(@PathVariable UUID sessionId,
                                     Authentication authentication,
-                                    Model model) {
+                                    Model model,
+                                    RedirectAttributes redirectAttributes) {
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         Therapist therapist = sessionService.getTherapistByUserId(userDetails.getUser().getId());
 
         TherapySession session = sessionService.getSessionById(sessionId);
+
+        if (!session.getTherapist().getId().equals(therapist.getId())) {
+            redirectAttributes.addFlashAttribute("patientError", "You can only write a journal for your own sessions.");
+            return "redirect:/therapist/patients";
+        }
+        if (session.getStatus() != com.madania.management.enums.SessionStatus.COMPLETED) {
+            redirectAttributes.addFlashAttribute("patientError", "This session hasn't taken place yet, so it can't be journaled.");
+            return "redirect:/therapist/patients";
+        }
 
         TherapyJournal existing = journalService.getJournalBySessionId(sessionId);
         if (existing != null) {
@@ -107,8 +117,8 @@ public class TherapistJournalController {
         model.addAttribute("session", session);
         model.addAttribute("therapist", therapist);
         model.addAttribute("request", new JournalRequest());
-        model.addAttribute("therapyTypes", com.madania.management.enums.TherapyType.values());
-        model.addAttribute("moodRatings", com.madania.management.enums.MoodRating.values());
+        model.addAttribute("therapyTypes", TherapyType.values());
+        model.addAttribute("moodRatings", MoodRating.values());
         return "pages/therapist/journal/create";
     }
 
@@ -117,21 +127,30 @@ public class TherapistJournalController {
                                 @Valid @ModelAttribute("request") JournalRequest request,
                                 BindingResult bindingResult,
                                 Authentication authentication,
-                                Model model) {
-
-        if (bindingResult.hasErrors()) {
-            CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-            Therapist therapist = sessionService.getTherapistByUserId(userDetails.getUser().getId());
-            model.addAttribute("session", sessionService.getSessionById(sessionId));
-            model.addAttribute("therapist", therapist);
-            model.addAttribute("request", request);
-            model.addAttribute("therapyTypes", com.madania.management.enums.TherapyType.values());
-            model.addAttribute("moodRatings", com.madania.management.enums.MoodRating.values());
-            return "pages/therapist/journal/create";
-        }
+                                Model model,
+                                RedirectAttributes redirectAttributes) {
 
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         Therapist therapist = sessionService.getTherapistByUserId(userDetails.getUser().getId());
+        TherapySession session = sessionService.getSessionById(sessionId);
+
+        if (!session.getTherapist().getId().equals(therapist.getId())) {
+            redirectAttributes.addFlashAttribute("patientError", "You can only write a journal for your own sessions.");
+            return "redirect:/therapist/patients";
+        }
+        if (session.getStatus() != com.madania.management.enums.SessionStatus.COMPLETED) {
+            redirectAttributes.addFlashAttribute("patientError", "This session hasn't taken place yet, so it can't be journaled.");
+            return "redirect:/therapist/patients";
+        }
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("session", session);
+            model.addAttribute("therapist", therapist);
+            model.addAttribute("request", request);
+            model.addAttribute("therapyTypes", TherapyType.values());
+            model.addAttribute("moodRatings", MoodRating.values());
+            return "pages/therapist/journal/create";
+        }
 
         journalService.createJournal(
                 sessionId, therapist.getId(),
@@ -190,8 +209,8 @@ public class TherapistJournalController {
             TherapyJournal journal = journalService.getJournalById(id);
             model.addAttribute("journal", journal);
             model.addAttribute("request", request);
-            model.addAttribute("therapyTypes", com.madania.management.enums.TherapyType.values());
-            model.addAttribute("moodRatings", com.madania.management.enums.MoodRating.values());
+            model.addAttribute("therapyTypes", TherapyType.values());
+            model.addAttribute("moodRatings", MoodRating.values());
             return "pages/therapist/journal/edit";
         }
 

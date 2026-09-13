@@ -9,6 +9,7 @@
 @param int index
 @param String journalBasePath = "/admin/journal"
 @param UUID viewerTherapistId = null
+@param boolean showWriteJournalAction = false
 
 <div class="accordion-item">
     <h2 class="accordion-header" id="pkg_heading_${index}">
@@ -76,6 +77,10 @@
                                 @else
                                     <span class="text-muted fs-7">Ditulis oleh ${pair.getJournal().getTherapist().getFullName()}</span>
                                 @endif
+                            @elseif(showWriteJournalAction && pair.getSession().getStatus() == SessionStatus.COMPLETED && viewerTherapistId != null && pair.getSession().getTherapist().getId().equals(viewerTherapistId))
+                                <a href="/therapist/journal/create/${String.valueOf(pair.getSession().getId())}" class="btn btn-light-success btn-sm">
+                                    Tulis Jurnal
+                                </a>
                             @else
                                 <span class="text-muted fs-7">Belum Ditulis</span>
                             @endif

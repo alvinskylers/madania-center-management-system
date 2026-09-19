@@ -143,9 +143,9 @@ content = @`
 
     <!--begin::Modal - Request Reschedule-->
     <div class="modal fade" id="kt_modal_request_reschedule" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
-                <form method="post" action="/therapist/schedule/reschedule">
+                <form method="post" action="/therapist/schedule/reschedule" id="kt_reschedule_form" novalidate>
                     <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
                     <input type="hidden" name="sessionId" id="reschedule_session_id">
 
@@ -159,9 +159,42 @@ content = @`
                     <div class="modal-body">
                         <div class="fs-6 text-gray-600 mb-5" id="reschedule_session_label"></div>
 
+                        <!--begin::My schedule calendar-->
+                        <div class="mb-5">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="ki-outline ki-calendar-8 fs-2 text-primary me-2"></i>
+                                <span class="fw-semibold fs-6">Jadwal Saya</span>
+                            </div>
+                            <div class="alert alert-primary d-flex align-items-center py-3 mb-3">
+                                <i class="ki-outline ki-information-5 fs-2 me-3"></i>
+                                <span class="fs-7">Gunakan kalender ini untuk melihat jadwal Anda sebelum memilih waktu baru, agar tidak bertabrakan dengan sesi lain.</span>
+                            </div>
+                            <div class="d-flex flex-wrap gap-4 mb-3 fs-8">
+                                <div class="d-flex align-items-center">
+                                    <span class="bullet bullet-dot me-2" style="background-color:#1B84FF;"></span>Terjadwal
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <span class="bullet bullet-dot me-2" style="background-color:#17C653;"></span>Selesai
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <span class="bullet bullet-dot me-2" style="background-color:#F1416C;"></span>Dibatalkan
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <span class="bullet bullet-dot me-2" style="background-color:#FFA800;"></span>Reschedule
+                                </div>
+                            </div>
+                            <div id="kt_reschedule_calendar"></div>
+                        </div>
+                        <!--end::My schedule calendar-->
+
                         <div class="fv-row mb-5">
                             <label class="fs-6 fw-semibold mb-2">Waktu baru yang diminta</label>
-                            <input type="text" data-picker="datetime" class="form-control" name="requestedStartTime" required>
+                            <input type="text" data-picker="datetime" class="form-control" name="requestedStartTime"
+                                   id="reschedule_requested_time" required>
+                            <div class="fv-plugins-message-container invalid-feedback d-block d-none" id="reschedule_time_feedback">
+                                <i class="ki-outline ki-information-5 fs-7"></i>
+                                Silakan pilih waktu reschedule terlebih dahulu sebelum mengirim permohonan.
+                            </div>
                         </div>
 
                         <div class="fv-row mb-5">
@@ -186,10 +219,61 @@ content = @`
         document.addEventListener("DOMContentLoaded", function () {
             var calendarEl = document.getElementById("kt_calendar");
             var detailsModal = new bootstrap.Modal(document.getElementById("kt_modal_session_details"));
-            var rescheduleModal = new bootstrap.Modal(document.getElementById("kt_modal_request_reschedule"));
+            var rescheduleModalEl = document.getElementById("kt_modal_request_reschedule");
+            var rescheduleModal = new bootstrap.Modal(rescheduleModalEl);
             var btnOpenReschedule = document.getElementById("btn_open_reschedule");
             var btnViewJournal = document.getElementById("btn_view_journal");
             var btnWriteJournal = document.getElementById("btn_write_journal");
+
+            //begin::Reschedule modal - my schedule calendar + validation
+            var rescheduleForm = document.getElementById("kt_reschedule_form");
+            var timeInput = document.getElementById("reschedule_requested_time");
+            var timeFeedback = document.getElementById("reschedule_time_feedback");
+
+            function markTimeInvalid(invalid) {
+                timeInput.classList.toggle("is-invalid", invalid);
+                var altInput = timeInput.nextElementSibling;
+                if (altInput && altInput.classList.contains("flatpickr-alt-input")) {
+                    altInput.classList.toggle("is-invalid", invalid);
+                }
+                timeFeedback.classList.toggle("d-none", !invalid);
+            }
+
+            timeInput.addEventListener("change", function () {
+                if (timeInput.value && timeInput.value.trim() !== "") {
+                    markTimeInvalid(false);
+                }
+            });
+
+            rescheduleForm.addEventListener("submit", function (e) {
+                if (!timeInput.value || timeInput.value.trim() === "") {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    markTimeInvalid(true);
+                    var altInput = timeInput.nextElementSibling;
+                    (altInput && altInput.classList.contains("flatpickr-alt-input") ? altInput : timeInput).focus();
+                }
+            });
+
+            var rescheduleCalendar = new FullCalendar.Calendar(document.getElementById("kt_reschedule_calendar"), {
+                initialView: "timeGridWeek",
+                height: 380,
+                headerToolbar: {
+                    left: "prev,next today",
+                    center: "title",
+                    right: ""
+                },
+                slotMinTime: "08:00:00",
+                slotMaxTime: "18:00:00",
+                allDaySlot: false,
+                events: "/therapist/schedule/events"
+            });
+            rescheduleCalendar.render();
+
+            rescheduleModalEl.addEventListener("shown.bs.modal", function () {
+                rescheduleCalendar.updateSize();
+            });
+            //end::Reschedule modal - my schedule calendar + validation
 
             var statusBadgeClass = {
                 SCHEDULED: "badge-light-primary",
@@ -227,6 +311,18 @@ content = @`
                             document.getElementById("reschedule_session_id").value = info.event.id;
                             document.getElementById("reschedule_session_label").innerText =
                                 info.event.title + " — currently " + info.event.start.toLocaleString();
+
+                            // reset validation state and empty time field from any previous attempt
+                            timeInput.value = "";
+                            if (timeInput._flatpickr) {
+                                timeInput._flatpickr.clear();
+                            }
+                            markTimeInvalid(false);
+
+                            // jump the mini calendar to this session's week so it's visible right away
+                            rescheduleCalendar.refetchEvents();
+                            rescheduleCalendar.gotoDate(info.event.start);
+
                             detailsModal.hide();
                             rescheduleModal.show();
                         };

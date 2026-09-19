@@ -6,11 +6,13 @@ import com.madania.management.entity.Parent;
 import com.madania.management.entity.Patient;
 import com.madania.management.entity.TherapySession;
 import com.madania.management.entity.TherapyJournal;
+import com.madania.management.enums.SessionStatus;
 import com.madania.management.service.ParentService;
 import com.madania.management.service.RescheduleService;
 import com.madania.management.service.TherapyJournalService;
 import com.madania.management.service.TherapySessionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/parent")
@@ -85,6 +89,48 @@ public class ParentScheduleController {
         return  ResponseEntity.ok(events);
     }
 
+    /**
+     * Read-only view of the session's therapist schedule, so a parent can see which slots
+     * are already taken before picking a new reschedule time in the modal, instead of
+     * blindly guessing a time. Other families' sessions are shown as "Terisi" (booked)
+     * without exposing another patient's name.
+     */
+    @GetMapping("/schedule/therapist-events/{sessionId}")
+    @ResponseBody
+    public ResponseEntity<List<Map<String, Object>>> getTherapistEventsForSession(
+            @PathVariable UUID sessionId, Authentication authentication) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        Parent parent = parentService.getParentByUserId(userDetails.getUser().getId());
+
+        TherapySession session = sessionService.getSessionById(sessionId);
+        boolean ownsSession = session.getPatient().getParent().getId().equals(parent.getId());
+        if (!ownsSession) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        List<TherapySession> therapistSessions = sessionService.getSessionsByTherapistId(session.getTherapist().getId());
+
+        List<Map<String, Object>> events = therapistSessions.stream()
+                .filter(s -> s.getStatus() == SessionStatus.SCHEDULED)
+                .map(s -> {
+                    boolean isThisSession = s.getId().equals(sessionId);
+                    boolean isOwnChild = s.getPatient().getId().equals(session.getPatient().getId());
+
+                    Map<String, Object> event = new HashMap<>();
+                    event.put("id", s.getId());
+                    event.put("title", isThisSession
+                            ? "Sesi Ini (Saat Ini)"
+                            : (isOwnChild ? s.getPatient().getFullName() + " - Sesi " + s.getSessionNumber() : "Terisi"));
+                    event.put("start", s.getStartTime().toString());
+                    event.put("end", s.getEndTime().toString());
+                    event.put("color", isThisSession ? "#FFA800" : "#F1416C");
+                    return event;
+                })
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(events);
+    }
+
     @PostMapping("/schedule/reschedule")
     public String reschedule(@ModelAttribute RescheduleRequestDto dto,
                              Authentication authentication,
@@ -103,9 +149,9 @@ public class ParentScheduleController {
         try {
             rescheduleService.submitRequest(dto.getSessionId(), userDetails.getUser().getId(),
                     dto.getRequestedStartTime(), dto.getReason(), null);
-            redirectAttributes.addAttribute("rescheduleSuccess", "Reschedule request submitted");
+            redirectAttributes.addFlashAttribute("rescheduleSuccess", "Reschedule request submitted");
         } catch (RuntimeException e) {
-            redirectAttributes.addAttribute("rescheduleError", e.getMessage());
+            redirectAttributes.addFlashAttribute("rescheduleError", e.getMessage());
         }
 
         return "redirect:/parent/schedule";

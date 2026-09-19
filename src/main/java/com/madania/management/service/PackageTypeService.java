@@ -25,25 +25,25 @@ public class PackageTypeService {
 
     public PackageType getPackageTypeById(UUID id) {
         return packageTypeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Package type not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("Jenis paket tidak ditemukan dengan id: " + id));
     }
 
     @Transactional
     public PackageType createPackageType(String name, int totalSessions, int sessionsPerWeek) {
         if (name == null || name.isBlank()) {
-            throw new RuntimeException("Name is required.");
+            throw new RuntimeException("Nama wajib diisi.");
         }
         if (packageTypeRepository.existsByName(name)) {
-            throw new RuntimeException("A package type named \"" + name + "\" already exists.");
+            throw new RuntimeException("Jenis paket bernama \"" + name + "\" sudah ada.");
         }
         if (totalSessions <= 0 || sessionsPerWeek <= 0) {
-            throw new RuntimeException("Total sessions and sessions per week must both be greater than zero.");
+            throw new RuntimeException("Total sesi dan sesi per minggu harus lebih besar dari nol.");
         }
 
         if (totalSessions % sessionsPerWeek != 0) {
             throw new RuntimeException(
-                    "Total sessions (" + totalSessions + ") must be evenly divisible by sessions per week (" +
-                            sessionsPerWeek + "), otherwise the last week would have a different number of sessions.");
+                    "Total sesi (" + totalSessions + ") harus habis dibagi dengan sesi per minggu (" +
+                            sessionsPerWeek + "), jika tidak minggu terakhir akan memiliki jumlah sesi yang berbeda.");
         }
 
         PackageType packageType = PackageType.builder()

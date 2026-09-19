@@ -54,7 +54,7 @@ content = @`
                             <select name="therapistId"
                                     class="form-select form-select-solid w-200px tom-select"
                                     onchange="this.form.submit()"
-                                    data-placeholder="Search therapist...">
+                                    data-placeholder="Cari terapis...">
                                 <option value="">Pilih Terapis</option>
                                 @for(Therapist t : therapists)
                                     @if(selectedTherapistId != null && selectedTherapistId.equals(t.getId()))
@@ -69,7 +69,7 @@ content = @`
                             <select name="patientId"
                                     class="form-select form-select-solid w-200px tom-select"
                                     onchange="this.form.submit()"
-                                    data-placeholder="Search child...">
+                                    data-placeholder="Cari anak...">
                                 <option value="">Pilih Pasien</option>
                                 @for(Patient p : patients)
                                     @if(selectedPatientId != null && selectedPatientId.equals(p.getId()))

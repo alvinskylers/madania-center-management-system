@@ -31,13 +31,13 @@ content = @`
     @if(rescheduleSuccess != null)
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>${rescheduleSuccess}</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
         </div>
     @endif
     @if(rescheduleError != null)
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>${rescheduleError}</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
         </div>
     @endif
 
@@ -92,7 +92,7 @@ content = @`
                                 <td class="text-gray-700">${r.getReason() != null && !r.getReason().isBlank() ? r.getReason() : "—"}</td>
                                 <td>
                                     @if(r.getStatus() == RescheduleStatus.PENDING)
-                                        <span class="badge badge-light-warning">Pending</span>
+                                        <span class="badge badge-light-warning">Menunggu</span>
                                     @elseif(r.getStatus() == RescheduleStatus.APPROVED)
                                         <span class="badge badge-light-success">Approved</span>
                                     @else
@@ -110,7 +110,7 @@ content = @`
                     @else
                         <tr>
                             <td colspan="7">
-                                <div class="alert alert-info text-center mb-0">You haven't submitted any reschedule requests yet.</div>
+                                <div class="alert alert-info text-center mb-0">Anda belum mengajukan permintaan reschedule apa pun.</div>
                             </td>
                         </tr>
                     @endif
@@ -126,7 +126,7 @@ content = @`
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title">Session Details</h2>
+                    <h2 class="modal-title">Detail Sesi</h2>
                     <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
                         <i class="ki-outline ki-cross fs-1"></i>
                     </div>
@@ -134,11 +134,11 @@ content = @`
 
                 <div class="modal-body">
                     <div class="mb-3">
-                        <span class="fw-semibold text-gray-600">Session:</span>
+                        <span class="fw-semibold text-gray-600">Sesi:</span>
                         <span id="detail_title"></span>
                     </div>
                     <div class="mb-3">
-                        <span class="fw-semibold text-gray-600">Scheduled time:</span>
+                        <span class="fw-semibold text-gray-600">Waktu terjadwal:</span>
                         <span id="detail_time"></span>
                     </div>
                     <div class="mb-3">
@@ -148,9 +148,9 @@ content = @`
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                    <a href="#" id="btn_view_journal" class="btn btn-success" style="display:none;">View Journal</a>
-                    <button type="button" class="btn btn-primary" id="btn_open_reschedule">Request Reschedule</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                    <a href="#" id="btn_view_journal" class="btn btn-success" style="display:none;">Lihat Jurnal</a>
+                    <button type="button" class="btn btn-primary" id="btn_open_reschedule">Ajukan Reschedule</button>
                 </div>
             </div>
         </div>
@@ -166,7 +166,7 @@ content = @`
                     <input type="hidden" name="sessionId" id="reschedule_session_id">
 
                     <div class="modal-header">
-                        <h2 class="modal-title">Request Reschedule</h2>
+                        <h2 class="modal-title">Ajukan Reschedule</h2>
                         <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
                             <i class="ki-outline ki-cross fs-1"></i>
                         </div>
@@ -176,19 +176,19 @@ content = @`
                         <div class="fs-6 text-gray-600 mb-5" id="reschedule_session_label"></div>
 
                         <div class="fv-row mb-5">
-                            <label class="fs-6 fw-semibold mb-2">New requested time</label>
+                            <label class="fs-6 fw-semibold mb-2">Waktu baru yang diminta</label>
                             <input type="datetime-local" class="form-control" name="requestedStartTime" required>
                         </div>
 
                         <div class="fv-row mb-5">
-                            <label class="fs-6 fw-semibold mb-2">Reason</label>
-                            <textarea class="form-control" name="reason" rows="3" placeholder="Why do you need to reschedule this session?"></textarea>
+                            <label class="fs-6 fw-semibold mb-2">Alasan</label>
+                            <textarea class="form-control" name="reason" rows="3" placeholder="Mengapa Anda perlu menjadwalkan ulang sesi ini?"></textarea>
                         </div>
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Submit Request</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Ajukan Permohonan</button>
                     </div>
                 </form>
             </div>

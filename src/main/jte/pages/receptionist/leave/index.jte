@@ -51,13 +51,13 @@ content = @`
             @if(leaveSuccess != null)
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>${leaveSuccess}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
                 </div>
             @endif
             @if(leaveError != null)
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>${leaveError}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
                 </div>
             @endif
 
@@ -149,7 +149,7 @@ content = @`
                                         <td class="text-gray-700">${r.getReason() != null && !r.getReason().isBlank() ? r.getReason() : "—"}</td>
                                         <td>
                                             @if(r.getStatus() == LeaveStatus.PENDING)
-                                                    <span class="badge badge-light-warning">Pending</span>
+                                                    <span class="badge badge-light-warning">Menunggu</span>
                                             @elseif(r.getStatus() == LeaveStatus.APPROVED)
                                                 <span class="badge badge-light-success">Disetujui</span>
                                             @else

@@ -61,7 +61,7 @@ content = @`
                                         class="form-select form-select-solid w-200px tom-select"
                                         onchange="this.form.submit()"
                                         data-placeholder="Cari anak...">
-                                    <option value="">All Children</option>
+                                    <option value="">Semua Anak</option>
                                     @for(Patient p : children)
                                         @if(selectedPatientId != null && selectedPatientId.equals(p.getId()))
                                             <option value="${String.valueOf(p.getId())}" selected>${p.getFullName()}</option>
@@ -75,7 +75,7 @@ content = @`
                             <div>
                                 <label class="fs-8 text-muted mb-1 d-block">No Sesi</label>
                                 <select name="sessionNumber" class="form-select form-select-solid w-150px" onchange="this.form.submit()">
-                                    <option value="">All Sessions</option>
+                                    <option value="">Semua Sesi</option>
                                     @for(Integer n : sessionNumbers)
                                         @if(selectedSessionNumber != null && selectedSessionNumber.equals(n))
                                             <option value="${n}" selected>Session ${n}</option>

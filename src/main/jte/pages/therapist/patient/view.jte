@@ -41,7 +41,7 @@ content = @`
             @if(!isMyPatient)
                 <div class="alert alert-warning d-flex align-items-center mb-6">
                     <i class="ki-outline ki-information-5 fs-2 me-3"></i>
-                    <div>You are viewing this patient outside your own caseload. They are not currently assigned to you.</div>
+                    <div>Anda sedang melihat pasien ini di luar caseload Anda. Pasien ini saat ini tidak ditugaskan kepada Anda.</div>
                 </div>
             @endif
             <div class="d-flex flex-column flex-lg-row">
@@ -84,7 +84,7 @@ content = @`
                             <div class="card card-flush mb-6 mb-xl-9">
                                 <div class="card-header mt-6">
                                     <div class="card-title flex-column">
-                                        <h2 class="mb-1">Patient Schedule</h2>
+                                        <h2 class="mb-1">Jadwal Pasien</h2>
                                         <div class="fs-6 fw-semibold text-muted">Sessions for ${patient.getFullName()}</div>
                                     </div>
                                 </div>
@@ -98,13 +98,13 @@ content = @`
                             <div class="card card-flush mb-6 mb-xl-9">
                                 <div class="card-header mt-6">
                                     <div class="card-title flex-column">
-                                        <h2 class="mb-1">Therapy Packages &amp; Journals</h2>
+                                        <h2 class="mb-1">Paket Terapi &amp; Jurnal</h2>
                                         <div class="fs-6 fw-semibold text-muted">All packages and session journals for ${patient.getFullName()}</div>
                                     </div>
                                 </div>
                                 <div class="card-body p-9 pt-4">
                                     @if(packageGroups == null || packageGroups.isEmpty())
-                                        <div class="alert alert-info">No therapy packages yet for this patient.</div>
+                                        <div class="alert alert-info">Belum ada paket terapi untuk pasien ini.</div>
                                     @else
                                         <div class="accordion" id="kt_patient_packages_accordion">
                                             @for(int i = 0; i < packageGroups.size(); i++)

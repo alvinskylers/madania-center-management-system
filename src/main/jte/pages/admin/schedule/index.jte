@@ -47,7 +47,7 @@ content = @`
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title">Session Details</h2>
+                    <h2 class="modal-title">Detail Sesi</h2>
                     <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
                         <i class="ki-outline ki-cross fs-1"></i>
                     </div>
@@ -55,11 +55,11 @@ content = @`
 
                 <div class="modal-body">
                     <div class="mb-3">
-                        <span class="fw-semibold text-gray-600">Session:</span>
+                        <span class="fw-semibold text-gray-600">Sesi:</span>
                         <span id="detail_title"></span>
                     </div>
                     <div class="mb-3">
-                        <span class="fw-semibold text-gray-600">Scheduled time:</span>
+                        <span class="fw-semibold text-gray-600">Waktu terjadwal:</span>
                         <span id="detail_time"></span>
                     </div>
                     <div class="mb-3">
@@ -69,8 +69,8 @@ content = @`
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                    <a href="#" id="btn_view_journal" class="btn btn-success" style="display:none;">View Journal</a>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                    <a href="#" id="btn_view_journal" class="btn btn-success" style="display:none;">Lihat Jurnal</a>
                 </div>
             </div>
         </div>

@@ -58,7 +58,7 @@ public class PatientService {
 
     public Patient getPatientById(UUID id) {
         return patientRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Patient not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("Pasien tidak ditemukan dengan id: " + id));
     }
 
     public long countActivePatients() {
@@ -73,7 +73,7 @@ public class PatientService {
     public Patient createPatient(UUID parentId, String fullName, LocalDate dateOfBirth,
                                  Gender gender, String diagnosis, String notes) {
         Parent parent = parentRepository.findById(parentId)
-                .orElseThrow(() -> new RuntimeException("Parent not found with id: " + parentId));
+                .orElseThrow(() -> new RuntimeException("Orang tua tidak ditemukan dengan id: " + parentId));
 
         Patient patient = Patient.builder()
                 .parent(parent)
@@ -108,7 +108,7 @@ public class PatientService {
         Patient patient = getPatientById(id);
 
         if (patient.isActive()) {
-            throw new RuntimeException("Cannot delete an active patient. Please deactivate the patient first.");
+            throw new RuntimeException("Tidak dapat menghapus pasien yang masih aktif. Nonaktifkan pasien terlebih dahulu.");
         }
 
         patientRepository.delete(patient);

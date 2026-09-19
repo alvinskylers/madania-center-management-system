@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <base href="/" />
-    <title>Madania Center - Sign In</title>
+    <title>Madania Center - Masuk</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="/media/logos/logo.png" />
@@ -72,7 +72,7 @@
 
                             <!--begin::Heading-->
                             <div class="text-center mb-11">
-                                <h1 class="text-gray-900 fw-bolder mb-3">Login</h1>
+                                <h1 class="text-gray-900 fw-bolder mb-3">Masuk</h1>
                                 <div class="text-gray-500 fw-semibold fs-6">
                                     Sistem Informasi Manajamen Biro Psikologi Madania Center
                                 </div>
@@ -81,7 +81,7 @@
 
                             @if(error != null)
                                 <div class="alert alert-danger d-flex align-items-center mb-8">
-                                    <span>Email atau Password anda salah. Silahkan coba lagi.</span>
+                                    <span>Email atau Kata Sandi Anda salah. Silakan coba lagi.</span>
                                 </div>
                             @endif
 
@@ -104,7 +104,7 @@
                             <!--begin::Password-->
                             <div class="fv-row mb-3">
                                 <input type="password"
-                                       placeholder="Password"
+                                       placeholder="Kata Sandi"
                                        name="password"
                                        autocomplete="off"
                                        class="form-control bg-transparent" />
@@ -114,7 +114,7 @@
                             <!--begin::Submit-->
                             <div class="d-grid mb-10 mt-8">
                                 <button type="submit" class="btn btn-primary">
-                                    <span class="indicator-label">Sign In</span>
+                                    <span class="indicator-label">Masuk</span>
                                 </button>
                             </div>
                             <!--end::Submit-->

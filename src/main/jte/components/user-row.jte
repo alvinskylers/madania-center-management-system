@@ -25,9 +25,9 @@
     </td>
     <td>
         @if(user.getRole().equals(Role.PARENT))
-            <div class="badge badge-warning fw-bold mx-auto">Parent</div>
+            <div class="badge badge-warning fw-bold mx-auto">Orang Tua</div>
         @elseif(user.getRole().equals(Role.THERAPIST))
-            <div class="badge badge-success fw-bold mx-auto">Therapist</div>
+            <div class="badge badge-success fw-bold mx-auto">Terapis</div>
         @elseif(user.getRole().equals(Role.ADMIN))
             <div class="badge badge-danger fw-bold mx-auto">Admin</div>
         @endif
@@ -37,7 +37,7 @@
     </td>
     <td>
         @if(user.isActive())
-            <div class="badge badge-primary fw-bold mx-auto">Active</div>
+            <div class="badge badge-primary fw-bold mx-auto">Aktif</div>
         @else
             <div class="badge badge-danger fw-bold mx-auto">Deactivated</div>
         @endif

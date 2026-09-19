@@ -36,7 +36,7 @@ public class TherapySessionService {
 
     public Therapist getTherapistByUserId(UUID id) {
         return therapistRepository.findByUserId(id)
-                .orElseThrow(() -> new RuntimeException("Therapist profile not found for id: " + id));
+                .orElseThrow(() -> new RuntimeException("Profil terapis tidak ditemukan untuk id: " + id));
     }
 
     public List<TherapySession> getSessionsByTherapistId(UUID therapistId) {
@@ -45,7 +45,7 @@ public class TherapySessionService {
 
     public TherapySession getSessionById(UUID sessionId) {
         return sessionRepository.findById(sessionId)
-                .orElseThrow(() -> new RuntimeException("Session not found with id: " + sessionId));
+                .orElseThrow(() -> new RuntimeException("Sesi tidak ditemukan dengan id: " + sessionId));
     }
 
     public List<TherapySession> getSessionsByTherapyPackageId(UUID packageId) {
@@ -82,10 +82,10 @@ public class TherapySessionService {
     public void validateNoConflict(UUID therapistId, LocalDateTime startTime, LocalDateTime endTime, UUID excludeSessionId) {
         findConflict(therapistId, startTime, endTime, excludeSessionId).ifPresent(existing -> {
             throw new RuntimeException(
-                    "Therapist already has a session with " + existing.getPatient().getFullName() +
-                            " on " + existing.getStartTime().format(CONFLICT_DATE_FORMAT) +
-                            " (until " + existing.getEndTime().toLocalTime() + "), " +
-                            "which overlaps with the requested time on " + startTime.format(CONFLICT_DATE_FORMAT) + "."
+                    "Terapis sudah memiliki sesi dengan " + existing.getPatient().getFullName() +
+                            " pada " + existing.getStartTime().format(CONFLICT_DATE_FORMAT) +
+                            " (hingga " + existing.getEndTime().toLocalTime() + "), " +
+                            "yang bertabrakan dengan waktu yang diminta pada " + startTime.format(CONFLICT_DATE_FORMAT) + "."
             );
         });
     }
@@ -93,8 +93,8 @@ public class TherapySessionService {
     public void validateWithinOperatingHours(LocalTime sessionStart, LocalTime sessionEnd) {
         if (sessionStart.isBefore(CLINIC_OPENING) || sessionEnd.isAfter(CLINIC_CLOSING)) {
             throw new RuntimeException(
-                    "Session time " + sessionStart + " - " + sessionEnd +
-                            " is outside clinic operating hours (08:00 - 17:00)."
+                    "Waktu sesi " + sessionStart + " - " + sessionEnd +
+                            " berada di luar jam operasional klinik (08:00 - 17:00)."
             );
         }
     }
@@ -150,7 +150,7 @@ public class TherapySessionService {
         TherapySession session = getSessionById(sessionId);
 
         if (session.getStatus() != SessionStatus.SCHEDULED) {
-            throw new RuntimeException("Only scheduled sessions can be marked as completed");
+            throw new RuntimeException("Hanya sesi berstatus terjadwal yang dapat ditandai selesai");
         }
 
         session.setStatus(SessionStatus.COMPLETED);

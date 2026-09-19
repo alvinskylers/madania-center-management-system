@@ -87,7 +87,7 @@ public class PackageReassignmentService {
                 if (overlaps) {
                     conflicts.add(ConflictDetailDto.builder()
                             .conflictingSessionId(other.getId())
-                            .patientName(other.getPatient().getFullName() + " (Session " + other.getSessionNumber() + " of this package)")
+                            .patientName(other.getPatient().getFullName() + " (Sesi " + other.getSessionNumber() + " dari paket ini)")
                             .startTime(otherEffective[0])
                             .endTime(otherEffective[1])
                             .source("SAME_PACKAGE")
@@ -119,7 +119,7 @@ public class PackageReassignmentService {
 
     /**
      * Commits the reassignment. Re-validates everything server-side (never trusts that the
-     * client's "all resolved" state is actually conflict-free) before mutating anything.
+     * client's "semua terselesaikan" state is actually conflict-free) before mutating anything.
      *
      * Per spec: history stays put. Completed/cancelled sessions and their journals keep pointing
      * at the original therapist untouched — only the package's own therapist field and the
@@ -139,7 +139,7 @@ public class PackageReassignmentService {
         ReassignConflictCheckResponse revalidated = checkConflicts(packageId, newTherapistId, overrides);
         if (revalidated.isHasConflicts()) {
             throw new RuntimeException(
-                    "Cannot complete reassignment: one or more remaining sessions still have an unresolved schedule conflict."
+                    "Tidak dapat menyelesaikan pengalihan: satu atau lebih sesi yang tersisa masih memiliki konflik jadwal yang belum terselesaikan."
             );
         }
 
@@ -175,10 +175,10 @@ public class PackageReassignmentService {
         }
 
         String patientName = pkg.getPatient().getFullName();
-        String baseMessage = "The remaining sessions in " + patientName + "'s therapy package have been reassigned from "
-                + oldTherapist.getFullName() + " to " + newTherapist.getFullName()
-                + " (effective " + anchor.getStartTime().format(NOTIFICATION_DATE_FORMAT) + " onward)"
-                + (reason != null && !reason.isBlank() ? ". Reason: " + reason : ".");
+        String baseMessage = "Sesi yang tersisa dalam " + patientName + " paket terapinya telah dialihkan dari "
+                + oldTherapist.getFullName() + " ke " + newTherapist.getFullName()
+                + " (berlaku mulai " + anchor.getStartTime().format(NOTIFICATION_DATE_FORMAT) + " dan seterusnya)"
+                + (reason != null && !reason.isBlank() ? ". Alasan: " + reason : ".");
 
         notificationService.notify(oldTherapist.getUser(), NotificationType.THERAPIST_REASSIGNED, baseMessage, anchor);
         notificationService.notify(newTherapist.getUser(), NotificationType.THERAPIST_REASSIGNED, baseMessage, anchor);
@@ -189,21 +189,21 @@ public class PackageReassignmentService {
 
     private TherapyPackage getActivePackageOrThrow(UUID packageId) {
         TherapyPackage pkg = packageRepository.findById(packageId)
-                .orElseThrow(() -> new RuntimeException("Package not found with id: " + packageId));
+                .orElseThrow(() -> new RuntimeException("Paket tidak ditemukan dengan id: " + packageId));
         if (pkg.getStatus() != PackageStatus.ACTIVE) {
-            throw new RuntimeException("Only an active package's therapist can be reassigned. Current status: " + pkg.getStatus());
+            throw new RuntimeException("Hanya terapis dari paket yang aktif yang dapat dialihkan. Status saat ini: " + pkg.getStatus());
         }
         return pkg;
     }
 
     private Therapist getTherapistOrThrow(UUID therapistId) {
         return therapistRepository.findById(therapistId)
-                .orElseThrow(() -> new RuntimeException("Therapist not found with id: " + therapistId));
+                .orElseThrow(() -> new RuntimeException("Terapis tidak ditemukan dengan id: " + therapistId));
     }
 
     private void validateDifferentTherapist(TherapyPackage pkg, Therapist newTherapist) {
         if (pkg.getTherapist() != null && pkg.getTherapist().getId().equals(newTherapist.getId())) {
-            throw new RuntimeException("This package is already assigned to " + newTherapist.getFullName() + ".");
+            throw new RuntimeException("Paket ini sudah ditugaskan kepada " + newTherapist.getFullName() + ".");
         }
     }
 }

@@ -47,7 +47,7 @@ public class CheckupService {
 
     public Page<Checkup> getCheckupsForTherapist(UUID therapistUserId, CheckupStatus status, int page, int size, String direction) {
         Therapist therapist = therapistRepository.findByUserId(therapistUserId)
-                .orElseThrow(() -> new RuntimeException("Therapist profile not found."));
+                .orElseThrow(() -> new RuntimeException("Profil terapis tidak ditemukan."));
         Sort sort = Sort.by(Sort.Direction.fromString(direction), "scheduledAt");
         Pageable pageable = PageRequest.of(page, size, sort);
         return checkupRepository.searchCheckupsForTherapist(pageable, therapist.getId(), status);
@@ -55,7 +55,7 @@ public class CheckupService {
 
     public Checkup getCheckupById(UUID id) {
         return checkupRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Checkup not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("Pemeriksaan tidak ditemukan dengan id: " + id));
     }
 
     public List<Checkup> getCheckupsByPatientId(UUID patientId) {
@@ -72,11 +72,11 @@ public class CheckupService {
         sessionService.validateWithinOperatingHours(time, time.plusMinutes(CHECKUP_DURATION_MINUTES));
 
         Patient patient = patientRepository.findById(patientId)
-                .orElseThrow(() -> new RuntimeException("Patient not found."));
+                .orElseThrow(() -> new RuntimeException("Pasien tidak ditemukan."));
         Therapist therapist = therapistRepository.findById(therapistId)
-                .orElseThrow(() -> new RuntimeException("Therapist not found."));
+                .orElseThrow(() -> new RuntimeException("Terapis tidak ditemukan."));
         User createdBy = userRepository.findById(createdByUserId)
-                .orElseThrow(() -> new RuntimeException("User not found."));
+                .orElseThrow(() -> new RuntimeException("Pengguna tidak ditemukan."));
 
         // A therapist shouldn't be double-booked between a checkup and a therapy session.
         sessionService.validateNoConflict(therapistId, startTime, endTime, null);
@@ -100,14 +100,14 @@ public class CheckupService {
         Checkup checkup = getCheckupById(id);
 
         if (checkup.getStatus() != CheckupStatus.SCHEDULED) {
-            throw new RuntimeException("Only scheduled checkups can be diagnosed.");
+            throw new RuntimeException("Hanya pemeriksaan berstatus terjadwal yang dapat didiagnosis.");
         }
 
         Therapist therapist = therapistRepository.findByUserId(therapistUserId)
-                .orElseThrow(() -> new RuntimeException("Therapist profile not found."));
+                .orElseThrow(() -> new RuntimeException("Profil terapis tidak ditemukan."));
 
         if (!checkup.getTherapist().getId().equals(therapist.getId())) {
-            throw new RuntimeException("You are not the assigned therapist for this checkup.");
+            throw new RuntimeException("Anda bukan terapis yang ditugaskan untuk pemeriksaan ini.");
         }
 
         checkup.setStatus(CheckupStatus.COMPLETED);
@@ -125,7 +125,7 @@ public class CheckupService {
         Checkup checkup = getCheckupById(id);
 
         if (checkup.getStatus() != CheckupStatus.COMPLETED) {
-            throw new RuntimeException("The therapist must enter a diagnosis before the parent's decision can be recorded.");
+            throw new RuntimeException("Terapis harus memasukkan diagnosis sebelum keputusan orang tua dapat dicatat.");
         }
 
         checkup.setParentDecision(parentDecision);
@@ -137,7 +137,7 @@ public class CheckupService {
         Checkup checkup = getCheckupById(id);
 
         if (checkup.getStatus() != CheckupStatus.SCHEDULED) {
-            throw new RuntimeException("Only scheduled checkups can be cancelled.");
+            throw new RuntimeException("Hanya pemeriksaan berstatus terjadwal yang dapat dibatalkan.");
         }
 
         checkup.setStatus(CheckupStatus.CANCELLED);
@@ -158,9 +158,9 @@ public class CheckupService {
 
         conflict.ifPresent(existing -> {
             throw new RuntimeException(
-                    "Therapist already has a checkup with " + existing.getPatient().getFullName() +
-                            " on " + existing.getScheduledAt().format(CONFLICT_DATE_FORMAT) +
-                            ", which overlaps with the requested time on " + startTime.format(CONFLICT_DATE_FORMAT) + "."
+                    "Terapis sudah memiliki pemeriksaan dengan " + existing.getPatient().getFullName() +
+                            " pada " + existing.getScheduledAt().format(CONFLICT_DATE_FORMAT) +
+                            ", yang bertabrakan dengan waktu yang diminta pada " + startTime.format(CONFLICT_DATE_FORMAT) + "."
             );
         });
     }

@@ -25,7 +25,7 @@
             <li><a href="#programs">Layanan</a></li>
             <li><a href="#how">Proses</a></li>
             <li><a href="#team">Tim Kami</a></li>
-            <li><a href="/login" class="nav-login">Login</a></li>
+            <li><a href="/login" class="nav-login">Masuk</a></li>
             <li><a href="#contact" class="nav-cta">Konsultasi Gratis</a></li>
         </ul>
         <button class="nav-hamburger" id="hamburgerBtn" aria-label="Buka menu" aria-expanded="false">
@@ -39,7 +39,7 @@
     <a href="#programs" class="mobile-nav-link">Layanan</a>
     <a href="#how" class="mobile-nav-link">Proses</a>
     <a href="#team" class="mobile-nav-link">Tim Kami</a>
-    <a href="/login" class="nav-login mobile-nav-link">Login</a>
+    <a href="/login" class="nav-login mobile-nav-link">Masuk</a>
     <a href="#contact" class="nav-cta mobile-nav-link">Konsultasi Gratis</a>
 </div>
 

@@ -33,11 +33,11 @@ content = @`
         <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
-                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Review Leave Request</h1>
+                    <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Tinjau Permintaan Izin</h1>
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
-                        <li class="breadcrumb-item text-muted"><a href="/dashboard" class="text-muted text-hover-primary">Home</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="/dashboard" class="text-muted text-hover-primary">Beranda</a></li>
                         <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
-                        <li class="breadcrumb-item text-muted"><a href="/receptionist/leaves" class="text-muted text-hover-primary">Leave Requests</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="/receptionist/leaves" class="text-muted text-hover-primary">Permintaan Izin</a></li>
                         <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
                         <li class="breadcrumb-item text-muted">${leave.getTherapist().getFullName()}</li>
                     </ul>
@@ -59,7 +59,7 @@ content = @`
             @if(leaveError != null)
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>${leaveError}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
                 </div>
             @endif
 
@@ -73,12 +73,12 @@ content = @`
                             </span>
                         </div>
                         <div class="d-flex flex-column">
-                            <span class="fs-7 text-muted">Therapist</span>
+                            <span class="fs-7 text-muted">Terapis</span>
                             <span class="fs-5 fw-bold text-gray-800">${leave.getTherapist().getFullName()}</span>
                         </div>
                         <div class="separator separator-dashed d-none d-md-block h-40px"></div>
                         <div class="d-flex flex-column">
-                            <span class="fs-7 text-muted">Leave Period</span>
+                            <span class="fs-7 text-muted">Periode Cuti</span>
                             <span class="fs-5 fw-bold text-gray-800">${leave.getStartDate().toString()} &rarr; ${leave.getEndDate().toString()}</span>
                         </div>
                         <div class="separator separator-dashed d-none d-md-block h-40px"></div>
@@ -86,7 +86,7 @@ content = @`
                             <span class="fs-7 text-muted">Status</span>
                             <span class="mt-1">
                                 @if(leave.getStatus() == LeaveStatus.PENDING)
-                                    <span class="badge badge-light-warning">Pending</span>
+                                    <span class="badge badge-light-warning">Menunggu</span>
                                 @elseif(leave.getStatus() == LeaveStatus.APPROVED)
                                     <span class="badge badge-light-success">Approved</span>
                                 @else
@@ -116,7 +116,7 @@ content = @`
             <div class="card card-flush mb-6">
                 <div class="card-header pt-7">
                     <div class="card-title flex-column">
-                        <h2 class="mb-1">Therapist's Schedule</h2>
+                        <h2 class="mb-1">Jadwal Terapis</h2>
                         <div class="fs-7 fw-semibold text-muted">
                             The shaded period is this leave request &mdash; use it to judge good replacement times.
                         </div>
@@ -151,13 +151,13 @@ content = @`
                     <div class="card-header pt-7">
                         <div class="card-title">
                             <i class="ki-outline ki-calendar-tick fs-1 text-primary me-2"></i>
-                            <h2>Affected Sessions</h2>
+                            <h2>Sesi Terdampak</h2>
                         </div>
                     </div>
                     <div class="card-body pt-5">
 
                         @if(suggestions.isEmpty())
-                            <div class="alert alert-info">No scheduled sessions fall within this leave period.</div>
+                            <div class="alert alert-info">Tidak ada sesi terjadwal dalam periode cuti ini.</div>
 
                             <form action="/receptionist/leaves/${leaveId}/approve" method="post" id="approve-leave-form">
                                 <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
@@ -194,10 +194,10 @@ content = @`
                                     <table class="table align-middle table-row-dashed fs-6 gy-4 mb-5">
                                         <thead>
                                         <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                            <th>Patient</th>
-                                            <th>Session #</th>
-                                            <th>Original Time</th>
-                                            <th>New Time</th>
+                                            <th>Pasien</th>
+                                            <th>Sesi #</th>
+                                            <th>Waktu Asli</th>
+                                            <th>Waktu Baru</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -227,10 +227,10 @@ content = @`
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold form-label mt-3">
                                         <span>Admin Notes</span>
-                                        <span class="fs-7 fw-normal text-muted ms-2">Optional</span>
+                                        <span class="fs-7 fw-normal text-muted ms-2">Opsional</span>
                                     </label>
                                     <textarea class="form-control form-control-solid" name="adminNotes" rows="2"
-                                              placeholder="Any notes about this decision (optional)"></textarea>
+                                              placeholder="Catatan tambahan tentang keputusan ini (opsional)"></textarea>
                                 </div>
                             </form>
 
@@ -265,15 +265,15 @@ content = @`
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title">Confirm</h2>
+                    <h2 class="modal-title">Konfirmasi</h2>
                     <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
                         <i class="ki-outline ki-cross fs-1"></i>
                     </div>
                 </div>
                 <div class="modal-body" id="kt_modal_confirm_leave_message"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="kt_modal_confirm_leave_submit">Confirm</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" id="kt_modal_confirm_leave_submit">Konfirmasi</button>
                 </div>
             </div>
         </div>

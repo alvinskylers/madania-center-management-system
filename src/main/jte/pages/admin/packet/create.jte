@@ -72,19 +72,19 @@ content = @`
                     @for(var fieldError : bindingResult.getAllErrors())
                         <span>${fieldError.getDefaultMessage()}</span>
                     @endfor
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
                 </div>
             @endif
             @if(daysError != null)
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <span>${daysError}</span>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
                 </div>
             @endif
             @if(scheduleError != null)
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <span>${scheduleError}</span>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
                 </div>
             @endif
 

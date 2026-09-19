@@ -52,7 +52,7 @@ content = @`
                     @for(var error : bindingResult.getAllErrors())
                         <span>${error.getDefaultMessage()}</span>
                     @endfor
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
                 </div>
             @endif
 

@@ -85,7 +85,7 @@ content = @`
                     </div>
                     <div>
                         <span class="fs-2x fw-bold text-gray-800">${pendingJournalCount}</span>
-                        <p class="text-muted mb-0">Jurnal Pending</p>
+                        <p class="text-muted mb-0">Jurnal Tertunda</p>
                     </div>
                 </div>
             </div>
@@ -159,7 +159,7 @@ content = @`
         <div class="col-md-6">
             <div class="card h-100">
                 <div class="card-header">
-                    <h3 class="card-title">Jurnal Pending</h3>
+                    <h3 class="card-title">Jurnal Tertunda</h3>
                     <div class="card-toolbar">
                         <a href="/therapist/sessions" class="btn btn-sm btn-light">Lihat Semua</a>
                     </div>

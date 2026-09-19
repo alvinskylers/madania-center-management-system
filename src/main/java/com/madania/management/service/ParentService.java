@@ -71,7 +71,7 @@ public class ParentService {
         User parentUser = getUserByParentId(userId);
 
         if (!parentUser.getEmail().equals(email) && userRepository.existsByEmail(email)) {
-            throw new RuntimeException("Email already in use: " + email);
+            throw new RuntimeException("Email sudah digunakan: " + email);
         }
         parentUser.setName(fullName);
         parentUser.setEmail(email);
@@ -89,7 +89,7 @@ public class ParentService {
         User parentUser = getUserByParentId(id);
 
         if (parentUser.isActive()) {
-            throw new RuntimeException("user is still active, please disable this user first");
+            throw new RuntimeException("pengguna masih aktif, nonaktifkan pengguna ini terlebih dahulu");
         }
 
         parentRepository.delete(parent);
@@ -98,17 +98,17 @@ public class ParentService {
 
     public Parent getParentById(UUID id) {
         return parentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Parent profile not found for user id: " + id));
+                .orElseThrow(() -> new RuntimeException("Profil orang tua tidak ditemukan untuk id pengguna: " + id));
     }
 
     @Transactional
     public void updateProfile(UUID userId, String fullName, String email,
                               String phone, String address) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("Pengguna tidak ditemukan"));
 
         if (!user.getEmail().equals(email) && userRepository.existsByEmail(email)) {
-            throw new RuntimeException("Email already in use");
+            throw new RuntimeException("Email sudah digunakan");
         }
 
         user.setName(fullName);
@@ -116,7 +116,7 @@ public class ParentService {
         userRepository.save(user);
 
         Parent parent = parentRepository.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("Parent profile not found"));
+                .orElseThrow(() -> new RuntimeException("Profil orang tua tidak ditemukan"));
 
         parent.setFullName(fullName);
         parent.setPhone(phone);
@@ -130,7 +130,7 @@ public class ParentService {
 
     public Parent getParentByUserId(UUID userId) {
         return parentRepository.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("Parent profile not found for user id: " + userId));
+                .orElseThrow(() -> new RuntimeException("Profil orang tua tidak ditemukan untuk id pengguna: " + userId));
     }
 
     public List<Patient> getPatientsByParentId(UUID parentId) {

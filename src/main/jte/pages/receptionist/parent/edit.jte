@@ -22,7 +22,7 @@ _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,
 content = @`
-    <h1>Edit Parent</h1>
+    <h1>Ubah Wali Pasien</h1>
 
     @if(bindingResult != null && bindingResult.hasErrors())
         <div class="alert alert-danger">
@@ -55,7 +55,7 @@ content = @`
             <input type="text" name="address" class="form-control" value="${request.getAddress()}">
         </div>
 
-        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
     </form>
 `
 )

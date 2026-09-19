@@ -26,7 +26,7 @@ content = @`
         @for(var error : bindingResult.getAllErrors())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <p>${error.getDefaultMessage()}</p>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
             </div>
         @endfor
     @endif

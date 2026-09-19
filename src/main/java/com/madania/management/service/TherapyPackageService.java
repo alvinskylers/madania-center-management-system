@@ -51,7 +51,7 @@ public class TherapyPackageService {
 
     public TherapyPackage getPackageById(UUID id) {
         return packageRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Package with not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("Paket tidak ditemukan dengan id: " + id));
     }
 
     public List<TherapySession> getSessionsByPackageId(UUID packageId) {
@@ -85,27 +85,27 @@ public class TherapyPackageService {
                                         List<DayOfWeek> days, String notes, String diagnosis, UUID checkupId) {
 
         PackageType packageType = packageTypeRepository.findById(packageTypeId)
-                .orElseThrow(() -> new RuntimeException("Package type not found."));
+                .orElseThrow(() -> new RuntimeException("Jenis paket tidak ditemukan."));
 
 
         if (days == null || days.size() != packageType.getSessionsPerWeek()) {
-            throw new RuntimeException("Please select exactly " + packageType.getSessionsPerWeek() +
-                    " day(s) per week for the \"" + packageType.getName() + "\" package.");
+            throw new RuntimeException("Silakan pilih tepat " + packageType.getSessionsPerWeek() +
+                    " hari per minggu untuk paket \"" + packageType.getName() + "\".");
         }
 
         sessionService.validateWithinOperatingHours(preferredTime, preferredTime.plusHours(1));
 
         Patient patient = patientRepository.findById(patientId)
-                .orElseThrow(() -> new RuntimeException("Patient not found."));
+                .orElseThrow(() -> new RuntimeException("Pasien tidak ditemukan."));
         Therapist therapist = therapistRepository.findById(therapistId)
-                .orElseThrow(() -> new RuntimeException("Therapist not found."));
+                .orElseThrow(() -> new RuntimeException("Terapis tidak ditemukan."));
         User assigner = userRepository.findById(createdByUserId)
-                .orElseThrow(() -> new RuntimeException("User not found."));
+                .orElseThrow(() -> new RuntimeException("Pengguna tidak ditemukan."));
 
         Checkup checkup = null;
         if (checkupId != null) {
             checkup = checkupRepository.findById(checkupId)
-                    .orElseThrow(() -> new RuntimeException("Checkup not found."));
+                    .orElseThrow(() -> new RuntimeException("Pemeriksaan tidak ditemukan."));
         }
 
         validateNoActivePackageOverlap(patientId, startDate);
@@ -180,7 +180,7 @@ public class TherapyPackageService {
         for (TherapySession session : sessions) {
             if (session.getStatus() == SessionStatus.SCHEDULED) {
                 session.setStatus(SessionStatus.CANCELLED);
-                session.setCancellationReason("Package cancelled");
+                session.setCancellationReason("Paket dibatalkan");
             }
         }
         sessionRepository.saveAll(sessions);
@@ -196,10 +196,10 @@ public class TherapyPackageService {
 
         blocking.ifPresent(p -> {
             throw new RuntimeException(
-                    "Patient already has an active package running until " +
-                            (p.getEndDate() != null ? p.getEndDate() : "an undetermined date") +
-                            ". The new package must start on or after " +
-                            (p.getEndDate() != null ? p.getEndDate().plusDays(1) : "that package's end date") + "."
+                    "Pasien sudah memiliki paket aktif yang berjalan hingga " +
+                            (p.getEndDate() != null ? p.getEndDate() : "tanggal yang belum ditentukan") +
+                            ". Paket baru harus dimulai pada atau setelah " +
+                            (p.getEndDate() != null ? p.getEndDate().plusDays(1) : "tanggal berakhir paket tersebut") + "."
             );
         });
     }

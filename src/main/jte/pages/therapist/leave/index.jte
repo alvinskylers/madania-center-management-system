@@ -51,13 +51,13 @@ content = @`
             @if(leaveSuccess != null)
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>${leaveSuccess}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
                 </div>
             @endif
             @if(leaveError != null)
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>${leaveError}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
                 </div>
             @endif
 
@@ -73,7 +73,7 @@ content = @`
                             </div>
                             <div>
                                 <div class="fs-2 fw-bold text-gray-900">${pendingCount}</div>
-                                <div class="fs-7 text-muted">Pending</div>
+                                <div class="fs-7 text-muted">Menunggu</div>
                             </div>
                         </div>
                     </div>
@@ -147,10 +147,10 @@ content = @`
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold form-label mt-3">
                                         <span>Alasan</span>
-                                        <span class="fs-7 fw-normal text-muted ms-2">Optional</span>
+                                        <span class="fs-7 fw-normal text-muted ms-2">Opsional</span>
                                     </label>
                                     <textarea class="form-control form-control-solid" name="reason" rows="3"
-                                              placeholder="e.g. Family event, medical leave"></textarea>
+                                              placeholder="cth. Acara keluarga, cuti sakit"></textarea>
                                 </div>
 
                                 <div class="separator mb-6"></div>
@@ -189,7 +189,7 @@ content = @`
             <div class="card card-flush">
                 <div class="card-header pt-7">
                     <div class="card-title">
-                        <h2>Request History</h2>
+                        <h2>Riwayat Permohonan</h2>
                     </div>
                 </div>
                 <div class="card-body pt-5">
@@ -214,7 +214,7 @@ content = @`
                                         <td class="text-gray-700">${r.getReason() != null && !r.getReason().isBlank() ? r.getReason() : "—"}</td>
                                         <td>
                                             @if(r.getStatus() == LeaveStatus.PENDING)
-                                                <span class="badge badge-light-warning">Pending</span>
+                                                <span class="badge badge-light-warning">Menunggu</span>
                                             @elseif(r.getStatus() == LeaveStatus.APPROVED)
                                                 <span class="badge badge-light-success">Approved</span>
                                             @else
@@ -232,7 +232,7 @@ content = @`
                             @else
                                 <tr>
                                     <td colspan="6">
-                                        <div class="alert alert-info text-center mb-0">You haven't submitted any leave requests yet.</div>
+                                        <div class="alert alert-info text-center mb-0">Anda belum mengajukan permintaan cuti apa pun.</div>
                                     </td>
                                 </tr>
                             @endif

@@ -71,7 +71,7 @@ public class TherapyJournalService {
 
     public TherapyJournal getJournalById(UUID id) {
         return journalRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Journal not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("Jurnal tidak ditemukan dengan id: " + id));
     }
 
     public long countAllJournals() {
@@ -91,14 +91,14 @@ public class TherapyJournalService {
                                         String documentationUrl) {
 
         TherapySession session = sessionRepository.findById(sessionId)
-                .orElseThrow(() -> new RuntimeException("Session not found with id: " + sessionId));
+                .orElseThrow(() -> new RuntimeException("Sesi tidak ditemukan dengan id: " + sessionId));
 
         if (journalRepository.findBySessionId(sessionId).isPresent()) {
-            throw new RuntimeException("A journal already exists for this session");
+            throw new RuntimeException("Jurnal untuk sesi ini sudah ada");
         }
 
         Therapist therapist = therapistRepository.findById(therapistId)
-                .orElseThrow(() -> new RuntimeException("Therapist not found with id: " + therapistId));
+                .orElseThrow(() -> new RuntimeException("Terapis tidak ditemukan dengan id: " + therapistId));
 
         TherapyJournal journal = TherapyJournal.builder()
                 .session(session)

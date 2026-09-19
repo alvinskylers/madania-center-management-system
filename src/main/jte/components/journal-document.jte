@@ -301,7 +301,7 @@
                 @if(journal.getDocumentationUrl() != null)
                     <div class="jdoc-section jdoc-no-print">
                         <div class="jdoc-section-label">Dokumentasi Sesi Terapi</div>
-                        <a href="${journal.getDocumentationUrl()}" target="_blank" class="btn btn-light-primary btn-sm">View Files</a>
+                        <a href="${journal.getDocumentationUrl()}" target="_blank" class="btn btn-light-primary btn-sm">Lihat Berkas</a>
                     </div>
                 @endif
 

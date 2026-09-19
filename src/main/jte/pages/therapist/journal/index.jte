@@ -60,7 +60,7 @@ content = @`
                                 <select name="patientId"
                                         class="form-select form-select-solid w-200px tom-select"
                                         onchange="this.form.submit()"
-                                        data-placeholder="Search patient...">
+                                        data-placeholder="Cari pasien...">
                                     <option value="">Semua Pasien</option>
                                     @for(Patient p : patients)
                                         @if(selectedPatientId != null && selectedPatientId.equals(p.getId()))

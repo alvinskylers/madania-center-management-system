@@ -95,7 +95,7 @@
                                             <button type="submit" class="btn btn-sm btn-light-success">Tandai Tuntas</button>
                                         @else
                                             <button type="button" class="btn btn-sm btn-light" disabled
-                                                    data-bs-toggle="tooltip" title="Available once the session date has passed">
+                                                    data-bs-toggle="tooltip" title="Tersedia setelah tanggal sesi berlalu">
                                                 Tandai Tuntas
                                             </button>
                                         @endif
@@ -113,7 +113,7 @@
                                         </a>
                                     @else
                                         <button type="button" class="btn btn-sm btn-light" disabled
-                                                data-bs-toggle="tooltip" title="Available once the session date has passed">
+                                                data-bs-toggle="tooltip" title="Tersedia setelah tanggal sesi berlalu">
                                             Tulis Jurnal
                                         </button>
                                     @endif

@@ -38,20 +38,20 @@ public class LeaveService {
 
     public LeaveRequest getRequestById(UUID id) {
         return leaveRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Leave request not found: " + id));
+                .orElseThrow(() -> new RuntimeException("Permohonan cuti tidak ditemukan: " + id));
     }
 
     @Transactional
     public LeaveRequest submitLeave(Therapist therapist, LocalDate startDate, LocalDate endDate, String reason) {
         if (endDate.isBefore(startDate)) {
-            throw new RuntimeException("End date cannot be before start date.");
+            throw new RuntimeException("Tanggal selesai tidak boleh sebelum tanggal mulai.");
         }
 
         boolean overlapsExistingLeave = leaveRepository.findByTherapistId(therapist.getId()).stream()
                 .filter(l -> l.getStatus() != LeaveStatus.REJECTED)
                 .anyMatch(l -> !endDate.isBefore(l.getStartDate()) && !startDate.isAfter(l.getEndDate()));
         if (overlapsExistingLeave) {
-            throw new RuntimeException("You already have a leave request covering an overlapping date range.");
+            throw new RuntimeException("Anda sudah memiliki permohonan cuti yang mencakup rentang tanggal yang tumpang tindih.");
         }
 
         LeaveRequest request = LeaveRequest.builder()
@@ -64,7 +64,7 @@ public class LeaveService {
         LeaveRequest saved = leaveRepository.save(request);
 
         List<User> admins = userRepository.findByRole(Role.ADMIN);
-        String message = therapist.getFullName() + " requested leave from " + startDate + " to " + endDate;
+        String message = therapist.getFullName() + " mengajukan cuti dari " + startDate + " sampai " + endDate;
         admins.forEach(admin -> notificationService.notify(admin, NotificationType.LEAVE_REQUESTED, message, null));
 
         return saved;
@@ -127,7 +127,7 @@ public class LeaveService {
         LeaveRequest leave = getRequestById(leaveId);
 
         if (leave.getStatus() != LeaveStatus.PENDING) {
-            throw new RuntimeException("Only a pending leave request can be approved. Current status: " + leave.getStatus());
+            throw new RuntimeException("Hanya permohonan cuti berstatus tertunda yang dapat disetujui. Status saat ini: " + leave.getStatus());
         }
 
         List<TherapySession> affected = getAffectedSessions(leave);
@@ -135,8 +135,8 @@ public class LeaveService {
         for (TherapySession oldSession : affected) {
             LocalDateTime newStart = chosenTimes.get(oldSession.getId());
             if (newStart == null) {
-                throw new RuntimeException("No new time was chosen for session " + oldSession.getSessionNumber()
-                        + " on " + oldSession.getStartTime());
+                throw new RuntimeException("Belum ada waktu baru yang dipilih untuk sesi " + oldSession.getSessionNumber()
+                        + " pada " + oldSession.getStartTime());
             }
 
             LocalDateTime newEnd = newStart.plusHours(1);
@@ -156,12 +156,12 @@ public class LeaveService {
             sessionRepository.save(newSession);
 
             oldSession.setStatus(SessionStatus.RESCHEDULED);
-            oldSession.setCancellationReason("Therapist leave (" + leave.getStartDate() + " to " + leave.getEndDate() + ")");
+            oldSession.setCancellationReason("Cuti terapis (" + leave.getStartDate() + " sampai " + leave.getEndDate() + ")");
             oldSession.setRescheduledTo(newSession);
 
             User parentUser = oldSession.getPatient().getParent().getUser();
             User therapistUser = oldSession.getTherapist().getUser();
-            String message = "Session on " + oldSession.getStartTime() + " was moved to " + newStart + " due to therapist leave";
+            String message = "Sesi pada " + oldSession.getStartTime() + " dipindahkan ke " + newStart + " karena cuti terapis";
             notificationService.notify(parentUser, NotificationType.RESCHEDULE_APPROVED, message, newSession);
             notificationService.notify(therapistUser, NotificationType.RESCHEDULE_APPROVED, message, newSession);
         }
@@ -176,14 +176,14 @@ public class LeaveService {
         LeaveRequest leave = getRequestById(leaveId);
 
         if (leave.getStatus() != LeaveStatus.PENDING) {
-            throw new RuntimeException("Only a pending leave request can be rejected. Current status: " + leave.getStatus());
+            throw new RuntimeException("Hanya permohonan cuti berstatus tertunda yang dapat ditolak. Status saat ini: " + leave.getStatus());
         }
 
         leave.setStatus(LeaveStatus.REJECTED);
         leave.setAdminNotes(adminNotes);
 
-        String message = "Your leave request for " + leave.getStartDate() + " to " + leave.getEndDate() + " was rejected."
-                + (adminNotes != null ? " Note: " + adminNotes : "");
+        String message = "Permohonan cuti Anda untuk " + leave.getStartDate() + " sampai " + leave.getEndDate() + " telah ditolak."
+                + (adminNotes != null ? " Catatan: " + adminNotes : "");
         notificationService.notify(leave.getTherapist().getUser(), NotificationType.LEAVE_REJECTED, message, null);
 
         return leaveRepository.save(leave);

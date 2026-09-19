@@ -47,7 +47,7 @@ public class UserService {
 
     public User getUserById(UUID id) {
         return userRepository.findById(id)
-                .orElseThrow( () ->new RuntimeException("User not found with id: " + id));
+                .orElseThrow( () ->new RuntimeException("Pengguna tidak ditemukan dengan id: " + id));
     }
 
     @Transactional
@@ -85,7 +85,7 @@ public class UserService {
         User user = getUserById(id);
 
         if (!user.getEmail().equals(email) && userRepository.existsByEmail(email)) {
-            throw new RuntimeException("Email already in use: " + email);
+            throw new RuntimeException("Email sudah digunakan: " + email);
         }
 
         user.setEmail(name);
@@ -125,11 +125,11 @@ public class UserService {
         User user = getUserById(userId);
 
         if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
-            throw new RuntimeException("Current password is incorrect");
+            throw new RuntimeException("Kata sandi saat ini salah");
         }
 
         if (!newPassword.equals(confirmPassword)) {
-            throw new RuntimeException("New passwords do not match.");
+            throw new RuntimeException("Kata sandi baru tidak cocok.");
         }
 
         user.setPassword(passwordEncoder.encode(newPassword));
@@ -138,7 +138,7 @@ public class UserService {
 
     private void validateUniqueness(String email) {
         if (userRepository.existsByEmail(email)) {
-            throw new RuntimeException("Email already in use: " + email);
+            throw new RuntimeException("Email sudah digunakan: " + email);
         }
     }
 

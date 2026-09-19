@@ -17,8 +17,8 @@ user = user,
 _csrf = _csrf,
 content = @`
     <div class="d-flex justify-content-between align-items-center mb-5 jdoc-no-print">
-        <h1 class="page-heading">Therapy Journal</h1>
-        <a href="/parent/journals" class="btn btn-light">Back</a>
+        <h1 class="page-heading">Jurnal Terapi</h1>
+        <a href="/parent/journals" class="btn btn-light">Kembali</a>
     </div>
 
     @template.components.journal-document(journal = journal)
@@ -45,7 +45,7 @@ content = @`
             <form action="/parent/journal/${String.valueOf(journal.getId())}/comment" method="post" class="mt-5">
                 <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
                 <div class="fv-row mb-3">
-                    <textarea class="form-control" name="content" rows="3" placeholder="Write a response to this journal entry..." required></textarea>
+                    <textarea class="form-control" name="content" rows="3" placeholder="Tulis tanggapan untuk entri jurnal ini..." required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Kirim Tanggapan </button>
             </form>

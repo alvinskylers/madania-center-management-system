@@ -33,11 +33,13 @@
     </td>
     <td>${user.getCreatedAt().format(DateTimeFormatter.ofPattern("dd MMM yyyy, h:mm a"))}</td>
     <td class="text-end">
+        @if(user.getRole() != Role.ADMIN)
         <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
             Aksi
             <i class="ki-outline ki-down fs-5 ms-1"></i>
         </a>
         <!--begin::Menu-->
+
         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
             <div class="menu-item px-3">
                 @if(user.getRole().equals(Role.THERAPIST))
@@ -57,6 +59,7 @@
                 </form>
             </div>
         </div>
+        @endif
         <!--end::Menu-->
     </td>
 </tr>

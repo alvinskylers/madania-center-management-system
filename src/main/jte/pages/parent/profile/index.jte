@@ -56,7 +56,7 @@ content = @`
             @if(success != null)
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>${success}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
                 </div>
             @endif
             @if(bindingResult != null && bindingResult.hasErrors())
@@ -64,7 +64,7 @@ content = @`
                     @for(var error : bindingResult.getAllErrors())
                         <span>${error.getDefaultMessage()}</span>
                     @endfor
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
                 </div>
             @endif
 

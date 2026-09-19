@@ -28,7 +28,7 @@ content = @`
         @for(var error : bindingResult.getAllErrors())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <p>${error.getDefaultMessage()}</p>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
             </div>
         @endfor
     @endif
@@ -70,7 +70,7 @@ content = @`
                                             </span>
                                         </label>
                                         <select class="form-control form-control-solid" name="parentId">
-                                            <option value="">Select patient parent</option>
+                                            <option value="">Pilih wali pasien</option>
                                             @for(Parent parent : parents)
                                                 <option value="${String.valueOf(parent.getId())}">${parent.getFullName()}</option>
                                             @endfor
@@ -101,7 +101,7 @@ content = @`
                                         </span>
                                         </label>
                                         <select class="form-control form-control-solid" name="gender">
-                                            <option value="">Select patient gender</option>
+                                            <option value="">Pilih jenis kelamin pasien</option>
                                             <option value="${Gender.MALE}">Male</option>
                                             <option value="${Gender.FEMALE}">Female</option>
                                         </select>
@@ -124,7 +124,7 @@ content = @`
                             <div class="fv-row mb-7">
                                 <label class="fs-6 fw-semibold form-label mt-3">
                                     <span>Catatan</span>
-                                    <span class="ms-1" data-bs-toggle="tooltip" title="Masukan catatan tambahan (optional).">
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="Masukan catatan tambahan (opsional).">
                                     <i class="ki-outline ki-information fs-7"></i>
                                 </span>
                                 </label>

@@ -30,14 +30,14 @@ public class JournalCommentService {
     @Transactional
     public JournalComment addComment(UUID journalId, UUID commentedByUserId, String content) {
         TherapyJournal journal = journalRepository.findById(journalId)
-                .orElseThrow(() -> new RuntimeException("Journal not found: " + journalId));
+                .orElseThrow(() -> new RuntimeException("Jurnal tidak ditemukan: " + journalId));
 
         if (content == null || content.isBlank()) {
-            throw new RuntimeException("Comment cannot be empty");
+            throw new RuntimeException("Komentar tidak boleh kosong");
         }
 
         User commentedBy = userRepository.findById(commentedByUserId)
-                .orElseThrow(() -> new RuntimeException("User not found: " + commentedByUserId));
+                .orElseThrow(() -> new RuntimeException("Pengguna tidak ditemukan: " + commentedByUserId));
 
         JournalComment comment = JournalComment.builder()
                 .journal(journal)
@@ -48,8 +48,8 @@ public class JournalCommentService {
         JournalComment saved = commentRepository.save(comment);
 
         User therapistUser = journal.getTherapist().getUser();
-        String message = commentedBy.getName() + " commented on the journal for "
-                + journal.getPatient().getFullName() + "'s session";
+        String message = commentedBy.getName() + " mengomentari jurnal untuk "
+                + journal.getPatient().getFullName() + " sesi";
         notificationService.notify(therapistUser, NotificationType.JOURNAL_COMMENT, message, journal.getSession());
 
         return saved;

@@ -30,7 +30,7 @@
                 @if(role.equals("ADMIN"))
                     <!-- Home -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/dashboard" title="View Dashboard" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/dashboard" title="Lihat Dashboard" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-home fs-2"></i></span>
                             <span class="menu-title">Dashboard</span>
                         </a>
@@ -50,7 +50,7 @@
                         <div class="menu-sub menu-sub-accordion">
                             <!-- Schedule -->
                             <div class="menu-item">
-                                <a class="menu-link" href="/admin/schedule" title="View all schedules" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <a class="menu-link" href="/admin/schedule" title="Lihat semua jadwal" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                     <span class="menu-bullet"><i class="ki-outline ki-calendar fs-2"></i></span>
                                     <span class="menu-title">Jadwal Terapi</span>
                                 </a>
@@ -58,7 +58,7 @@
 
                             <!-- Packages -->
                             <div class="menu-item">
-                                <a class="menu-link" href="/admin/packages" title="View all packages" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <a class="menu-link" href="/admin/packages" title="Lihat semua paket" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                     <span class="menu-bullet"><i class="ki-outline ki-parcel fs-2"></i></span>
                                     <span class="menu-title">Paket Terapi</span>
                                 </a>
@@ -66,7 +66,7 @@
 
                             <!-- Journals -->
                             <div class="menu-item">
-                                <a class="menu-link" href="/admin/journals" title="View all journals" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <a class="menu-link" href="/admin/journals" title="Lihat semua jurnal" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                     <span class="menu-bullet"><i class="ki-outline ki-book fs-2"></i></span>
                                     <span class="menu-title">Jurnal Terapi</span>
                                 </a>
@@ -74,7 +74,7 @@
 
                             <!-- Checkups -->
                             <div class="menu-item">
-                                <a class="menu-link" href="/admin/checkups" title="View diagnosis checkups" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <a class="menu-link" href="/admin/checkups" title="Lihat checkup diagnosa" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                     <span class="menu-bullet"><i class="ki-outline ki-cheque fs-2"></i></span>
                                     <span class="menu-title">Checkup Diagnosa</span>
                                 </a>
@@ -82,7 +82,7 @@
 
                             <!-- Therapist Utilization -->
                             <div class="menu-item">
-                                <a class="menu-link" href="/admin/therapist-utilization" title="View therapist utilization" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <a class="menu-link" href="/admin/therapist-utilization" title="Lihat utilisasi terapis" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                     <span class="menu-bullet"><i class="ki-outline ki-chart-line-up fs-2"></i></span>
                                     <span class="menu-title">Utilisasi Terapis</span>
                                 </a>
@@ -107,7 +107,7 @@
                         <div class="menu-sub menu-sub-accordion">
                             <!-- Patients -->
                             <div class="menu-item">
-                                <a class="menu-link" href="/admin/patients" title="View all patients" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <a class="menu-link" href="/admin/patients" title="Lihat semua pasien" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                     <span class="menu-bullet"><i class="ki-outline ki-people fs-2"></i></span>
                                     <span class="menu-title">Pasien</span>
                                 </a>
@@ -115,7 +115,7 @@
 
                             <!-- Parents -->
                             <div class="menu-item">
-                                <a class="menu-link" href="/admin/parents" title="View all parents" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <a class="menu-link" href="/admin/parents" title="Lihat semua wali pasien" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                     <span class="menu-bullet"><i class="ki-outline ki-profile-circle fs-2"></i></span>
                                     <span class="menu-title">Wali Pasien</span>
                                 </a>
@@ -123,7 +123,7 @@
 
                             <!-- Therapists -->
                             <div class="menu-item">
-                                <a class="menu-link" href="/admin/therapists" title="View all therapists" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <a class="menu-link" href="/admin/therapists" title="Lihat semua terapis" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                     <span class="menu-bullet"><i class="ki-outline ki-profile-circle fs-2"></i></span>
                                     <span class="menu-title">Terapis</span>
                                 </a>
@@ -131,7 +131,7 @@
 
                             <!-- User Management -->
                             <div class="menu-item">
-                                <a class="menu-link" href="/admin/users" title="View all users" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <a class="menu-link" href="/admin/users" title="Lihat semua pengguna" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                     <span class="menu-bullet"><i class="ki-outline ki-profile-circle fs-2"></i></span>
                                     <span class="menu-title">Pengguna</span>
                                 </a>
@@ -155,7 +155,7 @@
                         <div class="menu-sub menu-sub-accordion">
                             <!-- Leave Requests -->
                             <div class="menu-item">
-                                <a class="menu-link" href="/admin/leaves" title="View leave requests" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <a class="menu-link" href="/admin/leaves" title="Lihat permintaan izin" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                     <span class="menu-bullet"><i class="ki-outline ki-time fs-2"></i></span>
                                     <span class="menu-title">Permintaan Izin</span>
                                 </a>
@@ -163,7 +163,7 @@
 
                             <!-- Reschedule Requests -->
                             <div class="menu-item">
-                                <a class="menu-link" href="/admin/reschedules" title="View reschedule requests" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <a class="menu-link" href="/admin/reschedules" title="Lihat permintaan reschedule" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                     <span class="menu-bullet"><i class="ki-outline ki-time fs-2"></i></span>
                                     <span class="menu-title">Permintaan Reschedule</span>
                                 </a>
@@ -177,7 +177,7 @@
                 @if(role.equals("THERAPIST"))
                     <!-- Home -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/dashboard" title="View Dashboard" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/dashboard" title="Lihat Dashboard" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-home fs-2"></i></span>
                             <span class="menu-title">Dashboard</span>
                         </a>
@@ -185,7 +185,7 @@
 
                     <!-- Schedule -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/therapist/schedule" title="View all schedules" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/therapist/schedule" title="Lihat semua jadwal" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-calendar fs-2"></i></span>
                             <span class="menu-title">Jadwal Terapi</span>
                         </a>
@@ -193,7 +193,7 @@
 
                     <!-- Sessions -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/therapist/sessions" title="View all schedules" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/therapist/sessions" title="Lihat semua jadwal" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-calendar fs-2"></i></span>
                             <span class="menu-title">Sesi Terapi</span>
                         </a>
@@ -201,7 +201,7 @@
 
                     <!-- Journals -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/therapist/journals" title="View all journals" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/therapist/journals" title="Lihat semua jurnal" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-book fs-2"></i></span>
                             <span class="menu-title">Jurnal Pasien</span>
                         </a>
@@ -209,7 +209,7 @@
 
                     <!-- Patients -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/therapist/patients" title="View all patients" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/therapist/patients" title="Lihat semua pasien" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-people fs-2"></i></span>
                             <span class="menu-title">Pasien Saya</span>
                         </a>
@@ -217,7 +217,7 @@
 
                     <!-- Checkups -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/therapist/checkups" title="View diagnosis checkups" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/therapist/checkups" title="Lihat checkup diagnosa" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-cheque fs-2"></i></span>
                             <span class="menu-title">Checkup Diagnosa</span>
                         </a>
@@ -225,14 +225,14 @@
 
                     <!-- Leave Requests -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/therapist/leave" title="Request leave" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/therapist/leave" title="Ajukan cuti" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-time fs-2"></i></span>
                             <span class="menu-title">Permohonan Cuti</span>
                         </a>
                     </div>
 
                     <div class="menu-item">
-                        <a class="menu-link" href="/profile" title="View My Profile" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/profile" title="Lihat profil saya" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-profile-circle fs-2"></i></span>
                             <span class="menu-title">Profil Saya</span>
                         </a>
@@ -243,7 +243,7 @@
                 @if(role.equals("PARENT"))
                     <!-- Home -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/dashboard" title="View Dashboard" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/dashboard" title="Lihat Dashboard" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-home fs-2"></i></span>
                             <span class="menu-title">Dashboard</span>
                         </a>
@@ -251,7 +251,7 @@
 
                     <!-- Schedule -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/parent/schedule" title="View all schedules" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/parent/schedule" title="Lihat semua jadwal" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-calendar fs-2"></i></span>
                             <span class="menu-title">Jadwal Terapi</span>
                         </a>
@@ -259,7 +259,7 @@
 
                     <!-- Journals -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/parent/journals" title="View all journals" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/parent/journals" title="Lihat semua jurnal" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-book fs-2"></i></span>
                             <span class="menu-title">Jurnal Terapi</span>
                         </a>
@@ -267,14 +267,14 @@
 
                     <!-- Children -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/parent/children" title="View all children" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/parent/children" title="Lihat semua anak" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-people fs-2"></i></span>
                             <span class="menu-title">Anak Saya</span>
                         </a>
                     </div>
 
                     <div class="menu-item">
-                        <a class="menu-link" href="/profile" title="View My Profile" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/profile" title="Lihat profil saya" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-profile-circle fs-2"></i></span>
                             <span class="menu-title">Profil Saya</span>
                         </a>
@@ -284,7 +284,7 @@
                 @if(role.equals("RECEPTIONIST"))
                     <!-- Home -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/dashboard" title="View Dashboard" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/dashboard" title="Lihat Dashboard" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-home fs-2"></i></span>
                             <span class="menu-title">Dashboard</span>
                         </a>
@@ -292,7 +292,7 @@
 
                     <!-- Schedule (read-only) -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/receptionist/schedule" title="View clinic schedule" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/receptionist/schedule" title="Lihat jadwal klinik" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-calendar fs-2"></i></span>
                             <span class="menu-title">Jadwal Klinik</span>
                         </a>
@@ -300,7 +300,7 @@
 
                     <!-- Parents -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/receptionist/parents" title="View all parents" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/receptionist/parents" title="Lihat semua wali pasien" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-user fs-2"></i></span>
                             <span class="menu-title">Wali Pasien</span>
                         </a>
@@ -308,7 +308,7 @@
 
                     <!-- Patients -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/receptionist/patients" title="View all patients" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/receptionist/patients" title="Lihat semua pasien" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-people fs-2"></i></span>
                             <span class="menu-title">Pasien</span>
                         </a>
@@ -316,7 +316,7 @@
 
                     <!-- Checkups -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/receptionist/checkups" title="View diagnosis checkups" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/receptionist/checkups" title="Lihat checkup diagnosa" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-cheque fs-2"></i></span>
                             <span class="menu-title">Checkup Diagnosa</span>
                         </a>
@@ -324,7 +324,7 @@
 
                     <!-- Packages -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/receptionist/packages" title="View all packages" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/receptionist/packages" title="Lihat semua paket" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-parcel fs-2"></i></span>
                             <span class="menu-title">Paket Terapi</span>
                         </a>
@@ -332,7 +332,7 @@
 
                     <!-- Leave Requests -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/receptionist/leaves" title="View leave requests" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/receptionist/leaves" title="Lihat permintaan izin" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-time fs-2"></i></span>
                             <span class="menu-title">Permintaan Izin</span>
                         </a>
@@ -340,7 +340,7 @@
 
                     <!-- Reschedule Requests -->
                     <div class="menu-item">
-                        <a class="menu-link" href="/receptionist/reschedules" title="View reschedule requests" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                        <a class="menu-link" href="/receptionist/reschedules" title="Lihat permintaan reschedule" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                             <span class="menu-bullet"><i class="ki-outline ki-time fs-2"></i></span>
                             <span class="menu-title">Permintaan Reschedule</span>
                         </a>

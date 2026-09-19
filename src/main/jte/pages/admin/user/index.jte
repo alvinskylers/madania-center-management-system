@@ -27,13 +27,13 @@ content = @`
     @if(success != null)
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>${success}</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
         </div>
     @endif
     @if(error != null)
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>${error}</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
         </div>
     @endif
 
@@ -153,7 +153,7 @@ content = @`
                             <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
                                 <th class="min-w-125px">Nama</th>
                                 <th class="min-w-125px">Email</th>
-                                <th class="min-w-125px">Role</th>
+                                <th class="min-w-125px">Peran</th>
                                 <th class="min-w-125px">Status</th>
                                 <th class="min-w-125px">Tanggal Dibuat</th>
                                 <th class="text-end min-w-70px">Tindakan</th>

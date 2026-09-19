@@ -14,7 +14,7 @@
     <!--begin::Header container-->
     <div class="app-container container-fluid d-flex align-items-stretch flex-stack" id="kt_app_header_container">
         <!--begin::Sidebar toggle-->
-        <div class="d-flex align-items-center d-block d-lg-none ms-n3" title="Show sidebar menu">
+        <div class="d-flex align-items-center d-block d-lg-none ms-n3" title="Tampilkan menu sidebar">
             <div class="btn btn-icon btn-active-color-primary w-35px h-35px me-2" id="kt_app_sidebar_mobile_toggle">
                 <i class="ki-outline ki-abstract-14 fs-2"></i>
             </div>
@@ -155,7 +155,7 @@
                         <form action="/logout" method="post">
                             <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
                             <button type="submit" class="btn menu-link px-5 border-0 w-100 text-start">
-                                 <span class="menu-title position-relative">Logout
+                                 <span class="menu-title position-relative">Keluar
                                     <span class="ms-5 position-absolute translate-middle-y top-50 end-0">
                                         <i class="ki-outline ki-exit-left theme-light-show fs-2"></i>
                                     </span>

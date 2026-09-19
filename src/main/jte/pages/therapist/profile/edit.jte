@@ -34,7 +34,7 @@ content = @`
                         <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
                         <li class="breadcrumb-item text-muted"><a href="/profile" class="text-muted text-hover-primary">Profil Saya</a></li>
                         <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
-                        <li class="breadcrumb-item text-muted">Edit</li>
+                        <li class="breadcrumb-item text-muted">Ubah</li>
                     </ul>
                 </div>
                 <div class="align-items-center">
@@ -56,7 +56,7 @@ content = @`
                     @for(var error : bindingResult.getAllErrors())
                         <span>${error.getDefaultMessage()}</span>
                     @endfor
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
                 </div>
             @endif
 

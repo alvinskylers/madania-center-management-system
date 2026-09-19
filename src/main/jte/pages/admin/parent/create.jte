@@ -20,7 +20,7 @@ _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,
 content = @`
-    <h1>Add Parent</h1>
+    <h1>Tambah Wali Pasien</h1>
 
     @if(bindingResult != null && bindingResult.hasErrors())
         <div class="alert alert-danger">

@@ -52,11 +52,11 @@ content = @`
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
                     @if(status.equals("ACTIVE"))
                         <button type="button" class="btn btn-light-primary" id="kt_package_reassign_btn"
-                                data-bs-toggle="tooltip" title="Reassign the therapist for remaining sessions">
+                                data-bs-toggle="tooltip" title="Alihkan terapis untuk sesi yang tersisa">
                             <i class="ki-outline ki-arrow-right-left fs-4"></i>Alihkan Terapis
                         </button>
                         <button type="button" class="btn btn-light-danger" id="kt_package_cancel_btn"
-                                data-bs-toggle="tooltip" title="Cancel this package">
+                                data-bs-toggle="tooltip" title="Batalkan paket ini">
                             <i class="ki-outline ki-cross-circle fs-4"></i>Batalkan Paket
                         </button>
                     @endif
@@ -74,13 +74,13 @@ content = @`
             @if(success != null)
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>${success}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
                 </div>
             @endif
             @if(error != null)
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>${error}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
                 </div>
             @endif
 

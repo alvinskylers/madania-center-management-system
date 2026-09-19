@@ -67,7 +67,7 @@ public class TherapistService {
         User therapistUser = getUserByTherapistId(therapistId);
 
         if (!therapistUser.getEmail().equals(email) && userRepository.existsByEmail(email)) {
-            throw new RuntimeException("Email already in use: " + email);
+            throw new RuntimeException("Email sudah digunakan: " + email);
         }
 
         therapistUser.setName(fullName);
@@ -86,7 +86,7 @@ public class TherapistService {
         User therapistUser = getUserByTherapistId(id);
 
         if (therapist.getUser().isActive()) {
-           throw new RuntimeException("user is still active, please disable this user first");
+           throw new RuntimeException("pengguna masih aktif, nonaktifkan pengguna ini terlebih dahulu");
         }
 
         therapistRepository.delete(therapist);
@@ -97,10 +97,10 @@ public class TherapistService {
     public void updateProfile(UUID userId, String fullName, String email,
                               String phone, String specialization) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("Pengguna tidak ditemukan"));
 
         if (!user.getEmail().equals(email) && userRepository.existsByEmail(email)) {
-            throw new RuntimeException("Email already in use");
+            throw new RuntimeException("Email sudah digunakan");
         }
 
         user.setName(fullName);
@@ -108,7 +108,7 @@ public class TherapistService {
         userRepository.save(user);
 
         Therapist therapist = therapistRepository.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("Therapist profile not found"));
+                .orElseThrow(() -> new RuntimeException("Profil terapis tidak ditemukan"));
 
         therapist.setFullName(fullName);
         therapist.setPhone(phone);
@@ -118,12 +118,12 @@ public class TherapistService {
 
     public Therapist getTherapistById(UUID id) {
         return therapistRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Therapist profile not found for user id: " + id));
+                .orElseThrow(() -> new RuntimeException("Profil terapis tidak ditemukan untuk id pengguna: " + id));
     }
 
     public Therapist getTherapistByUserId(UUID id) {
         return therapistRepository.findByUserId(id)
-                .orElseThrow(() -> new RuntimeException("Therapist profile not found for user id: " + id));
+                .orElseThrow(() -> new RuntimeException("Profil terapis tidak ditemukan untuk id pengguna: " + id));
     }
 
     public User getUserByTherapistId(UUID id) {

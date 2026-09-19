@@ -43,7 +43,7 @@ public class RescheduleService {
 
     public RescheduleRequest getRescheduleRequestById(UUID id) {
         return rescheduleRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Request schedule not found: " + id));
+                .orElseThrow(()-> new RuntimeException("Permohonan penjadwalan ulang tidak ditemukan: " + id));
     }
 
     public List<RescheduleRequest> getAllRequests() {
@@ -55,21 +55,21 @@ public class RescheduleService {
                                            LocalDateTime requestedStartTime, String reason, String notes) {
 
         TherapySession session = sessionRepository.findById(sessionId)
-                .orElseThrow(() -> new RuntimeException("session not found: " + sessionId));
+                .orElseThrow(() -> new RuntimeException("sesi tidak ditemukan: " + sessionId));
 
         if (session.getStatus() != SessionStatus.SCHEDULED) {
-            throw new RuntimeException("Only a scheduled session can be rescheduled. Current session status: " + session.getStatus() );
+            throw new RuntimeException("Hanya sesi berstatus terjadwal yang dapat dijadwalkan ulang. Status sesi saat ini: " + session.getStatus() );
         }
 
         boolean rescheduleAlreadyPending = rescheduleRepository.findBySessionId(sessionId).stream()
                 .anyMatch(r -> r.getStatus() == RescheduleStatus.PENDING);
 
         if (rescheduleAlreadyPending) {
-            throw new RuntimeException("This session already has a pending reschedule request");
+            throw new RuntimeException("Sesi ini sudah memiliki permohonan penjadwalan ulang yang tertunda");
         }
 
         User requestedBy = userRepository.findById(requestedByUserId)
-                .orElseThrow(() -> new RuntimeException("User not found: " + requestedByUserId));
+                .orElseThrow(() -> new RuntimeException("Pengguna tidak ditemukan: " + requestedByUserId));
 
         LocalDateTime requestedEndtime = requestedStartTime.plusHours(1);
         sessionService.validateWithinOperatingHours(requestedStartTime.toLocalTime(), requestedEndtime.toLocalTime());
@@ -86,8 +86,8 @@ public class RescheduleService {
         RescheduleRequest saved = rescheduleRepository.save(request);
 
         List<User> admins = userRepository.findByRole(Role.ADMIN);
-        String message = requestedBy.getName() + " requested to reschedule a session on "
-                + session.getStartTime().format(NOTIFICATION_DATE_FORMAT) + " to " + requestedStartTime.format(NOTIFICATION_DATE_FORMAT);
+        String message = requestedBy.getName() + " mengajukan penjadwalan ulang sesi pada "
+                + session.getStartTime().format(NOTIFICATION_DATE_FORMAT) + " ke " + requestedStartTime.format(NOTIFICATION_DATE_FORMAT);
         admins.forEach(admin -> notificationService.notify(admin, NotificationType.RESCHEDULE_REQUESTED, message, session));
 
         return saved;
@@ -96,10 +96,10 @@ public class RescheduleService {
     @Transactional
     public RescheduleRequest approveRequest(UUID requestId, String adminNotes) {
         RescheduleRequest request = rescheduleRepository.findById(requestId)
-                .orElseThrow(() -> new RuntimeException("Reschedule request not found: " + requestId));
+                .orElseThrow(() -> new RuntimeException("Permohonan penjadwalan ulang tidak ditemukan: " + requestId));
 
         if (request.getStatus() != RescheduleStatus.PENDING) {
-            throw new RuntimeException("Only a pending request can be approved. Current status: " + request.getStatus());
+            throw new RuntimeException("Hanya permohonan berstatus tertunda yang dapat disetujui. Status saat ini: " + request.getStatus());
         }
 
         TherapySession oldSession = request.getSession();
@@ -123,7 +123,7 @@ public class RescheduleService {
 
         oldSession.setStatus(SessionStatus.RESCHEDULED);
         oldSession.setCancellationReason(
-                "Rescheduled" + (request.getReason() != null ? ": " + request.getReason() : "")
+                "Dijadwalkan ulang" + (request.getReason() != null ? ": " + request.getReason() : "")
         );
         oldSession.setRescheduledTo(newSession);
         request.setStatus(RescheduleStatus.APPROVED);
@@ -132,7 +132,7 @@ public class RescheduleService {
         User parentUser = oldSession.getPatient().getParent().getUser();
         User therapistUser = oldSession.getTherapist().getUser();
 
-        String approvedMessage = "Session on " + oldSession.getStartTime().format(NOTIFICATION_DATE_FORMAT) + " has been rescheduled to " + newStart.format(NOTIFICATION_DATE_FORMAT);
+        String approvedMessage = "Sesi pada " + oldSession.getStartTime().format(NOTIFICATION_DATE_FORMAT) + " telah dijadwalkan ulang ke " + newStart.format(NOTIFICATION_DATE_FORMAT);
         notificationService.notify(parentUser, NotificationType.RESCHEDULE_APPROVED, approvedMessage, newSession);
         notificationService.notify(therapistUser, NotificationType.RESCHEDULE_APPROVED, approvedMessage, newSession);
 
@@ -142,18 +142,18 @@ public class RescheduleService {
     @Transactional
     public RescheduleRequest rejectRequest(UUID requestId, String adminNotes) {
         RescheduleRequest request = rescheduleRepository.findById(requestId)
-                .orElseThrow(() -> new RuntimeException("Reschedule request not found: " + requestId));
+                .orElseThrow(() -> new RuntimeException("Permohonan penjadwalan ulang tidak ditemukan: " + requestId));
 
         if (request.getStatus() != RescheduleStatus.PENDING) {
-            throw new RuntimeException("Only a pending request can be rejected. Current status: " + request.getStatus());
+            throw new RuntimeException("Hanya permohonan berstatus tertunda yang dapat ditolak. Status saat ini: " + request.getStatus());
         }
 
         request.setStatus(RescheduleStatus.REJECTED);
         request.setAdminNotes(adminNotes);
 
-        String rejectedMessage = "Your reschedule request for the session on "
-                + request.getSession().getStartTime().format(NOTIFICATION_DATE_FORMAT) + " was rejected."
-                + (adminNotes != null ? " Note: " + adminNotes : "");
+        String rejectedMessage = "Permohonan penjadwalan ulang Anda untuk sesi pada "
+                + request.getSession().getStartTime().format(NOTIFICATION_DATE_FORMAT) + " telah ditolak."
+                + (adminNotes != null ? " Catatan: " + adminNotes : "");
         notificationService.notify(request.getRequestedBy(), NotificationType.RESCHEDULE_REJECTED, rejectedMessage, request.getSession());
 
         return rescheduleRepository.save(request);

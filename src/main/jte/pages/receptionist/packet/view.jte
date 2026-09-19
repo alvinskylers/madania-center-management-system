@@ -248,7 +248,7 @@ content = @`
                         <div class="row g-4 mb-4">
                             <div class="col-md-7">
                                 <label class="form-label fw-bold">Terapis Baru</label>
-                                <select class="form-select" id="reassign_new_therapist">
+                                <select class="form-select" id="reassign_new_therapist" data-control="select2" data-width="100%" data-dropdown-parent="#kt_package_reassign_modal">
                                     <option value="">-- Pilih terapis --</option>
                                     @for(Therapist t : therapists)
                                         @if(!t.getId().equals(therapyPackage.getTherapist().getId()))
@@ -392,7 +392,7 @@ content = @`
             }
 
             checkBtn.addEventListener("click", runCheck);
-            therapistSelect.addEventListener("change", function () {
+            $(therapistSelect).on("change", function () {
                 overrides = {};
                 sessionsArea.innerHTML = "";
                 confirmBtn.disabled = true;

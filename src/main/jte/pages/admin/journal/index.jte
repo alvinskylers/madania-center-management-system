@@ -47,50 +47,56 @@ content = @`
             <div class="card">
                 <div class="card-header border-0 pt-6">
                     <div class="card-title">
-                        <form action="/admin/journals" method="get" class="d-flex flex-wrap align-items-center gap-3">
+                        <form action="/admin/journals" method="get" class="d-flex flex-wrap align-items-end gap-3">
                             <input type="hidden" name="page" value="0" />
 
-                            <!-- Therapist filter (SEARCHABLE) -->
-                            <select name="therapistId"
-                                    class="form-select form-select-solid w-200px tom-select"
-                                    onchange="this.form.submit()"
-                                    data-placeholder="Cari terapis...">
-                                <option value="">Pilih Terapis</option>
-                                @for(Therapist t : therapists)
-                                    @if(selectedTherapistId != null && selectedTherapistId.equals(t.getId()))
-                                        <option value="${String.valueOf(t.getId())}" selected>${t.getFullName()}</option>
-                                    @else
-                                        <option value="${String.valueOf(t.getId())}">${t.getFullName()}</option>
-                                    @endif
-                                @endfor
-                            </select>
+                            <!-- Therapist filter (searchable) -->
+                            <div class="w-200px">
+                                <label class="fs-8 text-muted mb-1 d-block">Terapis</label>
+                                <select name="therapistId"
+                                        class="form-select form-select-solid"
+                                        onchange="this.form.submit()"
+                                        data-control="select2"
+                                        data-width="200px">
+                                    <option value="">Pilih Terapis</option>
+                                    @for(Therapist t : therapists)
+                                        @if(selectedTherapistId != null && selectedTherapistId.equals(t.getId()))
+                                            <option value="${String.valueOf(t.getId())}" selected>${t.getFullName()}</option>
+                                        @else
+                                            <option value="${String.valueOf(t.getId())}">${t.getFullName()}</option>
+                                        @endif
+                                    @endfor
+                                </select>
+                            </div>
 
-                            <!-- Patient filter (SEARCHABLE) -->
-                            <select name="patientId"
-                                    class="form-select form-select-solid w-200px tom-select"
-                                    onchange="this.form.submit()"
-                                    data-placeholder="Cari anak...">
-                                <option value="">Pilih Pasien</option>
-                                @for(Patient p : patients)
-                                    @if(selectedPatientId != null && selectedPatientId.equals(p.getId()))
-                                        <option value="${String.valueOf(p.getId())}" selected>${p.getFullName()}</option>
-                                    @else
-                                        <option value="${String.valueOf(p.getId())}">${p.getFullName()}</option>
-                                    @endif
-                                @endfor
-                            </select>
+                            <!-- Patient filter (searchable) -->
+                            <div class="w-200px">
+                                <label class="fs-8 text-muted mb-1 d-block">Pasien</label>
+                                <select name="patientId"
+                                        class="form-select form-select-solid"
+                                        onchange="this.form.submit()"
+                                        data-control="select2"
+                                        data-width="200px">
+                                    <option value="">Pilih Pasien</option>
+                                    @for(Patient p : patients)
+                                        @if(selectedPatientId != null && selectedPatientId.equals(p.getId()))
+                                            <option value="${String.valueOf(p.getId())}" selected>${p.getFullName()}</option>
+                                        @else
+                                            <option value="${String.valueOf(p.getId())}">${p.getFullName()}</option>
+                                        @endif
+                                    @endfor
+                                </select>
+                            </div>
 
-                            <!-- Session filter (REGULAR DROPDOWN - left as requested) -->
-                            <select name="sessionNumber" class="form-select form-select-solid w-150px" onchange="this.form.submit()">
-                                <option value="">Pilih No Sesi</option>
-                                @for(Integer n : sessionNumbers)
-                                    @if(selectedSessionNumber != null && selectedSessionNumber.equals(n))
-                                        <option value="${n}" selected>Session ${n}</option>
-                                    @else
-                                        <option value="${n}">Session ${n}</option>
-                                    @endif
-                                @endfor
-                            </select>
+                            <!-- Session number filter (integers only) -->
+                            <div class="w-150px">
+                                <label class="fs-8 text-muted mb-1 d-block">No Sesi</label>
+                                <input type="text" name="sessionNumber" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off"
+                                       class="form-control form-control-solid" placeholder="Pilih No Sesi"
+                                       value="${selectedSessionNumber != null ? String.valueOf(selectedSessionNumber) : ""}"
+                                       oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                       onchange="this.form.submit()" />
+                            </div>
 
                             @if(selectedTherapistId != null || selectedPatientId != null || selectedSessionNumber != null)
                                 <a href="/admin/journals" class="btn btn-light-danger btn-sm">Kosongkan Filter</a>

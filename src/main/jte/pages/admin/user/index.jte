@@ -92,7 +92,7 @@ content = @`
                                 <input type="hidden" name="page" value="0" />
                                 <button type="submit" class="btn btn-light-primary me-3 gap-3">Cari</button>
 
-                                <select name="role" class="form-select form-select-solid w-150px" onchange="this.form.submit()">
+                                <select name="role" class="form-select form-select-solid w-150px" onchange="this.form.submit()" data-control="select2" data-width="150px" data-hide-search="true">
                                     <option value="">Semua Role</option>
                                     @for(Role r : Role.values())
                                         <option value="${r.name()}" selected="${roleFilter != null && roleFilter.equals(r.name())}">

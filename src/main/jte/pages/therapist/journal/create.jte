@@ -133,7 +133,7 @@ content = @`
                                 <div class="row mb-6">
                                     <label class="col-lg-3 col-form-label required fw-semibold fs-6">Jenis Terapi</label>
                                     <div class="col-lg-9">
-                                        <select name="therapyType" class="form-select form-select-solid" required>
+                                        <select name="therapyType" class="form-select form-select-solid" required data-control="select2" data-width="100%" data-hide-search="true">
                                             <option value="">Pilih jenis</option>
                                             @for(TherapyType type : therapyTypes)
                                                 <option value="${type.name()}">${type.name()}</option>

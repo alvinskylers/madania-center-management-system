@@ -77,7 +77,7 @@ content = @`
                         <!--begin::Patient filter-->
                         <div class="col-sm-6 col-lg-4">
                             <label class="form-label fs-7 fw-semibold text-gray-700 mb-1">Pasien</label>
-                            <select name="patientId" class="form-select form-select-sm">
+                            <select name="patientId" class="form-select form-select-sm" data-control="select2" data-width="100%">
                                 <option value="">Semua Pasien</option>
                                 @for(Patient patient : patients)
                                     @if(patientIdStr.equals(String.valueOf(patient.getId())))

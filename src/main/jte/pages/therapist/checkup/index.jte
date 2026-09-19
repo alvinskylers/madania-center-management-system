@@ -45,7 +45,7 @@ content = @`
                 <div class="d-flex flex-wrap align-items-center my-1">
                     <h1 class="page-heading text-gray-900 fw-bold fs-3 m-0 me-5">Checkup Diagnosa Saya</h1>
                     <form method="GET" action="/therapist/checkups" class="d-flex align-items-center flex-wrap gap-2 my-1">
-                        <select name="status" class="form-select form-select-sm border-body bg-body w-150px" onchange="this.form.submit()">
+                        <select name="status" class="form-select form-select-sm border-body bg-body w-150px" onchange="this.form.submit()" data-control="select2" data-width="150px" data-hide-search="true">
                             <option value="">Semua Status</option>
                             @for(CheckupStatus s : CheckupStatus.values())
                                 @if(statusValue.equals(s.name()))

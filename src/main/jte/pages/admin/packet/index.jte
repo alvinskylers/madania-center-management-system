@@ -77,7 +77,7 @@ content = @`
                         <!--begin::Therapist filter-->
                         <div class="col-sm-6 col-lg-3">
                             <label class="form-label fs-7 fw-semibold text-gray-700 mb-1">Terapis</label>
-                            <select name="therapistId" class="form-select form-select-sm">
+                            <select name="therapistId" class="form-select form-select-sm" data-control="select2" data-width="100%">
                                 <option value="">Semua terapis</option>
                                 @for(Therapist therapist : therapists)
                                     @if(therapistIdStr.equals(String.valueOf(therapist.getId())))
@@ -93,7 +93,7 @@ content = @`
                         <!--begin::Patient filter-->
                         <div class="col-sm-6 col-lg-3">
                             <label class="form-label fs-7 fw-semibold text-gray-700 mb-1">Pasien</label>
-                            <select name="patientId" class="form-select form-select-sm">
+                            <select name="patientId" class="form-select form-select-sm" data-control="select2" data-width="100%">
                                 <option value="">Semua pasien</option>
                                 @for(Patient patient : patients)
                                     @if(patientIdStr.equals(String.valueOf(patient.getId())))

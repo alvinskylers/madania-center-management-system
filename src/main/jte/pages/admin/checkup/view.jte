@@ -176,7 +176,7 @@ content = @`
                                         <label class="fs-6 fw-semibold form-label mt-3">
                                             <span class="required">Apakah wali ingin melanjutkan ke terapi?</span>
                                         </label>
-                                        <select class="form-select form-select-solid" name="parentDecision" required>
+                                        <select class="form-select form-select-solid" name="parentDecision" required data-control="select2" data-width="100%" data-hide-search="true">
                                             <option value="">Pilih keputusan wali</option>
                                             @for(ParentDecision d : ParentDecision.values())
                                                 @if(!d.name().equals("PENDING"))

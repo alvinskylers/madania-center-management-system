@@ -68,7 +68,7 @@ content = @`
                                         <label class="fs-6 fw-semibold form-label mt-3">
                                             <span class="required">Wali Pasien</span>
                                         </label>
-                                        <select class="form-control form-control-solid" name="parentId">
+                                        <select class="form-select form-select-solid" name="parentId" data-control="select2" data-width="100%">
                                             <option value="">Pilih wali pasien</option>
                                             @for(Parent parent : parents)
                                                 <option value="${String.valueOf(parent.getId())}">${parent.getFullName()}</option>
@@ -93,7 +93,7 @@ content = @`
                                         <label class="fs-6 fw-semibold form-label mt-3">
                                             <span>Jenis Kelamin</span>
                                         </label>
-                                        <select class="form-control form-control-solid" name="gender">
+                                        <select class="form-select form-select-solid" name="gender" data-control="select2" data-width="100%" data-hide-search="true">
                                             <option value="">Pilih jenis kelamin</option>
                                             <option value="${Gender.MALE}">Male</option>
                                             <option value="${Gender.FEMALE}">Female</option>

@@ -55,12 +55,12 @@ content = @`
                         <form action="/therapist/journals" method="get" class="d-flex flex-wrap align-items-end gap-3 w-100">
                             <input type="hidden" name="page" value="0" />
 
-                            <div>
+                            <div class="w-200px">
                                 <label class="fs-8 text-muted mb-1 d-block">Pasien</label>
                                 <select name="patientId"
-                                        class="form-select form-select-solid w-200px tom-select"
+                                        class="form-select form-select-solid w-200px"
                                         onchange="this.form.submit()"
-                                        data-placeholder="Cari pasien...">
+                                        data-control="select2" data-width="200px">
                                     <option value="">Semua Pasien</option>
                                     @for(Patient p : patients)
                                         @if(selectedPatientId != null && selectedPatientId.equals(p.getId()))
@@ -72,18 +72,13 @@ content = @`
                                 </select>
                             </div>
 
-                            <div>
+                            <div class="w-150px">
                                 <label class="fs-8 text-muted mb-1 d-block">No Sesi</label>
-                                <select name="sessionNumber" class="form-select form-select-solid w-150px" onchange="this.form.submit()">
-                                    <option value="">Semua Sesi</option>
-                                    @for(Integer n : sessionNumbers)
-                                        @if(selectedSessionNumber != null && selectedSessionNumber.equals(n))
-                                            <option value="${n}" selected>Session ${n}</option>
-                                        @else
-                                            <option value="${n}">Session ${n}</option>
-                                        @endif
-                                    @endfor
-                                </select>
+                                <input type="text" name="sessionNumber" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off"
+                                       class="form-control form-control-solid" placeholder="Semua Sesi"
+                                       value="${selectedSessionNumber != null ? String.valueOf(selectedSessionNumber) : ""}"
+                                       oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                       onchange="this.form.submit()" />
                             </div>
 
                             <div>

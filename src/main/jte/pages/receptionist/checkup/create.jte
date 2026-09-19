@@ -91,7 +91,7 @@ content = @`
                                             <label class="fs-6 fw-semibold form-label mt-3">
                                                 <span class="required">Pasien</span>
                                             </label>
-                                            <select class="form-select form-select-solid" name="patientId" required>
+                                            <select class="form-select form-select-solid" name="patientId" required data-control="select2" data-width="100%">
                                                 <option value="">Pilih pasien</option>
                                                 @for(Patient patient : patients)
                                                     @if(selectedPatientId.equals(String.valueOf(patient.getId())))
@@ -108,7 +108,7 @@ content = @`
                                             <label class="fs-6 fw-semibold form-label mt-3">
                                                 <span class="required">Terapis</span>
                                             </label>
-                                            <select class="form-select form-select-solid" name="therapistId" required>
+                                            <select class="form-select form-select-solid" name="therapistId" required data-control="select2" data-width="100%">
                                                 <option value="">Pilih terapis</option>
                                                 @for(Therapist therapist : therapists)
                                                     @if(selectedTherapistId.equals(String.valueOf(therapist.getId())))

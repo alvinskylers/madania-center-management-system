@@ -119,7 +119,7 @@ content = @`
                                             <i class="ki-outline ki-information fs-7"></i>
                                         </span>
                                     </label>
-                                    <select class="form-select form-select-solid" name="packageTypeId" id="kt_package_type_select" required>
+                                    <select class="form-select form-select-solid" name="packageTypeId" id="kt_package_type_select" required data-control="select2" data-width="100%">
                                         <option value="">Pilih jenis paket</option>
                                         @for(PackageType type : packageTypes)
                                             @if(selectedPackageTypeId.equals(String.valueOf(type.getId())))
@@ -147,7 +147,7 @@ content = @`
                                                     <i class="ki-outline ki-information fs-7"></i>
                                                 </span>
                                             </label>
-                                            <select class="form-select form-select-solid" name="patientId" required>
+                                            <select class="form-select form-select-solid" name="patientId" required data-control="select2" data-width="100%">
                                                 <option value="">Pilih pasien</option>
                                                 @for(Patient patient : patients)
                                                     @if(selectedPatientId.equals(String.valueOf(patient.getId())))
@@ -167,7 +167,7 @@ content = @`
                                                     <i class="ki-outline ki-information fs-7"></i>
                                                 </span>
                                             </label>
-                                            <select class="form-select form-select-solid" name="therapistId" required>
+                                            <select class="form-select form-select-solid" name="therapistId" required data-control="select2" data-width="100%">
                                                 <option value="">Pilih terapis</option>
                                                 @for(Therapist therapist : therapists)
                                                     @if(selectedTherapistId.equals(String.valueOf(therapist.getId())))
@@ -337,7 +337,7 @@ content = @`
             // Changing the package type changes how many days are required, so
             // clear the current day selection rather than leaving a stale, possibly
             // now-invalid combination checked.
-            packageTypeSelect.addEventListener("change", function () {
+            $(packageTypeSelect).on("change", function () {
                 checkboxes.forEach(function (cb) { cb.checked = false; });
                 updateCount();
             });

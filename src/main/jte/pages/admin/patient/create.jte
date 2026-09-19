@@ -69,7 +69,7 @@ content = @`
                                                 <i class="ki-outline ki-information fs-7"></i>
                                             </span>
                                         </label>
-                                        <select class="form-control form-control-solid" name="parentId">
+                                        <select class="form-select form-select-solid" name="parentId" data-control="select2" data-width="100%">
                                             <option value="">Pilih wali pasien</option>
                                             @for(Parent parent : parents)
                                                 <option value="${String.valueOf(parent.getId())}">${parent.getFullName()}</option>
@@ -100,7 +100,7 @@ content = @`
                                             <i class="ki-outline ki-information fs-7"></i>
                                         </span>
                                         </label>
-                                        <select class="form-control form-control-solid" name="gender">
+                                        <select class="form-select form-select-solid" name="gender" data-control="select2" data-width="100%" data-hide-search="true">
                                             <option value="">Pilih jenis kelamin pasien</option>
                                             <option value="${Gender.MALE}">Male</option>
                                             <option value="${Gender.FEMALE}">Female</option>

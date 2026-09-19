@@ -85,7 +85,7 @@ content = @`
                                         <label class="fs-6 fw-semibold form-label mt-3">
                                             <span class="required">Tanggal Lahir</span>
                                         </label>
-                                        <input type="date" class="form-control form-control-solid" name="dateOfBirth" />
+                                        <input type="text" data-picker="date" class="form-control form-control-solid" name="dateOfBirth" />
                                     </div>
                                 </div>
                                 <div class="col">

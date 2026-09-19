@@ -131,7 +131,7 @@ content = @`
                                             <label class="fs-6 fw-semibold form-label mt-3">
                                                 <span class="required">Tanggal Mulai</span>
                                             </label>
-                                            <input type="date" id="kt_leave_start_date" class="form-control form-control-solid" name="startDate" required/>
+                                            <input type="text" data-picker="date" id="kt_leave_start_date" class="form-control form-control-solid" name="startDate" required/>
                                         </div>
                                     </div>
                                     <div class="col">
@@ -139,7 +139,7 @@ content = @`
                                             <label class="fs-6 fw-semibold form-label mt-3">
                                                 <span class="required">Tanggal Akhir</span>
                                             </label>
-                                            <input type="date" id="kt_leave_end_date" class="form-control form-control-solid" name="endDate" required/>
+                                            <input type="text" data-picker="date" id="kt_leave_end_date" class="form-control form-control-solid" name="endDate" required/>
                                         </div>
                                     </div>
                                 </div>
@@ -249,17 +249,21 @@ content = @`
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            var startInput = document.getElementById("kt_leave_start_date");
-            var endInput = document.getElementById("kt_leave_end_date");
-            var today = new Date().toISOString().split("T")[0];
+            var startFp = document.getElementById("kt_leave_start_date")._flatpickr;
+            var endFp = document.getElementById("kt_leave_end_date")._flatpickr;
 
-            startInput.setAttribute("min", today);
-            endInput.setAttribute("min", today);
+            startFp.set("minDate", "today");
+            endFp.set("minDate", "today");
 
-            startInput.addEventListener("change", function () {
-                endInput.setAttribute("min", startInput.value);
-                if (endInput.value && endInput.value < startInput.value) {
-                    endInput.value = startInput.value;
+            // End date can never be before the start date.
+            startFp.config.onChange.push(function (selectedDates, dateStr) {
+                if (!dateStr) {
+                    endFp.set("minDate", "today");
+                    return;
+                }
+                endFp.set("minDate", dateStr);
+                if (endFp.input.value && endFp.input.value < dateStr) {
+                    endFp.setDate(dateStr, true);
                 }
             });
         });

@@ -89,7 +89,7 @@ content = @`
                                             <i class="ki-outline ki-information fs-7"></i>
                                         </span>
                                         </label>
-                                        <input type="date" class="form-control form-control-solid" name="dateOfBirth" />
+                                        <input type="text" data-picker="date" class="form-control form-control-solid" name="dateOfBirth" />
                                     </div>
                                 </div>
                                 <div class="col">

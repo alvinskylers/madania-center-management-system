@@ -204,7 +204,7 @@ content = @`
                                                     <i class="ki-outline ki-information fs-7"></i>
                                                 </span>
                                             </label>
-                                            <input type="date" class="form-control form-control-solid" name="startDate"
+                                            <input type="text" data-picker="date" class="form-control form-control-solid" name="startDate"
                                                    value="${request.getStartDate() != null ? request.getStartDate().toString() : ""}" required/>
                                         </div>
                                     </div>
@@ -216,7 +216,7 @@ content = @`
                                                     <i class="ki-outline ki-information fs-7"></i>
                                                 </span>
                                             </label>
-                                            <input type="time" class="form-control form-control-solid" name="preferredTime"
+                                            <input type="text" data-picker="time" class="form-control form-control-solid" name="preferredTime"
                                                    value="${request.getPreferredTime() != null ? request.getPreferredTime().toString() : ""}" required/>
                                         </div>
                                     </div>

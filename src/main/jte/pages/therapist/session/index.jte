@@ -93,14 +93,14 @@ content = @`
                         <!--begin::Date From-->
                         <div class="col-sm-6 col-lg-3">
                             <label class="form-label fs-7 fw-semibold text-gray-700 mb-1">Tanggal Batas Awal</label>
-                            <input type="date" name="dateFrom" class="form-control form-control-sm" value="${dateFromStr}"/>
+                            <input type="text" data-picker="date" name="dateFrom" class="form-control form-control-sm" value="${dateFromStr}"/>
                         </div>
                         <!--end::Date From-->
 
                         <!--begin::Date To-->
                         <div class="col-sm-6 col-lg-3">
                             <label class="form-label fs-7 fw-semibold text-gray-700 mb-1">Tanggal Batas Akhir</label>
-                            <input type="date" name="dateTo" class="form-control form-control-sm" value="${dateToStr}"/>
+                            <input type="text" data-picker="date" name="dateTo" class="form-control form-control-sm" value="${dateToStr}"/>
                         </div>
                         <!--end::Date To-->
 

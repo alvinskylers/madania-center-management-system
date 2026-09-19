@@ -83,13 +83,13 @@ content = @`
 
                             <div>
                                 <label class="fs-8 text-muted mb-1 d-block">Tanggal Batas Awal</label>
-                                <input type="date" name="startDate" class="form-control form-control-solid w-150px"
+                                <input type="text" data-picker="date" name="startDate" class="form-control form-control-solid w-150px"
                                        value="${selectedStartDate != null ? selectedStartDate.toString() : ""}" />
                             </div>
 
                             <div>
                                 <label class="fs-8 text-muted mb-1 d-block">Tanggal Batas Akhir</label>
-                                <input type="date" name="endDate" class="form-control form-control-solid w-150px"
+                                <input type="text" data-picker="date" name="endDate" class="form-control form-control-solid w-150px"
                                        value="${selectedEndDate != null ? selectedEndDate.toString() : ""}" />
                             </div>
 

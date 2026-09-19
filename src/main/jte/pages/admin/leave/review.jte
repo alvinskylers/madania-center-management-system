@@ -207,7 +207,7 @@ content = @`
                                                 <td>${entry.getKey().getSessionNumber()}</td>
                                                 <td class="text-muted">${entry.getKey().getStartTime().toString()}</td>
                                                 <td>
-                                                    <input type="datetime-local" class="form-control form-control-solid"
+                                                    <input type="text" data-picker="datetime" class="form-control form-control-solid"
                                                            name="sessionTime_${String.valueOf(entry.getKey().getId())}"
                                                            value="${entry.getValue() != null ? entry.getValue().toString() : ""}"
                                                            required>

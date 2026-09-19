@@ -128,7 +128,7 @@ content = @`
                                             <label class="fs-6 fw-semibold form-label mt-3">
                                                 <span class="required">Tanggal</span>
                                             </label>
-                                            <input type="date" class="form-control form-control-solid" name="date"
+                                            <input type="text" data-picker="date" class="form-control form-control-solid" name="date"
                                                    value="${request.getDate() != null ? request.getDate().toString() : ""}" required/>
                                         </div>
                                     </div>
@@ -140,7 +140,7 @@ content = @`
                                                     <i class="ki-outline ki-information fs-7"></i>
                                                 </span>
                                             </label>
-                                            <input type="time" class="form-control form-control-solid" name="time"
+                                            <input type="text" data-picker="time" class="form-control form-control-solid" name="time"
                                                    value="${request.getTime() != null ? request.getTime().toString() : ""}" required/>
                                         </div>
                                     </div>

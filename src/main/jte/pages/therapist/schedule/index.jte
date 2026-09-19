@@ -161,7 +161,7 @@ content = @`
 
                         <div class="fv-row mb-5">
                             <label class="fs-6 fw-semibold mb-2">Waktu baru yang diminta</label>
-                            <input type="datetime-local" class="form-control" name="requestedStartTime" required>
+                            <input type="text" data-picker="datetime" class="form-control" name="requestedStartTime" required>
                         </div>
 
                         <div class="fv-row mb-5">

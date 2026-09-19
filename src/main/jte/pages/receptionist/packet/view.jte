@@ -355,7 +355,7 @@ content = @`
 
                     html += '<tr class="' + (hasConflict ? "table-danger" : "") + '">';
                     html += '<td>' + s.sessionNumber + '</td>';
-                    html += '<td><input type="datetime-local" class="form-control form-control-sm reassign-time-input" data-session-id="' + s.sessionId + '" value="' + inputValue + '"></td>';
+                    html += '<td><input type="text" data-picker="datetime" class="form-control form-control-sm reassign-time-input" data-session-id="' + s.sessionId + '" value="' + inputValue + '"></td>';
                     html += '<td>';
                     if (hasConflict) {
                         s.conflicts.forEach(function (c) {
@@ -373,6 +373,7 @@ content = @`
 
                 html += '</tbody></table></div>';
                 sessionsArea.innerHTML = html;
+                window.initPickers(sessionsArea);
 
                 document.querySelectorAll(".reassign-recheck-btn").forEach(function (btn) {
                     btn.addEventListener("click", function () {

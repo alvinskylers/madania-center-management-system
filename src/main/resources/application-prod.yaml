@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+server:
+  port: ${PORT:8080}
+  forward-headers-strategy: framework
+
+gg:
+  jte:
+    development-mode: false
+    use-precompiled-templates: true

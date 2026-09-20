@@ -5,6 +5,7 @@ import com.madania.management.dto.RescheduleRequestDto;
 import com.madania.management.entity.Therapist;
 import com.madania.management.entity.TherapySession;
 import com.madania.management.entity.TherapyJournal;
+import com.madania.management.enums.SessionStatus;
 import com.madania.management.service.RescheduleService;
 import com.madania.management.service.TherapyJournalService;
 import com.madania.management.service.TherapySessionService;
@@ -54,6 +55,11 @@ public class TherapistScheduleController {
             event.put("start", session.getStartTime().toString());
             event.put("end", session.getEndTime().toString());
             event.put("status", session.getStatus().name());
+            if (session.getStatus() == SessionStatus.SCHEDULED) {
+                // Server decides, so the UI never disagrees with submitRequest's validation.
+                event.put("canReschedule", rescheduleService.canRequestReschedule(session));
+                event.put("rescheduleDeadline", rescheduleService.getRescheduleDeadline(session).toString());
+            }
             if (session.getStatus().name().equals("COMPLETED")) {
                 TherapyJournal journal = journalService.getJournalBySessionId(session.getId());
                 if (journal != null) {

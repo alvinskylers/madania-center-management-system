@@ -150,6 +150,7 @@ content = @`
                         <span class="fw-semibold text-gray-600">Status:</span>
                         <span id="detail_status" class="badge"></span>
                     </div>
+                    <div class="alert alert-warning py-3 mb-0" id="detail_reschedule_hint" style="display:none;"></div>
                 </div>
 
                 <div class="modal-footer">
@@ -197,8 +198,12 @@ content = @`
                                 <div class="d-flex align-items-center">
                                     <span class="bullet bullet-dot me-2" style="background-color:#FFA800;"></span>Sesi ini (saat ini)
                                 </div>
+                                <div class="d-flex align-items-center">
+                                    <span class="bullet bullet-dot me-2" style="background-color:#7239EA;"></span>Waktu baru (dipilih)
+                                </div>
                             </div>
                             <div id="kt_reschedule_calendar"></div>
+                            <div class="fs-8 mt-2 text-muted" id="reschedule_slot_hint"></div>
                         </div>
                         <!--end::Therapist availability calendar-->
 
@@ -228,8 +233,13 @@ content = @`
     </div>
     <!--end::Modal-->
 
+    <style>
+        /* empty time slots in the reschedule modal calendar are tappable */
+        #kt_reschedule_calendar .fc-timegrid-col-frame { cursor: pointer; }
+    </style>
     <link href="/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet">
     <script src="/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
+    <script src="/js/custom/reschedule-slot-picker.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var calendarEl = document.getElementById("kt_calendar");
@@ -269,6 +279,15 @@ content = @`
                 }
             });
 
+            // Tap-a-slot helper (static/js/custom/reschedule-slot-picker.js). It reads the calendar lazily,
+            // so it can be created before the calendar below exists.
+            var slotPicker = RescheduleSlotPicker.create({
+                timeInput: timeInput,
+                sessionIdInput: document.getElementById("reschedule_session_id"),
+                hintEl: document.getElementById("reschedule_slot_hint"),
+                getCalendar: function () { return rescheduleCalendar; }
+            });
+
             var rescheduleCalendar = new FullCalendar.Calendar(document.getElementById("kt_reschedule_calendar"), {
                 initialView: "timeGridWeek",
                 height: 380,
@@ -280,6 +299,9 @@ content = @`
                 slotMinTime: "07:00:00",
                 slotMaxTime: "20:00:00",
                 allDaySlot: false,
+                businessHours: slotPicker.businessHours,
+                dateClick: slotPicker.onDateClick,
+                eventClick: slotPicker.onEventClick,
                 events: []
             });
             rescheduleCalendar.render();
@@ -319,7 +341,20 @@ content = @`
                     badge.innerText = status;
                     badge.className = "badge " + (statusBadgeClass[status] || "badge-light-secondary");
 
-                    if (status === "SCHEDULED") {
+                    // Server tells us if the notice period has passed (see RescheduleNoticePolicy).
+                    var rescheduleBlocked = status === "SCHEDULED" && info.event.extendedProps.canReschedule === false;
+                    var rescheduleHint = document.getElementById("detail_reschedule_hint");
+                    if (rescheduleBlocked) {
+                        var deadline = info.event.extendedProps.rescheduleDeadline;
+                        rescheduleHint.innerText = "Batas pengajuan reschedule untuk sesi ini sudah lewat" +
+                            (deadline ? " (paling lambat " + new Date(deadline + "T00:00:00").toLocaleDateString() + ")" : "") +
+                            ". Silakan hubungi klinik untuk bantuan.";
+                        rescheduleHint.style.display = "block";
+                    } else {
+                        rescheduleHint.style.display = "none";
+                    }
+
+                    if (status === "SCHEDULED" && !rescheduleBlocked) {
                         btnOpenReschedule.style.display = "inline-block";
                         btnOpenReschedule.onclick = function () {
                             var sessionId = info.event.id;
@@ -333,6 +368,10 @@ content = @`
                                 timeInput._flatpickr.clear();
                             }
                             markTimeInvalid(false);
+
+                            // Resets the slot hint / highlight and applies the picker limits
+                            // (no past days, not the current session date). The server still validates.
+                            slotPicker.open(info.event.start);
 
                             // load this session's therapist schedule so the parent can pick a free slot
                             rescheduleCalendar.setOption("events", "/parent/schedule/therapist-events/" + sessionId);

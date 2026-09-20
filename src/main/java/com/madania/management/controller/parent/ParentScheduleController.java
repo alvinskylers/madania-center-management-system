@@ -69,6 +69,11 @@ public class ParentScheduleController {
                 event.put("start", session.getStartTime().toString());
                 event.put("end", session.getEndTime().toString());
                 event.put("status", session.getStatus().name());
+                if (session.getStatus() == SessionStatus.SCHEDULED) {
+                    // Server decides, so the UI never disagrees with submitRequest's validation.
+                    event.put("canReschedule", rescheduleService.canRequestReschedule(session));
+                    event.put("rescheduleDeadline", rescheduleService.getRescheduleDeadline(session).toString());
+                }
                 if (session.getStatus().name().equals("COMPLETED")) {
                     TherapyJournal journal = journalService.getJournalBySessionId(session.getId());
                     if (journal != null) {

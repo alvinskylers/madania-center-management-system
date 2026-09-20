@@ -30,6 +30,7 @@ public class RescheduleService {
     private final NotificationService notificationService;
     private final UserRepository userRepository;
     private final TherapySessionService sessionService;
+    private final RescheduleNoticePolicy noticePolicy;
 
     public List<RescheduleRequest> getAllPendingRequests() {
         return rescheduleRepository.findByStatus(RescheduleStatus.PENDING);
@@ -50,6 +51,16 @@ public class RescheduleService {
         return rescheduleRepository.findAllByOrderByCreatedAtDesc();
     }
 
+    /** Whether a parent/therapist may still request a reschedule for this session (notice period not yet passed). */
+    public boolean canRequestReschedule(TherapySession session) {
+        return noticePolicy.canRequest(session.getStartTime());
+    }
+
+    /** Last calendar day on which a reschedule can still be requested for this session. */
+    public LocalDate getRescheduleDeadline(TherapySession session) {
+        return noticePolicy.deadlineFor(session.getStartTime());
+    }
+
     @Transactional
     public RescheduleRequest submitRequest(UUID sessionId, UUID requestedByUserId,
                                            LocalDateTime requestedStartTime, String reason, String notes) {
@@ -60,6 +71,10 @@ public class RescheduleService {
         if (session.getStatus() != SessionStatus.SCHEDULED) {
             throw new RuntimeException("Hanya sesi berstatus terjadwal yang dapat dijadwalkan ulang. Status sesi saat ini: " + session.getStatus() );
         }
+
+        // Notice period / different date / not in the past. Also guards a null requestedStartTime
+        // before it is dereferenced further down.
+        noticePolicy.validateRequest(session.getStartTime(), requestedStartTime);
 
         boolean rescheduleAlreadyPending = rescheduleRepository.findBySessionId(sessionId).stream()
                 .anyMatch(r -> r.getStatus() == RescheduleStatus.PENDING);
@@ -106,6 +121,9 @@ public class RescheduleService {
         LocalDateTime newStart = request.getRequestedStartTime();
         LocalDateTime newEnd = newStart.plusHours(1);
 
+        // The requested time may have passed while the request sat in the queue. The notice-period
+        // rule is intentionally NOT re-checked here - it applies to when the request was submitted.
+        noticePolicy.validateNotInPast(newStart);
         sessionService.validateWithinOperatingHours(newStart.toLocalTime(), newEnd.toLocalTime());
         sessionService.validateNoConflict(oldSession.getTherapist().getId(), newStart, newEnd, oldSession.getId());
 

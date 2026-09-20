@@ -6,3 +6,8 @@ spring:
 gg:
   jte:
     development-mode: true
+
+app:
+  timezone: Asia/Makassar
+  reschedule:
+    min-notice-days: 3

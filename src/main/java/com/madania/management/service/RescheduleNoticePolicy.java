@@ -23,6 +23,11 @@ import java.time.format.DateTimeFormatter;
  * </ol>
  * These are deliberately NOT part of the shared {@code TherapySessionService} validators, because
  * leave approval, package reassignment, etc. move sessions too and must not inherit them.
+ * <p>
+ * <b>Staff override.</b> Admins and receptionists can move a session directly (emergencies: a
+ * therapist or family cannot make it and phones the clinic). That path skips the minimum-notice
+ * and different-date rules above, but still may not move a session from a previous day, move it
+ * into the past, or "move" it onto the time it already has. See {@link #validateStaffMove}.
  */
 public class RescheduleNoticePolicy {
 
@@ -93,6 +98,39 @@ public class RescheduleNoticePolicy {
         }
 
         validateNotInPast(requestedStart);
+    }
+
+    /**
+     * Whether staff (admin / receptionist) may still move this session directly. Unlike
+     * {@link #canRequest} there is no notice period, and a session earlier today whose start time
+     * has already passed still counts (the emergency may have happened after it should have begun).
+     * Sessions from a previous day are stale and cannot be moved.
+     */
+    public boolean canStaffMove(LocalDateTime originalStart) {
+        return !originalStart.toLocalDate().isBefore(LocalDate.now(clock));
+    }
+
+    /**
+     * Rules for a direct staff reschedule. Deliberately skips the minimum-notice and
+     * different-date rules of {@link #validateRequest}; operating hours and therapist conflicts
+     * are still checked by the caller through {@code TherapySessionService}.
+     */
+    public void validateStaffMove(LocalDateTime originalStart, LocalDateTime newStart) {
+        if (newStart == null) {
+            throw new RuntimeException("Waktu baru untuk penjadwalan ulang wajib diisi.");
+        }
+
+        if (!canStaffMove(originalStart)) {
+            throw new RuntimeException(
+                    "Sesi pada " + originalStart.format(DATE_TIME_FORMAT) + " sudah berlalu sehingga tidak dapat dijadwalkan ulang."
+            );
+        }
+
+        if (newStart.equals(originalStart)) {
+            throw new RuntimeException("Waktu baru sama dengan jadwal sesi saat ini. Silakan pilih waktu lain.");
+        }
+
+        validateNotInPast(newStart);
     }
 
     /**

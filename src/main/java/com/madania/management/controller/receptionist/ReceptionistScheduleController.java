@@ -1,6 +1,8 @@
 package com.madania.management.controller.receptionist;
 
 import com.madania.management.entity.TherapySession;
+import com.madania.management.enums.SessionStatus;
+import com.madania.management.service.RescheduleService;
 import com.madania.management.service.TherapySessionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 public class ReceptionistScheduleController {
 
     private final TherapySessionService sessionService;
+    private final RescheduleService rescheduleService;
 
     @GetMapping("/schedule")
     public String schedule() {
@@ -40,6 +43,10 @@ public class ReceptionistScheduleController {
             event.put("start", session.getStartTime().toString());
             event.put("end", session.getEndTime().toString());
             event.put("status", session.getStatus().name());
+            if (session.getStatus() == SessionStatus.SCHEDULED) {
+                // Server decides whether staff can still move this session (see RescheduleNoticePolicy.canStaffMove).
+                event.put("canStaffReschedule", rescheduleService.canStaffReschedule(session));
+            }
             event.put("color", switch (session.getStatus().name()) {
                 case "SCHEDULED"   -> "#1B84FF";
                 case "COMPLETED"   -> "#17C653";

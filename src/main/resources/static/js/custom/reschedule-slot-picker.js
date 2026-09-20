@@ -9,6 +9,10 @@
  * source of truth and re-validate everything on submit. The checks below simply give
  * the user an instant reason when a tapped slot would be rejected anyway.
  *
+ * Staff (admin / receptionist) pass allowSameDay: true. They can move a session within the same
+ * day (emergencies), so the "different date" checks are skipped; a slot identical to the session's
+ * current time is still refused. See staff-reschedule.js.
+ *
  * Usage (see pages/parent/schedule.jte and pages/therapist/schedule/index.jte):
  *
  *   var slotPicker = RescheduleSlotPicker.create({
@@ -71,6 +75,7 @@
         var sessionIdInput = opts.sessionIdInput;
         var hintEl = opts.hintEl;
         var getCalendar = opts.getCalendar;
+        var allowSameDay = opts.allowSameDay === true;
 
         var originalStart = null; // start of the session being rescheduled
         var hintKind = null;      // null | "error" | "success"
@@ -99,8 +104,12 @@
                 return "Waktu tersebut sudah lewat. Pilih waktu yang akan datang.";
             }
 
-            if (originalStart && sameDay(start, originalStart)) {
+            if (originalStart && !allowSameDay && sameDay(start, originalStart)) {
                 return "Tanggal ini sama dengan jadwal sesi saat ini. Pilih tanggal lain.";
+            }
+
+            if (originalStart && allowSameDay && start.getTime() === originalStart.getTime()) {
+                return "Waktu ini sama dengan jadwal sesi saat ini. Pilih waktu lain.";
             }
 
             var startMinutes = minutesOfDay(start);
@@ -200,7 +209,7 @@
             if (fp) {
                 // Same instant feedback for the manual picker: no past days, not the current session date.
                 fp.set("minDate", "today");
-                fp.set("disable", [function (date) {
+                fp.set("disable", allowSameDay ? [] : [function (date) {
                     return sameDay(date, sessionStart);
                 }]);
             }

@@ -3,6 +3,8 @@ package com.madania.management.controller.admin;
 import com.madania.management.entity.TherapySession;
 import com.madania.management.entity.TherapyJournal;
 import com.madania.management.service.TherapyJournalService;
+import com.madania.management.enums.SessionStatus;
+import com.madania.management.service.RescheduleService;
 import com.madania.management.service.TherapySessionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 public class AdminScheduleController {
 
     private final TherapySessionService sessionService;
+    private final RescheduleService rescheduleService;
     private final TherapyJournalService journalService;
 
     @GetMapping("/schedule")
@@ -43,6 +46,10 @@ public class AdminScheduleController {
             event.put("start", session.getStartTime());
             event.put("end", session.getEndTime());
             event.put("status", session.getStatus().name());
+            if (session.getStatus() == SessionStatus.SCHEDULED) {
+                // Server decides whether staff can still move this session (see RescheduleNoticePolicy.canStaffMove).
+                event.put("canStaffReschedule", rescheduleService.canStaffReschedule(session));
+            }
             if (session.getStatus().name().equals("COMPLETED")) {
                 TherapyJournal journal = journalService.getJournalBySessionId(session.getId());
                 if (journal != null) {

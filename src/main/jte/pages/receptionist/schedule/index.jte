@@ -3,6 +3,8 @@
 @param User user
 @param String role
 @param org.springframework.security.web.csrf.CsrfToken _csrf
+@param String rescheduleError = null
+@param String rescheduleSuccess = null
 @param long unreadNotificationCount = 0
 @param java.util.List<com.madania.management.entity.Notification> recentNotifications = null
 
@@ -41,6 +43,19 @@ content = @`
         </div>
     </div>
 
+    @if(rescheduleSuccess != null)
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>${rescheduleSuccess}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
+        </div>
+    @endif
+    @if(rescheduleError != null)
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>${rescheduleError}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
+        </div>
+    @endif
+
     <div class="card">
         <div class="card-body">
             <div id="kt_calendar"></div>
@@ -75,18 +90,28 @@ content = @`
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-warning" id="btn_open_staff_reschedule" style="display:none;">Jadwalkan Ulang</button>
                 </div>
             </div>
         </div>
     </div>
     <!--end::Modal-->
 
+    @template.components.staff-reschedule-modal(_csrf = _csrf, action = "/receptionist/schedule/reschedule")
+
     <link href="/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet">
     <script src="/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
+    <script src="/js/custom/reschedule-slot-picker.js"></script>
+    <script src="/js/custom/staff-reschedule.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var calendarEl = document.getElementById("kt_calendar");
             var detailsModal = new bootstrap.Modal(document.getElementById("kt_modal_session_details"));
+            var staffReschedule = StaffReschedule.init({
+                basePath: "/receptionist/schedule",
+                detailsModal: detailsModal
+            });
+            var btnStaffReschedule = document.getElementById("btn_open_staff_reschedule");
 
             var statusBadgeClass = {
                 SCHEDULED: "badge-light-primary",
@@ -109,6 +134,9 @@ content = @`
                 events: "/receptionist/schedule/events",
                 eventClick: function (info) {
                     var status = info.event.extendedProps.status;
+
+                    // Server tells us if staff can still move this session (SCHEDULED, not from a previous day).
+                    staffReschedule.bindButton(btnStaffReschedule, info.event);
 
                     document.getElementById("detail_title").innerText = info.event.title;
                     document.getElementById("detail_time").innerText =

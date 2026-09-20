@@ -76,7 +76,7 @@ public class TherapistSessionController {
                                   RedirectAttributes redirectAttributes) {
         try {
             sessionService.completeSession(sessionId);
-            redirectAttributes.addFlashAttribute("success", "Session marked as completed.");
+            redirectAttributes.addFlashAttribute("success", "Sesi ditandai sebagai selesai.");
         } catch (RuntimeException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }

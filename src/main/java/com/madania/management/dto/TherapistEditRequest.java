@@ -7,14 +7,14 @@ import lombok.Data;
 public class TherapistEditRequest {
 
 
-    @NotBlank(message = "Email is required")
-    @Email(message = "Please provide a valid email")
+    @NotBlank(message = "Email wajib diisi")
+    @Email(message = "Masukkan alamat email yang valid")
     private String email;
 
-    @NotBlank(message = "Full name is required")
+    @NotBlank(message = "Nama lengkap wajib diisi")
     private String fullName;
 
-    @NotBlank(message = "Specialization is required")
+    @NotBlank(message = "Spesialisasi wajib diisi")
     private String specialization;
 
     private String phone;

@@ -10,7 +10,7 @@ import java.util.UUID;
 @Data
 public class ReassignTherapistRequest {
 
-    @NotNull(message = "Please select a therapist to reassign to.")
+    @NotNull(message = "Silakan pilih terapis untuk pengalihan.")
     private UUID newTherapistId;
 
     private String reason;

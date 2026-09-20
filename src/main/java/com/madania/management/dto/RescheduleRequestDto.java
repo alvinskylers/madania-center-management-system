@@ -10,11 +10,11 @@ import java.util.UUID;
 @Data
 public class RescheduleRequestDto {
 
-    @NotNull(message = "Session is required.")
+    @NotNull(message = "Sesi wajib dipilih.")
     private UUID sessionId;
 
-    @NotNull(message = "requested start time is required")
-    @FutureOrPresent(message = "Requested time cannot be in the past")
+    @NotNull(message = "waktu mulai yang diminta wajib diisi")
+    @FutureOrPresent(message = "Waktu yang diminta tidak boleh di masa lalu")
     private LocalDateTime requestedStartTime;
 
     private String reason;

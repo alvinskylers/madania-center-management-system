@@ -8,18 +8,18 @@ import lombok.Data;
 @Data
 public class UserCreateRequest {
 
-    @NotBlank(message = "role is required")
+    @NotBlank(message = "role wajib diisi")
     private String role;
 
-    @NotBlank(message = "username is required")
+    @NotBlank(message = "username wajib diisi")
     private String username;
 
-    @NotBlank(message = "email is required")
-    @Email(message = "please provide a valid email")
+    @NotBlank(message = "email wajib diisi")
+    @Email(message = "masukkan alamat email yang valid")
     private String email;
 
-    @NotBlank(message = "password is required")
-    @Size(min = 8, message = "password must be at least 8 characters")
+    @NotBlank(message = "password wajib diisi")
+    @Size(min = 8, message = "password minimal 8 karakter")
     private String password;
 
     private String specialization;

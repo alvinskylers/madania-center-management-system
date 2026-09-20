@@ -42,7 +42,7 @@ content = @`
                     <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Wali Pasien</h1>
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                         <li class="breadcrumb-item text-muted">
-                            <a href="/receptionist/dashboard" class="text-muted text-hover-primary">Dashboard</a>
+                            <a href="/dashboard" class="text-muted text-hover-primary">Dashboard</a>
                         </li>
                         <li class="breadcrumb-item">
                             <span class="bullet bg-gray-500 w-5px h-2px"></span>

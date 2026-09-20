@@ -12,9 +12,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SessionOverrideDto {
-    @NotNull(message = "sessionId is required")
+    @NotNull(message = "sessionId wajib diisi")
     private UUID sessionId;
 
-    @NotNull(message = "newStartTime is required")
+    @NotNull(message = "newStartTime wajib diisi")
     private LocalDateTime newStartTime;
 }

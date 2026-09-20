@@ -6,11 +6,11 @@ import lombok.Data;
 @Data
 public class ParentEditRequest {
 
-    @NotBlank(message = "Email is required")
-    @Email(message = "Please provide a valid email")
+    @NotBlank(message = "Email wajib diisi")
+    @Email(message = "Masukkan alamat email yang valid")
     private String email;
 
-    @NotBlank(message = "Full name is required")
+    @NotBlank(message = "Nama lengkap wajib diisi")
     private String fullName;
 
     private String phone;

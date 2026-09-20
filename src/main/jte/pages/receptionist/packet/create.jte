@@ -31,7 +31,7 @@
 !{String diagnosisValue = request.getDiagnosis() != null ? request.getDiagnosis() : "";}
 
 @template.layout.base(
-title = "Create Therapy Package",
+title = "Buat Paket Terapi",
 role = role,
 user = user,
 _csrf = _csrf,

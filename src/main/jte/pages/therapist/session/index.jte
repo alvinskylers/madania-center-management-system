@@ -36,6 +36,11 @@ _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,
 content = @`
+    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 mb-5">
+        <li class="breadcrumb-item text-muted"><a href="/dashboard" class="text-muted text-hover-primary">Dashboard</a></li>
+        <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
+        <li class="breadcrumb-item text-muted">Sesi Terapi</li>
+    </ul>
 
     <!--begin::Toolbar-->
     <div id="kt_app_toolbar" class="app-toolbar pt-7 pt-lg-10">

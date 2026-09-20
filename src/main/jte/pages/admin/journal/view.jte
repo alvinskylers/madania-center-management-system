@@ -10,11 +10,18 @@
 @param List<JournalComment> comments
 
 @template.layout.base(
-title = "Journal Detail",
+title = "Detail Jurnal",
 role = role,
 user = user,
 _csrf = _csrf,
 content = @`
+    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 mb-5">
+        <li class="breadcrumb-item text-muted"><a href="/dashboard" class="text-muted text-hover-primary">Dashboard</a></li>
+        <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
+        <li class="breadcrumb-item text-muted"><a href="/admin/journals" class="text-muted text-hover-primary">Jurnal Terapi</a></li>
+        <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
+        <li class="breadcrumb-item text-muted">Detail Jurnal</li>
+    </ul>
     <div class="d-flex justify-content-between align-items-center mb-5 jdoc-no-print">
         <h1 class="page-heading">Jurnal Terapi</h1>
         <a href="/admin/journals" class="btn btn-light">Kembali</a>

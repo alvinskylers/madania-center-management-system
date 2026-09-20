@@ -24,7 +24,7 @@
 !{int progressPercent = therapyPackage.getTotalSessions() > 0 ? (therapyPackage.getCompletedSessions() * 100 / therapyPackage.getTotalSessions()) : 0;}
 
 @template.layout.base(
-title = "Package Details",
+title = "Detail Paket Terapi",
 role = role,
 _csrf = _csrf,
 user = user,
@@ -194,7 +194,7 @@ content = @`
                                                     @elseif(session.getStatus().name().equals("CANCELLED"))
                                                         <span class="badge badge-light-danger">Dibatalkan</span>
                                                     @else
-                                                        <span class="badge badge-light-warning">Rescheduled</span>
+                                                        <span class="badge badge-light-warning">Reschedule</span>
                                                     @endif
                                                 </td>
                                                 <td class="text-muted fs-7">

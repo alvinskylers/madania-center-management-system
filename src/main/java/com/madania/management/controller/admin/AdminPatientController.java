@@ -74,7 +74,7 @@ public class AdminPatientController {
         patientService.createPatient(request.getParentId(), request.getFullName(),
                 request.getDateOfBirth(), request.getGender(),
                 request.getDiagnosis(), request.getNotes());
-        redirectAttributes.addFlashAttribute("success", "Patient successfully created.");
+        redirectAttributes.addFlashAttribute("success", "Pasien berhasil ditambahkan.");
         return "redirect:/admin/patients";
     }
 
@@ -146,7 +146,7 @@ public class AdminPatientController {
                 request.getDateOfBirth(), request.getGender(),
                 request.getDiagnosis(), request.getNotes(),
                 request.isActive());
-        redirectAttributes.addFlashAttribute("success", "Patient successfully updated.");
+        redirectAttributes.addFlashAttribute("success", "Pasien berhasil diperbarui.");
         return "redirect:/admin/patient/{id}";
     }
 
@@ -155,7 +155,7 @@ public class AdminPatientController {
                                 RedirectAttributes redirectAttributes) {
         try {
             patientService.deletePatient(id);
-            redirectAttributes.addFlashAttribute("success", "Patient successfully deleted.");
+            redirectAttributes.addFlashAttribute("success", "Pasien berhasil dihapus.");
         } catch (RuntimeException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }

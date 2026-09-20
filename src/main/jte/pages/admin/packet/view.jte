@@ -24,7 +24,7 @@
 !{int progressPercent = therapyPackage.getTotalSessions() > 0 ? (therapyPackage.getCompletedSessions() * 100 / therapyPackage.getTotalSessions()) : 0;}
 
 @template.layout.base(
-title = "Package Details",
+title = "Detail Paket Terapi",
 role = role,
 _csrf = _csrf,
 user = user,
@@ -39,7 +39,7 @@ content = @`
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                     <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Informasi Paket</h1>
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
-                        <li class="breadcrumb-item text-muted"><a href="/admin/dashboard" class="text-muted text-hover-primary">Dashboard</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="/dashboard" class="text-muted text-hover-primary">Dashboard</a></li>
                         <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
                         <li class="breadcrumb-item text-muted"><a href="/admin/packages" class="text-muted text-hover-primary">Paket Terapi</a></li>
                         <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
@@ -198,7 +198,7 @@ content = @`
                                                     @elseif(session.getStatus().name().equals("CANCELLED"))
                                                         <span class="badge badge-light-danger">Dibatalkan</span>
                                                     @else
-                                                        <span class="badge badge-light-warning">Rescheduled</span>
+                                                        <span class="badge badge-light-warning">Reschedule</span>
                                                     @endif
                                                 </td>
                                                 <td class="text-muted fs-7">

@@ -13,13 +13,13 @@ public class PatientRequest {
 
     private UUID parentId;
 
-    @NotBlank(message = "Full name is required")
+    @NotBlank(message = "Nama lengkap wajib diisi")
     private String fullName;
 
-    @NotNull(message = "Date of birth is required")
+    @NotNull(message = "Tanggal lahir wajib diisi")
     private LocalDate dateOfBirth;
 
-    @NotNull(message = "Gender is required")
+    @NotNull(message = "Jenis kelamin wajib dipilih")
     private Gender gender;
 
     private String diagnosis;

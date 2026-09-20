@@ -8,21 +8,21 @@ import lombok.Data;
 @Data
 public class TherapistCreateRequest{
 
-    @NotBlank(message = "Email is required")
-    @Email(message = "Please provide a valid email")
+    @NotBlank(message = "Email wajib diisi")
+    @Email(message = "Masukkan alamat email yang valid")
     private String email;
 
-    @NotBlank(message = "Password is required")
-    @Size(min = 8, message = "Password must be at least 8 characters")
+    @NotBlank(message = "Kata sandi wajib diisi")
+    @Size(min = 8, message = "Kata sandi minimal 8 karakter")
     private String password;
 
-    @NotBlank(message = "Full name is required")
+    @NotBlank(message = "Nama lengkap wajib diisi")
     private String fullName;
 
-    @NotBlank(message = "Specialization is required")
+    @NotBlank(message = "Spesialisasi wajib diisi")
     private String specialization;
 
-    @NotBlank(message = "Phone Number is required")
+    @NotBlank(message = "Nomor telepon wajib diisi")
     private String phone;
 
 }

@@ -7,13 +7,13 @@ import lombok.Data;
 @Data
 public class ChangePasswordRequest {
 
-    @NotBlank(message = "Current password is required")
+    @NotBlank(message = "Kata sandi saat ini wajib diisi")
     private String currentPassword;
 
-    @NotBlank(message = "New password is required")
-    @Size(min = 8, message = "New password must be at least 8 characters")
+    @NotBlank(message = "Kata sandi baru wajib diisi")
+    @Size(min = 8, message = "Kata sandi baru minimal 8 karakter")
     private String newPassword;
 
-    @NotBlank(message = "Please confirm your new password")
+    @NotBlank(message = "Silakan konfirmasi kata sandi baru Anda")
     private String confirmPassword;
 }

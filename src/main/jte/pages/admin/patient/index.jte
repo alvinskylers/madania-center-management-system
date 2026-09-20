@@ -20,6 +20,11 @@ role = role,
 user = user,
 _csrf = _csrf,
 content = @`
+    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 mb-5">
+        <li class="breadcrumb-item text-muted"><a href="/dashboard" class="text-muted text-hover-primary">Dashboard</a></li>
+        <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
+        <li class="breadcrumb-item text-muted">Pasien Klinik</li>
+    </ul>
 
     @if(success != null)
         <div class="alert alert-primary alert-dismissible fade show" role="alert">
@@ -71,7 +76,7 @@ content = @`
                 @else
                     <div class="col-12">
                         <div class="alert alert-info text-center">
-                            No patients found.
+                            Tidak ada pasien ditemukan.
                         </div>
                     </div>
                 @endif

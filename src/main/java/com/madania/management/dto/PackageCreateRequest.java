@@ -14,28 +14,28 @@ import java.util.UUID;
 @Data
 public class PackageCreateRequest {
 
-    @NotNull(message = "Patient is required")
+    @NotNull(message = "Pasien wajib dipilih")
     private UUID patientId;
 
-    @NotNull(message = "Therapist is required")
+    @NotNull(message = "Terapis wajib dipilih")
     private UUID therapistId;
 
-    @NotNull(message = "Package type is required")
+    @NotNull(message = "Jenis paket wajib dipilih")
     private UUID packageTypeId;
 
     private UUID checkupId;
 
-    @NotBlank(message = "Diagnosis is required before a therapy package can be created")
+    @NotBlank(message = "Diagnosis wajib diisi sebelum paket terapi dapat dibuat")
     private String diagnosis;
 
-    @NotNull(message = "Start date is required")
-    @FutureOrPresent(message = "Start date cannot be in the past")
+    @NotNull(message = "Tanggal mulai wajib diisi")
+    @FutureOrPresent(message = "Tanggal mulai tidak boleh di masa lalu")
     private LocalDate startDate;
 
-    @NotNull(message = "Preferred time is required")
+    @NotNull(message = "Jam yang diinginkan wajib diisi")
     private LocalTime preferredTime;
 
-    @NotNull(message = "Please select the days for this package")
+    @NotNull(message = "Silakan pilih hari untuk paket ini")
     private List<DayOfWeek> days;
 
     private String notes;

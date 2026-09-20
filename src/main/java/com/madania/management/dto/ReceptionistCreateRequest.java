@@ -6,15 +6,15 @@ import lombok.Data;
 @Data
 public class ReceptionistCreateRequest {
 
-    @NotBlank(message = "Username is required")
-    @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
+    @NotBlank(message = "Username wajib diisi")
+    @Size(min = 3, max = 50, message = "Username harus terdiri dari 3 hingga 50 karakter")
     private String username;
 
-    @NotBlank(message = "Email is required")
-    @Email(message = "Please provide a valid email")
+    @NotBlank(message = "Email wajib diisi")
+    @Email(message = "Masukkan alamat email yang valid")
     private String email;
 
-    @NotBlank(message = "Password is required")
-    @Size(min = 8, message = "Password must be at least 8 characters")
+    @NotBlank(message = "Kata sandi wajib diisi")
+    @Size(min = 8, message = "Kata sandi minimal 8 karakter")
     private String password;
 }

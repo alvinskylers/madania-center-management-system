@@ -7,11 +7,11 @@ import lombok.Data;
 @Data
 public class ProfileUpdateRequest{
 
-        @NotBlank(message = "Full name required")
+        @NotBlank(message = "Nama lengkap wajib diisi")
         private String username;
 
-        @Email(message = "Please provide a valid email")
-        @NotBlank(message = "Email is required")
+        @Email(message = "Masukkan alamat email yang valid")
+        @NotBlank(message = "Email wajib diisi")
         private String email;
 
         private String phone;

@@ -20,7 +20,7 @@
 !{boolean isPending = leave.getStatus() == LeaveStatus.PENDING;}
 
 @template.layout.base(
-title = "Review Leave Request",
+title = "Tinjau Permohonan Cuti",
 role = role,
 user = user,
 _csrf = _csrf,
@@ -34,7 +34,7 @@ content = @`
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                     <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Tinjau Permintaan Izin</h1>
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
-                        <li class="breadcrumb-item text-muted"><a href="/admin/dashboard" class="text-muted text-hover-primary">Beranda</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="/dashboard" class="text-muted text-hover-primary">Dashboard</a></li>
                         <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
                         <li class="breadcrumb-item text-muted"><a href="/admin/leaves" class="text-muted text-hover-primary">Permintaan Izin</a></li>
                         <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
@@ -210,7 +210,7 @@ content = @`
                                                     @if(entry.getValue() == null)
                                                         <span class="text-danger fs-8">
                                                             <i class="ki-outline ki-information-5 fs-8"></i>
-                                                            No slot found automatically &mdash; please pick manually
+                                                            Tidak ada slot yang ditemukan otomatis &mdash; silakan pilih secara manual
                                                         </span>
                                                     @endif
                                                 </td>

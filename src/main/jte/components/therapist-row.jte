@@ -52,7 +52,7 @@
             <!--begin::Menu item-->
             <div class="menu-item px-5">
                 <form action="/admin/therapist/${String.valueOf(therapist.getId())}/delete" method="post" style="display:inline"
-                      onsubmit="return confirm('Are you sure you want to delete this user? This cannot be undone.');">
+                      onsubmit="return confirm('Apakah Anda yakin ingin menghapus terapis ini? Tindakan ini tidak dapat dibatalkan.');">
                     <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
                     <button type="submit" class="btn btn-bg-light btn-active-color-danger btn-sm d-block w-100 d-flex justify-content-start ms-2">
                         <i class="ki-outline ki-trash fs-3"></i> Hapus

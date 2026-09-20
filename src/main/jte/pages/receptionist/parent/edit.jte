@@ -22,6 +22,13 @@ _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,
 content = @`
+    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 mb-5">
+        <li class="breadcrumb-item text-muted"><a href="/dashboard" class="text-muted text-hover-primary">Dashboard</a></li>
+        <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
+        <li class="breadcrumb-item text-muted"><a href="/receptionist/parents" class="text-muted text-hover-primary">Wali Pasien</a></li>
+        <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
+        <li class="breadcrumb-item text-muted">Ubah Wali Pasien</li>
+    </ul>
     <h1>Ubah Wali Pasien</h1>
 
     @if(bindingResult != null && bindingResult.hasErrors())

@@ -8,9 +8,9 @@ import lombok.Data;
 @Data
 public class CheckupCompleteRequest {
 
-    @NotBlank(message = "Diagnosis notes are required to complete a checkup")
+    @NotBlank(message = "Catatan diagnosis wajib diisi untuk menyelesaikan checkup")
     private String diagnosisNotes;
 
-    @NotNull(message = "Please record the parent's decision")
+    @NotNull(message = "Silakan catat keputusan wali pasien")
     private ParentDecision parentDecision;
 }

@@ -77,7 +77,7 @@
                                 @elseif(pair.getSession().getStatus() == SessionStatus.CANCELLED)
                                     <span class="badge badge-light-danger">Dibatalkan</span>
                                 @else
-                                    <span class="badge badge-light-warning">Rescheduled</span>
+                                    <span class="badge badge-light-warning">Reschedule</span>
                                 @endif
                             </td>
                             <td class="text-end">

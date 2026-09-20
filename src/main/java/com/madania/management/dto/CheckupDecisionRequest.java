@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class CheckupDecisionRequest {
 
-    @NotNull(message = "Please record the parent's decision")
+    @NotNull(message = "Silakan catat keputusan wali pasien")
     private ParentDecision parentDecision;
 }

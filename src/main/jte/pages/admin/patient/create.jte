@@ -23,14 +23,19 @@ _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,
 content = @`
+    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 mb-5">
+        <li class="breadcrumb-item text-muted"><a href="/dashboard" class="text-muted text-hover-primary">Dashboard</a></li>
+        <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
+        <li class="breadcrumb-item text-muted"><a href="/admin/patients" class="text-muted text-hover-primary">Pasien</a></li>
+        <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
+        <li class="breadcrumb-item text-muted">Tambah Pasien</li>
+    </ul>
 
     @if(bindingResult != null && bindingResult.hasErrors())
-        @for(var error : bindingResult.getAllErrors())
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <p>${error.getDefaultMessage()}</p>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
-            </div>
-        @endfor
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <i class="ki-outline ki-information-5 fs-2 me-3"></i>
+            <span>Beberapa isian belum sesuai. Silakan periksa kembali kolom yang ditandai di bawah.</span>
+        </div>
     @endif
 
     <div class="container-fluid">
@@ -58,7 +63,10 @@ content = @`
                                                 <i class="ki-outline ki-information fs-7"></i>
                                             </span>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" name="fullName" />
+                                        <input type="text" class="form-control form-control-solid ${bindingResult != null && bindingResult.hasFieldErrors("fullName") ? "is-invalid" : ""}" name="fullName" value="${request.getFullName() != null ? request.getFullName() : ""}" />
+                                        @if(bindingResult != null && bindingResult.hasFieldErrors("fullName"))
+                                            <div class="fv-plugins-message-container invalid-feedback d-block">${bindingResult.getFieldError("fullName").getDefaultMessage()}</div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col">
@@ -72,7 +80,7 @@ content = @`
                                         <select class="form-select form-select-solid" name="parentId" data-control="select2" data-width="100%">
                                             <option value="">Pilih wali pasien</option>
                                             @for(Parent parent : parents)
-                                                <option value="${String.valueOf(parent.getId())}">${parent.getFullName()}</option>
+                                                <option value="${String.valueOf(parent.getId())}" selected="${request.getParentId() != null && request.getParentId().equals(parent.getId())}">${parent.getFullName()}</option>
                                             @endfor
                                         </select>
                                     </div>
@@ -89,7 +97,10 @@ content = @`
                                             <i class="ki-outline ki-information fs-7"></i>
                                         </span>
                                         </label>
-                                        <input type="text" data-picker="date" class="form-control form-control-solid" name="dateOfBirth" />
+                                        <input type="text" data-picker="date" class="form-control form-control-solid ${bindingResult != null && bindingResult.hasFieldErrors("dateOfBirth") ? "is-invalid" : ""}" name="dateOfBirth" value="${request.getDateOfBirth() != null ? request.getDateOfBirth().toString() : ""}" />
+                                        @if(bindingResult != null && bindingResult.hasFieldErrors("dateOfBirth"))
+                                            <div class="fv-plugins-message-container invalid-feedback d-block">${bindingResult.getFieldError("dateOfBirth").getDefaultMessage()}</div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col">
@@ -100,11 +111,14 @@ content = @`
                                             <i class="ki-outline ki-information fs-7"></i>
                                         </span>
                                         </label>
-                                        <select class="form-select form-select-solid" name="gender" data-control="select2" data-width="100%" data-hide-search="true">
+                                        <select class="form-select form-select-solid ${bindingResult != null && bindingResult.hasFieldErrors("gender") ? "is-invalid" : ""}" name="gender" data-control="select2" data-width="100%" data-hide-search="true">
                                             <option value="">Pilih jenis kelamin pasien</option>
-                                            <option value="${Gender.MALE}">Male</option>
-                                            <option value="${Gender.FEMALE}">Female</option>
+                                            <option value="${Gender.MALE}" selected="${request.getGender() == Gender.MALE}">Laki-laki</option>
+                                            <option value="${Gender.FEMALE}" selected="${request.getGender() == Gender.FEMALE}">Perempuan</option>
                                         </select>
+                                        @if(bindingResult != null && bindingResult.hasFieldErrors("gender"))
+                                            <div class="fv-plugins-message-container invalid-feedback d-block">${bindingResult.getFieldError("gender").getDefaultMessage()}</div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +131,7 @@ content = @`
                                     <i class="ki-outline ki-information fs-7"></i>
                                 </span>
                                 </label>
-                                <input type="text" class="form-control form-control-solid" name="diagnosis" />
+                                <input type="text" class="form-control form-control-solid" name="diagnosis" value="${request.getDiagnosis() != null ? request.getDiagnosis() : ""}" />
                             </div>
 
                             <!-- Notes -->
@@ -128,7 +142,7 @@ content = @`
                                     <i class="ki-outline ki-information fs-7"></i>
                                 </span>
                                 </label>
-                                <textarea class="form-control form-control-solid" name="notes"></textarea>
+                                <textarea class="form-control form-control-solid" name="notes">${request.getNotes() != null ? request.getNotes() : ""}</textarea>
                             </div>
 
                             <div class="separator mb-6"></div>

@@ -46,7 +46,7 @@ public class AdminReceptionistController {
         }
 
         userService.createReceptionist(request.getUsername(), request.getEmail(), request.getPassword());
-        redirectAttributes.addFlashAttribute("success", "Receptionist account successfully created.");
+        redirectAttributes.addFlashAttribute("success", "Akun resepsionis berhasil dibuat.");
 
         return "redirect:/admin/users";
     }

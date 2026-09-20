@@ -21,6 +21,13 @@ _csrf = _csrf,
 unreadNotificationCount = unreadNotificationCount,
 recentNotifications = recentNotifications,
 content = @`
+    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 mb-5">
+        <li class="breadcrumb-item text-muted"><a href="/dashboard" class="text-muted text-hover-primary">Dashboard</a></li>
+        <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
+        <li class="breadcrumb-item text-muted"><a href="/admin/patients" class="text-muted text-hover-primary">Pasien</a></li>
+        <li class="breadcrumb-item"><span class="bullet bg-gray-500 w-5px h-2px"></span></li>
+        <li class="breadcrumb-item text-muted">Ubah Pasien</li>
+    </ul>
 
     @if(bindingResult != null && bindingResult.hasErrors())
         @for(var error : bindingResult.getAllErrors())
@@ -80,8 +87,8 @@ content = @`
                                         </label>
                                         <select class="form-select form-select-solid" name="gender" data-control="select2" data-width="100%" data-hide-search="true">
                                             <option value="${patient.getGender()}">${patient.getGender()}</option>
-                                            <option value="${Gender.MALE}">Male</option>
-                                            <option value="${Gender.FEMALE}">Female</option>
+                                            <option value="${Gender.MALE}">Laki-laki</option>
+                                            <option value="${Gender.FEMALE}">Perempuan</option>
                                         </select>
                                     </div>
                                 </div>

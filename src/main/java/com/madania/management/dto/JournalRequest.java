@@ -9,19 +9,19 @@ import lombok.Data;
 @Data
 public class JournalRequest {
 
-    @NotBlank(message = "Title is required")
+    @NotBlank(message = "Judul wajib diisi")
     private String title;
 
-    @NotNull(message = "Therapy type is required")
+    @NotNull(message = "Jenis terapi wajib dipilih")
     private TherapyType therapyType;
 
-    @NotBlank(message = "Session goals are required")
+    @NotBlank(message = "Tujuan sesi wajib diisi")
     private String sessionGoals;
 
-    @NotBlank(message = "Content is required")
+    @NotBlank(message = "Konten wajib diisi")
     private String content;
 
-    @NotBlank(message = "Progress notes are required")
+    @NotBlank(message = "Catatan perkembangan wajib diisi")
     private String progressNotes;
 
     private String goalsAchieved;

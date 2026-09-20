@@ -1,6 +1,6 @@
 @import com.madania.management.entity.User
 @import com.madania.management.enums.Role
-@import java.time.format.DateTimeFormatter;
+@import java.time.format.DateTimeFormatter
 
 @param String role
 @param User user
@@ -53,7 +53,7 @@
                 <form method="post" action="/admin/users/${String.valueOf(user.getId())}/delete" style="display:inline;">
                     <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}" />
                     <button type="submit" class="menu-link px-3" style="border:none; background:none; width:100%; text-align:left;"
-                            onclick="return confirm('Are you sure you want to delete this user?')">
+                            onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?')">
                         Hapus
                     </button>
                 </form>

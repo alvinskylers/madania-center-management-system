@@ -8,14 +8,14 @@ import lombok.Data;
 @Data
 public class PackageTypeCreateRequest {
 
-    @NotBlank(message = "Name is required")
+    @NotBlank(message = "Nama wajib diisi")
     private String name;
 
-    @NotNull(message = "Total sessions is required")
-    @Min(value = 2, message = "Total sessions must be at least 1")
+    @NotNull(message = "Jumlah sesi wajib diisi")
+    @Min(value = 2, message = "Jumlah sesi minimal 1")
     private Integer totalSessions;
 
-    @NotNull(message = "Sessions per week is required")
-    @Min(value = 2, message = "Sessions per week must be at least 1")
+    @NotNull(message = "Jumlah sesi per minggu wajib diisi")
+    @Min(value = 2, message = "Jumlah sesi per minggu minimal 1")
     private Integer sessionsPerWeek;
 }

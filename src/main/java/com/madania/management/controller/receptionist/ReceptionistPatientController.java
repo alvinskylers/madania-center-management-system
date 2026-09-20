@@ -60,7 +60,7 @@ public class ReceptionistPatientController {
         patientService.createPatient(request.getParentId(), request.getFullName(),
                 request.getDateOfBirth(), request.getGender(),
                 null, null);
-        redirectAttributes.addFlashAttribute("success", "Patient successfully registered.");
+        redirectAttributes.addFlashAttribute("success", "Pasien berhasil didaftarkan.");
         return "redirect:/receptionist/patients";
     }
 
@@ -99,7 +99,7 @@ public class ReceptionistPatientController {
                 request.getDateOfBirth(), request.getGender(),
                 existingPatient.getDiagnosis(), existingPatient.getNotes(),
                 request.isActive());
-        redirectAttributes.addFlashAttribute("success", "Patient successfully updated.");
+        redirectAttributes.addFlashAttribute("success", "Pasien berhasil diperbarui.");
         return "redirect:/receptionist/patients";
     }
 

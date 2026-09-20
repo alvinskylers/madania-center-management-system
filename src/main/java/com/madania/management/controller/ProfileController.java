@@ -128,7 +128,7 @@ public class ProfileController {
                 parentService.updateProfile(userId, request.getUsername(), request.getEmail(),
                         request.getPhone(), request.getAddress());
             }
-            redirectAttributes.addFlashAttribute("success", "Profile updated successfully");
+            redirectAttributes.addFlashAttribute("success", "Profil berhasil diperbarui");
         } catch (RuntimeException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
@@ -167,7 +167,7 @@ public class ProfileController {
                     request.getCurrentPassword(),
                     request.getNewPassword(),
                     request.getConfirmPassword());
-            redirectAttributes.addFlashAttribute("success", "Password changed successfully");
+            redirectAttributes.addFlashAttribute("success", "Kata sandi berhasil diubah");
         } catch (RuntimeException e) {
             bindingResult.addError(new FieldError(
                     "request",

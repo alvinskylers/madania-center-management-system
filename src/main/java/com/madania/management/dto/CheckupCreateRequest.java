@@ -11,17 +11,17 @@ import java.util.UUID;
 @Data
 public class CheckupCreateRequest {
 
-    @NotNull(message = "Patient is required")
+    @NotNull(message = "Pasien wajib dipilih")
     private UUID patientId;
 
-    @NotNull(message = "Therapist is required")
+    @NotNull(message = "Terapis wajib dipilih")
     private UUID therapistId;
 
-    @NotNull(message = "Date is required")
-    @FutureOrPresent(message = "Date cannot be in the past")
+    @NotNull(message = "Tanggal wajib diisi")
+    @FutureOrPresent(message = "Tanggal tidak boleh di masa lalu")
     private LocalDate date;
 
-    @NotNull(message = "Time is required")
+    @NotNull(message = "Jam wajib diisi")
     private LocalTime time;
 
     private String notes;

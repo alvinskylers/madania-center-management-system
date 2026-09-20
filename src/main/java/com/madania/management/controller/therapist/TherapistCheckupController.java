@@ -51,7 +51,7 @@ public class TherapistCheckupController {
 
         if (checkup.getTherapist().getUser() == null ||
                 !checkup.getTherapist().getUser().getId().equals(userDetails.getUser().getId())) {
-            redirectAttributes.addFlashAttribute("error", "You are not assigned to that checkup.");
+            redirectAttributes.addFlashAttribute("error", "Anda tidak ditugaskan untuk checkup tersebut.");
             return "redirect:/therapist/checkups";
         }
 

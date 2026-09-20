@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 public class CheckupDiagnosisRequest {
 
-    @NotBlank(message = "Diagnosis notes are required")
+    @NotBlank(message = "Catatan diagnosis wajib diisi")
     private String diagnosisNotes;
 }

@@ -39,11 +39,11 @@
         @if(user.isActive())
             <div class="badge badge-primary fw-bold mx-auto">Aktif</div>
         @else
-            <div class="badge badge-danger fw-bold mx-auto">Deactivated</div>
+            <div class="badge badge-danger fw-bold mx-auto">Nonaktif</div>
         @endif
     </td>
     <td class="text-end">
-        <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+        <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Aksi
             <i class="ki-outline ki-down fs-5 ms-1"></i></a>
         <!--begin::Menu-->
         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-6 w-150px py-4" data-kt-menu="true">
@@ -51,7 +51,7 @@
             <div class="menu-item px-5">
                 <form action="/admin/users/${String.valueOf(user.getId())}/edit" method="get" style="display:inline">
                     <button type="submit" class="btn btn-bg-light btn-active-color-success btn-sm d-block w-100 d-flex justify-content-start ms-2">
-                        <i class="ki-outline ki-notepad-edit fs-3"></i> Edit
+                        <i class="ki-outline ki-notepad-edit fs-3"></i> Ubah
                     </button>
                 </form>
             </div>
@@ -61,18 +61,18 @@
                 <div class="menu-item px-5">
                 @if(user.isActive())
                     <form action="/admin/users/${String.valueOf(user.getId())}/deactive" method="post" style="display:inline"
-                          onsubmit="return confirm('Are you sure you want to deactivate this user?');">
+                          onsubmit="return confirm('Apakah Anda yakin ingin menonaktifkan pengguna ini?');">
                         <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
                         <button type="submit" class="btn btn-bg-light btn-active-color-danger btn-sm d-block w-100 d-flex justify-content-start ms-2">
-                            <i class="ki-outline ki-cross-square fs-3"></i> Deactivate
+                            <i class="ki-outline ki-cross-square fs-3"></i> Nonaktifkan
                         </button>
                     </form>
                 @else
                     <form action="/admin/users/${String.valueOf(user.getId())}/active" method="post" style="display:inline"
-                          onsubmit="return confirm('Are you sure you want to activate this user?');">
+                          onsubmit="return confirm('Apakah Anda yakin ingin mengaktifkan pengguna ini?');">
                         <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
                         <button type="submit" class="btn btn-bg-light btn-active-color-primary btn-sm d-block w-100 d-flex justify-content-start ms-2">
-                            <i class="ki-outline ki-check-circle fs-3"></i> Activate
+                            <i class="ki-outline ki-check-circle fs-3"></i> Aktifkan
                         </button>
                     </form>
                 @endif
@@ -83,10 +83,10 @@
             @if(!user.getEmail().equals("admin@madania.com"))
                 <div class="menu-item px-5">
                     <form action="/admin/users/${String.valueOf(user.getId())}/delete" method="post" style="display:inline"
-                          onsubmit="return confirm('Are you sure you want to delete this user? This cannot be undone.');">
+                          onsubmit="return confirm('Apakah Anda yakin ingin menghapus pengguna ini? Tindakan ini tidak dapat dibatalkan.');">
                         <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
                         <button type="submit" class="btn btn-bg-light btn-active-color-danger btn-sm d-block w-100 d-flex justify-content-start ms-2">
-                            <i class="ki-outline ki-trash fs-3"></i> Delete
+                            <i class="ki-outline ki-trash fs-3"></i> Hapus
                         </button>
                     </form>
                 </div>

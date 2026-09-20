@@ -93,7 +93,7 @@ public class ReceptionistParentController {
                 request.getPhone(),
                 request.getAddress());
 
-        redirectAttributes.addFlashAttribute("success", "Parent account successfully created.");
+        redirectAttributes.addFlashAttribute("success", "Akun wali pasien berhasil dibuat.");
         return "redirect:/receptionist/parents";
     }
 
@@ -127,7 +127,7 @@ public class ReceptionistParentController {
         parentService.updateParent(id, request.getEmail(),
                 request.getFullName(), request.getPhone(), request.getAddress());
 
-        redirectAttributes.addFlashAttribute("success", "Parent account successfully updated.");
+        redirectAttributes.addFlashAttribute("success", "Akun wali pasien berhasil diperbarui.");
         return "redirect:/receptionist/parents";
     }
 

@@ -6,7 +6,7 @@
         <!--begin::Logo-->
         <a href="/dashboard" class="app-sidebar-logo">
             <img alt="Logo" src="/media/logos/logo.png" class="h-100px d-none d-sm-inline app-sidebar-logo-default theme-light-show" />
-            <img alt="Logo" src="/media/logos/logo.png" class="h-100px h-lg-25px theme-dark-show" />
+            <img alt="Logo" src="/media/logos/logo.png" class="h-100px d-none d-sm-inline app-sidebar-logo-default theme-dark-show" />
         </a>
         <!--end::Logo-->
         <!--begin::Sidebar toggle-->

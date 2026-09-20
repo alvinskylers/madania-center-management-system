@@ -39,7 +39,6 @@ content = @`
 
     <div id="kt_app_toolbar" class="app-toolbar pt-7 pt-lg-10">
         <!--begin::Toolbar container-->
-        <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
             <!--begin::Toolbar wrapper-->
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <!--begin::Page title-->
@@ -66,13 +65,10 @@ content = @`
                 <!--end::Page title-->
             </div>
             <!--end::Toolbar wrapper-->
-        </div>
         <!--end::Toolbar container-->
     </div>
 
-    <div id="kt_app_content" class="app-content flex-column-fluid">
         <!--begin::Content container-->
-        <div id="kt_app_content_container" class="app-container container-fluid">
             <!--begin::Card-->
             <div class="card">
                 <!--begin::Card header-->
@@ -187,10 +183,10 @@ content = @`
                                 <!-- Previous -->
                                 @if(users.hasPrevious())
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${users.getNumber() - 1}&query=${query != null ? query : ""}&role=${roleFilter != null ? roleFilter : ""}">Sebelum</a>
+                                        <a class="page-link" href="?page=${users.getNumber() - 1}&query=${query != null ? query : ""}&role=${roleFilter != null ? roleFilter : ""}">Sebelumnya</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Sebelum</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Sebelumnya</span></li>
                                 @endif
 
                                 <!-- Page numbers -->
@@ -207,10 +203,10 @@ content = @`
                                 <!-- Next -->
                                 @if(users.hasNext())
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${users.getNumber() + 1}&query=${query != null ? query : ""}&role=${roleFilter != null ? roleFilter : ""}">Berikut</a>
+                                        <a class="page-link" href="?page=${users.getNumber() + 1}&query=${query != null ? query : ""}&role=${roleFilter != null ? roleFilter : ""}">Berikutnya</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Berikut</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Berikutnya</span></li>
                                 @endif
                             </ul>
                         </div>
@@ -222,7 +218,5 @@ content = @`
             </div>
             <!--end::Card-->
 
-        </div>
-    </div>
 `
 )

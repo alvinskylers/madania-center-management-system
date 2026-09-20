@@ -28,7 +28,6 @@ content = @`
 
     <!--begin::Toolbar-->
     <div id="kt_app_toolbar" class="app-toolbar pt-7 pt-lg-10">
-        <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                     <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Permintaan Reschedule</h1>
@@ -39,13 +38,10 @@ content = @`
                     </ul>
                 </div>
             </div>
-        </div>
     </div>
     <!--end::Toolbar-->
 
     <!--begin::Content-->
-    <div id="kt_app_content" class="app-content flex-column-fluid">
-        <div id="kt_app_content_container" class="app-container container-fluid">
 
             @if(rescheduleSuccess != null)
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -151,8 +147,6 @@ content = @`
             </div>
             <!--end::Requests Table-->
 
-        </div>
-    </div>
     <!--end::Content-->
 
     <!--begin::Modal - Confirm Action-->

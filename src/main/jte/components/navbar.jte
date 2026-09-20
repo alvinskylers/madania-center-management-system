@@ -19,7 +19,7 @@
                 <i class="ki-outline ki-abstract-14 fs-2"></i>
             </div>
             <!--begin::Logo image-->
-            <a href="index.html">
+            <a href="/dashboard">
                 <img alt="Logo" src="/media/logos/madania.png" class="h-30px" />
             </a>
             <!--end::Logo image-->
@@ -157,7 +157,7 @@
                             <button type="submit" class="btn menu-link px-5 border-0 w-100 text-start">
                                  <span class="menu-title position-relative">Keluar
                                     <span class="ms-5 position-absolute translate-middle-y top-50 end-0">
-                                        <i class="ki-outline ki-exit-left theme-light-show fs-2"></i>
+                                        <i class="ki-outline ki-exit-left fs-2"></i>
                                     </span>
                                 </span>
                             </button>
@@ -177,4 +177,4 @@
     </div>
     <!--end::Header container-->
 </div>
-<!--end::Header-->>
+<!--end::Header-->

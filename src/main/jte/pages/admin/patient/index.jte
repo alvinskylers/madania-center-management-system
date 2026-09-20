@@ -37,7 +37,6 @@ content = @`
 
     <!--begin::Toolbar-->
     <div id="kt_app_toolbar" class="app-toolbar pt-7 pt-lg-10">
-        <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <!--begin::Left side: Title + Search Form-->
                 <div class="d-flex flex-wrap align-items-center my-1">
@@ -57,13 +56,10 @@ content = @`
                 </div>
                 <!--end::Right side-->
             </div>
-        </div>
     </div>
     <!--end::Toolbar-->
 
     <!--begin::Content-->
-    <div id="kt_app_content" class="app-content flex-column-fluid">
-        <div id="kt_app_content_container" class="app-container container-fluid">
             <!--begin::Patients Grid-->
             <div class="row g-6 g-xl-9" id="patientsGrid">
                 @if (patients != null && !patients.isEmpty())
@@ -101,10 +97,10 @@ content = @`
                         <!-- Previous -->
                         @if(patients.hasPrevious())
                             <li class="page-item">
-                                <a class="page-link" href="?page=${currentPage - 1}&query=${query != null ? query : ""}">Sebelum</a>
+                                <a class="page-link" href="?page=${currentPage - 1}&query=${query != null ? query : ""}">Sebelumnya</a>
                             </li>
                         @else
-                            <li class="page-item disabled"><span class="page-link">Sebelum</span></li>
+                            <li class="page-item disabled"><span class="page-link">Sebelumnya</span></li>
                         @endif
 
                         <!-- Page numbers -->
@@ -121,16 +117,14 @@ content = @`
                         <!-- Next -->
                         @if(patients.hasNext())
                             <li class="page-item">
-                                <a class="page-link" href="?page=${currentPage + 1}&query=${query != null ? query : ""}">Berikut</a>
+                                <a class="page-link" href="?page=${currentPage + 1}&query=${query != null ? query : ""}">Berikutnya</a>
                             </li>
                         @else
-                            <li class="page-item disabled"><span class="page-link">Berikut</span></li>
+                            <li class="page-item disabled"><span class="page-link">Berikutnya</span></li>
                         @endif
                     </ul>
                 </div>
             @endif
             <!-- ===== END PAGINATION ===== -->
-        </div>
-    </div>
     <!--end::Content-->
 `)

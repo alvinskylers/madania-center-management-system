@@ -42,7 +42,6 @@ content = @`
 
     <!--begin::Toolbar-->
     <div id="kt_app_toolbar" class="app-toolbar pt-7 pt-lg-10">
-        <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <!--begin::Left side: Title-->
                 <div class="d-flex flex-wrap align-items-center my-1">
@@ -57,13 +56,10 @@ content = @`
                 </div>
                 <!--end::Right side-->
             </div>
-        </div>
     </div>
     <!--end::Toolbar-->
 
     <!--begin::Content-->
-    <div id="kt_app_content" class="app-content flex-column-fluid">
-        <div id="kt_app_content_container" class="app-container container-fluid">
 
             <!--begin::Filter Card-->
             <div class="card mb-6">
@@ -205,10 +201,10 @@ content = @`
                                 <!-- Previous -->
                                 @if(packages.hasPrevious())
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${currentPage - 1}&therapistId=${therapistIdStr}&patientId=${patientIdStr}&dateFrom=${dateFromStr}&dateTo=${dateToStr}">Sebelum</a>
+                                        <a class="page-link" href="?page=${currentPage - 1}&therapistId=${therapistIdStr}&patientId=${patientIdStr}&dateFrom=${dateFromStr}&dateTo=${dateToStr}">Sebelumnya</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Sebelum</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Sebelumnya</span></li>
                                 @endif
 
                                 <!-- Page numbers -->
@@ -225,10 +221,10 @@ content = @`
                                 <!-- Next -->
                                 @if(packages.hasNext())
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${currentPage + 1}&therapistId=${therapistIdStr}&patientId=${patientIdStr}&dateFrom=${dateFromStr}&dateTo=${dateToStr}">Berikut</a>
+                                        <a class="page-link" href="?page=${currentPage + 1}&therapistId=${therapistIdStr}&patientId=${patientIdStr}&dateFrom=${dateFromStr}&dateTo=${dateToStr}">Berikutnya</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Berikut</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Berikutnya</span></li>
                                 @endif
                             </ul>
                         </div>
@@ -238,8 +234,6 @@ content = @`
             </div>
             <!--end::Table Card-->
 
-        </div>
-    </div>
     <!--end::Content-->
 `
 )

@@ -54,7 +54,7 @@ content = @`
                                     <div class="fv-row mb-7">
                                         <label class="fs-6 fw-semibold form-label mt-3">
                                             <span class="required">Nama</span>
-                                            <span class="ms-1" data-bs-toggle="tooltip" title="Masukan nama pasien.">
+                                            <span class="ms-1" data-bs-toggle="tooltip" title="Masukkan nama pasien.">
                                                 <i class="ki-outline ki-information fs-7"></i>
                                             </span>
                                         </label>
@@ -85,7 +85,7 @@ content = @`
                                     <div class="fv-row mb-7">
                                         <label class="fs-6 fw-semibold form-label mt-3">
                                             <span class="required">Tanggal Lahir</span>
-                                            <span class="ms-1" data-bs-toggle="tooltip" title="Masukan tanggal lahir pasien.">
+                                            <span class="ms-1" data-bs-toggle="tooltip" title="Masukkan tanggal lahir pasien.">
                                             <i class="ki-outline ki-information fs-7"></i>
                                         </span>
                                         </label>
@@ -113,7 +113,7 @@ content = @`
                             <div class="fv-row mb-7">
                                 <label class="fs-6 fw-semibold form-label mt-3">
                                     <span>Diagnosis</span>
-                                    <span class="ms-1" data-bs-toggle="tooltip" title="Masukan diagnosis pasien">
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="Masukkan diagnosis pasien">
                                     <i class="ki-outline ki-information fs-7"></i>
                                 </span>
                                 </label>
@@ -124,7 +124,7 @@ content = @`
                             <div class="fv-row mb-7">
                                 <label class="fs-6 fw-semibold form-label mt-3">
                                     <span>Catatan</span>
-                                    <span class="ms-1" data-bs-toggle="tooltip" title="Masukan catatan tambahan (opsional).">
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="Masukkan catatan tambahan (opsional).">
                                     <i class="ki-outline ki-information fs-7"></i>
                                 </span>
                                 </label>

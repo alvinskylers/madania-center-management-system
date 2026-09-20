@@ -14,7 +14,6 @@ _csrf = _csrf,
 content = @`
     <!--begin::Toolbar-->
     <div id="kt_app_toolbar" class="app-toolbar pt-7 pt-lg-10">
-        <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                     <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Informasi Terapis</h1>
@@ -30,12 +29,9 @@ content = @`
                     <a href="/admin/therapist/${String.valueOf(therapist.getId())}/edit" class="btn btn-light-primary">Ubah</a>
                 </div>
             </div>
-        </div>
     </div>
     <!--end::Toolbar-->
 
-    <div id="kt_app_content" class="app-content flex-column-fluid">
-        <div id="kt_app_content_container" class="app-container container-fluid">
             <div class="d-flex flex-column flex-lg-row">
                 <!--begin::Sidebar-->
                 <div class="flex-column flex-lg-row-auto w-lg-250px w-xl-350px mb-10">
@@ -93,8 +89,6 @@ content = @`
                 </div>
                 <!--end::Content-->
             </div>
-        </div>
-    </div>
 
     <link href="/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet">
     <script src="/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>

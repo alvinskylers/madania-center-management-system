@@ -74,7 +74,7 @@
                             <div class="text-center mb-11">
                                 <h1 class="text-gray-900 fw-bolder mb-3">Masuk</h1>
                                 <div class="text-gray-500 fw-semibold fs-6">
-                                    Sistem Informasi Manajamen Biro Psikologi Madania Center
+                                    Sistem Informasi Manajemen Biro Psikologi Madania Center
                                 </div>
                             </div>
                             <!--end::Heading-->
@@ -96,18 +96,29 @@
                                 <input type="email"
                                        placeholder="Email"
                                        name="email"
-                                       autocomplete="off"
+                                       autocomplete="username"
+                                       autofocus
+                                       required
                                        class="form-control bg-transparent" />
                             </div>
                             <!--end::Email-->
 
                             <!--begin::Password-->
-                            <div class="fv-row mb-3">
+                            <div class="fv-row mb-3 position-relative">
                                 <input type="password"
+                                       id="login_password"
                                        placeholder="Kata Sandi"
                                        name="password"
-                                       autocomplete="off"
-                                       class="form-control bg-transparent" />
+                                       autocomplete="current-password"
+                                       required
+                                       class="form-control bg-transparent pe-12" />
+                                <button type="button"
+                                        id="login_password_toggle"
+                                        class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                                        aria-label="Tampilkan kata sandi"
+                                        aria-pressed="false">
+                                    <i class="ki-outline ki-eye-slash fs-2"></i>
+                                </button>
                             </div>
                             <!--end::Password-->
 
@@ -133,6 +144,21 @@
 <script>var hostUrl = "/";</script>
 <script src="/plugins/global/plugins.bundle.js"></script>
 <script src="/js/scripts.bundle.js"></script>
-<script src="/js/custom/authentication/sign-in/general.js"></script>
+<script>
+    (function () {
+        var input = document.getElementById("login_password");
+        var toggle = document.getElementById("login_password_toggle");
+        if (!input || !toggle) { return; }
+        toggle.addEventListener("click", function () {
+            var show = input.type === "password";
+            input.type = show ? "text" : "password";
+            toggle.setAttribute("aria-pressed", show ? "true" : "false");
+            toggle.setAttribute("aria-label", show ? "Sembunyikan kata sandi" : "Tampilkan kata sandi");
+            var icon = toggle.querySelector("i");
+            icon.classList.toggle("ki-eye", show);
+            icon.classList.toggle("ki-eye-slash", !show);
+        });
+    })();
+</script>
 </body>
 </html>

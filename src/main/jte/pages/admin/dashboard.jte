@@ -34,7 +34,7 @@ content = @`
     <div class="d-flex justify-content-between align-items-center mb-7">
         <div>
             <h1 class="page-heading">Dashboard Admin</h1>
-            <p class="text-muted">Sistem Manajemen Klink Biro Psikologi Madania Center</p>
+            <p class="text-muted">Sistem Manajemen Klinik Biro Psikologi Madania Center</p>
         </div>
         <a href="/admin/packages/create" class="btn btn-primary">
             <i class="ki-outline ki-plus fs-2"></i>

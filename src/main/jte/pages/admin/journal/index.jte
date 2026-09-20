@@ -28,7 +28,6 @@ user = user,
 _csrf = _csrf,
 content = @`
     <div id="kt_app_toolbar" class="app-toolbar pt-7 pt-lg-10">
-        <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
             <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                 <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                     <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Journal Terapi</h1>
@@ -39,11 +38,8 @@ content = @`
                     </ul>
                 </div>
             </div>
-        </div>
     </div>
 
-    <div id="kt_app_content" class="app-content flex-column-fluid">
-        <div id="kt_app_content_container" class="app-container container-fluid">
             <div class="card">
                 <div class="card-header border-0 pt-6">
                     <div class="card-title">
@@ -168,10 +164,10 @@ content = @`
                             <ul class="pagination m-0">
                                 @if(currentPage > 0)
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${currentPage - 1}&therapistId=${selectedTherapistId != null ? String.valueOf(selectedTherapistId) : ""}&patientId=${selectedPatientId != null ? String.valueOf(selectedPatientId) : ""}&sessionNumber=${selectedSessionNumber != null ? String.valueOf(selectedSessionNumber) : ""}">Sebelum</a>
+                                        <a class="page-link" href="?page=${currentPage - 1}&therapistId=${selectedTherapistId != null ? String.valueOf(selectedTherapistId) : ""}&patientId=${selectedPatientId != null ? String.valueOf(selectedPatientId) : ""}&sessionNumber=${selectedSessionNumber != null ? String.valueOf(selectedSessionNumber) : ""}">Sebelumnya</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Sebelum</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Sebelumnya</span></li>
                                 @endif
 
                                 @for(int i = 0; i < totalPages; i++)
@@ -186,10 +182,10 @@ content = @`
 
                                 @if(currentPage < totalPages - 1)
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${currentPage + 1}&therapistId=${selectedTherapistId != null ? String.valueOf(selectedTherapistId) : ""}&patientId=${selectedPatientId != null ? String.valueOf(selectedPatientId) : ""}&sessionNumber=${selectedSessionNumber != null ? String.valueOf(selectedSessionNumber) : ""}">Berikut</a>
+                                        <a class="page-link" href="?page=${currentPage + 1}&therapistId=${selectedTherapistId != null ? String.valueOf(selectedTherapistId) : ""}&patientId=${selectedPatientId != null ? String.valueOf(selectedPatientId) : ""}&sessionNumber=${selectedSessionNumber != null ? String.valueOf(selectedSessionNumber) : ""}">Berikutnya</a>
                                     </li>
                                 @else
-                                    <li class="page-item disabled"><span class="page-link">Berikut</span></li>
+                                    <li class="page-item disabled"><span class="page-link">Berikutnya</span></li>
                                 @endif
                             </ul>
                         </div>
@@ -197,7 +193,5 @@ content = @`
                     <!-- ===== END PAGINATION ===== -->
                 </div>
             </div>
-        </div>
-    </div>
 `
 )

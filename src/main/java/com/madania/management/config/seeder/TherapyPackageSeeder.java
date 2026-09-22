@@ -90,10 +90,10 @@ public class TherapyPackageSeeder implements CommandLineRunner {
                 new PackageSeed("Nayla Lestari", "amelia.wijaya@madania.com", "Paket Ringan",
                         List.of(DayOfWeek.TUESDAY, DayOfWeek.THURSDAY), LocalTime.of(11, 0), 11,
                         "Paket pertama Nayla."),
-                new PackageSeed("Clara Santoso", "rizky.hidayat@madania.com", "Paket Ringan",
+                new PackageSeed("Clara Santoso", "aulia.ramli@madania.com", "Paket Ringan",
                         List.of(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY), LocalTime.of(9, 0), 22,
                         "Paket pertama Clara."),
-                new PackageSeed("Fajar Fauzi", "rizky.hidayat@madania.com", "Paket Reguler",
+                new PackageSeed("Fajar Fauzi", "aulia.ramli@madania.com", "Paket Reguler",
                         List.of(DayOfWeek.TUESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY), LocalTime.of(10, 0), 19,
                         "Paket pertama Fajar.")
         );

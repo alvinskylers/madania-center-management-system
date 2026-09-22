@@ -49,7 +49,7 @@ public class ReceptionistScheduleController {
             }
             event.put("color", switch (session.getStatus().name()) {
                 case "SCHEDULED"      -> "#1B84FF";
-                case "PENDING_REVIEW" -> "#F1BC00";
+                case "PENDING_REVIEW" -> "#5BC0DE";
                 case "COMPLETED"      -> "#17C653";
                 case "NO_SHOW"        -> "#5E6278";
                 case "CANCELLED"      -> "#F1416C";

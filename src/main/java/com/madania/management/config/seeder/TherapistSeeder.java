@@ -34,8 +34,8 @@ public class TherapistSeeder implements CommandLineRunner {
                 "Nadia Putri, S.Psi", "ADHD", "081234500001");
 
         therapistService.createTherapist(
-                "rizky.hidayat@madania.com", "password",
-                "Rizky Hidayat, M.Psi", "Speech Delay", "081234500002");
+                "aulia.ramli@madania.com", "password",
+                "Nur Rahma Aulia Ramli, S.Psi., M.Psi", "Speech Delay", "081234500002");
 
         therapistService.createTherapist(
                 "amelia.wijaya@madania.com", "password",

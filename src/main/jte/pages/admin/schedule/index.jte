@@ -117,7 +117,7 @@ content = @`
 
             var statusBadgeClass = {
                 SCHEDULED: "badge-light-primary",
-                PENDING_REVIEW: "badge-light-warning",
+                PENDING_REVIEW: "badge-light-info",
                 COMPLETED: "badge-light-success",
                 NO_SHOW: "badge-light-dark",
                 CANCELLED: "badge-light-danger",

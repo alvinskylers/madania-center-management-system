@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,12 +30,13 @@ import java.util.List;
 public class SessionStatusSweepJob {
 
     private final TherapySessionRepository sessionRepository;
+    private final Clock clock;
 
     @Scheduled(cron = "0 0 * * * *") // every hour, on the hour
     @Transactional
     public void flagOverdueSessions() {
         List<TherapySession> overdue = sessionRepository
-                .findByStatusAndEndTimeBefore(SessionStatus.SCHEDULED, LocalDateTime.now());
+                .findByStatusAndEndTimeBefore(SessionStatus.SCHEDULED, LocalDateTime.now(clock));
 
         if (overdue.isEmpty()) {
             return;

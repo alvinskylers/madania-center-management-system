@@ -37,6 +37,9 @@ public class TherapistDashboardController {
         List<TherapySession> pendingJournals = sessionService
                 .getCompletedSessionsWithoutJournal(therapist.getId());
 
+        List<TherapySession> pendingReview = sessionService
+                .getSessionsPendingReview(therapist.getId());
+
         long totalPatients = sessionService.getUpcomingSessionsByTherapistId(therapist.getId())
                 .stream()
                 .map(s -> s.getPatient().getId())
@@ -49,6 +52,8 @@ public class TherapistDashboardController {
         model.addAttribute("upcomingSessions", upcomingSessions);
         model.addAttribute("pendingJournals", pendingJournals);
         model.addAttribute("pendingJournalCount", pendingJournals.size());
+        model.addAttribute("pendingReview", pendingReview);
+        model.addAttribute("pendingReviewCount", pendingReview.size());
         model.addAttribute("totalPatients", totalPatients);
 
         return "pages/therapist/dashboard";

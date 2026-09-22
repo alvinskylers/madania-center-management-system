@@ -11,8 +11,10 @@
 @param List<TherapySession> todaySessions
 @param List<TherapySession> upcomingSessions
 @param List<TherapySession> pendingJournals
+@param List<TherapySession> pendingReview
 @param int todayCount
 @param int pendingJournalCount
+@param int pendingReviewCount
 @param long totalPatients
 @param long unreadNotificationCount = 0
 @param List<Notification> recentNotifications = null
@@ -92,6 +94,24 @@ content = @`
         </div>
         <!--end::Pending journals-->
 
+        <!--begin::Pending review-->
+        <div class="col-md-3">
+            <div class="card h-100 ${pendingReviewCount > 0 ? "border border-danger" : ""}">
+                <div class="card-body d-flex align-items-center gap-4">
+                    <div class="symbol symbol-50px">
+                            <span class="symbol-label bg-light-danger">
+                                <i class="ki-outline ki-question-2 fs-2x text-danger"></i>
+                            </span>
+                    </div>
+                    <div>
+                        <span class="fs-2x fw-bold text-gray-800">${pendingReviewCount}</span>
+                        <p class="text-muted mb-0">Menunggu Konfirmasi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Pending review-->
+
         <!--begin::Upcoming sessions-->
         <div class="col-md-3">
             <div class="card h-100">
@@ -114,6 +134,44 @@ content = @`
     <!--end::Stats row-->
 
     <div class="row g-5">
+
+        @if(pendingReviewCount > 0)
+            <!--begin::Pending review list-->
+            <div class="col-md-12">
+                <div class="card border border-danger">
+                    <div class="card-header">
+                        <h3 class="card-title text-danger">Sesi Menunggu Konfirmasi</h3>
+                        <div class="card-toolbar">
+                            <a href="/therapist/sessions" class="btn btn-sm btn-light">Lihat Semua</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted">
+                            Sesi-sesi ini sudah lewat waktunya tapi belum ditandai selesai atau tidak hadir.
+                            Silakan konfirmasi apa yang terjadi.
+                        </p>
+                        <div class="d-flex flex-column gap-4">
+                            @for(TherapySession session : pendingReview)
+                                <div class="d-flex align-items-center gap-4 p-3 rounded bg-light-danger">
+                                    <div class="flex-grow-1">
+                                        <p class="fw-bold mb-0">${session.getPatient().getFullName()}</p>
+                                        <small class="text-muted">
+                                            Session ${session.getSessionNumber()} —
+                                            ${session.getStartTime().toLocalDate().toString()}
+                                            ${session.getStartTime().toLocalTime().toString()}
+                                        </small>
+                                    </div>
+                                    <a href="/therapist/sessions" class="btn btn-sm btn-danger">
+                                        Konfirmasi
+                                    </a>
+                                </div>
+                            @endfor
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Pending review list-->
+        @endif
 
         <!--begin::Today's sessions list-->
         <div class="col-md-6">

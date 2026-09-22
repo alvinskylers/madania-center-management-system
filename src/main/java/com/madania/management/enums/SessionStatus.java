@@ -2,7 +2,9 @@ package com.madania.management.enums;
 
 public enum SessionStatus {
     SCHEDULED("Dijadwalkan"),
+    PENDING_REVIEW("Menunggu Konfirmasi"),
     COMPLETED("Tuntas"),
+    NO_SHOW("Tidak Hadir"),
     CANCELLED("Dibatalkan"),
     RESCHEDULED("Reschedule");
 

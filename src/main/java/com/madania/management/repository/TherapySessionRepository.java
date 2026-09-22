@@ -18,4 +18,5 @@ public interface TherapySessionRepository extends JpaRepository<TherapySession, 
     List<TherapySession> findByStartTimeBetween(LocalDateTime start, LocalDateTime end);
     List<TherapySession> findByTherapistIdAndStartTimeBetween(UUID therapistId, LocalDateTime start, LocalDateTime end);
     List<TherapySession> findByPatientIdAndStartTimeBetween(UUID patientId, LocalDateTime start, LocalDateTime end);
+    List<TherapySession> findByStatusAndEndTimeBefore(SessionStatus status, LocalDateTime endTime);
 }

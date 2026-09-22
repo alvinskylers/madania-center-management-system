@@ -88,6 +88,29 @@ public class TherapistSessionController {
         return redirect.toString();
     }
 
+    @PostMapping("/session/{sessionId}/no-show")
+    public String markNoShow(@PathVariable UUID sessionId,
+                             @RequestParam(required = false) String reason,
+                             @RequestParam(defaultValue = "0") int page,
+                             @RequestParam(defaultValue = "5") int size,
+                             @RequestParam(required = false) UUID patientId,
+                             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFrom,
+                             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateTo,
+                             RedirectAttributes redirectAttributes) {
+        try {
+            sessionService.markNoShow(sessionId, reason);
+            redirectAttributes.addFlashAttribute("success", "Sesi ditandai tidak hadir.");
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
+
+        StringBuilder redirect = new StringBuilder("redirect:/therapist/sessions?page=" + page + "&size=" + size);
+        if (patientId != null) redirect.append("&patientId=").append(patientId);
+        if (dateFrom != null) redirect.append("&dateFrom=").append(dateFrom);
+        if (dateTo != null) redirect.append("&dateTo=").append(dateTo);
+        return redirect.toString();
+    }
+
     private PackageJournalGroup buildPackageJournalGroup(TherapyPackage pkg) {
         List<SessionJournalPair> pairs = sessionService.getSessionsByTherapyPackageId(pkg.getId()).stream()
                 .sorted(Comparator.comparing(TherapySession::getSessionNumber))

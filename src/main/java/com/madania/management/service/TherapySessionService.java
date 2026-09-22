@@ -149,8 +149,8 @@ public class TherapySessionService {
     public void completeSession(UUID sessionId) {
         TherapySession session = getSessionById(sessionId);
 
-        if (session.getStatus() != SessionStatus.SCHEDULED) {
-            throw new RuntimeException("Hanya sesi berstatus terjadwal yang dapat ditandai selesai");
+        if (session.getStatus() != SessionStatus.SCHEDULED && session.getStatus() != SessionStatus.PENDING_REVIEW) {
+            throw new RuntimeException("Hanya sesi berstatus terjadwal atau menunggu konfirmasi yang dapat ditandai selesai");
         }
 
         session.setStatus(SessionStatus.COMPLETED);
@@ -164,5 +164,37 @@ public class TherapySessionService {
         }
 
         packageRepository.save(pkg);
+    }
+
+    /**
+     * Marks a session as a no-show: the child never attended, so no journal will
+     * ever be written for it. Still consumes a slot in the package, the same way
+     * completeSession does — the therapist's time was reserved either way.
+     */
+    @Transactional
+    public void markNoShow(UUID sessionId, String reason) {
+        TherapySession session = getSessionById(sessionId);
+
+        if (session.getStatus() != SessionStatus.SCHEDULED && session.getStatus() != SessionStatus.PENDING_REVIEW) {
+            throw new RuntimeException("Hanya sesi berstatus terjadwal atau menunggu konfirmasi yang dapat ditandai tidak hadir");
+        }
+
+        session.setStatus(SessionStatus.NO_SHOW);
+        session.setCancellationReason(reason);
+        sessionRepository.save(session);
+
+        TherapyPackage pkg = session.getTherapyPackage();
+        pkg.setCompletedSessions(pkg.getCompletedSessions() + 1);
+
+        if (pkg.getCompletedSessions() >= pkg.getTotalSessions()) {
+            pkg.setStatus(PackageStatus.COMPLETED);
+        }
+
+        packageRepository.save(pkg);
+    }
+
+    /** Sessions the overdue-sweep flagged as needing a therapist's confirmation. */
+    public List<TherapySession> getSessionsPendingReview(UUID therapistId) {
+        return sessionRepository.findByTherapistIdAndStatus(therapistId, SessionStatus.PENDING_REVIEW);
     }
 }

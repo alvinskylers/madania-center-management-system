@@ -81,10 +81,12 @@ public class ParentScheduleController {
                     }
                 }
                 event.put("color", switch (session.getStatus().name()) {
-                    case "SCHEDULED"     -> "#1B84FF";
-                    case "COMPLETED"     -> "#17C653";
-                    case "CANCELLED"     -> "#F1416C";
-                    case "RESCHEDULED"   -> "#FFA800";
+                    case "SCHEDULED"      -> "#1B84FF";
+                    case "PENDING_REVIEW" -> "#F1BC00";
+                    case "COMPLETED"      -> "#17C653";
+                    case "NO_SHOW"        -> "#5E6278";
+                    case "CANCELLED"      -> "#F1416C";
+                    case "RESCHEDULED"    -> "#FFA800";
                     default  -> "#7E8299";
                 });
                 events.add(event);

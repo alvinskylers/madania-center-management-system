@@ -313,9 +313,19 @@ content = @`
 
             var statusBadgeClass = {
                 SCHEDULED: "badge-light-primary",
+                PENDING_REVIEW: "badge-light-warning",
                 COMPLETED: "badge-light-success",
+                NO_SHOW: "badge-light-dark",
                 CANCELLED: "badge-light-danger",
                 RESCHEDULED: "badge-light-warning"
+            };
+            var statusLabel = {
+                SCHEDULED: "Dijadwalkan",
+                PENDING_REVIEW: "Menunggu Konfirmasi",
+                COMPLETED: "Tuntas",
+                NO_SHOW: "Tidak Hadir",
+                CANCELLED: "Dibatalkan",
+                RESCHEDULED: "Reschedule"
             };
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -338,7 +348,7 @@ content = @`
                         info.event.start.toLocaleString() + " - " + info.event.end.toLocaleTimeString();
 
                     var badge = document.getElementById("detail_status");
-                    badge.innerText = status;
+                    badge.innerText = statusLabel[status] || status;
                     badge.className = "badge " + (statusBadgeClass[status] || "badge-light-secondary");
 
                     // Server tells us if the notice period has passed (see RescheduleNoticePolicy).

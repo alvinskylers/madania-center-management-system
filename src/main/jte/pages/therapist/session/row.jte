@@ -65,6 +65,7 @@
                     @for(SessionJournalPair pair : group.getSessions())
                         !{boolean datePassed = !pair.getSession().getStartTime().isAfter(LocalDateTime.now());}
                         !{boolean hasJournal = pair.getJournal() != null;}
+                        !{boolean needsResolution = pair.getSession().getStatus() == SessionStatus.SCHEDULED || pair.getSession().getStatus() == SessionStatus.PENDING_REVIEW;}
                         <tr>
                             <td>${pair.getSession().getSessionNumber()}</td>
                             <td>${pair.getSession().getStartTime().toLocalDate().toString()}</td>
@@ -72,8 +73,12 @@
                             <td>
                                 @if(pair.getSession().getStatus() == SessionStatus.SCHEDULED)
                                     <span class="badge badge-light-primary">Dijadwalkan</span>
+                                @elseif(pair.getSession().getStatus() == SessionStatus.PENDING_REVIEW)
+                                    <span class="badge badge-light-warning">Menunggu Konfirmasi</span>
                                 @elseif(pair.getSession().getStatus() == SessionStatus.COMPLETED)
                                     <span class="badge badge-light-success">Tuntas</span>
+                                @elseif(pair.getSession().getStatus() == SessionStatus.NO_SHOW)
+                                    <span class="badge badge-light-dark">Tidak Hadir</span>
                                 @elseif(pair.getSession().getStatus() == SessionStatus.CANCELLED)
                                     <span class="badge badge-light-danger">Dibatalkan</span>
                                 @else
@@ -81,7 +86,7 @@
                                 @endif
                             </td>
                             <td class="text-end">
-                                @if(pair.getSession().getStatus() == SessionStatus.SCHEDULED)
+                                @if(needsResolution)
                                     <form action="/therapist/session/${String.valueOf(pair.getSession().getId())}/complete"
                                           method="post" class="d-inline-block"
                                           onsubmit="return confirm('Mark this session as completed?');">
@@ -100,9 +105,23 @@
                                             </button>
                                         @endif
                                     </form>
+
+                                    @if(datePassed)
+                                        <form action="/therapist/session/${String.valueOf(pair.getSession().getId())}/no-show"
+                                              method="post" class="d-inline-block ms-1"
+                                              onsubmit="return confirm('Mark this session as a no-show? This cannot be undone.');">
+                                            <input type="hidden" name="${_csrf.getParameterName()}" value="${_csrf.getToken()}">
+                                            <input type="hidden" name="page" value="${currentPage}"/>
+                                            <input type="hidden" name="size" value="${pageSize}"/>
+                                            <input type="hidden" name="patientId" value="${patientIdStr}"/>
+                                            <input type="hidden" name="dateFrom" value="${dateFromStr}"/>
+                                            <input type="hidden" name="dateTo" value="${dateToStr}"/>
+                                            <button type="submit" class="btn btn-sm btn-light-danger">Tidak Hadir</button>
+                                        </form>
+                                    @endif
                                 @endif
 
-                                @if(pair.getSession().getStatus() != SessionStatus.CANCELLED)
+                                @if(pair.getSession().getStatus() != SessionStatus.CANCELLED && pair.getSession().getStatus() != SessionStatus.NO_SHOW)
                                     @if(hasJournal)
                                         <a href="/therapist/journal/create/${String.valueOf(pair.getSession().getId())}" class="btn btn-sm btn-light-primary">
                                             Lihat Jurnal
